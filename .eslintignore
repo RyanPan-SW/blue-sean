@@ -1,0 +1,3 @@
+# 忽略整个config目录
+/config
+/scripts

@@ -1,0 +1,10 @@
+**/*.md
+**/*.svg
+**/*.ejs
+**/*.html
+/node_modules
+/config
+/scripts
+package.json
+.umi
+.umi-production
