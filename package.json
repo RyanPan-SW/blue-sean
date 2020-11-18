@@ -87,7 +87,8 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
+    "build:prod": "node scripts/build.js",
+    "build:uat": "dotenv -e .env.uat node scripts/build.js",
     "test": "node scripts/test.js",
     "fix": "eslint --fix src/ --ext .jsx --ext .js",
     "prettier": "prettier --write src/**/*.{js,jsx}"
