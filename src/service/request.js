@@ -6,7 +6,7 @@ import axios from 'axios'
 // 创建axios实例
 const service = axios.create({
   // baseURL: 'http://rap2api.taobao.org/app/mock/265092',
-  baseURL: '/',
+  baseURL: '/api',
   timeout: 20000,
 })
 
