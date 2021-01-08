@@ -7,6 +7,7 @@ import 'antd/dist/antd.min.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import configStore from './store'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const store = configStore()
 

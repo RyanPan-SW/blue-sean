@@ -1,4 +1,4 @@
-import Home from '@/pages/home'
+import Home from '@/pages/Home'
 import Services from '@/pages/services'
 import Cooperation from '@/pages/cooperation'
 import Contact from '@/pages/contact'
