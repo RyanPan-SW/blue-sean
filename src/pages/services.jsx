@@ -1,11 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as CounterActionCreator from '@/store/actions/counter'
-import { Button } from 'antd'
+import Services from '@/components/PageContent/Services'
 
-const Test = ({ num, add, minus }) => (
-  <div>
-    测试的页面
+const Test = ({ num, add, minus }) => {
+  const type = getQueryVariable('type')
+  return (
+    <div>
+      <Services type={type} />
+      {/* 测试的页面
     {num}
     <Button
       className='foo'
@@ -22,12 +25,25 @@ const Test = ({ num, add, minus }) => (
       }}
     >
       jian-
-    </Button>
-  </div>
-)
+    </Button> */}
+    </div>
+  )
+}
 
 const mapStateToProps = ({ counter }) => ({
   num: counter.num,
 })
 
 export default connect(mapStateToProps, CounterActionCreator)(Test)
+
+function getQueryVariable(variable) {
+  var query = window.location.search.substring(1)
+  var vars = query.split('&')
+  for (var i = 0; i < vars.length; i++) {
+    var pair = vars[i].split('=')
+    if (pair[0] === variable) {
+      return pair[1]
+    }
+  }
+  return false
+}

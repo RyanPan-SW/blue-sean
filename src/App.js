@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import NotFound from '@/pages/404'
 import Login from '@/pages/login'
 import BaseLayout from '@/components/Layout/BaseLayout'
+import './App.css'
 
 const Page = () => {
   return (

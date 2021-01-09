@@ -1,5 +1,10 @@
 .App {
   text-align: center;
+  background: #ffffff;
+}
+
+a:hover {
+  text-decoration: none !important;
 }
 
 .App-logo {

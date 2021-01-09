@@ -3,51 +3,58 @@ import { connect } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
 import * as UserActionCreator from '@/store/actions/user'
 import { Navbar, Nav, Modal } from 'react-bootstrap'
-import Logo from '../../asset/logo_home.png'
+import Logo from '../../asset/logo-dark.png'
+import Global from '../../asset/DC-Global-Solutions.png'
+
 import './index.css'
 
-const PageHeader = () => {
+const OtherPageHeader = () => {
   const { pathname } = useLocation()
   const [key, setKey] = useState('/base/home')
   const [show, setShow] = useState(false)
 
   useEffect(() => {
     setKey(pathname)
-
-    document.documentElement.scrollTop = 0
-    if (pathname === '/base/home') {
-      window.addEventListener(
-        'scroll',
-        () => {
-          const top = document.documentElement.scrollTop
-          const header = document.getElementsByClassName('header')[0]
-          if (top >= 1200) {
-            header.style.background = '#00000080'
-          } else {
-            header.style.background = 'none'
-          }
-        },
-        false,
-      )
-    }
+    // if (pathname === '/base/home') {
+    //   window.addEventListener(
+    //     'scroll',
+    //     () => {
+    //       const top = document.documentElement.scrollTop
+    //       const header = document.getElementsByClassName('headerContent')[0]
+    //       if (top >= 1200) {
+    //         header.style.background = '#00000080'
+    //       } else {
+    //         header.style.background = 'none'
+    //       }
+    //     },
+    //     false,
+    //   )
+    // }
   }, [pathname])
 
   const handleShowModal = () => setShow(true)
   const handleClose = () => setShow(false)
 
   return (
-    <div className='headerContent'>
+    <div className='otherHeaderContent'>
       <Navbar expand='lg' sticky='top' className='header'>
         <Navbar.Brand className='navbtn navlogo'>
-          <img alt='' src={Logo} width='85%' height='2%' className='d-inline-block align-top' />
+          <div className='header-logo-mack'>
+            <img alt='' src={Logo} width='80%' height='2%' className='d-inline-block align-top' />
+            <img alt='' src={Global} width='85%' height='2%' className='d-inline-block align-top' />
+          </div>
         </Navbar.Brand>
+
+        {/* <Navbar.Brand className='navbtn navlogo'>
+        </Navbar.Brand> */}
+
         <Navbar.Toggle />
         <Navbar.Collapse className='justify-content-end menus'>
           <Nav.Link className={key === '/base/home' ? 'navbtn active' : 'navbtn'}>
             <Link to='/base/home'>Home</Link>
           </Nav.Link>
           <Nav.Link className={key === '/base/services' ? 'navbtn active' : 'navbtn'}>
-            <Link to='/base/services?type=1'>Services</Link>
+            <Link to='/base/services'>Services</Link>
           </Nav.Link>
           <Nav.Link className={key === '/base/cooperation' ? 'navbtn active' : 'navbtn'}>
             {/* <Link to='/base/cooperation'>Cooperation</Link> */}
@@ -66,7 +73,6 @@ const PageHeader = () => {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Body>
           Courier & Delivery Driver Jobs in Brisbane & Gold Coast. Work when you want. Drive around
@@ -83,4 +89,4 @@ const mapStateToProps = ({ user }) => ({
   isLogin: user.isLogin,
 })
 
-export default connect(mapStateToProps, UserActionCreator)(PageHeader)
+export default connect(mapStateToProps, UserActionCreator)(OtherPageHeader)

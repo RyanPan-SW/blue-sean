@@ -32,7 +32,7 @@ const routes = [
     component: Question,
   },
   {
-    path: '/base/question',
+    path: '/base/becom',
     name: 'Becom',
     component: Becom,
   },
