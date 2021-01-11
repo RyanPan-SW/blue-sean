@@ -1,6 +1,8 @@
 import React from 'react'
-import top from '../../../asset/write.png'
 import triangle from '../../../asset/triangle.png'
+import teacher from '../../../asset/teacher.png'
+import cooperation from '../../../asset/cooperation.png'
+import competitive from '../../../asset/competitive.png'
 
 function AboutUs() {
   return (
@@ -19,7 +21,7 @@ function AboutUs() {
           </span>
 
           <div className='newList'>
-            <img src={top} alt='' />
+            <img src={teacher} alt='' />
             <div>
               <p className='title'>EXPERIENCED AND EFFICIENT</p>
               <span>
@@ -31,7 +33,7 @@ function AboutUs() {
           </div>
 
           <div className='newList'>
-            <img src={top} alt='' />
+            <img src={cooperation} alt='' />
             <div>
               <p className='title'>FULLY INDEPENDENT LEGAL ADVICE</p>
               <span>
@@ -44,7 +46,7 @@ function AboutUs() {
           </div>
 
           <div className='newList'>
-            <img src={top} alt='' />
+            <img src={competitive} alt='' />
             <div>
               <p className='title'>COMPETITIVE RATES</p>
               <span>

@@ -193,38 +193,6 @@
   background-size: cover;
 }
 
-/* page-footer */
-.page-footer {
-  width: 100%;
-  background: #414141;
-  padding-top: 75px;
-  padding-left: 350px;
-  padding-bottom: 55px;
-  color: #ffffff;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-
-.page-footer > img {
-  width: 150px;
-  height: 110px;
-  margin-top: 45px;
-  margin-right: 14%;
-}
-
-.page-footer ul li {
-  font-size: 21px;
-  line-height: 40px;
-}
-
-.page-footer ul li img {
-  margin-right: 20px;
-  width: 25px;
-  height: 25px;
-}
-
-
 /* services */
 .services {
   width: 80%;
@@ -293,6 +261,47 @@
   margin-left: -18px;
 }
 
+.services-second {
+  width: 65%;
+  font-size: 20px;
+  line-height: 40px;
+  font-weight: 300;
+  color: #333333;
+}
+
+/* page-footer */
+.page-footer {
+  width: 100%;
+  background: #414141;
+  padding-top: 75px;
+  padding-left: 350px;
+  padding-bottom: 55px;
+  color: #ffffff;
+}
+
+.footContent > img {
+  width: 150px;
+  height: 110px;
+  margin-top: 45px;
+  margin-right: 14%;
+}
+
+.footContent ul li {
+  font-size: 21px;
+  line-height: 40px;
+}
+
+.footContent ul li img {
+  margin-right: 20px;
+  width: 25px;
+  height: 25px;
+}
+
+.footContent {
+  width: 65%;
+  display: flex;
+  justify-content: space-evenly;
+}
 
 @media screen and (min-width: 1500px) and (max-width: 1820px) {
   .topContent-list {

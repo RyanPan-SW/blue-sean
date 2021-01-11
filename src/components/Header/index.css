@@ -11,7 +11,7 @@
   /* margin-top: 125px; */
   color: #fff;
   font-weight: 700;
-  padding-bottom: 40px;
+  padding-bottom: 24px;
   margin-bottom: -28px;
 }
 
@@ -23,7 +23,7 @@
   /* height: 160px; */
 }
 
-.become {
+.headerContent .become {
   text-align: center;
   line-height: 36px;
   width: 210px;
@@ -32,6 +32,7 @@
   font-weight: bold;
   background: #b38948;
   border-radius: 15px;
+  cursor: pointer;
 }
 
 .nav-link {
@@ -40,4 +41,8 @@
 
 .headerContent .active {
   border-bottom: 4px solid #fff;
+}
+
+.clickModal {
+  padding: 30px;
 }

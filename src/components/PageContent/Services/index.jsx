@@ -48,7 +48,7 @@ function Services({ type = 1 }) {
                 <img src={servicesbody} alt='' />
               </div>
 
-              <ul className='services-list'>
+              <ul className='services-list services-second'>
                 <li>
                   Residential and Commercial properties conveyancing search services (for any
                   searches on the Lexon’s Searches List);

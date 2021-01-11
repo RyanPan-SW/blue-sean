@@ -9,7 +9,7 @@
 .otherHeaderContent a {
   color: #474747;
   font-weight: 700;
-  padding-bottom: 40px;
+  padding-bottom: 24px;
   margin-bottom: -30px;
 }
 
@@ -21,7 +21,7 @@
   /* height: 160px; */
 }
 
-.become {
+.otherHeaderContent .become {
   text-align: center;
   line-height: 36px;
   width: 210px;
@@ -31,6 +31,7 @@
   border: 1px solid #b38948;
   background: #ffffff;
   border-radius: 15px;
+  cursor: pointer;
 }
 
 .nav-link {

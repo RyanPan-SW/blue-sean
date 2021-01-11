@@ -2,12 +2,11 @@ import React from 'react'
 import { Switch, Route, useLocation } from 'react-router-dom'
 import { Layout, Affix } from 'antd'
 import Header from '@/components/Header'
-import Footer from '@/components/Footer'
+// import Footer from '@/components/Footer'
 import OtherPageHeader from '@/components/OtherPageHeader'
 
 import routes from '@/config/BaseRoutes'
 
-const { Content } = Layout
 console.log(process.env.REACT_APP_BASEURL)
 
 function RouteWithSubRoutes(route) {
@@ -32,6 +31,7 @@ function Page() {
     </Switch>
   )
 }
+
 function App() {
   const { pathname } = useLocation()
   console.log(pathname.search('/base/home') > -1)
@@ -39,10 +39,10 @@ function App() {
     <div className='App'>
       <Layout style={{ background: '#f8f8f8' }}>
         <Affix>{pathname.search('/base/home') > -1 ? <Header /> : <OtherPageHeader />}</Affix>
-        <Content>
+        <Layout.Content>
           <Page />
-        </Content>
-        <Footer />
+        </Layout.Content>
+        {/* <Footer /> */}
       </Layout>
     </div>
   )

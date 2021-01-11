@@ -1,9 +1,9 @@
 import Home from '@/pages/Home'
-import Services from '@/pages/services'
-import Cooperation from '@/pages/cooperation'
-import Contact from '@/pages/contact'
-import Question from '@/pages/question'
-import Becom from '@/pages/become'
+import Services from '@/pages/Services'
+import Cooperation from '@/pages/Cooperation'
+import Contact from '@/pages/Contact'
+import Question from '@/pages/Question'
+import Becom from '@/pages/Become'
 
 const routes = [
   {

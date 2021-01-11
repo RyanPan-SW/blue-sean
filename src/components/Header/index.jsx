@@ -69,10 +69,12 @@ const PageHeader = () => {
 
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Body>
-          Courier & Delivery Driver Jobs in Brisbane & Gold Coast. Work when you want. Drive around
-          town and deliver documents to happy & excited customers. If you are interested, please
-          email your resume to hr@dcglobalsolutions.com.au <br />
-          We can't wait to meet you!
+          <div className='clickModal'>
+            Courier & Delivery Driver Jobs in Brisbane & Gold Coast. Work when you want. Drive
+            around town and deliver documents to happy & excited customers. If you are interested,
+            please email your resume to hr@dcglobalsolutions.com.au <br />
+            We can't wait to meet you!
+          </div>
         </Modal.Body>
       </Modal>
     </div>

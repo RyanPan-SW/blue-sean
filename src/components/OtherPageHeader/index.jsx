@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
 import * as UserActionCreator from '@/store/actions/user'
 import { Navbar, Nav, Modal } from 'react-bootstrap'
-import Logo from '../../asset/logo-dark.png'
+import Logo from '../../asset/dc_pic.jpg'
 import Global from '../../asset/DC-Global-Solutions.png'
 
 import './index.css'
@@ -39,10 +39,10 @@ const OtherPageHeader = () => {
     <div className='otherHeaderContent'>
       <Navbar expand='lg' sticky='top' className='header'>
         <Navbar.Brand className='navbtn navlogo'>
-          <div className='header-logo-mack'>
             <img alt='' src={Logo} width='80%' height='2%' className='d-inline-block align-top' />
+          {/* <div className='header-logo-mack'>
             <img alt='' src={Global} width='85%' height='2%' className='d-inline-block align-top' />
-          </div>
+          </div> */}
         </Navbar.Brand>
 
         {/* <Navbar.Brand className='navbtn navlogo'>

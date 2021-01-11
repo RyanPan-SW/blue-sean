@@ -13,34 +13,36 @@ const { Footer } = Layout
 const FooterComponent = () => {
   return (
     <Footer className='page-footer'>
-      <img src={logo} alt='' />
+      <div className="mx-auto footContent">
+        <img src={logo} alt='' />
 
-      <ul>
-        <li>
-          <img src={Email} alt='' />
-          <span>Email: info@dcglobalsolutions.com.au</span>
-        </li>
-        <li>
-          <img src={address} alt='' />
-          <span>Address: 5/5 Davenport Street, Southport QLD 4215</span>
-        </li>
-        <li>
-          <img src={letter} alt='' />
-          <span>PO Box: TBA</span>
-        </li>
-        <li>
-          <img src={phone} alt='' />
-          <span>Office Hours: Monday – Friday 8.30am</span>
-        </li>
-        <li>
-          <img src={clock} alt='' />
-          <span>PH: TBA</span>
-        </li>
-        <li>
-          <img src={fax} alt='' />
-          <span>FAX: TBA</span>
-        </li>
-      </ul>
+        <ul>
+          <li>
+            <img src={Email} alt='' />
+            <span>Email: info@dcglobalsolutions.com.au</span>
+          </li>
+          <li>
+            <img src={address} alt='' />
+            <span>Address: 5/5 Davenport Street, Southport QLD 4215</span>
+          </li>
+          <li>
+            <img src={letter} alt='' />
+            <span>PO Box: TBA</span>
+          </li>
+          <li>
+            <img src={phone} alt='' />
+            <span>Office Hours: Monday – Friday 8.30am</span>
+          </li>
+          <li>
+            <img src={clock} alt='' />
+            <span>PH: TBA</span>
+          </li>
+          <li>
+            <img src={fax} alt='' />
+            <span>FAX: TBA</span>
+          </li>
+        </ul>
+      </div>
     </Footer>
   )
 }

@@ -6,6 +6,7 @@ import AboutUs from '@/components/PageContent/AboutUs'
 import ModalList from '@/components/PageContent/OurServicer'
 
 import './index.css'
+import FooterComponent from '@/components/Footer'
 
 const Home = () => {
   // const { isLogin, login, logout } = props
@@ -19,6 +20,8 @@ const Home = () => {
       <AboutUs />
 
       <ModalList />
+
+      <FooterComponent />
 
       {/* <Layout>
         <Affix>
