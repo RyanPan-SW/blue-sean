@@ -16,10 +16,7 @@
 .navbar {
   align-items: flex-end;
 }
-.header {
-  width: 100%;
-  /* height: 160px; */
-}
+
 
 .otherHeaderContent .become {
   text-align: center;

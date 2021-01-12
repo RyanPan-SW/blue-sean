@@ -13,7 +13,7 @@ const { Footer } = Layout
 const FooterComponent = () => {
   return (
     <Footer className='page-footer'>
-      <div className="mx-auto footContent">
+      <div className='footContent'>
         <img src={logo} alt='' />
 
         <ul>
