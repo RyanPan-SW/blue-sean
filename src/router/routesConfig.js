@@ -1,3 +1,4 @@
+import BaseLayout from '@/Layout'
 import Home from '@/pages/Home'
 import Services from '@/pages/Services'
 import Cooperation from '@/pages/Cooperation'
@@ -5,7 +6,15 @@ import Contact from '@/pages/Contact'
 import Question from '@/pages/Question'
 import Becom from '@/pages/Become'
 
-const routes = [
+const routesConfig = [
+  // {
+  //   path: '/',
+  //   component: BaseLayout,
+  //   routes: [
+  //     { path: '/home', component: Home },
+  //     { path: '/services', component: Services },
+  //   ],
+  // },
   {
     path: '/base/home',
     name: 'Home',
@@ -38,4 +47,4 @@ const routes = [
   },
 ]
 
-export default routes
+export default routesConfig

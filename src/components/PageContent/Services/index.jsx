@@ -2,11 +2,12 @@ import React from 'react'
 import servicesPage from '../../../asset/services-page.png'
 import servicesbody from '../../../asset/services-body.png'
 import serviceslegal from '../../../asset/services-legal.png'
+import './index.scss'
 
 function Services({ type = 1 }) {
   return (
-    <div>
-      <div className='services'>
+    <div className='services-pages'>
+      <div className='container'>
         {Number(type) === 1 && (
           <div>
             <h3>Property Settlement & Lodgment Services</h3>
@@ -43,12 +44,12 @@ function Services({ type = 1 }) {
           <div>
             <h3>Property & Body Corporate Searches & Report</h3>
 
-            <div className='services-content'>
+            <div className='services-content services-second'>
               <div className='services-img'>
                 <img src={servicesbody} alt='' />
               </div>
 
-              <ul className='services-list services-second'>
+              <ul className='services-list '>
                 <li>
                   Residential and Commercial properties conveyancing search services (for any
                   searches on the Lexon’s Searches List);

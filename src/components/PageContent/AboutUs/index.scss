@@ -1,0 +1,60 @@
+.listContent {
+  background: #f8f8f8;
+  height: 1093px;
+
+  h3 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    font-family: Barlow;
+    font-weight: 800;
+    color: #333333;
+    padding: 70px 0px;
+  }
+
+  .direction {
+    font-size: 23px;
+    font-family: Helvetica Neue;
+    font-weight: 400;
+    color: #666666;
+    line-height: 30px;
+  }
+
+  .container {
+    .newList {
+      width: 100%;
+      display: flex;
+      padding-top: 85px;
+
+      &:nth-last-of-type(1) {
+        padding-bottom: 35px;
+      }
+
+      & > img {
+        width: 208px;
+        height: 139px;
+        margin-right: 40px;
+      }
+
+      span {
+        font-size: 20px;
+        font-family: Helvetica Neue;
+        font-weight: 400;
+        color: #666666;
+        line-height: 30px;
+      }
+
+      .title {
+        font-size: 24px;
+        font-family: Barlow;
+        font-weight: 800;
+        color: #b38948;
+        line-height: 40px;
+      }
+    }
+  }
+}
+
+.aboutUs-sup {
+  background: #f1f1f1;
+}

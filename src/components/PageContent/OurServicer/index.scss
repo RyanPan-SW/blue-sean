@@ -1,0 +1,79 @@
+.ourSericer {
+  width: 100%;
+  background: #f1f1f1;
+  color: #f1f1f1;
+
+  h3 {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    /* padding-top: 10%; */
+    padding: 67px 0px;
+  }
+
+  .ourSericer-colContent {
+    width: 88%;
+    /* height: 975px; */
+    padding-bottom: 160px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    /* border: 1px solid #b38948; */
+
+    .ourSericer-content {
+      width: 32%;
+      padding-top: 95px;
+      padding-bottom: 40px;
+
+      span {
+        display: block;
+        height: 30px;
+        text-align: center;
+        font-size: 1.2rem;
+        font-family: Arial;
+        font-weight: 400;
+        color: #fefefe;
+        line-height: 25px;
+      }
+
+      .button {
+        width: 25%;
+        max-width: 230px;
+        min-width: 190px;
+        height: 49px;
+        font-size: 16px;
+        line-height: 47px;
+        background: #b38948;
+        border: 1px solid #b38948;
+        border-radius: 23px;
+        margin: auto;
+        margin-top: 55px;
+        text-align: center;
+        color: #ffffff;
+
+        &:hover {
+          color: #007bff;
+        }
+      }
+    }
+  }
+
+  // .triangle {
+  //   background: #f1f1f1;
+  // }
+}
+
+.bg1 {
+  background: url('../../../asset/legal.png') no-repeat;
+  background-size: cover;
+}
+
+.bg2 {
+  background: url('../../../asset/property.png') no-repeat;
+  background-size: cover;
+}
+
+.bg3 {
+  background: url('../../../asset/legal2.png') no-repeat;
+  background-size: cover;
+}

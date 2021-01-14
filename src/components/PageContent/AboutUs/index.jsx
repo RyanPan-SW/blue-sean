@@ -3,15 +3,16 @@ import triangle from '../../../asset/triangle.png'
 import teacher from '../../../asset/teacher.png'
 import cooperation from '../../../asset/cooperation.png'
 import competitive from '../../../asset/competitive.png'
+import './index.scss'
 
 function AboutUs() {
   return (
-    <div>
+    <>
       <div className='listContent'>
-        <div className='content'>
+        <div className='container'>
           <h3>About Us</h3>
 
-          <span>
+          <span className='direction'>
             DC Global Solution is a company provides multiple initiatives of property and other
             legal area related settling, searching, servicing, lodging and delivering service. Our
             professional team helps other legal professionals and clients with buying and selling of
@@ -57,8 +58,11 @@ function AboutUs() {
           </div>
         </div>
       </div>
-      <img className='triangle' src={triangle} alt='' />
-    </div>
+
+      <div className="aboutUs-sup">
+        <img className='triangle' src={triangle} alt='' />
+      </div>
+    </>
   )
 }
 

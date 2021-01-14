@@ -7,14 +7,17 @@ import letter from '../../asset/letter.png'
 import phone from '../../asset/phone.png'
 import clock from '../../asset/clock.png'
 import fax from '../../asset/fax.png'
+import './index.scss'
 
 const { Footer } = Layout
 
 const FooterComponent = () => {
   return (
-    <Footer className='page-footer'>
-      <div className='footContent'>
-        <img src={logo} alt='' />
+    <div className='page-footer'>
+      <div className='container'>
+        <div className='footContent'>
+          <img src={logo} alt='' />
+        </div>
 
         <ul>
           <li>
@@ -43,7 +46,7 @@ const FooterComponent = () => {
           </li>
         </ul>
       </div>
-    </Footer>
+    </div>
   )
 }
 

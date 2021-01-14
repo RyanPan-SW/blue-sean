@@ -2,6 +2,19 @@
   background: #ffffff;
 }
 
+.container {
+  width: 88.5%;
+  padding: 0;
+  margin: 0;
+  margin: auto;
+  display: block;
+}
+
+.triangle {
+  display: block;
+  margin: auto;
+}
+
 a:hover {
   text-decoration: none !important;
 }

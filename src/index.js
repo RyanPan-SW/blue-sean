@@ -2,12 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
-import './index.scss'
-import 'antd/dist/antd.min.css'
-import App from './App'
 import reportWebVitals from './reportWebVitals'
 import configStore from './store'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import App from './App'
+import 'antd/dist/antd.min.css'
+// import 'bootstrap/dist/css/bootstrap.min.css'
+import './index.scss'
 
 const store = configStore()
 
