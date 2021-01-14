@@ -6,7 +6,7 @@ import Services from '@/components/PageContent/Services'
 const Test = ({ num, add, minus }) => {
   const type = getQueryVariable('type')
   return (
-    <div>
+    <div style={{ paddingTop: 120 }}>
       <Services type={type} />
       {/* 测试的页面
     {num}

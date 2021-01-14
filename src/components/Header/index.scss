@@ -1,5 +1,6 @@
 .headerContent {
   width: 100%;
+  height: 120px;
   position: absolute;
   padding-top: 25px;
   border-bottom: 1px solid #ffffff70;
@@ -19,7 +20,8 @@
       width: 30.8%;
 
       img {
-        width: 100%;
+        margin-top: -15px;
+        width: 80%;
       }
     }
 
@@ -34,7 +36,7 @@
       }
 
       li {
-        padding: 30px 20px;
+        padding: 33px 20px;
         margin-bottom: -25px;
 
         &:nth-last-of-type(1) {
@@ -60,4 +62,10 @@
       }
     }
   }
+}
+
+
+.clickModal {
+  font-size: 18px;
+  color: #333333;
 }

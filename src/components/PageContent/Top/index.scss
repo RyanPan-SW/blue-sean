@@ -14,14 +14,15 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
     margin: auto;
     color: #ffffff;
 
     .topContent-here {
       width: 27%;
       max-width: 460px;
-      min-width: 350px;
-      font-size: 2.5rem;
+      min-width: 420px;
+      font-size: 3rem;
       font-weight: 900;
       display: flex;
       align-items: center;
@@ -47,6 +48,11 @@
 
         &:nth-of-type(1) {
           margin-top: 0;
+        }
+
+        &:hover {
+          color: #ffffff;
+          background: #B38948;
         }
 
         img {

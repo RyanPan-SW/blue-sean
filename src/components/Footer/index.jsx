@@ -28,22 +28,22 @@ const FooterComponent = () => {
             <img src={address} alt='' />
             <span>Address: 5/5 Davenport Street, Southport QLD 4215</span>
           </li>
-          <li>
+          {/* <li>
             <img src={letter} alt='' />
             <span>PO Box: TBA</span>
-          </li>
+          </li> */}
           <li>
             <img src={phone} alt='' />
             <span>Office Hours: Monday – Friday 8.30am</span>
           </li>
           <li>
             <img src={clock} alt='' />
-            <span>PH: TBA</span>
+            <span>PH: 0756641225</span>
           </li>
-          <li>
+          {/* <li>
             <img src={fax} alt='' />
             <span>FAX: TBA</span>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>

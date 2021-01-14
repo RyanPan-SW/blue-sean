@@ -1,5 +1,6 @@
 .otherHeader {
   width: 100%;
+  height: 120px;
   position: absolute;
   padding-top: 25px;
   border-bottom: 1px solid #47474770;
@@ -19,7 +20,7 @@
       width: 30.8%;
 
       img {
-        width: 100%;
+        width: 80%;
       }
     }
 
@@ -34,7 +35,7 @@
       }
 
       li {
-        padding: 30px 20px;
+        padding: 33px 20px;
         margin-bottom: -25px;
 
         &:nth-last-of-type(1) {

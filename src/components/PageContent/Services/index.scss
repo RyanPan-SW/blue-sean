@@ -20,7 +20,7 @@
 
     .services-img {
       width: 32%;
-      max-width: 550px;
+      min-width: 550px;
       margin-right: 35px;
 
       img {
@@ -55,34 +55,15 @@
     display: flex;
     align-items: center;
     padding-bottom: 70px;
-    
-
-    // .services-img {
-    //   width: 32%;
-    //   max-width: 550px;
-    //   margin-right: 35px;
-
-    //   img {
-    //     width: 100%;
-    //   }
-    // }
 
     .services-list {
+      min-width: 1080px;
       font-size: 20px;
       line-height: 40px;
       font-weight: 300;
-      color: #333333;
 
       li::before {
-        display: inline-block;
-        content: '';
-        width: 12px;
-        height: 12px;
-        margin-left: -12px;
-        background: #b38948;
-        transform: rotateZ(45deg);
-        position: absolute;
-        margin-top: 25px;
+        margin-top: 15px;
         margin-left: -25px;
       }
     }

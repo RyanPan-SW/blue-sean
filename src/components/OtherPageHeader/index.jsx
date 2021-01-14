@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
 import * as UserActionCreator from '@/store/actions/user'
-import { Modal } from 'react-bootstrap'
+import { Modal } from 'antd'
 import Logo from '../../asset/dc_pic.jpg'
 
 import './index.scss'
@@ -60,21 +60,27 @@ const OtherPageHeader = () => {
             </li>
             <li>{/* <Link to='/base/home'>Q&A</Link> */}Q&A</li>
             <li>
-              <div className='become'>Become A Runner</div>
+              <div className='become' onClick={handleShowModal}>Become A Runner</div>
             </li>
           </ul>
         </div>
       </div>
 
-      <Modal show={show} onHide={handleClose} centered>
-        <Modal.Body>
-          <div className='clickModal'>
-            Courier & Delivery Driver Jobs in Brisbane & Gold Coast. Work when you want. Drive
-            around town and deliver documents to happy & excited customers. If you are interested,
-            please email your resume to hr@dcglobalsolutions.com.au <br />
-            We can't wait to meet you!
-          </div>
-        </Modal.Body>
+      <Modal
+        title='Basic Modal'
+        visible={show}
+        width={660}
+        centered
+        onOk={handleClose}
+        onCancel={handleClose}
+        footer={null}
+      >
+        <div className='clickModal'>
+          Courier & Delivery Driver Jobs in Brisbane & Gold Coast. Work when you want. Drive around
+          town and deliver documents to happy & excited customers. If you are interested, please
+          email your resume to hr@dcglobalsolutions.com.au <br />
+          We can't wait to meet you!
+        </div>
       </Modal>
     </div>
   )
