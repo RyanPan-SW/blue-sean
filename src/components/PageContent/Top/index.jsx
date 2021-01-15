@@ -5,11 +5,11 @@ import right from '../../../asset/right.png'
 import './index.scss'
 
 const list = [
-  { title: 'Property Settlement & Lodgment Services', to: '/base/services?type=1' },
-  { title: 'Property & Body Corporate Searches & Report', to: '/base/services?type=2' },
+  { title: 'Property Settlement & Lodgment Services', to: '/services?type=1' },
+  { title: 'Property & Body Corporate Searches & Report', to: '/services?type=2' },
   {
     title: 'Legal Documents Deliveries & Service of Court Documents',
-    to: '/base/services?type=3',
+    to: '/services?type=3',
   },
 ]
 

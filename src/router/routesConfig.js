@@ -1,4 +1,3 @@
-import BaseLayout from '@/Layout'
 import Home from '@/pages/Home'
 import Services from '@/pages/Services'
 import Cooperation from '@/pages/Cooperation'
@@ -16,32 +15,32 @@ const routesConfig = [
   //   ],
   // },
   {
-    path: '/base/home',
+    path: '/home',
     name: 'Home',
     component: Home,
   },
   {
-    path: '/base/services',
+    path: '/services',
     name: 'Services',
     component: Services,
   },
   {
-    path: '/base/cooperation',
+    path: '/cooperation',
     name: 'Cooperation',
     component: Cooperation,
   },
   {
-    path: '/base/contact',
+    path: '/contact',
     name: 'Contact',
     component: Contact,
   },
   {
-    path: '/base/question',
+    path: '/question',
     name: 'Question',
     component: Question,
   },
   {
-    path: '/base/becom',
+    path: '/becom',
     name: 'Becom',
     component: Becom,
   },

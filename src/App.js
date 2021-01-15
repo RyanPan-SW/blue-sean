@@ -1,19 +1,22 @@
 import React from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
-import NotFound from '@/pages/404'
-import Login from '@/pages/Login'
-import BaseLayout from '@/Layout'
+import { Switch } from 'react-router-dom'
+import routesConfig from './router'
+import { PrivateRoute, RouteWithSubRoutes } from './router/renderRoutes'
 import './App.css'
 
 const App = () => {
   return (
     <Switch>
-      <Route exact path='/' render={() => <Redirect to='/base/home' push />} />
-      <Route path='/base' component={BaseLayout} />
-      <Route path='/404' component={NotFound} />
-      <Route path='/login' component={Login} />
-      <Route component={NotFound} />
-      <Route render={() => <Redirect to='/base/home' />} />
+      {routesConfig.map((route, i) => {
+        if (route.auth) {
+          return (
+            <PrivateRoute key={i} path={route.path}>
+              <route.component />
+            </PrivateRoute>
+          )
+        }
+        return <RouteWithSubRoutes key={i} {...route} />
+      })}
     </Switch>
   )
 }

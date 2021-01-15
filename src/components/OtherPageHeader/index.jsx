@@ -9,12 +9,12 @@ import './index.scss'
 
 const OtherPageHeader = () => {
   const { pathname } = useLocation()
-  const [key, setKey] = useState('/base/home')
+  // const [key, setKey] = useState('/home')
   const [show, setShow] = useState(false)
 
   useEffect(() => {
-    setKey(pathname)
-    // if (pathname === '/base/home') {
+    // setKey(pathname)
+    // if (pathname === '/home') {
     //   window.addEventListener(
     //     'scroll',
     //     () => {
@@ -44,21 +44,21 @@ const OtherPageHeader = () => {
 
           <ul className='navLink'>
             <li>
-              <Link to='/base/home'>Home</Link>
+              <Link to='/home'>Home</Link>
             </li>
             <li className='active'>
-              {/* <Link to='/base/services?type=1'>Services</Link> */}
+              {/* <Link to='/services?type=1'>Services</Link> */}
               Services
             </li>
             <li>
-              {/* <Link to='/base/home'>Cooperation</Link> */}
+              {/* <Link to='/home'>Cooperation</Link> */}
               Cooperation
             </li>
             <li>
-              {/* <Link to='/base/home'>Contact</Link> */}
+              {/* <Link to='/home'>Contact</Link> */}
               Contact
             </li>
-            <li>{/* <Link to='/base/home'>Q&A</Link> */}Q&A</li>
+            <li>{/* <Link to='/home'>Q&A</Link> */}Q&A</li>
             <li>
               <div className='become' onClick={handleShowModal}>Become A Runner</div>
             </li>
@@ -67,7 +67,7 @@ const OtherPageHeader = () => {
       </div>
 
       <Modal
-        title='Basic Modal'
+        title='Prompt'
         visible={show}
         width={660}
         centered

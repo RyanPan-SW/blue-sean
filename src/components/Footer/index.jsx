@@ -1,15 +1,15 @@
 import React from 'react'
-import { Layout } from 'antd'
+// import { Layout } from 'antd'
 import logo from '../../asset/logo-small.png'
 import Email from '../../asset/email.png'
 import address from '../../asset/address.png'
-import letter from '../../asset/letter.png'
+// import letter from '../../asset/letter.png'
 import phone from '../../asset/phone.png'
 import clock from '../../asset/clock.png'
-import fax from '../../asset/fax.png'
+// import fax from '../../asset/fax.png'
 import './index.scss'
 
-const { Footer } = Layout
+// const { Footer } = Layout
 
 const FooterComponent = () => {
   return (

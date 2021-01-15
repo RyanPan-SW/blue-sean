@@ -8,14 +8,14 @@ import { Modal } from 'antd'
 
 const PageHeader = () => {
   const { pathname } = useLocation()
-  const [key, setKey] = useState('/base/home')
+  // const [key, setKey] = useState('/home')
   const [show, setShow] = useState(false)
 
   useEffect(() => {
-    setKey(pathname)
+    // setKey(pathname)
 
     document.documentElement.scrollTop = 0
-    if (pathname === '/base/home') {
+    if (pathname === '/home') {
       //   window.addEventListener(
       //     'scroll',
       //     () => {
@@ -45,22 +45,22 @@ const PageHeader = () => {
 
           <ul className='navLink'>
             <li className='active'>
-              <Link to='/base/home'>Home</Link>
+              <Link to='/home'>Home</Link>
             </li>
             <li>
-              {/* <Link to='/base/services?type=1'>Services</Link> */}
+              {/* <Link to='/services?type=1'>Services</Link> */}
               Services
             </li>
             <li>
-              {/* <Link to='/base/home'>Cooperation</Link> */}
+              {/* <Link to='/home'>Cooperation</Link> */}
               Cooperation
             </li>
             <li>
-              {/* <Link to='/base/home'>Contact</Link> */}
+              {/* <Link to='/home'>Contact</Link> */}
               Contact
             </li>
             <li>
-              {/* <Link to='/base/home'>Q&A</Link> */}
+              {/* <Link to='/home'>Q&A</Link> */}
               Q&A
             </li>
             <li>
@@ -85,7 +85,7 @@ const PageHeader = () => {
         </Modal.Body>
       </Modal> */}
 
-      <Modal title='Basic Modal' visible={show} width={660} centered onOk={handleClose} onCancel={handleClose} footer={null}>
+      <Modal title='Prompt' visible={show} width={660} centered onOk={handleClose} onCancel={handleClose} footer={null}>
         <div className='clickModal'>
           Courier & Delivery Driver Jobs in Brisbane & Gold Coast. Work when you want. Drive around
           town and deliver documents to happy & excited customers. If you are interested, please
