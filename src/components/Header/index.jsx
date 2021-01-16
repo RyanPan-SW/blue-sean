@@ -85,7 +85,7 @@ const PageHeader = () => {
         </Modal.Body>
       </Modal> */}
 
-      <Modal title='Prompt' visible={show} width={660} centered onOk={handleClose} onCancel={handleClose} footer={null}>
+      <Modal title='Become A Runner' visible={show} width={660} centered onOk={handleClose} onCancel={handleClose} footer={null}>
         <div className='clickModal'>
           Courier & Delivery Driver Jobs in Brisbane & Gold Coast. Work when you want. Drive around
           town and deliver documents to happy & excited customers. If you are interested, please

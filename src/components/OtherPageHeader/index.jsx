@@ -67,7 +67,7 @@ const OtherPageHeader = () => {
       </div>
 
       <Modal
-        title='Prompt'
+        title='Become A Runner'
         visible={show}
         width={660}
         centered

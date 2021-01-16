@@ -93,7 +93,7 @@ function Services({ type = 1 }) {
                   our cut-off times before you place order);
                 </li>
                 <li>Serving court documents personally;</li>
-                <li>Prompt and secure delivery; and </li>
+                <li>Become A Runner and secure delivery; and </li>
                 <li>
                   Notification to you upon delivery completion with recipients’ signatures and
                   verified ID.

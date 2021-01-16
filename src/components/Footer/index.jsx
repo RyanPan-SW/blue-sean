@@ -33,11 +33,11 @@ const FooterComponent = () => {
             <span>PO Box: TBA</span>
           </li> */}
           <li>
-            <img src={phone} alt='' />
+            <img src={clock} alt='' />
             <span>Office Hours: Monday – Friday 8.30am</span>
           </li>
           <li>
-            <img src={clock} alt='' />
+            <img src={phone} alt='' />
             <span>PH: 0756641225</span>
           </li>
           {/* <li>

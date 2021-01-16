@@ -22,20 +22,6 @@ const Home = () => {
       <ModalList />
 
       <FooterComponent />
-
-      {/* <Layout>
-        <Affix>
-          <Header />
-        </Affix>
-
-        <Content>
-          <Switch>
-            <Route path='/test' component={Test} />
-            <Route path='/test1' component={Test1} />
-          </Switch>
-        </Content>
-        <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
-      </Layout> */}
     </div>
   )
 }
