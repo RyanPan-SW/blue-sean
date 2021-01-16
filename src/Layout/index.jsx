@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Switch, useLocation } from 'react-router-dom'
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import { Layout, Affix } from 'antd'
 import HomeHeader from '@/components/Header'
 import OtherHeader from '@/components/OtherPageHeader'
@@ -11,6 +11,9 @@ console.log(process.env.REACT_APP_BASEURL)
 
 function BaseLayout() {
   const { pathname } = useLocation()
+  if (pathname === '/') {
+    return <Redirect to='/home' />
+  }
 
   return (
     <div className='App'>
