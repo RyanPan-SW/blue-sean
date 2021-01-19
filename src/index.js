@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals'
 import configStore from './store'
 import App from './App'
 // import 'bootstrap/dist/css/bootstrap.min.css'
-import 'antd/dist/antd.min.css'
+// import 'antd/dist/antd.min.css'
 import './index.scss'
 
 const store = configStore()
