@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
 import * as UserActionCreator from '@/store/actions/user'
 import { Modal } from 'antd'
-import Logo from '../../asset/dc-pic.png'
+import Logo from '../../asset/header-logo.png'
 
 import './index.scss'
 

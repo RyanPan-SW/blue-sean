@@ -1,6 +1,6 @@
 import React from 'react'
 // import { Layout } from 'antd'
-import logo from '../../asset/logo-small.png'
+import logo from '../../asset/footer-logo.jpg'
 import Email from '../../asset/email.png'
 import address from '../../asset/address.png'
 // import letter from '../../asset/letter.png'
