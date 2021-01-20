@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import triangle from '../../../asset/triangle.png'
-import right from '../../../asset/right.png'
 import './index.scss'
 
 const list = [

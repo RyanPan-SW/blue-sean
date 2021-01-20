@@ -28,8 +28,9 @@
 
       span {
         display: block;
+        min-height: 30px;
         text-align: center;
-        font-size: 1.2rem;
+        font-size: 20px;
         font-family: Arial;
         font-weight: 400;
         color: #fefefe;
@@ -80,6 +81,11 @@
   .ourSericer {
     .ourSericer-colContent {
       width: 95%;
+      .ourSericer-content {
+        span {
+          font-size: 18px;
+        }
+      }
     }
   }
 }

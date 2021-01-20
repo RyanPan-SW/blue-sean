@@ -2,87 +2,86 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
 import * as UserActionCreator from '@/store/actions/user'
-import { Modal } from 'antd'
-import Logo from '../../asset/header-logo.png'
-
+import Logo from '../../asset/logo-dark.png'
+import menu from '../../asset/menu.svg'
 import './index.scss'
+// import { Modal } from 'antd'
+import { Modal, Nav, Navbar } from 'react-bootstrap'
 
-const OtherPageHeader = () => {
+const PageHeader = () => {
   const { pathname } = useLocation()
-  // const [key, setKey] = useState('/home')
   const [show, setShow] = useState(false)
 
   useEffect(() => {
-    // setKey(pathname)
-    // if (pathname === '/home') {
-    //   window.addEventListener(
-    //     'scroll',
-    //     () => {
-    //       const top = document.documentElement.scrollTop
-    //       const header = document.getElementsByClassName('headerContent')[0]
-    //       if (top >= 1200) {
-    //         header.style.background = '#00000080'
-    //       } else {
-    //         header.style.background = 'none'
-    //       }
-    //     },
-    //     false,
-    //   )
-    // }
+    document.documentElement.scrollTop = 0
+    if (pathname === '/home') {
+      //   window.addEventListener(
+      //     'scroll',
+      //     () => {
+      //       const top = document.documentElement.scrollTop
+      //       const header = document.getElementsByClassName('header')[0]
+      //       if (top >= 1200) {
+      //         header.style.background = '#00000080'
+      //       } else {
+      //         header.style.background = 'none'
+      //       }
+      //     },
+      //     false,
+      //   )
+    }
   }, [pathname])
 
   const handleShowModal = () => setShow(true)
   const handleClose = () => setShow(false)
 
   return (
-    <div className='otherHeader'>
+    <header className="otherHeader">
       <div className='container'>
-        <div className='content'>
-          <div className='navLogo'>
-            <img src={Logo} alt='logo' />
-          </div>
+        <Navbar sticky='top' fixed='top' expand='xl' className='header-nav'>
+          <Navbar.Brand className='navbtn navlogo header-logo'>
+            <Link to='/home' className='logo'>
+              <div className='logo-img'>
+                <img src={Logo} alt='logo' />
+                <img class='alt-logo' src={Logo} alt='logo' />
+              </div>
+              <div className='title-font'>DC Global Solutions</div>
+            </Link>
+          </Navbar.Brand>
 
-          <ul className='navLink'>
-            <li>
-              <Link to='/home'>Home</Link>
-            </li>
-            <li className='active'>
-              {/* <Link to='/services?type=1'>Services</Link> */}
-              Services
-            </li>
-            <li>
-              {/* <Link to='/home'>Cooperation</Link> */}
-              Cooperation
-            </li>
-            <li>
-              {/* <Link to='/home'>Contact</Link> */}
-              Contact
-            </li>
-            <li>{/* <Link to='/home'>Q&A</Link> */}Q&A</li>
-            <li>
-              <div className='become' onClick={handleShowModal}>Become A Runner</div>
-            </li>
-          </ul>
-        </div>
+          <Navbar.Toggle className='menus-icon'>
+            <img src={menu} alt='' />
+          </Navbar.Toggle>
+
+          <Navbar.Collapse className='justify-content-end header-ul'>
+            <Nav.Link className='navbtn'><Link to="/home">Home</Link></Nav.Link>
+            <Nav.Link className='navbtn active'>Services</Nav.Link>
+            <Nav.Link className='navbtn'>Cooperation</Nav.Link>
+            <Nav.Link className='navbtn'>Contact</Nav.Link>
+            <Nav.Link className='navbtn'>Q&A</Nav.Link>
+            <Nav.Link className='navbtn'>
+              <div className='become' onClick={handleShowModal}>
+                Become A Runner
+              </div>
+            </Nav.Link>
+          </Navbar.Collapse>
+        </Navbar>
       </div>
 
-      <Modal
-        title='Become A Runner'
-        visible={show}
-        width={660}
-        centered
-        onOk={handleClose}
-        onCancel={handleClose}
-        footer={null}
-      >
-        <div className='clickModal'>
-          Courier & Delivery Driver Jobs in Brisbane & Gold Coast. Work when you want. Drive around
-          town and deliver documents to happy & excited customers. If you are interested, please
-          email your resume to hr@dcglobalsolutions.com.au <br />
-          We can't wait to meet you!
-        </div>
+      <Modal show={show} onHide={handleClose} centered>
+        <Modal.Header closeButton className='modal-header'>
+          Become A Runner
+        </Modal.Header>
+
+        <Modal.Body>
+          <div className='clickModal'>
+            Courier & Delivery Driver Jobs in Brisbane & Gold Coast. Work when you want. Drive
+            around town and deliver documents to happy & excited customers. If you are interested,
+            please email your resume to hr@dcglobalsolutions.com.au <br />
+            We can't wait to meet you!
+          </div>
+        </Modal.Body>
       </Modal>
-    </div>
+    </header>
   )
 }
 
@@ -90,4 +89,4 @@ const mapStateToProps = ({ user }) => ({
   isLogin: user.isLogin,
 })
 
-export default connect(mapStateToProps, UserActionCreator)(OtherPageHeader)
+export default connect(mapStateToProps, UserActionCreator)(PageHeader)
