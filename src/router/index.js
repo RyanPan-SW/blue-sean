@@ -1,4 +1,5 @@
 import BaseLayout from '@/Layout'
+import Login from '@/pages/Login'
 import Home from '@/pages/Home'
 import Services from '@/pages/Services'
 // import Cooperation from '@/pages/Cooperation'
@@ -16,6 +17,11 @@ const routesConfig = [
       { path: '/services', exact: false, component: Services },
     ],
   },
+  {
+    path: '/login',
+    component: Login,
+    exact: true
+  }
 ]
 
 export default routesConfig

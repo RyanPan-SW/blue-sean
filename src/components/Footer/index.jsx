@@ -34,11 +34,11 @@ const FooterComponent = () => {
           </li> */}
           <li>
             <img src={clock} alt='' />
-            <span>Office Hours: Monday – Friday 8.30am</span>
+            <span>Office Hours: Monday – Friday 8:30am to 5:00pm</span>
           </li>
           <li>
             <img src={phone} alt='' />
-            <span>PH: 0756641225</span>
+            <span>PH: 07 5649 8619</span>
           </li>
           {/* <li>
             <img src={fax} alt='' />

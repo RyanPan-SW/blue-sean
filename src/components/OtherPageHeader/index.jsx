@@ -42,7 +42,7 @@ const PageHeader = () => {
             <Link to='/home' className='logo'>
               <div className='logo-img'>
                 <img src={Logo} alt='logo' />
-                <img class='alt-logo' src={Logo} alt='logo' />
+                <img className='alt-logo' src={Logo} alt='logo' />
               </div>
               <div className='title-font'>DC Global Solutions</div>
             </Link>

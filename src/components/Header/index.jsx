@@ -6,7 +6,7 @@ import Logo from '../../asset/footer-logo.jpg'
 import menu from '../../asset/menu.svg'
 import './index.scss'
 // import { Modal } from 'antd'
-import { Modal, Nav, Navbar } from 'react-bootstrap'
+import { Modal, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 
 const PageHeader = () => {
   const { pathname } = useLocation()
@@ -42,7 +42,7 @@ const PageHeader = () => {
             <Link to='/home' className='logo'>
               <div className='logo-img'>
                 <img src={Logo} alt='logo' />
-                <img class='alt-logo' src={Logo} alt='logo' />
+                <img className='alt-logo' src={Logo} alt='logo' />
               </div>
               <div className='title-font'>DC Global Solutions</div>
             </Link>
@@ -52,11 +52,27 @@ const PageHeader = () => {
             <img src={menu} alt='' />
           </Navbar.Toggle>
 
+          <div className='login-sgin'>
+            <Link to='/login' className='logIn'>
+              Log in
+            </Link>
+            <Link to='/signup' className='signUp'>
+              Sign up
+            </Link>
+          </div>
+
           <Navbar.Collapse className='justify-content-end header-ul'>
-            <Nav.Link className='navbtn active'>
-              <Link to='/home'>Home</Link>
+            <Nav.Link href='/home' className='navbtn active'>
+              Home
             </Nav.Link>
-            <Nav.Link className='navbtn'>Services</Nav.Link>
+
+            <NavDropdown title='Services' id='basic-nav-dropdown'>
+              <NavDropdown.Item href='/services?type=1'>Property Settlement & Lodgment Services</NavDropdown.Item>
+              <NavDropdown.Item href='/services?type=2'>Property & Body Corporate Searches & Report</NavDropdown.Item>
+              <NavDropdown.Item href='/services?type=3'>Legal Documents Deliveries & Service of Court Documents</NavDropdown.Item>
+              <NavDropdown.Item href='/services?type=3'>Schedule a New Pickup</NavDropdown.Item>
+            </NavDropdown>
+
             <Nav.Link className='navbtn'>Cooperation</Nav.Link>
             <Nav.Link className='navbtn'>Contact</Nav.Link>
             <Nav.Link className='navbtn'>Q&A</Nav.Link>
@@ -67,6 +83,8 @@ const PageHeader = () => {
             </Nav.Link>
           </Navbar.Collapse>
         </Navbar>
+
+        <div></div>
       </div>
 
       <Modal show={show} onHide={handleClose} centered>
