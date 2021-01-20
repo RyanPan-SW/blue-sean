@@ -35,3 +35,33 @@
     }
   }
 }
+
+@media only screen and (max-width: 1200px) {
+  .page-footer {
+    .container {
+      display: inline-flex;
+      
+      .footContent {
+        margin-right: 2%;
+      }
+    }
+  }
+}
+
+
+@media only screen and (max-width: 768px) {
+  .page-footer {
+    .container {
+      flex-direction: column;
+      
+      .footContent {
+        margin-right: 2%;
+        margin-bottom: 30px;
+
+        img {
+          margin: auto;
+        }
+      }
+    }
+  }
+}

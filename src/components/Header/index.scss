@@ -18,7 +18,7 @@
 
     .navLogo {
       width: 30.8%;
-      
+
       img {
         width: 100%;
         min-width: 200px;
@@ -31,11 +31,11 @@
       color: #ffffff;
       justify-content: space-between;
       align-items: center;
-      
+
       a {
         color: #ffffff;
       }
-      
+
       li {
         font-size: 20px;
         padding: 31px 20px;
@@ -66,8 +66,121 @@
   }
 }
 
-
 .clickModal {
   font-size: 18px;
   color: #333333;
+}
+
+// ------
+
+header {
+  width: 100%;
+  background: #000000d0;
+  position: fixed;
+  z-index: 99;
+
+  .header-nav {
+    padding-top: 20px;
+    background: #ffffff00;
+  }
+
+  .header-logo {
+    a {
+      display: flex;
+      align-items: center;
+
+      .title-font {
+        margin-left: 25px;
+        color: #ffffff;
+        font-size: 27px;
+        font-weight: 700;
+      }
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: row;
+
+      .logo-img {
+        width: 90px;
+        height: 60px;
+        position: relative;
+
+        img {
+          width: 100%;
+          position: absolute;
+          left: 0;
+          top: 0;
+        }
+      }
+    }
+  }
+
+  .header-ul {
+    margin-bottom: -20px;
+  }
+
+  .navbtn {
+    color: #fff;
+    font-size: 16px;
+  }
+
+  .active {
+    border-bottom: 4px solid #fff;
+  }
+
+  .nav-link {
+    padding: 1.5rem 1rem;
+  }
+
+  .navbar-toggler {
+    padding: 0;
+  }
+
+  // .menus-icon {
+  //   width: 40px;
+  //   height: 40px;
+
+  //   > span {
+  //     width: 100%;
+  //     height: 100%;
+  //     display: inline-block;
+  //   }
+
+  //   .glyphicon {
+  //     color: #fff;
+  //   }
+  // }
+
+  .become {
+    width: 190px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    background: #b38948;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  header {
+    .header-logo {
+      a {
+        .title-font {
+          font-size: 22px;
+        }
+      }
+
+      .logo {
+        .logo-img {
+          width: 50px;
+          height: 34px;
+        }
+      }
+    }
+  }
 }

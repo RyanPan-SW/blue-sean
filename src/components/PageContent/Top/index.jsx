@@ -19,14 +19,16 @@ function TopContent() {
       <div className='topContent'>
         <div className='container'>
           <div className='topContent-WeList'>
-            <div className='topContent-here'>We’re here to assist you with ：</div>
+            <div className='topContent-here'>
+              <div>We’re here to</div>
+              <div>assist you with ：</div>
+            </div>
 
             <div className='topContent-list'>
               {list.map((item, index) => {
                 return (
                   <Link to={item.to} className='topContent-item' key={index}>
-                    <span>{item.title}</span>
-                    <img src={right} alt='' />
+                    {item.title}
                   </Link>
                 )
               })}
@@ -35,7 +37,7 @@ function TopContent() {
         </div>
       </div>
 
-      <div className="topcontent-sup">
+      <div className='topcontent-sup'>
         <img className='triangle' src={triangle} alt='' />
       </div>
     </>

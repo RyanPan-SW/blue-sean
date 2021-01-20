@@ -6,6 +6,7 @@ import OtherHeader from '@/components/OtherPageHeader'
 // import Footer from '@/components/Footer'
 import Home from '@/pages/Home'
 import Services from '@/pages/Services'
+import { Container } from 'react-bootstrap'
 
 console.log(process.env.REACT_APP_BASEURL)
 
@@ -15,19 +16,31 @@ function BaseLayout() {
     return <Redirect to='/home' />
   }
 
+  // return (
+  //   <div className='App'>
+  //     <Layout style={{ background: '#f8f8f8' }}>
+  //       <Affix>{pathname.search('/home') > -1 ? <HomeHeader /> : <OtherHeader />}</Affix>
+  //       <Layout.Content>
+  //         <Switch>
+  //           <Route path='/home' component={Home} />
+  //           <Route path='/services' component={Services} />
+  //         </Switch>
+  //       </Layout.Content>
+  //       {/* <Footer /> */}
+  //     </Layout>
+  //   </div>
+  // )
+
   return (
-    <div className='App'>
-      <Layout style={{ background: '#f8f8f8' }}>
-        <Affix>{pathname.search('/home') > -1 ? <HomeHeader /> : <OtherHeader />}</Affix>
-        <Layout.Content>
-          <Switch>
-            <Route path='/home' component={Home} />
-            <Route path='/services' component={Services} />
-          </Switch>
-        </Layout.Content>
-        {/* <Footer /> */}
-      </Layout>
-    </div>
+    <>
+      <HomeHeader />
+      <div>
+        <Switch>
+          <Route path='/home' component={Home} />
+          <Route path='/services' component={Services} />
+        </Switch>
+      </div>
+    </>
   )
 }
 

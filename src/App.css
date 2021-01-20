@@ -2,29 +2,6 @@
   background: #ffffff;
 }
 
-.container {
-  width: 88.5%;
-  min-width: 1290px;
-  padding: 0;
-  margin: 0;
-  margin: auto;
-  display: block;
-}
-
-.triangle {
-  display: block;
-  margin: auto;
-}
-
-a:link {
-  text-decoration: none;
-}
-
-a:hover {
-  color: #ffffff;
-  text-decoration: none !important;
-}
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
