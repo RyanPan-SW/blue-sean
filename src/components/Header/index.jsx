@@ -35,7 +35,7 @@ const PageHeader = () => {
   const handleClose = () => setShow(false)
 
   return (
-    <header>
+    <>
       <div className='container'>
         <Navbar sticky='top' fixed='top' expand='xl' className='header-nav'>
           <Navbar.Brand className='navbtn navlogo header-logo'>
@@ -101,7 +101,7 @@ const PageHeader = () => {
           </div>
         </Modal.Body>
       </Modal>
-    </header>
+    </>
   )
 }
 

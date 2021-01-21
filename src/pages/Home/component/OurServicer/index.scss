@@ -23,8 +23,10 @@
 
     .ourSericer-content {
       width: 32%;
+      height: 350px;
       padding-top: 95px;
       padding-bottom: 40px;
+      position: relative;
 
       span {
         display: block;
@@ -38,20 +40,26 @@
       }
 
       .button {
-        width: 230px;
+        width: 200px;
         height: 50px;
         font-size: 16px;
         line-height: 50px;
+        position: absolute;
+        left: 50%;
+        bottom: 40px;
+        margin-left: -100px;
         background: #b38948;
         border: 1px solid #b38948;
         border-radius: 23px;
-        margin: auto;
-        margin-top: 55px;
         text-align: center;
         color: #ffffff;
 
         &:hover {
           color: #ffffff;
+        }
+
+        &:nth-of-type(2) {
+          margin-top: 60px;
         }
       }
     }
@@ -63,17 +71,17 @@
 }
 
 .bg1 {
-  background: url('../../../asset/legal.png') no-repeat;
+  background: url('../../../../asset/legal.png') no-repeat;
   background-size: cover;
 }
 
 .bg2 {
-  background: url('../../../asset/property.png') no-repeat;
+  background: url('../../../../asset/property.png') no-repeat;
   background-size: cover;
 }
 
 .bg3 {
-  background: url('../../../asset/legal2.png') no-repeat;
+  background: url('../../../../asset/legal2.png') no-repeat;
   background-size: cover;
 }
 

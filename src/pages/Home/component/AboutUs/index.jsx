@@ -1,8 +1,8 @@
 import React from 'react'
-import triangle from '../../../asset/triangle.png'
-import teacher from '../../../asset/teacher.png'
-import cooperation from '../../../asset/cooperation.png'
-import competitive from '../../../asset/competitive.png'
+import triangle from '../../../../asset/triangle.png'
+import teacher from '../../../../asset/teacher.png'
+import cooperation from '../../../../asset/cooperation.png'
+import competitive from '../../../../asset/competitive.png'
 import './index.scss'
 
 function AboutUs() {
@@ -59,7 +59,7 @@ function AboutUs() {
         </div>
       </div>
 
-      <div className="aboutUs-sup">
+      <div className='aboutUs-sup'>
         <img className='triangle' src={triangle} alt='' />
       </div>
     </>

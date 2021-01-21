@@ -17,8 +17,8 @@ function TopContent() {
               <span>SERVICES OF COURT DOCUMENTS</span>
               <span>{'  '}</span>
             </div>
-            <Link to='/services?type=1'>
-              <div className='button'>Read More</div>
+            <Link className='button' to='/services?type=1'>
+              Read More
             </Link>
           </div>
 
@@ -30,8 +30,8 @@ function TopContent() {
               <span>&</span>
               <span>REPORT</span>
             </div>
-            <Link to='/services?type=2'>
-              <div className='button'>Read More</div>
+            <Link className='button' to='/services?type=2'>
+              Read More
             </Link>
           </div>
 
@@ -43,8 +43,8 @@ function TopContent() {
               <span>SERVICES OF COURT DOCUMENTS</span>
               <span>{'  '}</span>
             </div>
-            <Link to='/services?type=3'>
-              <div className='button'>Read More</div>
+            <Link className='button' to='/services?type=3'>
+              Read More
             </Link>
           </div>
         </div>

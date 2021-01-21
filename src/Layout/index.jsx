@@ -5,6 +5,7 @@ import OtherHeader from '@/components/OtherPageHeader'
 // import Footer from '@/components/Footer'
 import Home from '@/pages/Home'
 import Services from '@/pages/Services'
+import { Layout, Affix } from 'antd'
 // import { Container } from 'react-bootstrap'
 
 console.log(process.env.REACT_APP_BASEURL)
@@ -16,15 +17,17 @@ function BaseLayout() {
   }
 
   return (
-    <>
-      {pathname.search('/home') > -1 ? <HomeHeader /> : <OtherHeader />}
-      <div>
+    <Layout>
+      <Layout.Header style={{ position: 'fixed',zIndex: 999 }}>
+        {pathname.search('/home') > -1 ? <HomeHeader /> : <OtherHeader />}
+      </Layout.Header>
+      <Layout.Content>
         <Switch>
           <Route path='/home' component={Home} />
           <Route path='/services' component={Services} />
         </Switch>
-      </div>
-    </>
+      </Layout.Content>
+    </Layout>
   )
 }
 

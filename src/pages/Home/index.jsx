@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as UserActionCreator from '@/store/actions/user'
-import Top from '@/components/PageContent/Top'
-import AboutUs from '@/components/PageContent/AboutUs'
-import ModalList from '@/components/PageContent/OurServicer'
+import Top from '@/pages/Home/component/Top'
+import AboutUs from '@/pages/Home/component/AboutUs'
+import ModalList from '@/pages/Home/component/OurServicer'
 
 import './index.css'
 import FooterComponent from '@/components/Footer'
