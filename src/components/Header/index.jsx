@@ -52,35 +52,36 @@ const PageHeader = () => {
             <img src={menu} alt='' />
           </Navbar.Toggle>
 
-          <div className='login-sgin'>
+          {/* <div className='login-sgin'>
             <Link to='/login' className='logIn'>
               Log in
             </Link>
             <Link to='/signup' className='signUp'>
               Sign up
             </Link>
-          </div>
+          </div> */}
 
           <Navbar.Collapse className='justify-content-end header-ul'>
             <Nav.Link href='/home' className='navbtn active'>
               Home
             </Nav.Link>
 
-            <NavDropdown title='Services' id='basic-nav-dropdown'>
+            {/* <NavDropdown title='Services' id='basic-nav-dropdown'>
               <NavDropdown.Item href='/services?type=1'>Property Settlement & Lodgment Services</NavDropdown.Item>
               <NavDropdown.Item href='/services?type=2'>Property & Body Corporate Searches & Report</NavDropdown.Item>
               <NavDropdown.Item href='/services?type=3'>Legal Documents Deliveries & Service of Court Documents</NavDropdown.Item>
               <NavDropdown.Item href='/services?type=3'>Schedule a New Pickup</NavDropdown.Item>
-            </NavDropdown>
+            </NavDropdown> */}
 
-            <Nav.Link className='navbtn'>Cooperation</Nav.Link>
-            <Nav.Link className='navbtn'>Contact</Nav.Link>
-            <Nav.Link className='navbtn'>Q&A</Nav.Link>
-            <Nav.Link className='navbtn'>
+            <Navbar className='navbtn'>Services</Navbar>
+            <Navbar className='navbtn'>Cooperation</Navbar>
+            <Navbar className='navbtn'>Contact</Navbar>
+            <Navbar className='navbtn'>Q&A</Navbar>
+            <Navbar className='navbtn'>
               <div className='become' onClick={handleShowModal}>
                 Become A Runner
               </div>
-            </Nav.Link>
+            </Navbar>
           </Navbar.Collapse>
         </Navbar>
 

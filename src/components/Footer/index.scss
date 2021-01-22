@@ -11,13 +11,15 @@
     display: flex;
 
     .footContent {
+      width: 90px;
       display: flex;
       align-items: center;
-      margin-right: 14%;
+      margin-right: 10%;
 
       img {
-        width: 150px;
-        height: 110px;
+        width: 100px;
+        // width: 90px;
+        // height: 60px;
       }
     }
 
