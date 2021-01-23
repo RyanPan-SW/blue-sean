@@ -16,7 +16,7 @@ function BaseLayout(props) {
   // }
 
   if (pathname === '/') {
-    debugger
+    
     return <Redirect to='/home' />
   }
 
