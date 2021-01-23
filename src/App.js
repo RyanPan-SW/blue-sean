@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch } from 'react-router-dom'
-import routesConfig from './router'
 import { PrivateRoute, RouteWithSubRoutes } from './router/renderRoutes'
+import { routesConfig } from './router'
 import './App.css'
 
 const App = () => {
@@ -9,13 +9,15 @@ const App = () => {
     <Router>
       <Switch>
         {routesConfig.map((route, i) => {
-          if (route.auth) {
+          const { auth, path, component: Component } = route
+          if (auth) {
             return (
-              <PrivateRoute key={i} path={route.path}>
-                <route.component />
+              <PrivateRoute key={i} path={path}>
+                <Component />
               </PrivateRoute>
             )
           }
+
           return <RouteWithSubRoutes key={i} {...route} />
         })}
       </Switch>

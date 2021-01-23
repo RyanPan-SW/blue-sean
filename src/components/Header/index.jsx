@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import * as UserActionCreator from '@/store/actions/user'
 import Logo from '../../asset/footer-logo.jpg'
 import menu from '../../asset/menu.svg'
@@ -9,27 +9,8 @@ import './index.scss'
 import { Modal, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 
 const PageHeader = () => {
-  const { pathname } = useLocation()
+  // const { pathname } = useLocation()
   const [show, setShow] = useState(false)
-
-  useEffect(() => {
-    document.documentElement.scrollTop = 0
-    if (pathname === '/home') {
-      //   window.addEventListener(
-      //     'scroll',
-      //     () => {
-      //       const top = document.documentElement.scrollTop
-      //       const header = document.getElementsByClassName('header')[0]
-      //       if (top >= 1200) {
-      //         header.style.background = '#00000080'
-      //       } else {
-      //         header.style.background = 'none'
-      //       }
-      //     },
-      //     false,
-      //   )
-    }
-  }, [pathname])
 
   const handleShowModal = () => setShow(true)
   const handleClose = () => setShow(false)
@@ -52,28 +33,33 @@ const PageHeader = () => {
             <img src={menu} alt='' />
           </Navbar.Toggle>
 
-          {/* <div className='login-sgin'>
+          <div className='login-sgin'>
             <Link to='/login' className='logIn'>
               Log in
             </Link>
             <Link to='/signup' className='signUp'>
               Sign up
             </Link>
-          </div> */}
+          </div>
 
           <Navbar.Collapse className='justify-content-end header-ul'>
             <Nav.Link href='/home' className='navbtn active'>
               Home
             </Nav.Link>
 
-            {/* <NavDropdown title='Services' id='basic-nav-dropdown'>
-              <NavDropdown.Item href='/services?type=1'>Property Settlement & Lodgment Services</NavDropdown.Item>
-              <NavDropdown.Item href='/services?type=2'>Property & Body Corporate Searches & Report</NavDropdown.Item>
-              <NavDropdown.Item href='/services?type=3'>Legal Documents Deliveries & Service of Court Documents</NavDropdown.Item>
+            <NavDropdown title='Services' id='basic-nav-dropdown'>
+              <NavDropdown.Item href='/services?type=1'>
+                Property Settlement & Lodgment Services
+              </NavDropdown.Item>
+              <NavDropdown.Item href='/services?type=2'>
+                Property & Body Corporate Searches & Report
+              </NavDropdown.Item>
+              <NavDropdown.Item href='/services?type=3'>
+                Legal Documents Deliveries & Service of Court Documents
+              </NavDropdown.Item>
               <NavDropdown.Item href='/services?type=3'>Schedule a New Pickup</NavDropdown.Item>
-            </NavDropdown> */}
+            </NavDropdown>
 
-            <Navbar className='navbtn'>Services</Navbar>
             <Navbar className='navbtn'>Cooperation</Navbar>
             <Navbar className='navbtn'>Contact</Navbar>
             <Navbar className='navbtn'>Q&A</Navbar>
@@ -84,8 +70,6 @@ const PageHeader = () => {
             </Navbar>
           </Navbar.Collapse>
         </Navbar>
-
-        <div></div>
       </div>
 
       <Modal show={show} onHide={handleClose} centered>

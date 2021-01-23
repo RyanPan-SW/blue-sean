@@ -13,6 +13,8 @@ const Login = ({ login, history }) => {
     login()
     history.push('/')
   }
+  debugger
+  
   return (
     <div className='login'>
       <Button onClick={loginClick}>登录</Button>

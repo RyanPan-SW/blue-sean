@@ -2,11 +2,13 @@ import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 
 /*登录检测路由*/
-export function PrivateRoute({ children, ...rest }) {
+export function PrivateRoute({ children, ...route }) {
+  console.log('object==> 登录检测路由 PrivateRoute', children, route)
+
   let isAuthenticated = sessionStorage.auth
   return (
     <Route
-      {...rest}
+      {...route}
       render={({ location }) =>
         isAuthenticated ? (
           children
@@ -24,15 +26,16 @@ export function PrivateRoute({ children, ...rest }) {
 }
 
 /*开放路由*/
-export /*开放路由*/
-function RouteWithSubRoutes(route) {
+export function RouteWithSubRoutes(route) {
+  const { path, exact = false, component: Component } = route
+  console.log('object==> 开放路由 RouteWithSubRoutes')
+
   return (
     <Route
-      exact={route.exact}
-      path={route.path}
+      exact={exact}
+      path={path}
       render={(props) => (
-        // pass the sub-routes down to keep nesting
-        <route.component {...props} routes={route.routes} />
+        <Component {...props} routes={route.routes} />
       )}
     />
   )

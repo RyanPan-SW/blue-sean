@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import * as UserActionCreator from '@/store/actions/user'
 import Logo from '../../asset/logo-dark.png'
 import menu from '../../asset/menu.svg'
@@ -9,33 +9,13 @@ import './index.scss'
 import { Modal, Nav, Navbar } from 'react-bootstrap'
 
 const PageHeader = () => {
-  const { pathname } = useLocation()
   const [show, setShow] = useState(false)
-
-  useEffect(() => {
-    document.documentElement.scrollTop = 0
-    if (pathname === '/home') {
-      //   window.addEventListener(
-      //     'scroll',
-      //     () => {
-      //       const top = document.documentElement.scrollTop
-      //       const header = document.getElementsByClassName('header')[0]
-      //       if (top >= 1200) {
-      //         header.style.background = '#00000080'
-      //       } else {
-      //         header.style.background = 'none'
-      //       }
-      //     },
-      //     false,
-      //   )
-    }
-  }, [pathname])
 
   const handleShowModal = () => setShow(true)
   const handleClose = () => setShow(false)
 
   return (
-    <header className="otherHeader">
+    <header className='otherHeader'>
       <div className='container'>
         <Navbar sticky='top' fixed='top' expand='xl' className='header-nav'>
           <Navbar.Brand className='navbtn navlogo header-logo'>
@@ -53,7 +33,9 @@ const PageHeader = () => {
           </Navbar.Toggle>
 
           <Navbar.Collapse className='justify-content-end header-ul'>
-            <Nav.Link className='navbtn'><Link to="/home">Home</Link></Nav.Link>
+            <Nav.Link className='navbtn'>
+              <Link to='/home'>Home</Link>
+            </Nav.Link>
             <Nav.Link className='navbtn active'>Services</Nav.Link>
             <Nav.Link className='navbtn'>Cooperation</Nav.Link>
             <Nav.Link className='navbtn'>Contact</Nav.Link>

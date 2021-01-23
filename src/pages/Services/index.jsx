@@ -4,7 +4,7 @@ import * as CounterActionCreator from '@/store/actions/counter'
 import Services from '@/components/PageContent/Services'
 
 const Test = ({ num, add, minus }) => {
-  const type = getQueryVariable('type')
+  const type = getQueryVariable('type') || 1
   return (
     <div style={{ paddingTop: 120 }}>
       <Services type={type} />
