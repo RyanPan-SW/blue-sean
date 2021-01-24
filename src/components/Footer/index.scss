@@ -3,11 +3,11 @@
   width: 100%;
   background: #414141;
   padding-top: 75px;
-  padding-left: 17.94%;
   padding-bottom: 55px;
   color: #ffffff;
 
   .container {
+    width: 60%;
     display: flex;
 
     .footContent {
@@ -41,10 +41,15 @@
 @media only screen and (max-width: 1200px) {
   .page-footer {
     .container {
-      display: inline-flex;
       
       .footContent {
-        margin-right: 2%;
+        margin-right: 10%;
+      }
+
+      ul {
+        li {
+          font-size: 20px;
+        }
       }
     }
   }
@@ -54,13 +59,16 @@
 @media only screen and (max-width: 768px) {
   .page-footer {
     .container {
+      width: 80%;
       flex-direction: column;
       
       .footContent {
-        margin-right: 2%;
+        width: 100%;
+        margin-right: 0;
         margin-bottom: 30px;
 
         img {
+          display: block;
           margin: auto;
         }
       }
