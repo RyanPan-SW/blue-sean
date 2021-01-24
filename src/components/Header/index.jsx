@@ -4,19 +4,18 @@ import { Link } from 'react-router-dom'
 import * as UserActionCreator from '@/store/actions/user'
 import Logo from '../../asset/footer-logo.jpg'
 import menu from '../../asset/menu.svg'
-import './index.scss'
-// import { Modal } from 'antd'
 import { Modal, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 
+import './index.scss'
+
 const PageHeader = () => {
-  // const { pathname } = useLocation()
   const [show, setShow] = useState(false)
 
   const handleShowModal = () => setShow(true)
   const handleClose = () => setShow(false)
 
   return (
-    <>
+    <div className="homePageHeader">
       <div className='container'>
         <Navbar sticky='top' fixed='top' expand='xl' className='header-nav'>
           <Navbar.Brand className='navbtn navlogo header-logo'>
@@ -86,7 +85,7 @@ const PageHeader = () => {
           </div>
         </Modal.Body>
       </Modal>
-    </>
+    </div>
   )
 }
 

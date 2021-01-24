@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 import * as UserActionCreator from '@/store/actions/user'
 import Logo from '../../asset/logo-dark.png'
 import menu from '../../asset/menu.svg'
+import { Modal, Nav, Navbar, NavDropdown } from 'react-bootstrap'
+
 import './index.scss'
-// import { Modal } from 'antd'
-import { Modal, Nav, Navbar } from 'react-bootstrap'
 
 const PageHeader = () => {
   const [show, setShow] = useState(false)
@@ -15,7 +15,7 @@ const PageHeader = () => {
   const handleClose = () => setShow(false)
 
   return (
-    <header className='otherHeader'>
+    <div className='otherHeader'>
       <div className='container'>
         <Navbar sticky='top' fixed='top' expand='xl' className='header-nav'>
           <Navbar.Brand className='navbtn navlogo header-logo'>
@@ -32,11 +32,33 @@ const PageHeader = () => {
             <img src={menu} alt='' />
           </Navbar.Toggle>
 
+          <div className='login-sgin'>
+            <Link to='/login' className='logIn'>
+              Log in
+            </Link>
+            <Link to='/signup' className='signUp'>
+              Sign up
+            </Link>
+          </div>
+
           <Navbar.Collapse className='justify-content-end header-ul'>
-            <Nav.Link className='navbtn'>
-              <Link to='/home'>Home</Link>
+            <Nav.Link href='/home' className='navbtn'>
+              Home
             </Nav.Link>
-            <Nav.Link className='navbtn active'>Services</Nav.Link>
+
+            <NavDropdown title='Services' id='basic-nav-dropdown'>
+              <NavDropdown.Item href='/services?type=1'>
+                Property Settlement & Lodgment Services
+              </NavDropdown.Item>
+              <NavDropdown.Item href='/services?type=2'>
+                Property & Body Corporate Searches & Report
+              </NavDropdown.Item>
+              <NavDropdown.Item href='/services?type=3'>
+                Legal Documents Deliveries & Service of Court Documents
+              </NavDropdown.Item>
+              <NavDropdown.Item href='/services?type=3'>Schedule a New Pickup</NavDropdown.Item>
+            </NavDropdown>
+
             <Nav.Link className='navbtn'>Cooperation</Nav.Link>
             <Nav.Link className='navbtn'>Contact</Nav.Link>
             <Nav.Link className='navbtn'>Q&A</Nav.Link>
@@ -63,7 +85,7 @@ const PageHeader = () => {
           </div>
         </Modal.Body>
       </Modal>
-    </header>
+    </div>
   )
 }
 

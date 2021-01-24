@@ -4,9 +4,10 @@ import * as UserActionCreator from '@/store/actions/user'
 import Top from '@/pages/Home/component/Top'
 import AboutUs from '@/pages/Home/component/AboutUs'
 import ModalList from '@/pages/Home/component/OurServicer'
+import JoinUs from '@/pages/Home/component/JoinUs'
+import FooterComponent from '@/components/Footer'
 
 import './index.css'
-import FooterComponent from '@/components/Footer'
 
 const Home = () => {
   // const { isLogin, login, logout } = props
@@ -20,6 +21,8 @@ const Home = () => {
       <AboutUs />
 
       <ModalList />
+
+      <JoinUs />
 
       <FooterComponent />
     </div>

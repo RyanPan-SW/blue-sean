@@ -6,13 +6,23 @@ import OtherHeader from '@/components/OtherPageHeader'
 import Home from '@/pages/Home'
 import Services from '@/pages/Services'
 import { Layout } from 'antd'
+import './index.scss'
 
 function BaseLayout(props) {
   const { pathname } = useLocation()
 
   return (
     <Layout>
-      <Layout.Header style={{ position: 'fixed', zIndex: 999 }}>
+      <Layout.Header
+        style={{
+          height: 'auto',
+          position: 'fixed',
+          zIndex: 2,
+          width: '100%',
+          padding: 0,
+          background: 'none'
+        }}
+      >
         {pathname.search('/home') > -1 ? <HomeHeader /> : <OtherHeader />}
       </Layout.Header>
       <Layout.Content>

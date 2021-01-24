@@ -1,0 +1,84 @@
+.join {
+  width: 100%;
+  background: url('../../../../asset/join.png') no-repeat;
+  background-size: cover;
+}
+
+.join-us-icon {
+  display: block;
+  margin: auto;
+}
+
+.Join-us {
+  width: 42.2%;
+  margin: auto;
+  padding-top: 55px;
+  padding-bottom: 40px;
+
+  h3 {
+    padding-bottom: 20px;
+    text-align: center;
+    font-size: 32px;
+    color: #333333;
+    font-weight: bold;
+  }
+
+  p {
+    color: #b38948;
+    font-size: 20px;
+    text-align: center;
+    padding-bottom: 70px;
+  }
+
+  .formItem {
+    padding-bottom: 40px;
+  }
+
+  .join-name {
+    display: flex;
+    justify-content: space-between;
+
+    & > .formItem {
+      width: 49%;
+      padding-bottom: 40px;
+    }
+  }
+
+  .form-input {
+    width: 100%;
+    height: 40px;
+    font-size: 14px;
+    padding: 4px 6px;
+  }
+
+  .form-TextArea {
+    width: 100%;
+    height: 300px;
+    padding: 8px;
+  }
+
+  .submit-buttom {
+    width: 247px;
+    height: 55px;
+    display: block;
+    border-radius: 28px;
+    background-color: #b38948;
+    color: #ffffff;
+    border: none;
+    font-size: 20px;
+    margin: auto;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .Join-us {
+    .join-name {
+      flex-direction: column;
+
+      .formItem {
+        width: 100%;
+        padding-bottom: 20px;
+      }
+    }
+  }
+}

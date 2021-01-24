@@ -13,9 +13,11 @@
 .otherHeader {
   width: 100%;
   background: #ffffff;
-  position: fixed;
-  z-index: 99;
   border-bottom: 1px solid #474747d7;
+
+  a {
+    color: #474747;
+  }
 
   .header-nav {
     padding-top: 20px;
@@ -72,7 +74,7 @@
   }
 
   .nav-link {
-    padding: 1.5rem 1rem;
+    padding: 0.5rem 1rem;
   }
 
   .navbar-toggler {
@@ -90,6 +92,50 @@
     background: #b38948;
     border-radius: 15px;
     cursor: pointer;
+  }
+
+  .login-sgin {
+    width: 130px;
+    position: fixed;
+    right: 9%;
+    top: 13px;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+
+    .logIn,
+    .signUp {
+      // width: 55px;
+      font-size: 14px;
+      padding-left: 10px;
+      line-height: 20px;
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+      }
+    }
+
+    .logIn {
+      &::before {
+        width: 8px;
+        height: 11px;
+        top: 5px;
+        left: -5px;
+        background: url('../../asset/Log-in.jpg') no-repeat;
+      }
+    }
+
+    .signUp {
+      &::before {
+        width: 12px;
+        height: 12px;
+        top: 5px;
+        left: -5px;
+        background: url('../../asset/Sign-up.jpg') no-repeat;
+      }
+    }
   }
 }
 
