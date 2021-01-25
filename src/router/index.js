@@ -6,13 +6,20 @@ import Cooperation from '@/pages/Cooperation'
 import Contact from '@/pages/Contact'
 import Question from '@/pages/Question'
 import Becom from '@/pages/Become'
+import Page404 from '@/pages/404'
 
 export const routesConfig = [
   {
     path: '/login',
-    auth: false,
+    auth: true,
     exact: true,
     component: Login,
+  },
+  {
+    path: '/404',
+    auth: false,
+    exact: true,
+    component: Page404,
   },
   {
     path: '/',
