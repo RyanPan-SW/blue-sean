@@ -20,7 +20,7 @@ function JoinUs(props) {
     },
   }
 
-  const onFinish = (values: any) => {
+  const onFinish = (values) => {
     console.log(values)
   }
 
@@ -72,7 +72,10 @@ function JoinUs(props) {
             rules={[{ required: true, message: 'please Enter' }]}
             className='formItem'
           >
-            <Input.TextArea placeholder='Describe your problems' style={{ width: '100%', height: 300 }} />
+            <Input.TextArea
+              placeholder='Describe your problems'
+              style={{ width: '100%', height: 300 }}
+            />
           </Form.Item>
 
           <Form.Item className='formItem'>

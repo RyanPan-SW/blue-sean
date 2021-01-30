@@ -10,12 +10,6 @@ import Page404 from '@/pages/404'
 
 export const routesConfig = [
   {
-    path: '/login',
-    auth: true,
-    exact: true,
-    component: Login,
-  },
-  {
     path: '/404',
     auth: false,
     exact: true,
@@ -32,6 +26,12 @@ export const routesConfig = [
     auth: false,
     exact: false,
     component: Home,
+  },
+  {
+    path: '/login',
+    auth: false,
+    exact: true,
+    component: Login,
   },
   {
     path: '/services',

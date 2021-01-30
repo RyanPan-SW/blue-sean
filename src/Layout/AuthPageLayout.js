@@ -7,6 +7,7 @@ import Home from '@/pages/Home'
 import Services from '@/pages/Services'
 import { Layout } from 'antd'
 import './index.scss'
+import Login from '@/pages/Login'
 
 function BaseLayout(props) {
   const { pathname } = useLocation()
@@ -20,13 +21,14 @@ function BaseLayout(props) {
           zIndex: 2,
           width: '100%',
           padding: 0,
-          background: 'none'
+          background: 'none',
         }}
       >
         {pathname.search('/home') > -1 ? <HomeHeader /> : <OtherHeader />}
       </Layout.Header>
-      <Layout.Content>
+      <Layout.Content style={{ paddingTop: 150, background: '#fff' }}>
         <Switch>
+          <Route path='/login' component={Login} />
           <Route path='/home' component={Home} />
           <Route path='/services' component={Services} />
         </Switch>

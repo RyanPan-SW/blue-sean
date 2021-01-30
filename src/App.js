@@ -21,7 +21,7 @@ const App = () => {
 
           return <RouteWithSubRoutes key={i} {...route} />
         })}
-        <Redirect exact path='/notFound' component={Page404} />
+        <Redirect exact to='/notFound' component={Page404} />
       </Switch>
     </Router>
   )
