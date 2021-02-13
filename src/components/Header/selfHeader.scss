@@ -62,14 +62,23 @@
 
         .header-menu-sub-list {
           width: 460px;
-          padding: 0px 17px;
           background-color: #414141;
           transform: translate(-40%, 12px);
           position: absolute;
 
-          & > li {
+          .currentPage {
+            color: #b38948;
+          }
+
+          li {
+            margin: 0px 17px;
             font-size: 16px;
             border-bottom: 1px solid #616161;
+
+            a {
+              display: block;
+              width: 100%;
+            }
           }
         }
       }
@@ -186,15 +195,26 @@
         }
 
         .header-menu-sub-list {
+          color: #fff;
           width: 460px;
-          padding: 0px 17px;
           background-color: #414141;
           transform: translate(-40%, 12px);
           position: absolute;
 
-          & > li {
-            font-size: 16px;
+          .currentPage {
+            color: #b38948;
+          }
+
+          li {
+            margin: 0px 17px;
             border-bottom: 1px solid #616161;
+
+            a {
+              display: block;
+              width: 100%;
+              font-size: 16px;
+              color: #fff;
+            }
           }
         }
       }

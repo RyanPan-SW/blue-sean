@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
 import * as UserActionCreator from '@/store/actions/user'
+import classnames from 'classnames'
 import Logo from '../../asset/footer-logo.jpg'
 import LogoDark from '../../asset/logo-dark.png'
 import login from '../../asset/login.svg'
@@ -11,7 +12,8 @@ import down from '../../asset/down.svg'
 import './selfHeader.scss'
 
 const Header = (props) => {
-  const { pathname } = useLocation()
+  const { pathname, search } = useLocation()
+  console.log(useLocation())
 
   const [showSubtitle, setShowSubtitle] = useState(false)
 
@@ -35,12 +37,31 @@ const Header = (props) => {
       //   HidenSubtitle(e)
       // }}
     >
-      <li>Property Settlement & Lodgment Services</li>
-      <li>Property & Body Corporate Searches & Report</li>
-      <li>Legal Documents Deliveries & Service of Court Documents</li>
-      <li>Schedule a New Pickup</li>
+      <li>
+        <Link className={search === '?type=1' ? 'currentPage' : ''} to='/services?type=1'>
+          Property Settlement & Lodgment Services
+        </Link>
+      </li>
+      <li>
+        <Link className={search === '?type=2' ? 'currentPage' : ''} to='/services?type=2'>
+          Property & Body Corporate Searches & Report
+        </Link>
+      </li>
+      <li>
+        <Link className={search === '?type=3' ? 'currentPage' : ''} to='/services?type=3'>
+          Legal Documents Deliveries & Service of Court Documents
+        </Link>
+      </li>
+      <li>
+        Schedule a New Pickup
+        {/* <Link to='/services?type=4'>Schedule a New Pickup</Link> */}
+      </li>
     </ul>
   )
+
+  const isActive = (str) => {
+    return pathname.search(str) > -1 ? 'active' : ''
+  }
 
   return (
     <>
@@ -59,11 +80,11 @@ const Header = (props) => {
               </div>
 
               <ul className='header-nav-menu'>
-                <li className='active'>
+                <li className={isActive('home')}>
                   <Link to='/home'>Home</Link>
                 </li>
                 <li
-                  className='header-menu-down'
+                  className={classnames('header-menu-down', isActive('services'))}
                   onClick={() => setShowSubtitle(!showSubtitle)}
                   // onMouseOver={(e) => {
                   //   ExpandSubtitle(e)
@@ -76,9 +97,9 @@ const Header = (props) => {
                   <img src={down} alt='' />
                   {showSubtitle && Subtitle}
                 </li>
-                <li>Cooperation</li>
-                <li>Contact</li>
-                <li>Q&A</li>
+                <li className={isActive('cooperation')}>Cooperation</li>
+                <li className={isActive('contact')}>Contact</li>
+                <li className={isActive('question')}>Q&A</li>
                 <li>
                   <Link to='/become' className='become'>
                     Become A Runner
@@ -130,11 +151,11 @@ const Header = (props) => {
               </div>
 
               <ul className='header-nav-menu'>
-                <li className='active'>
+                <li className={isActive('home')}>
                   <Link to='/home'>Home</Link>
                 </li>
                 <li
-                  className='header-menu-down'
+                  className={classnames('header-menu-down', isActive('services'))}
                   onClick={() => setShowSubtitle(!showSubtitle)}
                   // onMouseOver={(e) => {
                   //   ExpandSubtitle(e)

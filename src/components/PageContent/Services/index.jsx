@@ -1,4 +1,5 @@
 import React from 'react'
+import classnames from 'classnames'
 import servicesPage from '../../../asset/services-page.png'
 import servicesbody from '../../../asset/services-body.png'
 import serviceslegal from '../../../asset/services-legal.png'
@@ -87,7 +88,7 @@ function Services({ type = 1 }) {
                 <img src={serviceslegal} alt='' />
               </div>
 
-              <ul className='services-list'>
+              <ul className={classnames('services-list', 'services-pickup-list')}>
                 <li>
                   Same day legal documents courier services in Brisbane and Gold Coast (please check
                   our cut-off times before you place order);
@@ -100,6 +101,10 @@ function Services({ type = 1 }) {
                 </li>
               </ul>
             </div>
+
+            <div className='services-or'>or</div>
+
+            <div className='services-pickup'>Schedule a New Pickup</div>
           </div>
         )}
       </div>

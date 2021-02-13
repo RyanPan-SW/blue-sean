@@ -31,7 +31,7 @@ function BaseLayout({ footer = true }) {
       >
         <PageHeader />
       </Layout.Header>
-      <Layout.Content style={{ paddingTop: pathname === '/home' ? 0 : 130, background: '#fff' }}>
+      <Layout.Content style={{ paddingTop: pathname === '/home' ? 0 : 130, background: '#fff', paddingBottom: 50 }}>
         <Switch>
           <Route path='/login' component={Login} />
           <Route path='/home' component={Home} />
