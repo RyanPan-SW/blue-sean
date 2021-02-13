@@ -70,6 +70,35 @@
   }
 }
 
+.join-modal-body {
+  padding: 70px 24px 20px 24px;
+}
+
+.modal-title {
+  font-size: 20px;
+  color: #010101;
+  line-height: 63px;
+}
+
+.modal-content-span {
+  line-height: 25px;
+  color: #414141;
+}
+
+.modal-ok {
+  text-align: right;
+  padding-top: 50px;
+
+  span {
+    display: inline-block;
+    text-align: center;
+    width: 50px;
+    font-size: 16px;
+    color: #474747;
+    line-height: 20px;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .Join-us {
     .join-name {

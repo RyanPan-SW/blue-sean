@@ -58,7 +58,7 @@ export const routesConfig = [
     component: Question,
   },
   {
-    path: '/becom',
+    path: '/become',
     auth: false,
     exact: false,
     component: Becom,

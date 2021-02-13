@@ -12,10 +12,10 @@ const Login = ({ login, history }) => {
     test()
   })
 
-  const loginClick = () => {
-    login()
-    history.push('/')
-  }
+  // const loginClick = () => {
+  //   login()
+  //   history.push('/')
+  // }
 
   const changeTabs = (key) => {
     setActiveTab(key)
@@ -85,7 +85,7 @@ const Login = ({ login, history }) => {
                 <Checkbox>Keep me log in</Checkbox>
               </Form.Item>
 
-              <a className='login-form-forgot' href=''>
+              <a className='login-form-forgot' href='//#endregion'>
                 Forgot password
               </a>
             </Form.Item>
@@ -148,7 +148,7 @@ const Login = ({ login, history }) => {
                 <Checkbox>Keep me log in</Checkbox>
               </Form.Item>
 
-              <a className='login-form-forgot' href=''>
+              <a className='login-form-forgot' href='//#endregion'>
                 Forgot password
               </a>
             </Form.Item>

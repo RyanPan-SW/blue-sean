@@ -1,0 +1,246 @@
+.header {
+  width: 100%;
+  padding-top: 40px;
+  background: #000000a8;
+  // border-bottom: 1px solid #fff;
+
+  .header-navbar {
+    display: flex;
+    justify-content: space-between;
+    color: #ffffff;
+
+    .header-navBrand {
+      a {
+        display: flex;
+        align-items: center;
+
+        .logo-img {
+          width: 90px;
+          height: 60px;
+          position: relative;
+          margin-bottom: 10px;
+
+          img {
+            display: inline-block;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+          }
+        }
+
+        .title-font {
+          margin-left: 25px;
+          color: #ffffff;
+          font-size: 27px;
+          font-weight: 700;
+        }
+      }
+    }
+
+    .header-nav-menu {
+      margin: 0;
+      height: 100%;
+      display: flex;
+      position: relative;
+
+      & > li {
+        padding: 0.5em 1em;
+
+        &:nth-last-of-type(1) {
+          display: flex;
+          align-items: center;
+        }
+      }
+
+      .header-menu-down {
+        position: relative;
+
+        img {
+          width: 20px;
+        }
+
+        .header-menu-sub-list {
+          width: 460px;
+          padding: 0px 17px;
+          background-color: #414141;
+          transform: translate(-40%, 12px);
+          position: absolute;
+
+          & > li {
+            font-size: 16px;
+            border-bottom: 1px solid #616161;
+          }
+        }
+      }
+
+      .become {
+        padding: 0;
+        margin: 0;
+        width: 190px;
+        height: 35px;
+        line-height: 35px;
+        font-size: 16px;
+        text-align: center;
+        color: #fff;
+        font-weight: bold;
+        background: #b38948;
+        border-radius: 15px;
+        cursor: pointer;
+      }
+
+      .header-loginbox {
+        position: absolute;
+        right: 20px;
+        top: -40px;
+        width: 180px;
+        display: flex;
+        justify-content: space-between;
+
+        .header-login,
+        .header-signup {
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          color: #fff;
+
+          img {
+            width: 15px;
+            height: 20px;
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  .active {
+    border-bottom: 4px solid #fff;
+  }
+}
+
+.otherHeader {
+  width: 100%;
+  padding-top: 40px;
+  background: #fff;
+  border-bottom: 1px solid #414141;
+
+  .header-navbar {
+    display: flex;
+    justify-content: space-between;
+    color: #414141;
+
+    .header-navBrand {
+      a {
+        display: flex;
+        align-items: center;
+
+        .logo-img {
+          width: 90px;
+          height: 60px;
+          position: relative;
+          margin-bottom: 10px;
+
+          img {
+            display: inline-block;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+          }
+        }
+
+        .title-font {
+          margin-left: 25px;
+          color: #414141;
+          font-size: 27px;
+          font-weight: 700;
+        }
+      }
+    }
+
+    .header-nav-menu {
+      margin: 0;
+      height: 100%;
+      display: flex;
+      position: relative;
+
+      a {
+        color: #414141;
+      }
+
+      & > li {
+        padding: 0.5em 1em;
+
+        &:nth-last-of-type(1) {
+          display: flex;
+          align-items: center;
+        }
+      }
+
+      .header-menu-down {
+        position: relative;
+
+        img {
+          width: 20px;
+        }
+
+        .header-menu-sub-list {
+          width: 460px;
+          padding: 0px 17px;
+          background-color: #414141;
+          transform: translate(-40%, 12px);
+          position: absolute;
+
+          & > li {
+            font-size: 16px;
+            border-bottom: 1px solid #616161;
+          }
+        }
+      }
+
+      .become {
+        padding: 0;
+        margin: 0;
+        width: 190px;
+        height: 35px;
+        line-height: 35px;
+        font-size: 16px;
+        text-align: center;
+        color: #b38948;
+        font-weight: bold;
+        background: #fff;
+        border-radius: 15px;
+        border: 1px solid #b38948;
+        cursor: pointer;
+      }
+
+      .header-loginbox {
+        position: absolute;
+        right: 20px;
+        top: -40px;
+        width: 180px;
+        display: flex;
+        justify-content: space-between;
+
+        .header-login,
+        .header-signup {
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          color: #414141;
+
+          img {
+            width: 15px;
+            height: 20px;
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  .active {
+    border-bottom: 4px solid #414141;
+  }
+}

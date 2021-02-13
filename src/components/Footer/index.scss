@@ -5,6 +5,7 @@
   padding-top: 75px;
   padding-bottom: 55px;
   color: #ffffff;
+  border-bottom: 1px solid #000;
 
   .container {
     width: 50%;
@@ -35,6 +36,17 @@
         }
       }
     }
+  }
+}
+
+.Copyright {
+  background-color: #414141;
+
+  .container {
+    color: #a9a1a1;
+    display: flex;
+    justify-content: space-evenly;
+    line-height: 60px;
   }
 }
 

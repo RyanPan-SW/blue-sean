@@ -1,0 +1,154 @@
+.become {
+  .banner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    .become-deriction {
+      flex: 1px;
+      text-align: center;
+      padding-left: 200px;
+      color: #333333;
+      font-weight: bold;
+
+      .become-banner-title {
+        font-size: 45px;
+      }
+
+      .become-banner-subhead {
+        font-size: 30px;
+        padding: 50px 0px;
+      }
+
+      .become-banner-buttonGroup {
+        display: flex;
+        justify-content: space-evenly;
+
+        .becomer-banner-register {
+          width: 225px;
+          height: 55px;
+          border-radius: 50px;
+          background-color: #bc873a;
+          color: #fff;
+          font-size: 18px;
+        }
+        .become-banner-finf {
+          font-size: 18px;
+          width: 225px;
+          height: 55px;
+          border-radius: 50px;
+          background-color: #414141;
+          color: #fff;
+        }
+      }
+    }
+
+    .become-banner-img {
+      flex: 1;
+    }
+  }
+
+  .become-row {
+    width: 70%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 120px 0;
+    text-align: center;
+
+    .become-row-img {
+      display: block;
+      margin: auto;
+    }
+
+    .become-row-title {
+      font-size: 25px;
+      font-weight: bold;
+      padding-top: 35px;
+      padding-bottom: 20px;
+    }
+  }
+
+  .become-need {
+    width: 100%;
+    padding: 100px 0;
+    position: relative;
+    background-color: #ffffff; /* 浏览器不支持时显示 */
+    background-image: linear-gradient(#414141 68%, #ffffff 68%);
+
+    h3 {
+      font-size: 32px;
+      color: #fff;
+      text-align: center;
+    }
+
+    .become-need-list {
+      width: 75%;
+      padding-top: 80px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      text-align: center;
+
+      .become-need-box {
+        width: 400px;
+        background-color: #fff;
+        padding-top: 200px;
+        padding-bottom: 150px;
+        box-shadow: 0px 5px 60px 0px rgba(0, 33, 14, 0.1);
+      }
+
+      img {
+        display: block;
+        margin: auto;
+      }
+
+      h4 {
+        font-size: 25px;
+        font-weight: bold;
+        line-height: 30px;
+        padding-top: 30px;
+      }
+    }
+  }
+
+  .become-Register-Now {
+    width: 100%;
+    padding: 120px 0px;
+
+    h3 {
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .become-register-step {
+      width: 45%;
+      margin: auto;
+      padding-top: 40px;
+
+      p {
+        text-align: center;
+        color: #b38948;
+        font-size: 20px;
+        line-height: 57px;
+      }
+
+      ul {
+        background-color: #414141;
+        padding: 60px 260px;
+        border-bottom-right-radius: 50px;
+      }
+
+      li {
+        color: #fff;
+        font-size: 16px;
+        line-height: 30px;
+
+        &:nth-last-of-type(1) {
+          padding-left: 20px;
+        }
+      }
+    }
+  }
+}
