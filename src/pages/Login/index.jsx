@@ -4,6 +4,7 @@ import { Button, Form, Input, Checkbox } from 'antd'
 import { test } from '@/api/user'
 import * as UserActionCreator from '@/store/actions/user'
 import './index.scss'
+import { Link } from 'react-router-dom'
 
 const Login = ({ login, history }) => {
   const [activeTab, setActiveTab] = useState(1)
@@ -43,7 +44,7 @@ const Login = ({ login, history }) => {
 
           <div className='login-personal'>
             <span>Don't have a personal account?</span>
-            <span className='login-sgin'>Sgin up.</span>
+            <Link to="/signup" className='login-sgin'>Sgin up.</Link>
           </div>
 
           <Form

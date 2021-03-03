@@ -61,7 +61,9 @@ function Become() {
           </div>
         </div>
 
-        <img className='become-banner-img' src={becomeBanner} alt='' />
+        <div className='become-banner-img'>
+          <img src={becomeBanner} alt='' />
+        </div>
       </div>
 
       <div className='become-row'>
@@ -82,7 +84,7 @@ function Become() {
         <div className='become-need-list'>
           {becomeWeNeed.map((item, index) => {
             return (
-              <div className='become-need-box'>
+              <div className='become-need-box' key={index}>
                 <img src={item.image} alt='' />
 
                 <h4>{item.title}</h4>

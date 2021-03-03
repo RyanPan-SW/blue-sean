@@ -8,46 +8,51 @@ import phone from '../../asset/phone.png'
 import clock from '../../asset/clock.png'
 // import fax from '../../asset/fax.png'
 import './index.scss'
+import { useLocation } from 'react-router'
 
 // const { Footer } = Layout
 
 const FooterComponent = () => {
+  const { pathname } = useLocation()
+
   return (
     <>
-      <div className='page-footer'>
-        <div className='container'>
-          <div className='footContent'>
-            <img src={logo} alt='' />
-          </div>
+      {pathname.search('/home') > -1 && (
+        <div className='page-footer'>
+          <div className='container'>
+            <div className='footContent'>
+              <img src={logo} alt='' />
+            </div>
 
-          <ul>
-            <li>
-              <img src={Email} alt='' />
-              <span>Email: info@dcglobalsolutions.com.au</span>
-            </li>
-            <li>
-              <img src={address} alt='' />
-              <span>Address: 5/5 Davenport Street, Southport QLD 4215</span>
-            </li>
-            {/* <li>
+            <ul>
+              <li>
+                <img src={Email} alt='' />
+                <span>Email: info@dcglobalsolutions.com.au</span>
+              </li>
+              <li>
+                <img src={address} alt='' />
+                <span>Address: 5/5 Davenport Street, Southport QLD 4215</span>
+              </li>
+              {/* <li>
             <img src={letter} alt='' />
             <span>PO Box: TBA</span>
           </li> */}
-            <li>
-              <img src={clock} alt='' />
-              <span>Office Hours: Monday – Friday 8:30am to 5:00pm</span>
-            </li>
-            <li>
-              <img src={phone} alt='' />
-              <span>PH: 07 5649 8619</span>
-            </li>
-            {/* <li>
+              <li>
+                <img src={clock} alt='' />
+                <span>Office Hours: Monday – Friday 8:30am to 5:00pm</span>
+              </li>
+              <li>
+                <img src={phone} alt='' />
+                <span>PH: 07 5649 8619</span>
+              </li>
+              {/* <li>
             <img src={fax} alt='' />
             <span>FAX: TBA</span>
           </li> */}
-          </ul>
+            </ul>
+          </div>
         </div>
-      </div>
+      )}
 
       <div className='Copyright'>
         <div className='container'>

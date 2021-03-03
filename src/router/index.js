@@ -1,11 +1,14 @@
 import BaseLayout from '@/Layout'
 import Login from '@/pages/Login'
 import Home from '@/pages/Home'
+// import SignUp from '@/pages/SignUp'
 import Services from '@/pages/Services'
 import Cooperation from '@/pages/Cooperation'
 import Contact from '@/pages/Contact'
 import Question from '@/pages/Question'
 import Becom from '@/pages/Become'
+import PrivacyPolicy from '@/pages/PrivacyPolicy'
+
 import Page404 from '@/pages/404'
 
 export const routesConfig = [
@@ -33,6 +36,12 @@ export const routesConfig = [
     exact: true,
     component: Login,
   },
+  // {
+  //   path: '/signup',
+  //   auth: false,
+  //   exact: true,
+  //   component: SignUp,
+  // },
   {
     path: '/services',
     auth: false,
@@ -62,6 +71,12 @@ export const routesConfig = [
     auth: false,
     exact: false,
     component: Becom,
+  },
+  {
+    path: '/privacypolicy',
+    auth: false,
+    exact: false,
+    component: PrivacyPolicy,
   },
 ]
 

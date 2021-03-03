@@ -1,8 +1,13 @@
 .login {
-  width: 740px;
+  width: 730px;
   margin: auto;
   background-color: #ffffff;
   box-shadow: 2px 0px 15px 4px #00000057;
+
+  .ant-checkbox-checked .ant-checkbox-inner {
+    background-color: #b38948;
+    border-color: #b38948;
+  }
 
   .active {
     color: #ffffff;

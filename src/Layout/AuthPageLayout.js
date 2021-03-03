@@ -9,7 +9,11 @@ import Home from '@/pages/Home'
 import Services from '@/pages/Services'
 import { Layout } from 'antd'
 import Login from '@/pages/Login'
+import SignUp from '@/pages/SignUp'
 import Become from '@/pages/Become'
+import PrivacyPolicy from '@/pages/PrivacyPolicy'
+import TermsOfUse from '@/pages/TermsOfUse'
+import BusinessCooperation from '@/pages/BusinessCooperation'
 
 import './index.scss'
 import FooterComponent from '@/components/Footer'
@@ -31,12 +35,22 @@ function BaseLayout({ footer = true }) {
       >
         <PageHeader />
       </Layout.Header>
-      <Layout.Content style={{ paddingTop: pathname === '/home' ? 0 : 130, background: '#fff', paddingBottom: 50 }}>
+      <Layout.Content
+        style={{
+          paddingTop: pathname === '/home' ? 0 : 130,
+          background: '#fff',
+          paddingBottom: 50,
+        }}
+      >
         <Switch>
           <Route path='/login' component={Login} />
+          <Route path='/signup' component={SignUp} />
           <Route path='/home' component={Home} />
           <Route path='/services' component={Services} />
           <Route path='/become' component={Become} />
+          <Route path='/privacypolicy' component={PrivacyPolicy} />
+          <Route path='/terms' component={TermsOfUse} />
+          <Route path='/business' component={BusinessCooperation} />
         </Switch>
       </Layout.Content>
 
