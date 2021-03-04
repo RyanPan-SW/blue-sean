@@ -16,8 +16,10 @@
         align-items: center;
 
         .logo-img {
-          width: 90px;
-          height: 60px;
+          // width: 90px;
+          // height: 60px;
+          width: 5.5rem;
+          height: 4rem;
           position: relative;
           margin-bottom: 10px;
 
@@ -33,7 +35,9 @@
         .title-font {
           margin-left: 25px;
           color: #ffffff;
-          font-size: 27px;
+          // font-size: 27px;
+          white-space: nowrap;
+          font-size: 1.5rem;
           font-weight: 700;
         }
       }
@@ -147,8 +151,10 @@
         align-items: center;
 
         .logo-img {
-          width: 90px;
-          height: 60px;
+          // width: 90px;
+          // height: 60px;
+          width: 5.5rem;
+          height: 4rem;
           position: relative;
           margin-bottom: 10px;
 
@@ -164,7 +170,9 @@
         .title-font {
           margin-left: 25px;
           color: #414141;
-          font-size: 27px;
+          // font-size: 27px;
+          font-size: 1.5rem;
+          white-space: nowrap;
           font-weight: 700;
         }
       }

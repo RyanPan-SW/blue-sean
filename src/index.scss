@@ -60,6 +60,13 @@ a:hover {
   text-decoration: none !important;
 }
 
+.ant-btn:focus,
+.ant-btn:hover {
+  color: #fff;
+  background-color: #b38948;
+  border-color: #b38948;
+}
+
 @media screen and (max-width: 1440px) {
   .container {
     width: 92%;

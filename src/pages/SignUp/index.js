@@ -15,13 +15,13 @@ function SignUp() {
   }
 
   /* eslint-disable no-template-curly-in-string */
-  const validateMessages = {
-    required: "'${label}' is required.",
-    types: {
-      email: 'Please enter a valid email address.',
-      password: 'This field is required.',
-    },
-  }
+  // const validateMessages = {
+  //   required: "'${label}' is required.",
+  //   types: {
+  //     email: 'Please enter a valid email address.',
+  //     password: 'This field is required.',
+  //   },
+  // }
 
   return (
     <div className='signup'>
@@ -50,7 +50,7 @@ function SignUp() {
           className='signup-form'
           layout='vertical'
           onFinish={onFinish}
-          validateMessages={validateMessages}
+          // validateMessages={validateMessages}
           // initialValues={{ requiredMark }}
           // onValuesChange={onRequiredTypeChange}
           // requiredMark={requiredMark}

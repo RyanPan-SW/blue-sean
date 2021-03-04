@@ -14,6 +14,7 @@ import Become from '@/pages/Become'
 import PrivacyPolicy from '@/pages/PrivacyPolicy'
 import TermsOfUse from '@/pages/TermsOfUse'
 import BusinessCooperation from '@/pages/BusinessCooperation'
+import Forget from '@/pages/Forget'
 
 import './index.scss'
 import FooterComponent from '@/components/Footer'
@@ -51,6 +52,7 @@ function BaseLayout({ footer = true }) {
           <Route path='/privacypolicy' component={PrivacyPolicy} />
           <Route path='/terms' component={TermsOfUse} />
           <Route path='/business' component={BusinessCooperation} />
+          <Route path='/forget' component={Forget} />
         </Switch>
       </Layout.Content>
 
