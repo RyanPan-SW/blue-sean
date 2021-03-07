@@ -23,6 +23,7 @@ import MyAccount from '@/pages/MyAccount'
 import MyOrders from '@/pages/MyOrders'
 
 import './index.scss'
+import Page404 from '@/pages/404'
 
 function BaseLayout({ footer = true }) {
   const { pathname } = useLocation()
@@ -52,7 +53,9 @@ function BaseLayout({ footer = true }) {
           <Route path='/login' component={Login} />
           <Route path='/signup' component={SignUp} />
           <Route path='/home' component={Home} />
-          <Route path='/services' component={Services} />
+          <Route path='/services' component={Services}>
+            {/* <Route path='/services:id' component={'1'} /> */}
+          </Route>
           <Route path='/become' component={Become} />
           <Route path='/privacypolicy' component={Privacy} />
           <Route path='/terms' component={TermsOfUse} />
@@ -63,6 +66,7 @@ function BaseLayout({ footer = true }) {
           <Route path='/contactus' component={ContactUs} />
           <Route path='/account' component={MyAccount} />
           <Route path='/Orders' component={MyOrders} />
+          <Route path='/404' component={Page404} />
         </Switch>
       </Layout.Content>
 
