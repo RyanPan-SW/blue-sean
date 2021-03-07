@@ -1,3 +1,6 @@
+// 1.房屋交割业务&法律调查业务
+// 2.Property & Body Corporate Searches & Report
+
 import React from 'react'
 import classnames from 'classnames'
 import servicesPage from '../../../asset/services-page.png'
@@ -104,6 +107,7 @@ function Services({ type = 1 }) {
 
             <div className='services-or'>or</div>
 
+            {/* TODO: 1、固定展示在下方 2、点击按钮当前页跳转到【文件下单Step1】页*/}
             <div className='services-pickup'>Schedule a New Pickup</div>
           </div>
         )}

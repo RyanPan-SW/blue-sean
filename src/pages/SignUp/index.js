@@ -4,7 +4,8 @@ import signhome from '../../asset/sign-home.png'
 import signuser from '../../asset/sign-user.png'
 import signaddress from '../../asset/sign-address.png'
 import { Link } from 'react-router-dom'
-import { ExclamationCircleFilled } from '@ant-design/icons'
+import FieldDom from '@/components/Field'
+
 import './index.scss'
 
 function SignUp() {
@@ -26,10 +27,12 @@ function SignUp() {
   return (
     <div className='signup'>
       <div className='signup-content'>
-        <div className='email-has-been'>
+        <FieldDom message={'Email has already been registered.'} />
+
+        {/* <div className='email-has-been'>
           <ExclamationCircleFilled style={{ color: '#A40000' }} />
           <span> Email has already been registered.</span>
-        </div>
+        </div> */}
 
         <div className='signup-welcome'>SIGN UP FOR FREE</div>
 

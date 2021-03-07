@@ -1,23 +1,28 @@
 import React from 'react'
 import { Route, Switch, useLocation } from 'react-router-dom'
 // import PageHeader from '@/components/Header'
+import FooterComponent from '@/components/Footer'
 import PageHeader from '@/components/Header/selfHeader'
 // import OtherHeader from '@/components/OtherPageHeader'
 // import OtherHeader from '@/components/OtherPageHeader/selfHeader'
 // import Footer from '@/components/Footer'
+import { Layout } from 'antd'
 import Home from '@/pages/Home'
 import Services from '@/pages/Services'
-import { Layout } from 'antd'
 import Login from '@/pages/Login'
 import SignUp from '@/pages/SignUp'
 import Become from '@/pages/Become'
-import PrivacyPolicy from '@/pages/PrivacyPolicy'
+import Privacy from '@/pages/Privacy&CookiePolicy'
 import TermsOfUse from '@/pages/TermsOfUse'
 import BusinessCooperation from '@/pages/BusinessCooperation'
+import Cooperate from '@/pages/Cooperate'
 import Forget from '@/pages/Forget'
+import Help from '@/pages/Help'
+import ContactUs from '@/pages/ContactUs'
+import MyAccount from '@/pages/MyAccount'
+import MyOrders from '@/pages/MyOrders'
 
 import './index.scss'
-import FooterComponent from '@/components/Footer'
 
 function BaseLayout({ footer = true }) {
   const { pathname } = useLocation()
@@ -37,10 +42,10 @@ function BaseLayout({ footer = true }) {
         <PageHeader />
       </Layout.Header>
       <Layout.Content
+        className='layout-main'
         style={{
           paddingTop: pathname === '/home' ? 0 : 130,
-          background: '#fff',
-          paddingBottom: 50,
+          minHeight: 'calc(100vh - 60px)',
         }}
       >
         <Switch>
@@ -49,10 +54,15 @@ function BaseLayout({ footer = true }) {
           <Route path='/home' component={Home} />
           <Route path='/services' component={Services} />
           <Route path='/become' component={Become} />
-          <Route path='/privacypolicy' component={PrivacyPolicy} />
+          <Route path='/privacypolicy' component={Privacy} />
           <Route path='/terms' component={TermsOfUse} />
           <Route path='/business' component={BusinessCooperation} />
+          <Route path='/cooperate' component={Cooperate} />
           <Route path='/forget' component={Forget} />
+          <Route path='/help' component={Help} />
+          <Route path='/contactus' component={ContactUs} />
+          <Route path='/account' component={MyAccount} />
+          <Route path='/Orders' component={MyOrders} />
         </Switch>
       </Layout.Content>
 

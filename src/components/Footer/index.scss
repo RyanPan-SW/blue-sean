@@ -79,22 +79,22 @@
   }
 }
 
-@media only screen and (max-width: 768px) {
-  .page-footer {
-    .container {
-      flex-direction: column;
+// @media only screen and (max-width: 768px) {
+//   .page-footer {
+//     .container {
+//       flex-direction: column;
 
-      .footContent {
-        width: 100%;
-        // margin-right: 2%;
-        margin-right: 0;
-        margin-bottom: 30px;
+//       .footContent {
+//         width: 100%;
+//         // margin-right: 2%;
+//         margin-right: 0;
+//         margin-bottom: 30px;
 
-        img {
-          display: block;
-          margin: auto;
-        }
-      }
-    }
-  }
-}
+//         img {
+//           display: block;
+//           margin: auto;
+//         }
+//       }
+//     }
+//   }
+// }

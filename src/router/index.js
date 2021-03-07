@@ -7,7 +7,7 @@ import Cooperation from '@/pages/Cooperation'
 import Contact from '@/pages/Contact'
 import Question from '@/pages/Question'
 import Becom from '@/pages/Become'
-import PrivacyPolicy from '@/pages/PrivacyPolicy'
+import PrivacyPolicy from '@/pages/Privacy&CookiePolicy'
 
 import Page404 from '@/pages/404'
 

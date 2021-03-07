@@ -13,7 +13,6 @@ import './selfHeader.scss'
 
 const Header = (props) => {
   const { pathname, search } = useLocation()
-  console.log(123, pathname.search('/services'))
 
   const [showSubtitle, setShowSubtitle] = useState(false)
 

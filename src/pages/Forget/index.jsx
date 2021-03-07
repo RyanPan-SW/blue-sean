@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { Form, Input, Button } from 'antd'
-import { Link } from 'react-router-dom'
-import { ExclamationCircleFilled } from '@ant-design/icons'
+import { Form, Input, Button, Modal } from 'antd'
 
 import './index.scss'
+import FieldDom from '@/components/Field'
 
 function Forget() {
   const [type, setType] = useState('email')
@@ -31,7 +30,13 @@ function Forget() {
             <Form.Item
               label='YOU EMAIL'
               name='email'
-              rules={[{ type: 'email', message: 'Please enter a valid email address.' }]}
+              rules={[
+                {
+                  required: true,
+                  message: <FieldDom />,
+                },
+                { type: 'email', message: 'Please enter a valid email address.' },
+              ]}
             >
               <Input placeholder='yourname@email.com' />
             </Form.Item>
@@ -61,20 +66,15 @@ function Forget() {
               rules={[
                 {
                   required: true,
-                  message: (
-                    <>
-                      <ExclamationCircleFilled style={{ color: 'red', marginTop: -1 }} />
-                      <span>This field is required.</span>
-                    </>
-                  ),
+                  message: <FieldDom />,
                 },
               ]}
             >
               <Input placeholder='yourname@email.com' />
             </Form.Item>
-            <p>
-              Didn't get the email? <Link to='/'>Send email again</Link>
-            </p>
+            <span>
+              Didn't get the email? <b>Send email again</b>
+            </span>
 
             <Form.Item>
               <Button htmlType='submit' className='forget-continue'>
@@ -84,6 +84,16 @@ function Forget() {
           </Form>
         </div>
       )}
+
+      {/* <Modal visible={true} cancelText={'Resend Code'} okText={'Try Again'}>
+        That code doesn't work. Please try again.
+      </Modal> */}
+
+      <Modal visible={false}>
+        <span>We resent a 6-digit code to your email address.</span>
+        <br />
+        <span>Please Check.</span>
+      </Modal>
     </div>
   )
 }

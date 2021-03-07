@@ -18,8 +18,8 @@
         .logo-img {
           // width: 90px;
           // height: 60px;
-          width: 5.5rem;
-          height: 4rem;
+          width: 5.5em;
+          height: 4em;
           position: relative;
           margin-bottom: 10px;
 
@@ -37,7 +37,7 @@
           color: #ffffff;
           // font-size: 27px;
           white-space: nowrap;
-          font-size: 1.5rem;
+          font-size: 1.5em;
           font-weight: 700;
         }
       }
@@ -153,8 +153,8 @@
         .logo-img {
           // width: 90px;
           // height: 60px;
-          width: 5.5rem;
-          height: 4rem;
+          width: 5.5em;
+          height: 4em;
           position: relative;
           margin-bottom: 10px;
 
@@ -171,7 +171,7 @@
           margin-left: 25px;
           color: #414141;
           // font-size: 27px;
-          font-size: 1.5rem;
+          font-size: 1.5em;
           white-space: nowrap;
           font-weight: 700;
         }
@@ -272,5 +272,29 @@
 
   .active {
     border-bottom: 4px solid #414141;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .header {
+    .header-navbar {
+      .header-navBrand {
+        a {
+          .logo-img {
+            width: 4.5em;
+            height: 3em;
+          }
+          .title-font {
+            font-size: 1.2em;
+          }
+        }
+      }
+
+      .header-nav-menu {
+        li {
+            padding: 0.5em 0.6em;
+        }
+      }
+    }
   }
 }
