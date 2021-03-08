@@ -96,10 +96,12 @@
       text-align: center;
 
       .become-need-box {
-        width: 350px;
+        width: 30%;
+        max-width: 350px;
         background-color: #fff;
-        padding-top: 200px;
-        padding-bottom: 150px;
+        // padding-top: 200px;
+        padding: 15% 0px;
+        // padding-bottom: 150px;
         box-shadow: 0px 5px 60px 0px rgba(0, 33, 14, 0.1);
       }
 
@@ -168,13 +170,27 @@
   }
 }
 @media only screen and (max-width: 1200px) {
-  // .become {
-  //   .become-Register-Now {
-  //     .become-register-step {
-  //       width: 60%;
-  //     }
-  //   }
-  // }
+  .become {
+    .become-Register-Now {
+      .become-register-step {
+        ul {
+          padding: 60px 24%;
+        }
+      }
+    }
+    .become-need {
+      .become-need-list {
+        width: 85%;
+
+        h4 {
+          font-size: 20px;
+        }
+        .become-need-box {
+          width: 30%;
+        }
+      }
+    }
+  }
 }
 @media only screen and (max-width: 992px) {
 }

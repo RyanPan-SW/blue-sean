@@ -26,7 +26,7 @@ const Header = (props) => {
   const [showSubtitle, setShowSubtitle] = useState(false)
 
   useEffect(() => {
-    pathname.search('/services') > -1 ? setPathnameStatus(true) : setPathnameStatus(false)
+    pathname.search('/home') > -1 ? setPathnameStatus(false) : setPathnameStatus(true)
   }, [pathname])
 
   const ExpandSubtitle = (e) => {
@@ -129,7 +129,7 @@ const Header = (props) => {
               </li>
 
               <div className='header-loginbox'>
-                <Link to='/login' className='header-login'>
+                <Link to='/login?form=2' className='header-login'>
                   <img src={login} alt='login' />
                   <span>Log in</span>
                 </Link>

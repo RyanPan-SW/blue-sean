@@ -57,7 +57,7 @@ function Become() {
           <div className='become-banner-subhead'>We can't wait to meet you!</div>
           <div className='become-banner-buttonGroup'>
             <Button className='becomer-banner-register'>Register Now</Button>
-            <Button className='become-banner-finf'>Finf Out More</Button>
+            <Button className='become-banner-finf'>Find Out More</Button>
           </div>
         </div>
 

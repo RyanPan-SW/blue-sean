@@ -5,9 +5,12 @@ import { test } from '@/api/user'
 import * as UserActionCreator from '@/store/actions/user'
 import './index.scss'
 import { Link } from 'react-router-dom'
+import { useLocation } from 'react-router'
 
 const Login = ({ login, history }) => {
-  const [activeTab, setActiveTab] = useState(1)
+  const { search } = useLocation()
+  const form = Number(search.split('=')[1]) || 1
+  const [activeTab, setActiveTab] = useState(form)
 
   useEffect(() => {
     test()
@@ -30,10 +33,10 @@ const Login = ({ login, history }) => {
   return (
     <div className='login'>
       <div className='login-tabs'>
-        <div className='login-personal active' onClick={() => changeTabs(1)}>
+        <div className={activeTab === 1 ? 'active' : ''} onClick={() => changeTabs(1)}>
           Personal Account
         </div>
-        <div className='login-coporate' onClick={() => changeTabs(2)}>
+        <div className={activeTab === 2 ? 'active' : ''} onClick={() => changeTabs(2)}>
           Corporate Account
         </div>
       </div>
@@ -44,7 +47,9 @@ const Login = ({ login, history }) => {
 
           <div className='login-personal'>
             <span>Don't have a personal account?</span>
-            <Link to="/signup" className='login-sgin'>Sgin up.</Link>
+            <Link to='/signup' className='login-sgin'>
+              Sgin up.
+            </Link>
           </div>
 
           <Form
@@ -86,9 +91,9 @@ const Login = ({ login, history }) => {
                 <Checkbox>Keep me log in</Checkbox>
               </Form.Item>
 
-              <a className='login-form-forgot' href='//#endregion'>
+              <Link to='/forget' className='login-form-forgot'>
                 Forgot password
-              </a>
+              </Link>
             </Form.Item>
 
             <Form.Item>
@@ -149,9 +154,9 @@ const Login = ({ login, history }) => {
                 <Checkbox>Keep me log in</Checkbox>
               </Form.Item>
 
-              <a className='login-form-forgot' href='//#endregion'>
+              <Link to='/forget' className='login-form-forgot'>
                 Forgot password
-              </a>
+              </Link>
             </Form.Item>
 
             <Form.Item>

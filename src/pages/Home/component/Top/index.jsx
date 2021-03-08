@@ -19,8 +19,11 @@ function TopContent() {
         <div className='container'>
           <div className='topContent-WeList'>
             <div className='topContent-here'>
-              <div>We’re here to</div>
-              <div>assist you with ：</div>
+              <h2>
+                We’re here to
+                <br />
+                assist you with:
+              </h2>
             </div>
 
             <div className='topContent-list'>

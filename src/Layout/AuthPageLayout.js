@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 import { Route, Switch, useLocation } from 'react-router-dom'
 // import PageHeader from '@/components/Header'
 import FooterComponent from '@/components/Footer'
@@ -21,9 +21,9 @@ import Help from '@/pages/Help'
 import ContactUs from '@/pages/ContactUs'
 import MyAccount from '@/pages/MyAccount'
 import MyOrders from '@/pages/MyOrders'
+import Page404 from '@/pages/404'
 
 import './index.scss'
-import Page404 from '@/pages/404'
 
 function BaseLayout({ footer = true }) {
   const { pathname } = useLocation()
@@ -45,7 +45,7 @@ function BaseLayout({ footer = true }) {
       <Layout.Content
         className='layout-main'
         style={{
-          paddingTop: pathname === '/home' ? 0 : 130,
+          paddingTop: pathname === '/home' ? 0 : 125,
           minHeight: 'calc(100vh - 60px)',
         }}
       >

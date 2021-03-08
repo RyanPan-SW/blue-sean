@@ -3,6 +3,7 @@
   margin: auto;
   background-color: #ffffff;
   box-shadow: 2px 0px 15px 4px #00000057;
+  margin-bottom: 120px;
 
   .ant-checkbox-checked .ant-checkbox-inner {
     background-color: #b38948;
@@ -15,20 +16,16 @@
   }
 
   .login-tabs {
+    margin-top: 80px;
     display: flex;
     flex-direction: row;
-    margin-top: 30px;
     font-size: 25px;
     color: #333333;
     font-weight: bold;
     // border: 1px solid #333;
     line-height: 70px;
 
-    .login-personal {
-      flex: 1;
-      text-align: center;
-    }
-    .login-coporate {
+    > div {
       flex: 1;
       text-align: center;
     }
@@ -72,6 +69,10 @@
       right: 0;
       font-size: 16px;
       color: #333333;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
     .login-form-button {
