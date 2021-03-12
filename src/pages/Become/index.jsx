@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { connect } from 'react-redux'
 import * as CounterActionCreator from '@/store/actions/counter'
 import becomeBanner from '../../asset/becom-banner.png'
@@ -48,6 +48,16 @@ const becomeWeNeed = [
 ]
 
 function Become() {
+  const refRegisterNow = useRef(null)
+  console.log('🚀 ~ file: index.jsx ~ line 52 ~ Become ~ refRegisterNow', refRegisterNow.current)
+
+  const scrollToRegisterNow = () => {
+    let offsetTop = refRegisterNow && refRegisterNow.current.offsetTop
+    window.scrollTo({
+      top: offsetTop,
+    })
+  }
+
   return (
     <div className='become'>
       <div className='banner'>
@@ -56,7 +66,9 @@ function Become() {
           <div className='become-banner-title'>in Brisbane & Gold Coast</div>
           <div className='become-banner-subhead'>We can't wait to meet you!</div>
           <div className='become-banner-buttonGroup'>
-            <Button className='becomer-banner-register'>Register Now</Button>
+            <Button className='becomer-banner-register' onClick={scrollToRegisterNow}>
+              Register Now
+            </Button>
             <Button className='become-banner-finf'>Find Out More</Button>
           </div>
         </div>
@@ -96,9 +108,8 @@ function Become() {
         </div>
       </div>
 
-      <div className='become-Register-Now'>
+      <div className='become-Register-Now' ref={refRegisterNow}>
         <h3>Register Now</h3>
-
         <div className='become-register-step'>
           <ul>
             <p>Simple 5 Step Process</p>

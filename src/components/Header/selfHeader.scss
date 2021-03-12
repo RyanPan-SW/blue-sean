@@ -34,9 +34,9 @@
         }
 
         .title-font {
+          padding-top: 6px;
           margin-left: 25px;
           color: #ffffff;
-          // font-size: 27px;
           white-space: nowrap;
           font-size: 1.5em;
           font-weight: 700;
@@ -146,6 +146,7 @@
       border-bottom: 4px solid #414141;
     }
   }
+
   .other-navbar {
     .header-navBrand {
       a {
@@ -162,7 +163,8 @@
 
 @media screen and (max-width: 1200px) {
   .header {
-    .header-navbar {
+    .header-navbar,
+    .other-navbar {
       .header-navBrand {
         a {
           .logo-img {

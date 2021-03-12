@@ -1,5 +1,5 @@
 /* 用户相关 */
-import request from '@/service/request'
+import API from '@/service/request'
 
 /**
  * @export
@@ -7,8 +7,8 @@ import request from '@/service/request'
  * @returns
  */
 export function test() {
-  return request({
-    url: '/hy-goods/app/goods/detail?timeNow=1605355654652&goodsId=1604393859283',
+  return API({
+    url: 'http://localhost:8081/askQuestion',
     method: 'get',
   })
 }

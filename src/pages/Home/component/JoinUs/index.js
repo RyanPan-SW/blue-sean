@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import triangle from '@/asset/triangle.png'
 import { Form, Input, Button, Modal } from 'antd'
 import './index.scss'
+import { getAsk } from '@/api/home'
 
 function JoinUs(props) {
   const [visible, setVisible] = useState(false)
@@ -17,8 +18,16 @@ function JoinUs(props) {
   }
 
   const onFinish = (values) => {
-    console.log(values)
-    setVisible(true)
+    console.log('ask表单内容', values)
+    getAsk().then((res) => {
+      if (res || res.code === 200) {
+        setVisible(true)
+      }
+    })
+  }
+
+  const normFile = (e) => {
+    return e.replace(/[^\u4e00-\u9fa5a-zA-Z\s]+/gm, '')
   }
 
   return (
@@ -40,6 +49,7 @@ function JoinUs(props) {
               <Form.Item
                 name={['user', 'FristName']}
                 rules={[{ required: true, message: 'please Enter' }]}
+                normalize={normFile}
                 className='formItem'
               >
                 <Input placeholder='Frist Name' className='form-input' />
@@ -48,6 +58,7 @@ function JoinUs(props) {
               <Form.Item
                 name={['user', 'LastName']}
                 rules={[{ required: true, message: 'please Enter' }]}
+                normalize={normFile}
                 className='formItem'
               >
                 <Input placeholder='Last Name' className='form-input' />

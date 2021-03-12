@@ -171,6 +171,9 @@
 }
 @media only screen and (max-width: 1200px) {
   .become {
+    .become-row {
+      width: 80%;
+    }
     .become-Register-Now {
       .become-register-step {
         ul {
@@ -193,6 +196,11 @@
   }
 }
 @media only screen and (max-width: 992px) {
+  .become {
+    .become-row {
+      width: 80%;
+    }
+  }
 }
 @media only screen and (max-width: 768px) {
 }

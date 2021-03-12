@@ -7,8 +7,8 @@ import FieldDom from '@/components/Field'
 
 function Cooperate(props) {
   const [ShowPromptBox, setShowPromptBox] = useState(false)
+  
   const normFile = (e) => {
-    console.log(e)
     return e.replace(/[\u4e00-\u9fa5]/gm, '')
   }
 

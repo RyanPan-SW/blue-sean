@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React from 'react'
 import { Route, Switch, useLocation } from 'react-router-dom'
 // import PageHeader from '@/components/Header'
 import FooterComponent from '@/components/Footer'
@@ -18,6 +18,7 @@ import BusinessCooperation from '@/pages/BusinessCooperation'
 import Cooperate from '@/pages/Cooperate'
 import Forget from '@/pages/Forget'
 import Help from '@/pages/Help'
+import Contact from '@/pages/Contact'
 import ContactUs from '@/pages/ContactUs'
 import MyAccount from '@/pages/MyAccount'
 import MyOrders from '@/pages/MyOrders'
@@ -63,6 +64,7 @@ function BaseLayout({ footer = true }) {
           <Route path='/cooperate' component={Cooperate} />
           <Route path='/forget' component={Forget} />
           <Route path='/help' component={Help} />
+          <Route path='/contact' component={Contact} />
           <Route path='/contactus' component={ContactUs} />
           <Route path='/account' component={MyAccount} />
           <Route path='/Orders' component={MyOrders} />

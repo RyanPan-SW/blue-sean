@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Collapse } from 'antd'
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons'
 import './index.scss'
@@ -11,14 +11,14 @@ const helpList = [
 ]
 
 function HelpContent(props) {
-  const [activeArray, setActive] = useState([])
+  // const [activeArray, setActive] = useState([])
 
   const panelProps = (panelProps) => {
     return panelProps.isActive ? <MinusOutlined /> : <PlusOutlined />
   }
 
   const changeCollapse = (e) => {
-    setActive(e)
+    // setActive(e)
   }
 
   return (

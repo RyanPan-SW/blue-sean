@@ -1,3 +1,4 @@
+import { TOKEN_KEY } from '@/config'
 import cookie from 'react-cookies'
 
 export function isOpenPages(pathname) {
@@ -6,9 +7,9 @@ export function isOpenPages(pathname) {
 
 export function setCookie(parmas, days = 1) {
   let inFifteenMinutes = new Date(new Date().getTime() + 24 * 3600 * 1000 * days) // 一个月
-  cookie.save('userId', parmas, { expires: inFifteenMinutes })
+  return cookie.save('userId', parmas, { expires: inFifteenMinutes })
 }
 
 export function getCookie(key) {
-  cookie.load(key)
+  return cookie.load(TOKEN_KEY)
 }

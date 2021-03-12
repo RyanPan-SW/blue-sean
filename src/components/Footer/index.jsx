@@ -9,6 +9,7 @@ import clock from '../../asset/clock.png'
 // import fax from '../../asset/fax.png'
 import './index.scss'
 import { useLocation } from 'react-router'
+import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 // const { Footer } = Layout
 
@@ -57,7 +58,12 @@ const FooterComponent = () => {
       <div className='Copyright'>
         <div className='container'>
           <span>Copyright © DC Global Solution - All rights reserved.</span>
-          <span>Privacy Policy Terms Use</span>
+          <span>
+            <Link className='link' to='/privacypolicy'>
+              Privacy Policy
+            </Link>
+            <Link to='/terms'>Terms of Use</Link>
+          </span>
         </div>
       </div>
     </>

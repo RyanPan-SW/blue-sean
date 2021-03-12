@@ -20,7 +20,6 @@ const servicesMenus = [
 
 const Header = (props) => {
   const { pathname, search } = useLocation()
-  console.log('🚀 ~ file: selfHeader.js ~ line 23 ~ Header ~ pathname', pathname)
 
   const [pathnameStatus, setPathnameStatus] = useState(false)
   const [showSubtitle, setShowSubtitle] = useState(false)
