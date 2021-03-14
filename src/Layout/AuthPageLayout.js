@@ -17,6 +17,7 @@ import TermsOfUse from '@/pages/TermsOfUse'
 import BusinessCooperation from '@/pages/BusinessCooperation'
 import Cooperate from '@/pages/Cooperate'
 import Forget from '@/pages/Forget'
+import Personal from '@/pages/Personal'
 import Help from '@/pages/Help'
 import Contact from '@/pages/Contact'
 import ContactUs from '@/pages/ContactUs'
@@ -62,6 +63,7 @@ function BaseLayout({ footer = true }) {
           <Route path='/terms' component={TermsOfUse} />
           <Route path='/business' component={BusinessCooperation} />
           <Route path='/cooperate' component={Cooperate} />
+          <Route path='/personal' component={Personal} />
           <Route path='/forget' component={Forget} />
           <Route path='/help' component={Help} />
           <Route path='/contact' component={Contact} />

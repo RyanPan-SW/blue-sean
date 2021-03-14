@@ -13,3 +13,25 @@ export function setCookie(parmas, days = 1) {
 export function getCookie(key) {
   return cookie.load(TOKEN_KEY)
 }
+
+export const emailMsg = {
+  email: 'Please enter a valid email address.',
+  emailReg: /^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$/,
+}
+
+export const passwordMsg = {
+  required: 'Please use at least 6 characters. Remember: Passwords are case sensitive.',
+  length: 'Password must be between 6 and 20 characters.',
+  pattern:
+    'Use a password of at least 6 characters. Suggest you include an uppercase letter, a lowercase letter, a number, and a special character.',
+}
+
+export const patterns = {
+  email: /^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$/,
+  // pwd: /^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?!([^(0-9a-zA-Z)])+$).{6,20}$/,
+  pwd: /^[\w!@#$%^&*?~]+$/,
+  name: /^[a-zA-Z_][0-9a-zA-Z_]{0,}$/,
+  tel: /^1[2-9]\\d{0,}$/,
+  IP: /^(?=(\\b|\\D))(((\\d{1,2})|(1\\d{1,2})|(2[0-4]\\d)|(25[0-5]))\\.){3}((\\d{1,2})|(1\\d{1,2})|(2[0-4]\\d)|(25[0-5]))(?=(\\b|\\D))$/,
+  IDCard: /(^\\d{15}$)|(^\\d{17}([0-9]|X)$)/,
+}
