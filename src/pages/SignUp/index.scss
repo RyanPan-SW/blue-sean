@@ -5,7 +5,6 @@
   margin-bottom: 50px;
   border-top: 6px solid #b38948;
 
-
   p {
     font-size: 16px;
     a {
@@ -38,6 +37,12 @@
     background: #fff;
     padding: 40px 70px;
     box-shadow: 2px 0px 15px 4px #00000057;
+
+    .message-error {
+      border: 1px solid #a40000;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
 
     .signup-welcome {
       font-size: 25px;
@@ -104,10 +109,4 @@
   margin: auto;
   padding-top: 10px;
   text-align: center;
-}
-
-.message-error {
-  border: 1px solid #a40000;
-  padding: 8px;
-  margin-bottom: 10px;
 }
