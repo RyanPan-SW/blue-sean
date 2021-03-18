@@ -23,6 +23,8 @@ import Contact from '@/pages/Contact'
 import ContactUs from '@/pages/ContactUs'
 import MyAccount from '@/pages/MyAccount'
 import MyOrders from '@/pages/MyOrders'
+import MyAddress from '@/pages/MyAddress'
+import ChangePassword from '@/pages/ChangePassword'
 import Page404 from '@/pages/404'
 
 import './index.scss'
@@ -69,7 +71,9 @@ function BaseLayout({ footer = true }) {
           <Route path='/contact' component={Contact} />
           <Route path='/contactus' component={ContactUs} />
           <Route path='/account' component={MyAccount} />
-          <Route path='/Orders' component={MyOrders} />
+          <Route path='/orders' component={MyOrders} />
+          <Route path='/address' component={MyAddress} />
+          <Route path='/changepassword' component={ChangePassword} />
           <Route path='/404' component={Page404} />
         </Switch>
       </Layout.Content>

@@ -24,19 +24,20 @@ function Personal(props) {
             <span>Back Homepage</span>
           </Link>
 
-          <div className='item'>
+          <Link to='/account' className='item'>
             <img src={signuser} alt='' />
             <span>My Account</span>
-          </div>
+          </Link>
 
-          <div className='item'>
+          <Link to='/address' className='item'>
             <img src={signaddress} alt='' />
             <span>Add My Address</span>
-          </div>
+          </Link>
         </div>
 
         <span className='or'>or</span>
 
+        {/* TODO:跳转到文件下载页step1 */}
         <div className='new-pickup'>Schedule a New Pickup</div>
       </div>
     </div>

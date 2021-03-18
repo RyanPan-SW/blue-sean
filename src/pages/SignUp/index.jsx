@@ -16,10 +16,9 @@ function SignUp(props) {
 
     setLoading(true)
     signup({ ...values }).then((res) => {
-      console.log('signup res', res)
       if (res.code === 200) {
         setShowError(false)
-        console.log(props)
+        props.history.push('/personal')
       } else {
         setShowError(true)
         // message.success({

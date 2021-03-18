@@ -128,7 +128,7 @@ const Header = (props) => {
               </li>
 
               <div className='header-loginbox'>
-                <Link to='/login?form=2' className='header-login'>
+                <Link to='/login' className='header-login'>
                   <img src={login} alt='login' />
                   <span>Log in</span>
                 </Link>

@@ -3,23 +3,15 @@ import { connect } from 'react-redux'
 import { Button, Form, Input, Checkbox } from 'antd'
 import { test } from '@/api/user'
 import * as UserActionCreator from '@/store/actions/user'
-import './index.scss'
 import { Link } from 'react-router-dom'
-import { useLocation } from 'react-router'
+import './index.scss'
 
 const Login = ({ login, history }) => {
-  const { search } = useLocation()
-  const form = Number(search.split('=')[1]) || 1
-  const [activeTab, setActiveTab] = useState(form)
+  const [activeTab, setActiveTab] = useState(1)
 
   useEffect(() => {
     test()
   })
-
-  // const loginClick = () => {
-  //   login()
-  //   history.push('/')
-  // }
 
   const changeTabs = (key) => {
     setActiveTab(key)
