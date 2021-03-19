@@ -1,4 +1,6 @@
 .become {
+  background: #fff;
+  
   .banner {
     width: 100%;
     display: flex;
@@ -54,23 +56,26 @@
   }
 
   .become-row {
-    width: 70%;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    padding: 120px 0;
-    text-align: center;
-
-    .become-row-img {
-      display: block;
+    width: 100%;
+    .become-card {
+      width: 70%;
       margin: auto;
-    }
+      display: flex;
+      justify-content: space-between;
+      padding: 120px 0;
+      text-align: center;
 
-    .become-row-title {
-      font-size: 25px;
-      font-weight: bold;
-      padding-top: 35px;
-      padding-bottom: 20px;
+      .become-row-img {
+        display: block;
+        margin: auto;
+      }
+
+      .become-row-title {
+        font-size: 25px;
+        font-weight: bold;
+        padding-top: 35px;
+        padding-bottom: 20px;
+      }
     }
   }
 
@@ -172,7 +177,9 @@
 @media only screen and (max-width: 1200px) {
   .become {
     .become-row {
-      width: 80%;
+      .become-card {
+        width: 80%;
+      }
     }
     .become-Register-Now {
       .become-register-step {
@@ -196,11 +203,6 @@
   }
 }
 @media only screen and (max-width: 992px) {
-  .become {
-    .become-row {
-      width: 80%;
-    }
-  }
 }
 @media only screen and (max-width: 768px) {
 }

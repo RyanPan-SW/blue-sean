@@ -1,0 +1,43 @@
+.noFound {
+  width: 100%;
+  height: 100vh;
+
+  .notFound-content {
+    width: 40%;
+    height: 52%;
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    margin: auto;
+
+    img {
+      width: 100%;
+    }
+
+    .notFound-title {
+      text-align: center;
+      font-weight: bold;
+      font-size: 25px;
+      line-height: 50px;
+      color: #333;
+    }
+    
+    .notFound-describe {
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .notFound-reload {
+      display: block;
+      width: 80%;
+      height: 56px;
+      border-radius: 50px;
+      color: #fff;
+      font-size: 25px;
+      margin: auto;
+      margin-top: 50px;
+      background: #B38948;
+    }
+  }
+}

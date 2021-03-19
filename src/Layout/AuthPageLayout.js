@@ -25,7 +25,7 @@ import MyAccount from '@/pages/MyAccount'
 import MyOrders from '@/pages/MyOrders'
 import MyAddress from '@/pages/MyAddress'
 import ChangePassword from '@/pages/ChangePassword'
-import Page404 from '@/pages/404'
+import Page404 from '@/pages/404/404'
 
 import './index.scss'
 

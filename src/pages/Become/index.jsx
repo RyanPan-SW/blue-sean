@@ -49,13 +49,21 @@ const becomeWeNeed = [
 
 function Become() {
   const refRegisterNow = useRef(null)
+  const refBecomeRow = useRef(null)
   console.log('🚀 ~ file: index.jsx ~ line 52 ~ Become ~ refRegisterNow', refRegisterNow.current)
 
-  const scrollToRegisterNow = () => {
-    let offsetTop = refRegisterNow && refRegisterNow.current.offsetTop
-    window.scrollTo({
-      top: offsetTop,
-    })
+  const scrollTo = (i) => {
+    let offsetTop1 = refBecomeRow && refBecomeRow.current.offsetTop
+    let offsetTop2 = refRegisterNow && refRegisterNow.current.offsetTop
+    if (i === 1) {
+      window.scrollTo({
+        top: offsetTop1-130,
+      })
+    } else if (i === 2) {
+      window.scrollTo({
+        top: offsetTop2-130,
+      })
+    }
   }
 
   return (
@@ -66,10 +74,22 @@ function Become() {
           <div className='become-banner-title'>in Brisbane & Gold Coast</div>
           <div className='become-banner-subhead'>We can't wait to meet you!</div>
           <div className='become-banner-buttonGroup'>
-            <Button className='becomer-banner-register' onClick={scrollToRegisterNow}>
+            <Button
+              className='becomer-banner-register'
+              onClick={(i) => {
+                scrollTo(1)
+              }}
+            >
               Register Now
             </Button>
-            <Button className='become-banner-finf'>Find Out More</Button>
+            <Button
+              className='become-banner-finf'
+              onClick={(i) => {
+                scrollTo(2)
+              }}
+            >
+              Find Out More
+            </Button>
           </div>
         </div>
 
@@ -78,16 +98,18 @@ function Become() {
         </div>
       </div>
 
-      <div className='become-row'>
-        {becomeList.map((item, index) => {
-          return (
-            <div key={index}>
-              <img className='become-row-img' src={item.image} alt='' />
-              <p className='become-row-title'>{item.title}</p>
-              {replaceStr(item.dircetion)}
-            </div>
-          )
-        })}
+      <div className='become-row' ref={refBecomeRow}>
+        <div className='become-card'>
+          {becomeList.map((item, index) => {
+            return (
+              <div key={index}>
+                <img className='become-row-img' src={item.image} alt='' />
+                <p className='become-row-title'>{item.title}</p>
+                {replaceStr(item.dircetion)}
+              </div>
+            )
+          })}
+        </div>
       </div>
 
       <div className='become-need'>

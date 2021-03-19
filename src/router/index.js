@@ -9,7 +9,7 @@ import Question from '@/pages/Question'
 import Becom from '@/pages/Become'
 import PrivacyPolicy from '@/pages/Privacy&CookiePolicy'
 
-import Page404 from '@/pages/404'
+import Page404 from '@/pages/404/404'
 
 export const routesConfig = [
   {

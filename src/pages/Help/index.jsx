@@ -1,30 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Collapse } from 'antd'
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons'
 import './index.scss'
 
 const { Panel } = Collapse
 const helpList = [
-  { title: '1111', dircetion: '11111===' },
+  {
+    title:
+      'How do I track using a reference number?How do I track using a reference number?How do I track using a reference number?How do I track How do I track using a reference number?How do I track using a reference number?',
+    dircetion: '11111===',
+  },
   { title: '2222', dircetion: '11111===' },
   { title: '3333', dircetion: '11111===' },
 ]
 
 function HelpContent(props) {
-  // const [activeArray, setActive] = useState([])
+  const [activeArray, setActive] = useState([])
 
   const panelProps = (panelProps) => {
     return panelProps.isActive ? <MinusOutlined /> : <PlusOutlined />
   }
 
   const changeCollapse = (e) => {
-    // setActive(e)
+    setActive(e)
+    // console.log(e)
   }
 
   return (
-    <div className='help-content'>
-      <div className='container'>
-        <h3>Popular FAQs</h3>
+    <div className='container'>
+      <div className='help-content'>
+        <h3 className='help-title'>Popular FAQs</h3>
 
         <Collapse
           expandIconPosition='right'
@@ -34,7 +39,16 @@ function HelpContent(props) {
         >
           {helpList.map((item, index) => {
             return (
-              <Panel header={item.title} key={index}>
+              <Panel
+                header={
+                  <span
+                    className={activeArray.includes(`${index}`) ? 'help-active' : 'help-header'}
+                  >
+                    {item.title}
+                  </span>
+                }
+                key={index}
+              >
                 <div>{item.dircetion}</div>
               </Panel>
             )
