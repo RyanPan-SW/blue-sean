@@ -7,7 +7,7 @@
   .congratulations {
     width: 100%;
     padding: 30px 70px;
-    box-shadow: 2px 0px 15px 4px #00000057;
+    box-shadow: $boxShadow;
     border-top: 6px solid #b38948;
 
     h4 {
@@ -27,7 +27,7 @@
   .next {
     margin: 60px 0px;
     padding: 30px 70px;
-    box-shadow: 2px 0px 15px 4px #00000057;
+    box-shadow: $boxShadow;
     border-top: 6px solid #b38948;
 
     h3 {

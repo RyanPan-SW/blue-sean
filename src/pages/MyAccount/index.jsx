@@ -7,8 +7,8 @@ import './index.scss'
 
 function MyAccount(params) {
   return (
-    <div className='MyAccount'>
-      <h3>My Account</h3>
+    <div className='myAccount'>
+      <h3 className="account-title">My Account</h3>
 
       <div className='account-card'>
         <Link to='/orders'>
@@ -33,7 +33,7 @@ function MyAccount(params) {
           <img src={address} alt='' />
           <div>
             <h4>Addresses</h4>
-            <p>Add or edit addresses</p>
+            <p>Add or edit address</p>
           </div>
         </Link>
       </div>

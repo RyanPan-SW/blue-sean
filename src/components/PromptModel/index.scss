@@ -10,7 +10,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: 2px 0px 15px 4px #00000057;
+    box-shadow: $boxShadow;
     border-top: 4px solid #b38948;
 
     .prompt-title {

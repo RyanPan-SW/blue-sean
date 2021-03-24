@@ -36,7 +36,7 @@
   .signup-content {
     background: #fff;
     padding: 40px 70px;
-    box-shadow: 2px 0px 15px 4px #00000057;
+    box-shadow: $boxShadow;
 
     .message-error {
       border: 1px solid #a40000;

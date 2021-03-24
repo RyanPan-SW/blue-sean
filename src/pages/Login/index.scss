@@ -2,7 +2,7 @@
   width: 730px;
   margin: auto;
   background-color: #ffffff;
-  box-shadow: 2px 0px 15px 4px #00000057;
+  box-shadow: $boxShadow;
   margin-bottom: 120px;
 
   .ant-checkbox-checked .ant-checkbox-inner {

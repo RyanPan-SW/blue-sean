@@ -1,0 +1,150 @@
+.details {
+  .detail-notes {
+    margin-top: 50px;
+    padding: 25px 15px;
+    border-top: $boxBorderTop;
+    box-shadow: $boxShadow;
+    background: #fff;
+
+    h3 {
+      font-size: 18px;
+      padding-bottom: 25px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 22px;
+    }
+  }
+
+  .detail-orders {
+    padding: 25px 35px;
+    margin-top: 50px;
+    border-top: $boxBorderTop;
+    box-shadow: $boxShadow;
+    font-size: 16px;
+    background: #fff;
+
+    .order-title {
+      display: flex;
+      justify-content: space-between;
+
+      .orders-cancel {
+        font-size: 18px;
+
+        &:hover {
+          color: $themeColor;
+        }
+      }
+    }
+
+    .order-steps {
+      display: flex;
+      justify-content: space-around;
+
+      .order-step-item {
+        overflow: visible;
+
+        .order-step-item {
+        }
+
+        .step-icon {
+        }
+      }
+    }
+  }
+
+  .details-sender {
+    margin-top: 50px;
+    border-top: $boxBorderTop;
+    padding: 30px;
+    background: #fff;
+    box-shadow: $boxShadow;
+
+    .details-sender-title {
+      text-align: right;
+
+      span {
+        cursor: pointer;
+        display: inline-block;
+        width: 80px;
+        height: 30px;
+        text-align: center;
+
+        &:hover {
+          color: $themeColor;
+        }
+      }
+    }
+
+    .sender-content {
+      display: flex;
+      color: #333333;
+      padding: 30px;
+      font-size: 16px;
+      line-height: 38px;
+      border-bottom: 1px solid #999999;
+
+      .sender-item {
+        display: flex;
+
+        .sender-item-title {
+          width: 180px;
+          text-align: center;
+        }
+
+        .sender-item-content {
+          // line-height: 38px;
+        }
+      }
+    }
+
+    .detail-payment {
+      display: flex;
+      line-height: 48px;
+
+      & > div {
+        width: 50%;
+      }
+
+      .payment-item {
+        .payment-item-title {
+          display: inline-block;
+          width: 130px;
+          text-align: right;
+        }
+        .payment-item-content {
+          display: inline-block;
+          width: 200px;
+          padding-left: 80px;
+          text-align: left;
+        }
+      }
+    }
+  }
+
+  .cusModal-body {
+    font-size: 20px;
+    color: #010101;
+    padding: 20px;
+  }
+  .cusModal-footer {
+    font-size: 16px;
+    text-align: right;
+    margin-top: 60px;
+    font-weight: bold;
+
+    .cusModal-cancel {
+      cursor: pointer;
+      display: inline-block;
+      width: 80px;
+      height: 40px;
+      text-align: center;
+      line-height: 40px;
+
+      &:hover {
+        color: $themeColor;
+      }
+    }
+  }
+}

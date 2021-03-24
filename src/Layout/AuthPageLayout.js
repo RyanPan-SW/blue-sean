@@ -28,6 +28,7 @@ import ChangePassword from '@/pages/ChangePassword'
 import Page404 from '@/pages/404/404'
 
 import './index.scss'
+import DetailsView from '@/pages/DetailsView'
 
 function BaseLayout({ footer = true }) {
   const { pathname } = useLocation()
@@ -72,6 +73,7 @@ function BaseLayout({ footer = true }) {
           <Route path='/contactus' component={ContactUs} />
           <Route path='/account' component={MyAccount} />
           <Route path='/orders' component={MyOrders} />
+          <Route path='/detailsview' component={DetailsView} />
           <Route path='/address' component={MyAddress} />
           <Route path='/changepassword' component={ChangePassword} />
           <Route path='/404' component={Page404} />
