@@ -1,10 +1,11 @@
 // TODO:寄件列表
+import React, { useState } from 'react'
+import { getOrdersList } from '@/api/orders'
 import { enumsOrderStatus } from '@/helper/env'
 import { Input, Tabs, Breadcrumb, Popover, Pagination } from 'antd'
-import { number } from 'bfj/src/events'
-import React from 'react'
 import { Link } from 'react-router-dom'
 import './index.scss'
+import CustomizeModal from '@/components/CustomizeModal'
 
 const { TabPane } = Tabs
 
@@ -45,6 +46,21 @@ const ordersList = [
 const pageSize = 15
 
 function MyOrder(params) {
+  const [visible, setVisible] = useState(false)
+
+  const onCancel = () => {
+    setVisible(false)
+  }
+
+  const onSearchOrders = (value, e) => {
+    console.log(value, 'value', e, 'e')
+    // getOrdersList().then((res) => {
+    //   if (res.list.length === 0 || !res.length) {
+    setVisible(true)
+    //   }
+    // })
+  }
+
   return (
     <div className='order-content'>
       <div className='container'>
@@ -58,9 +74,10 @@ function MyOrder(params) {
         <div className='order-top'>
           <h2 className='order-title'>My Orders</h2>
 
-          <Input
+          <Input.Search
             className='order-search'
-            addonAfter={<span className='order-addoAfter'>Search Orders</span>}
+            enterButton={<span className='order-addoAfter'>Search Orders</span>}
+            onSearch={onSearchOrders}
           />
         </div>
 
@@ -72,13 +89,13 @@ function MyOrder(params) {
           orders to view details and make changes.
         </p>
 
-        <Tabs defaultActiveKey='1'>
+        <Tabs defaultActiveKey='1' tabBarStyle={{ color: '#333' }}>
           <TabPane tab='Orders' key='1'>
             <div>
               <div>
                 {ordersList.map((item, index) => {
                   return (
-                    <div className='ordersList'>
+                    <div className='ordersList' key={index}>
                       <div className='list-title'>{item.number}</div>
                       <div className='list-content'>
                         <div className='list-news'>
@@ -108,7 +125,9 @@ function MyOrder(params) {
                           </div>
                         </div>
 
-                        <Link to="/detailsview" className='list-details'>View Details</Link>
+                        <Link to='/detailsview' className='list-details'>
+                          View Details
+                        </Link>
                       </div>
                     </div>
                   )
@@ -133,6 +152,12 @@ function MyOrder(params) {
           </TabPane>
         </Tabs>
       </div>
+
+      <CustomizeModal visible={visible} cancelText={null} onCancel={onCancel} onOk={onCancel}>
+        <div>
+          <p>No results were found. Please try other searches.</p>
+        </div>
+      </CustomizeModal>
     </div>
   )
 }

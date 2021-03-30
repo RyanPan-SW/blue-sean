@@ -74,7 +74,7 @@
           position: absolute;
 
           .currentPage {
-            color: #b38948;
+            color: $themeColor;
           }
 
           .menu-item {
@@ -95,7 +95,7 @@
         text-align: center;
         color: #fff;
         font-weight: bold;
-        background: #b38948;
+        background: $themeColor;
         border-radius: 15px;
         cursor: pointer;
       }

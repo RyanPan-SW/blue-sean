@@ -8,7 +8,7 @@
     width: 100%;
     padding: 30px 70px;
     box-shadow: $boxShadow;
-    border-top: 6px solid #b38948;
+    border-top: 6px solid $themeColor;
 
     h4 {
       font-size: 25px;
@@ -28,7 +28,7 @@
     margin: 60px 0px;
     padding: 30px 70px;
     box-shadow: $boxShadow;
-    border-top: 6px solid #b38948;
+    border-top: 6px solid $themeColor;
 
     h3 {
       padding-bottom: 60px;
@@ -86,7 +86,7 @@
   .new-pickup {
     width: 100%;
     color: #fff;
-    background-color: #b38948;
+    background-color: $themeColor;
     border-radius: 50px;
     font-size: 25px;
     font-weight: bold;

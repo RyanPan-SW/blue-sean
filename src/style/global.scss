@@ -1,7 +1,18 @@
 $themeColor: #b38948;
 
-
 $boxBorderTop: 4px solid $themeColor;
 
 $boxShadow: 2px 0px 15px 4px #00000057;
 $boxShadow2: 0px 2px 35px 0px #00000026;
+
+$pagePadding: 20px 0px 80px 0px;
+
+:global {
+  .ant-tabs-tab {
+    .ant-tabs-tab-active {
+      .ant-tabs-tab-btn {
+        color: $themeColor !important;
+      }
+    }
+  }
+}

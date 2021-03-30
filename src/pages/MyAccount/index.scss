@@ -18,7 +18,7 @@
     a {
       width: 30%;
       padding: 5%;
-      border-top: 4px solid #b38948;
+      border-top: 4px solid $themeColor;
       box-shadow: $boxShadow2;
       display: flex;
 
@@ -40,7 +40,7 @@
 
   .account-notices {
     padding: 30px;
-    border-top: 4px solid #b38948;
+    border-top: 4px solid $themeColor;
     box-shadow: $boxShadow2;
 
     .Ads-title {
@@ -64,7 +64,7 @@
           width: 6px;
           height: 6px;
           border-radius: 50%;
-          background-color: #b38948;
+          background-color: $themeColor;
         }
       }
     }

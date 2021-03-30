@@ -1,6 +1,6 @@
 import axios from 'axios'
 // import qs from 'qs'
-import { getCookie, setCookie } from '@/helper/env'
+import { getCookie /* setCookie */ } from '@/helper/env'
 
 axios.defaults.baseURL = 'http://localhost:8081'
 // axios.interceptors.request.use((config) => {

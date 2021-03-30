@@ -95,7 +95,7 @@ const Header = (props) => {
                           to={`/services?type=${url}`}
                         >
                           <div
-                            style={{ color: search === `?type=${url}` ? '#b38948' : '' }}
+                            style={{ color: search === `?type=${url}` ? '$themeColor' : '' }}
                             className='menu-item'
                           >
                             {title}

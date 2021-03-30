@@ -40,7 +40,7 @@
         width: 12px;
         height: 12px;
         margin-left: -12px;
-        background: #b38948;
+        background: $themeColor;
         transform: rotateZ(45deg);
         position: absolute;
         margin-top: 15px;
@@ -107,7 +107,7 @@
     line-height: 56px;
     color: #ffffff;
     font-size: 25px;
-    background-color: #b38948;
+    background-color: $themeColor;
     border-radius: 50px;
     text-align: center;
     margin: auto;
@@ -121,7 +121,7 @@
   width: 6px;
   height: 6px;
   margin-left: -12px;
-  background: #b38948;
+  background: $themeColor;
   /* transform: rotateZ(45deg); */
   position: absolute;
   margin-top: 19px;

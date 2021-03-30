@@ -9,7 +9,7 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-family: 'source-code-pro', 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace;
 }
 *,
 p,
@@ -57,15 +57,15 @@ a:link {
 }
 
 a:hover {
-  color: #b38948;
+  color: $themeColor !important;
   // text-decoration: none !important;
 }
 
 .ant-btn:focus,
 .ant-btn:hover {
   color: #fff;
-  background-color: #b38948;
-  border-color: #b38948;
+  background-color: $themeColor;
+  border-color: $themeColor;
 }
 
 @media screen and (max-width: 1440px) {

@@ -1,5 +1,7 @@
 .order-content {
   padding: 10px 0px 50px 0px;
+  background: #fff;
+
   .order-nothing {
     text-align: center;
   }
@@ -52,7 +54,7 @@
             display: inline-block;
             width: 23px;
             height: 7px;
-            background: #b38948;
+            background: $themeColor;
             margin-left: 2px;
             transform: skewX(40deg);
           }
@@ -73,7 +75,7 @@
       font-size: 20px;
       font-family: Arial;
       font-weight: bold;
-      color: #b38948;
+      color: $themeColor;
     }
   }
 
@@ -97,7 +99,7 @@
         height: 35px;
       }
       .ant-input-group-addon {
-        background: #b38948;
+        background: $themeColor;
         color: #fff;
       }
     }
@@ -112,5 +114,25 @@
   > p {
     font-size: 16px;
     line-height: 22px;
+  }
+
+  .ant-btn-primary {
+    background: $themeColor;
+    border-color: $themeColor;
+    border-radius: 50px 50px 0px 0px;
+  }
+
+  .ant-tabs-tab-active {
+    .ant-tabs-tab-btn {
+      color: #333 !important;
+    }
+  }
+
+  .ant-tabs-tab:hover {
+    color: $themeColor;
+  }
+  
+  .ant-tabs-ink-bar {
+    background: $themeColor;
   }
 }

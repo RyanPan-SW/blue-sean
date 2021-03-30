@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import triangle from '@/asset/triangle.png'
 import { Form, Input, Button, Modal } from 'antd'
 import './index.scss'

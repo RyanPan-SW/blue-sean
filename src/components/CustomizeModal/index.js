@@ -1,14 +1,45 @@
 import React from 'react'
 import { Modal } from 'antd'
+import './index.scss'
 
-function CUstomizeModal(props) {
-  const { visible = false, ...other } = props
+function CustomizeModal(props) {
+  const {
+    width = '60%',
+    visible = false,
+    okText = 'ok',
+    onOk,
+    cancelText = 'cancel',
+    onCancel,
+    footer,
+    ...other
+  } = props
 
   return (
-    <Modal visible={visible} closable={false} footer={null} centered {...other}>
-      {props.children}
+    <Modal
+      visible={visible}
+      width={width}
+      maskClosable
+      onOk={onOk}
+      onCancel={onCancel}
+      closable={false}
+      footer={null}
+      centered
+      {...other}
+    >
+      <div className='cus-modal-body'>{props.children}</div>
+
+      <div className='cus-modal-footer'>
+        {footer ? (
+          footer
+        ) : (
+          <>
+            <span onClick={onCancel}>{cancelText}</span>
+            <span onClick={onOk}>{okText}</span>
+          </>
+        )}
+      </div>
     </Modal>
   )
 }
 
-export default CUstomizeModal
+export default CustomizeModal

@@ -1,4 +1,6 @@
 .details {
+  padding: $pagePadding;
+
   .detail-notes {
     margin-top: 50px;
     padding: 25px 15px;
@@ -28,8 +30,14 @@
     .order-title {
       display: flex;
       justify-content: space-between;
+      padding-bottom: 60px;
 
       .orders-cancel {
+        cursor: pointer;
+        width: 80px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
         font-size: 18px;
 
         &:hover {
@@ -39,16 +47,89 @@
     }
 
     .order-steps {
+      width: 100%;
       display: flex;
       justify-content: space-around;
+      overflow: hidden;
 
       .order-step-item {
+        flex: 1;
         overflow: visible;
 
-        .order-step-item {
+        &:nth-last-of-type(1) {
+          .step-line {
+            display: none;
+          }
+        }
+
+        .order-step-box {
+          text-align: center;
+          position: relative;
+        }
+
+        .step-status {
+          text-align: center;
+          color: #333;
+          font-size: 18px;
+          font-weight: 500;
         }
 
         .step-icon {
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          border: 1px solid #bcbcbc;
+          margin: 30px auto;
+        }
+
+        .step-line {
+          width: 91%;
+          height: 1px;
+          position: absolute;
+          background: #bcbcbc;
+          transform: translate(60%, -40px);
+        }
+
+        .step-content {
+          // text-align: center;
+        }
+      }
+
+      .order-step-fished {
+        .order-step-box {
+          .step-status {
+            color: $themeColor;
+          }
+          .step-icon {
+            background: $themeColor;
+            border: 1px solid $themeColor;
+          }
+          .step-content {
+            color: $themeColor;
+          }
+        }
+      }
+    }
+
+    .order-cancel {
+      .order-cancel-item {
+        .order-cancel-box {
+          text-align: center;
+
+          .cancel-status {
+            color: $themeColor;
+          }
+          .cancel-icon {
+            width: 20px;
+            height: 20px;
+            margin: 30px auto;
+            border-radius: 50%;
+            background: $themeColor;
+            border: 1px solid $themeColor;
+          }
+          .cancel-content {
+            color: $themeColor;
+          }
         }
       }
     }
@@ -86,6 +167,7 @@
       border-bottom: 1px solid #999999;
 
       .sender-item {
+        flex: 1;
         display: flex;
 
         .sender-item-title {
@@ -122,29 +204,45 @@
       }
     }
   }
+}
+.modal-recipient-footer {
+  display: flex;
+  font-size: 25px;
+  margin-top: -60px;
 
-  .cusModal-body {
-    font-size: 20px;
-    color: #010101;
-    padding: 20px;
-  }
-  .cusModal-footer {
-    font-size: 16px;
-    text-align: right;
-    margin-top: 60px;
-    font-weight: bold;
+  & > div {
+    flex: 1;
+    padding: 0px 30px;
 
-    .cusModal-cancel {
-      cursor: pointer;
+    .modal-submit {
+      text-align: left;
+    }
+
+    .modal-recipient-back {
       display: inline-block;
-      width: 80px;
-      height: 40px;
+      width: 80%;
+      min-width: 180px;
+      max-width: 310px;
+      height: 56px;
+      line-height: 56px;
       text-align: center;
-      line-height: 40px;
+      border: 1px solid #999;
+      background: #fff;
+      border-radius: 50px;
+      color: #999;
+    }
 
-      &:hover {
-        color: $themeColor;
-      }
+    .modal-recipient-submit {
+      display: inline-block;
+      width: 80%;
+      min-width: 180px;
+      max-width: 310px;
+      height: 56px;
+      line-height: 56px;
+      text-align: center;
+      background: $themeColor;
+      color: #fff;
+      border-radius: 50px;
     }
   }
 }

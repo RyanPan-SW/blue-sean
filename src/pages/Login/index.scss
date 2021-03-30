@@ -6,13 +6,13 @@
   margin-bottom: 120px;
 
   .ant-checkbox-checked .ant-checkbox-inner {
-    background-color: #b38948;
-    border-color: #b38948;
+    background-color: $themeColor;
+    border-color: $themeColor;
   }
 
   .active {
     color: #ffffff;
-    background-color: #b38948;
+    background-color: $themeColor;
   }
 
   .login-tabs {
@@ -49,7 +49,7 @@
 
       .login-sgin {
         margin-left: 30px;
-        color: #b38948;
+        color: $themeColor;
         font-size: 16px;
       }
     }
@@ -79,8 +79,8 @@
       width: 100%;
       height: 60px;
       font-size: 25px;
-      background-color: #b38948;
-      border: 1px solid #b38948;
+      background-color: $themeColor;
+      border: 1px solid $themeColor;
       color: #ffffff;
       border-radius: 50px;
     }

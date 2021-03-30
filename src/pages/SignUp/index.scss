@@ -3,7 +3,7 @@
   margin: auto;
   margin-top: 50px;
   margin-bottom: 50px;
-  border-top: 6px solid #b38948;
+  border-top: 6px solid $themeColor;
 
   p {
     font-size: 16px;
@@ -12,7 +12,7 @@
       font-weight: bold;
 
       &:hover {
-        color: #b38948;
+        color: $themeColor;
       }
     }
   }
@@ -59,7 +59,7 @@
 
       .signup-sgin {
         margin-left: 30px;
-        color: #b38948;
+        color: $themeColor;
         font-size: 16px;
       }
     }
@@ -73,8 +73,8 @@
       width: 100%;
       height: 60px;
       font-size: 25px;
-      background-color: #b38948;
-      border: 1px solid #b38948;
+      background-color: $themeColor;
+      border: 1px solid $themeColor;
       color: #ffffff;
       border-radius: 50px;
     }
