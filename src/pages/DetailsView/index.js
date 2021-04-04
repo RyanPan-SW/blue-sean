@@ -30,7 +30,7 @@ function DetailsView(props) {
       let date1 = dayjs(`${res?.orderDetails.orderDay} ${res?.orderDetails.orderTime}`)
       let date2 = dayjs(dayjs().format('YYYY-MM-DD HH:mm:ss'))
       if (date2.diff(date1, 'minute') >= 30) {
-        setOverTime(true)
+        // setOverTime(true)
       }
       setData(res)
     })
@@ -247,17 +247,30 @@ function DetailsView(props) {
         onCancel={() => {
           setChangeVisible(false)
         }}
+        cancelText={null}
+        onOk={() => {
+          setChangeVisible(false)
+        }}
         footer={
-          <div className='modal-recipient-footer'>
-            <div>
-              <span className='modal-recipient-back'>Back</span>
+          overTime ? null : (
+            <div className='modal-recipient-footer'>
+              <div>
+                <span
+                  className='modal-recipient-back'
+                  onClick={() => {
+                    setChangeVisible(false)
+                  }}
+                >
+                  Back
+                </span>
+              </div>
+              <div style={{ textAlign: 'left' }}>
+                <span className='modal-recipient-submit' onClick={onFinish}>
+                  Submit
+                </span>
+              </div>
             </div>
-            <div style={{ textAlign: 'left' }}>
-              <span className='modal-recipient-submit' onClick={onFinish}>
-                Submit
-              </span>
-            </div>
-          </div>
+          )
         }
       >
         {overTime ? (
@@ -271,6 +284,105 @@ function DetailsView(props) {
           </>
         ) : (
           <>
+            <h3>Sender Information</h3>
+            <Form
+              form={form}
+              layout='vertical'
+              style={{ display: 'flex' }}
+              initialValues={{
+                FirstName: data?.orderDetails.recipient.firstName || '',
+                LastName: data?.orderDetails.recipient.lastName,
+                Email: data?.orderDetails.recipient.email,
+                StreetAddress: data?.orderDetails.recipient.StreetAddress,
+                City: data?.orderDetails.recipient.city,
+                PhoneNumber: data?.orderDetails.recipient.phone,
+                CompanyName: data?.orderDetails.recipient.CompanyName,
+                address: data?.orderDetails.recipient.address,
+                ZIPCode: data?.orderDetails.recipient.zipCode,
+              }}
+              // onFinish={onFinish}
+            >
+              <div style={{ flex: 1, padding: 30 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Form.Item
+                    label='First Name'
+                    name='FirstName'
+                    style={{ width: '45%' }}
+                    rules={[{ required: true, message: <FieldDom /> }]}
+                  >
+                    <Input placeholder='First Name' />
+                  </Form.Item>
+
+                  <Form.Item
+                    label='Last Name'
+                    name='LastName'
+                    style={{ width: '45%' }}
+                    rules={[{ required: true, message: <FieldDom /> }]}
+                  >
+                    <Input placeholder='Last Name' name={['name', 'last']} />
+                  </Form.Item>
+                </div>
+
+                <Form.Item
+                  label='Email'
+                  name='Email'
+                  rules={[{ required: true, message: <FieldDom /> }]}
+                >
+                  <Input placeholder='Email' />
+                </Form.Item>
+
+                <Form.Item
+                  label='Street Address'
+                  name='StreetAddress'
+                  rules={[{ required: true, message: <FieldDom /> }]}
+                >
+                  <Input placeholder='Street Address' />
+                </Form.Item>
+
+                <Form.Item
+                  label='City'
+                  name='City'
+                  rules={[{ required: true, message: <FieldDom /> }]}
+                >
+                  <Input placeholder='City' />
+                </Form.Item>
+              </div>
+
+              <div style={{ flex: 1, padding: 30 }}>
+                <Form.Item
+                  label='Phone Number'
+                  name='PhoneNumber'
+                  rules={[{ required: true, message: <FieldDom /> }]}
+                >
+                  <Input placeholder='email' />
+                </Form.Item>
+
+                <Form.Item
+                  label='Company Name'
+                  name='CompanyName'
+                  rules={[{ required: true, message: <FieldDom /> }]}
+                >
+                  <Input placeholder='Company Name' />
+                </Form.Item>
+
+                <Form.Item
+                  label='Apt/Suite/Other'
+                  name='address'
+                  rules={[{ required: true, message: <FieldDom /> }]}
+                >
+                  <Input placeholder='Apt/Suite/Other' />
+                </Form.Item>
+
+                <Form.Item
+                  label='ZIP Code'
+                  name='ZIPCode'
+                  rules={[{ required: true, message: <FieldDom /> }]}
+                >
+                  <Input placeholder='ZIP Code' />
+                </Form.Item>
+              </div>
+            </Form>
+
             <h3>Recipient Information</h3>
             <Form
               form={form}

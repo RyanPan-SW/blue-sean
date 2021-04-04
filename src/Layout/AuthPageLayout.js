@@ -29,6 +29,7 @@ import Page404 from '@/pages/404/404'
 
 import './index.scss'
 import DetailsView from '@/pages/DetailsView'
+import { Redirect } from 'react-router'
 
 function BaseLayout({ footer = true }) {
   const { pathname } = useLocation()
@@ -77,6 +78,7 @@ function BaseLayout({ footer = true }) {
           <Route path='/address' component={MyAddress} />
           <Route path='/changepassword' component={ChangePassword} />
           <Route path='/404' component={Page404} />
+          <Redirect to='/home' />
         </Switch>
       </Layout.Content>
 

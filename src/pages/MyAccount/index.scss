@@ -1,7 +1,5 @@
 .myAccount {
-  padding: 80px;
-  width: 80%;
-  margin: auto;
+  padding: 70px 60px 130px 60px;
 
   .account-title {
     padding-bottom: 30px;
@@ -11,20 +9,20 @@
 
   .account-card {
     width: 100%;
-    padding-bottom: 80px;
+    padding-bottom: 60px;
     display: flex;
     justify-content: space-between;
 
     a {
-      width: 30%;
-      padding: 5%;
+      width: calc(33.33% - 50px);
+      padding: 40px 25px;
       border-top: 4px solid $themeColor;
       box-shadow: $boxShadow2;
       display: flex;
 
       img {
         width: 45px;
-        height: 56px;
+        height: 50px;
         margin-right: 30px;
       }
 
@@ -47,6 +45,14 @@
       font-size: 25px;
       font-weight: bold;
       padding-bottom: 60px;
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 32px;
+        height: 25px;
+        margin-right: 10px;
+      }
     }
 
     .account-list {
@@ -65,6 +71,42 @@
           height: 6px;
           border-radius: 50%;
           background-color: $themeColor;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1500px) {
+  .myAccount {
+    .account-card {
+      a {
+        padding: 30px 20px;
+
+        h4 {
+          font-size: 20px;
+        }
+
+        p {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .myAccount {
+    .account-card {
+      flex-direction: column;
+
+      a {
+        width: 100%;
+        margin: 0 auto;
+        margin-top: 60px;
+
+        &:nth-of-type(1) {
+          margin-top: 0;
         }
       }
     }

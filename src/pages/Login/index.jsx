@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Button, Form, Input, Checkbox } from 'antd'
-import { test } from '@/api/user'
+import { loginApi } from '@/api/login'
 import * as UserActionCreator from '@/store/actions/user'
 import { Link } from 'react-router-dom'
 import './index.scss'
+import FieldDom from '@/components/Field'
+import { ExclamationCircleFilled } from '@ant-design/icons'
 
 const Login = ({ login, history }) => {
   const [activeTab, setActiveTab] = useState(1)
+  const [loginError, setLoginError] = useState(false)
 
-  useEffect(() => {
-    test()
-  })
+  useEffect(() => {})
 
   const changeTabs = (key) => {
     setActiveTab(key)
@@ -20,6 +21,14 @@ const Login = ({ login, history }) => {
 
   const onFinish = (values) => {
     console.log('Received values of form: ', values)
+    loginApi(values).then((res) => {
+      let data = res.data
+      if (data.verifySuccess) {
+        history.push('/account')
+      } else {
+        setLoginError(true)
+      }
+    })
   }
 
   return (
@@ -35,6 +44,13 @@ const Login = ({ login, history }) => {
 
       {activeTab === 1 && (
         <div className='login-content'>
+          {loginError && (
+            <div className='login-error'>
+              <ExclamationCircleFilled style={{ color: '#A40000' }} />
+              <span>Incorrect email address or password.</span>
+            </div>
+          )}
+
           <div className='login-welcome'>WELCOME BACK</div>
 
           <div className='login-personal'>
@@ -56,7 +72,12 @@ const Login = ({ login, history }) => {
             <Form.Item
               label={<span className='label'>YOUR EMAIL</span>}
               name='username'
-              rules={[{ required: true, message: 'Please input your Username!' }]}
+              rules={[
+                {
+                  required: true,
+                  message: <FieldDom message='Please enter a valid email address.' />,
+                },
+              ]}
             >
               <Input placeholder='yourname@email.com' />
             </Form.Item>
@@ -64,13 +85,13 @@ const Login = ({ login, history }) => {
             <Form.Item
               label={<span className='label'>PASSWORD</span>}
               name='password'
-              rules={[{ required: true, message: 'Please input your Password!' }]}
+              rules={[{ required: true, message: <FieldDom /> }]}
             >
               <Input.Password placeholder='Password' />
             </Form.Item>
 
             <div>
-              <span>Remember:</span> Passwords are case sensitive.
+              <b>Remember:</b> Passwords are case sensitive.
             </div>
 
             <Form.Item>

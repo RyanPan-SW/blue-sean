@@ -34,10 +34,10 @@ li {
 }
 
 .container {
-  width: 88.5%;
+  width: 70%;
   // min-width: 1290px;
   // width: auto;
-  max-width: 1690px;
+  // max-width: 1690px;
   padding: 0;
   margin: 0;
   margin: auto;
@@ -70,6 +70,6 @@ a:hover {
 
 @media screen and (max-width: 1440px) {
   .container {
-    width: 92%;
+    width: 80%;
   }
 }

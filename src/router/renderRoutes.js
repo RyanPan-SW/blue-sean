@@ -3,9 +3,8 @@ import { Route, Redirect } from 'react-router-dom'
 
 /*登录检测路由*/
 export function PrivateRoute({ children, ...route }) {
-  console.log('object==> 登录检测路由 PrivateRoute', children, route)
-
   let isAuthenticated = sessionStorage.auth
+
   return (
     <Route
       {...route}
@@ -27,17 +26,10 @@ export function PrivateRoute({ children, ...route }) {
 
 /*开放路由*/
 export function RouteWithSubRoutes(route) {
-  const { path, exact = false, component: Component } = route
-  console.log('object==> 开放路由 RouteWithSubRoutes')
+  const { path, exact = false, component: Component, routes = [] } = route
 
   return (
-    <Route
-      exact={exact}
-      path={path}
-      render={(props) => (
-        <Component {...props} routes={route.routes} />
-      )}
-    />
+    <Route exact={exact} path={path} render={(props) => <Component {...props} routes={routes} />} />
   )
 }
 
