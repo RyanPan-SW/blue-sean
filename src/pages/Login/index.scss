@@ -85,4 +85,15 @@
       border-radius: 50px;
     }
   }
+
+  .login-error {
+    display: flex;
+    align-items: center;
+    border: 1px solid $themeColor;
+    padding: 20px 15px;
+
+    span {
+      padding-left: 10px;
+    }
+  }
 }

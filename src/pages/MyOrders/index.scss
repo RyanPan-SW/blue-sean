@@ -82,11 +82,11 @@
   .order-top {
     display: flex;
     justify-content: space-between;
-    padding-top: 40px;
+    padding-top: 20px;
+    padding-bottom: 50px;
 
     .order-title {
       font-size: 32px;
-      line-height: 70px;
       font-weight: bold;
     }
 
@@ -134,5 +134,15 @@
   
   .ant-tabs-ink-bar {
     background: $themeColor;
+  }
+
+  .ant-pagination-item:focus, .ant-pagination-item:hover {
+    border-color: $themeColor;
+    color: #fff !important;
+  }
+  .ant-pagination-item-active {
+    border-color: $themeColor;
+    background: $themeColor;
+    color: #FFF;
   }
 }

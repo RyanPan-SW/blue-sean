@@ -1,8 +1,12 @@
 import API from '@/service/request'
 import querystring from 'querystring'
 
-export function getOrdersList(params) {
+export function searchOrder(params) {
   return API.get('/searchOrder')
+}
+
+export function getOrdersList(params) {
+  return API.get('/orders')
 }
 
 export function getOrderDateils(params) {

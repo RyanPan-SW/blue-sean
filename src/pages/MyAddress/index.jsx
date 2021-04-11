@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Breadcrumb, Table, Tag, Space } from 'antd'
+import { Breadcrumb, Table } from 'antd'
 import './index.scss'
 
 function AddressBook(props) {
@@ -77,13 +77,13 @@ function AddressBook(props) {
             <Breadcrumb.Item>Address Book</Breadcrumb.Item>
           </Breadcrumb>
 
-          <h3 className='address-title'>Address Book</h3>
+          <h3 className='h4-title'>Address Book</h3>
 
           <Table
             className='address-table'
             columns={columns}
             dataSource={data}
-            footer={() => <div className="table-footer">+ Add a New Address</div>}
+            footer={() => <div className='table-footer'>+ Add a New Address</div>}
           />
         </div>
       </div>

@@ -1,52 +1,26 @@
 // TODO:寄件列表
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 // import { getOrdersList } from '@/api/orders'
 import { enumsOrderStatus } from '@/helper/env'
 import { Input, Tabs, Breadcrumb, Popover, Pagination } from 'antd'
 import { Link } from 'react-router-dom'
 import './index.scss'
 import CustomizeModal from '@/components/CustomizeModal'
+import { getOrdersList, searchOrder } from '@/api/orders'
 
 const { TabPane } = Tabs
 
-const ordersList = [
-  {
-    number: 'Tracking number: DC1000000000000000',
-    from: 'Brisbane',
-    sender: 'George Orwell',
-    to: 'Gold Coast',
-    addressee: 'Angelina Jolie',
-    status: 1,
-  },
-  {
-    number: 'Tracking number: DC1000000000000001',
-    from: 'Brisbane',
-    sender: 'George Orwell',
-    to: 'Gold Coast',
-    addressee: 'Angelina Jolie',
-    status: 2,
-  },
-  {
-    number: 'Tracking number: DC1000000000000002',
-    from: 'Brisbane',
-    sender: 'George Orwell',
-    to: 'Gold Coast',
-    addressee: 'Angelina Jolie',
-    status: 3,
-  },
-  {
-    number: 'Tracking number: DC1000000000000003',
-    from: 'Brisbane',
-    sender: 'George Orwell',
-    to: 'Gold Coast',
-    addressee: 'Angelina Jolie',
-    status: 4,
-  },
-]
-const pageSize = 15
-
 function MyOrder(params) {
+  const [ordersdata, setOrdersdata] = useState([])
+  const [listtotal, setListtotal] = useState(0)
   const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    getOrdersList().then((res) => {
+      setOrdersdata(res.data || [])
+      setListtotal(res.total || 0)
+    })
+  }, [])
 
   const onCancel = () => {
     setVisible(false)
@@ -54,17 +28,26 @@ function MyOrder(params) {
 
   const onSearchOrders = (value, e) => {
     console.log(value, 'value', e, 'e')
-    // getOrdersList().then((res) => {
-    //   if (res.list.length === 0 || !res.length) {
-    setVisible(true)
-    //   }
-    // })
+    searchOrder().then((res) => {
+      console.log(res)
+      if (res.data.length !== 0) {
+        setVisible(true)
+      }
+    })
+  }
+
+  const changePageSize = (page, pageSize) => {
+    console.log('object', page, pageSize)
+    getOrdersList(page, pageSize).then((res) => {
+      setOrdersdata(res.data)
+      setListtotal(res.total || 0)
+    })
   }
 
   return (
     <div className='order-content'>
       <div className='container'>
-        <Breadcrumb>
+        <Breadcrumb separator='>'>
           <Breadcrumb.Item>
             <Link to='/account'>My Account</Link>
           </Breadcrumb.Item>
@@ -93,15 +76,15 @@ function MyOrder(params) {
           <TabPane tab='Orders' key='1'>
             <div>
               <div>
-                {ordersList.map((item, index) => {
+                {ordersdata.map((item, index) => {
                   return (
                     <div className='ordersList' key={index}>
-                      <div className='list-title'>{item.number}</div>
+                      <div className='list-title'>Tracking number: {item.number}</div>
                       <div className='list-content'>
                         <div className='list-news'>
                           <div className='list-from'>
-                            <p>{item.from}</p>
-                            <p>{LengthLimit(item.sender, 25)}</p>
+                            <p>{LengthLimit(item.from, 25)}</p>
+                            <p>{LengthLimit(item.senderName, 25)}</p>
                           </div>
                           <div className='list-status'>
                             <div>
@@ -120,8 +103,8 @@ function MyOrder(params) {
                             </div>
                           </div>
                           <div className='list-to'>
-                            <p>{item.to}</p>
-                            <p>{LengthLimit(item.addressee, 25)}</p>
+                            <p>{LengthLimit(item.to, 25)}</p>
+                            <p>{LengthLimit(item.addresseeName, 25)}</p>
                           </div>
                         </div>
 
@@ -133,13 +116,16 @@ function MyOrder(params) {
                   )
                 })}
               </div>
-              <div>
+              {listtotal > 15 && (
                 <Pagination
+                  style={{ textAlign: 'right', paddingTop: 30 }}
                   defaultCurrent={1}
-                  pageSize={pageSize}
-                  total={ordersList.length / pageSize}
-                ></Pagination>
-              </div>
+                  // defaultPageSize={15}
+                  pageSize={15}
+                  total={listtotal}
+                  onChange={changePageSize}
+                />
+              )}
             </div>
           </TabPane>
           <TabPane tab='Open Orders' key='2'>
