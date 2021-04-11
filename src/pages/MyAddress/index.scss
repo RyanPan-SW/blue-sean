@@ -1,0 +1,17 @@
+.address {
+  width: 90%;
+  margin: auto;
+
+  .address-title {
+    padding-top: 20px;
+    padding-bottom: 60px;
+  }
+
+  .address-table {
+    border-top: 4px solid $themeColor;
+  }
+
+  .table-footer {
+    color: $themeColor;
+  }
+}

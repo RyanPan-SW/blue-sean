@@ -49,13 +49,13 @@ function MyAccount(params) {
           </Link>
         </div>
 
-        {/* TODO：该模块所有内容由后台编辑展示，此处仅文字展示，可加粗、变色 */}
         <div className='account-notices'>
           <div className='Ads-title'>
             <img src={announcement} alt='' />
             <div>Ads & Notices</div>
           </div>
 
+          {/* TODO：该模块所有内容由后台编辑展示，此处仅文字展示，可加粗、变色 */}
           <ul className='account-list' dangerouslySetInnerHTML={{ __html: adsNotes.data }}>
             {/* <li>Warm prompt: Due to the weather, delivery to Brisbane will be delayed by 2 hour</li>
             <li>
