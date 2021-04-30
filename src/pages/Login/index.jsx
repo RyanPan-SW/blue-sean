@@ -125,7 +125,10 @@ const Login = ({ login, history }) => {
 
           <div className='login-personal'>
             <span>Don't have a corporate account?</span>
-            <span className='login-sgin'>Sgin up.</span>
+            {/* <span className='login-sgin'>Sgin up.</span> */}
+            <Link to='/cooperate' className='login-sgin'>
+              Sgin up.
+            </Link>
           </div>
 
           <Form

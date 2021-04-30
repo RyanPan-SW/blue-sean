@@ -1,11 +1,12 @@
 //page: 企业申请合作
 
 import React, { useState } from 'react'
-import { Button, Form, Input, Radio } from 'antd'
+import { Button, Form, Input, message, Radio } from 'antd'
 import './index.scss'
 import FieldDom from '@/components/Field'
 import { emailMsg, patterns } from '@/helper/env'
 import PromptModel from '@/components/PromptModel'
+import { createCorporate } from '@/api/cooperate'
 
 function Cooperate(props) {
   const [ShowPromptBox, setShowPromptBox] = useState(false)
@@ -14,7 +15,7 @@ function Cooperate(props) {
     return e.replace(/[\u4e00-\u9fa5]/gm, '')
   }
 
-  const onFinish = () => {
+  const onFinish = (value) => {
     // 1、字段如图所示
     // 2、所有字段为必填项
     // 3、选项为单选项，默认不选中
@@ -22,7 +23,13 @@ function Cooperate(props) {
     // 5、输入框中都默认自带文字，鼠标点击后清空输入框
     // TODO: 1.校验通过，当前页跳转到【企业用户合作申请完成】页
     // TODO: 2.校验不通过，在没有填写的字段下提示：This field is required.
-    setShowPromptBox(true)
+    createCorporate(value).then((res) => {
+      if (res.success) {
+        setShowPromptBox(true)
+      } else {
+        message.error('Network Error')
+      }
+    })
   }
 
   return (
@@ -32,7 +39,7 @@ function Cooperate(props) {
           <div className='cooperate-content'>
             <div className='cooperate-form'>
               <h4>Creat An ACCOUNT FOR CORPORATE</h4>
-              <p>
+              <p className='cooperate-describe'>
                 Please fill in the following information, and our customer service representatives
                 will contact you to assist you with opening an account.
               </p>
@@ -48,20 +55,22 @@ function Cooperate(props) {
                       name={['contacts', 'firstName']}
                       normalize={normFile}
                       rules={[{ required: true, message: <FieldDom /> }]}
-                      style={{ width: '50%' }}
+                      style={{ width: '48%' }}
                     >
                       <Input placeholder='First Name' />
                     </Form.Item>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <Form.Item
                       name={['contacts', 'lastName']}
                       normalize={normFile}
                       rules={[{ required: true, message: <FieldDom /> }]}
-                      style={{ width: '50%' }}
+                      style={{ width: '48%' }}
                     >
                       <Input placeholder='Last Name' />
                     </Form.Item>
                   </Input.Group>
                 </Form.Item>
+
                 <Form.Item
                   label='PHONE'
                   name='phone'
@@ -188,9 +197,9 @@ function Cooperate(props) {
 
       {ShowPromptBox && (
         <PromptModel>
-          <h3 className="prompt-title">Thank you for your Request!</h3>
+          <h3 className='prompt-title'>Thank you for your Request!</h3>
 
-          <p className="prompt-describe">
+          <p className='prompt-describe'>
             We will process your application and contact you within the next two working days. For
             further information, please contact us.
           </p>

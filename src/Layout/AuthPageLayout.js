@@ -51,8 +51,9 @@ function BaseLayout({ footer = true }) {
       <Layout.Content
         className='layout-main'
         style={{
-          paddingTop: pathname === '/home' ? 0 : 125,
+          paddingTop: pathname === '/home' ? 0 : 120,
           minHeight: 'calc(100vh - 60px)',
+          background: '#FFF'
         }}
       >
         <Switch>

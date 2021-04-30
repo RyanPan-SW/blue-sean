@@ -1,16 +1,20 @@
 .cooperate-content {
-  width: 80%;
+  width: 93%;
   margin: auto;
   padding: 50px 0px;
   display: flex;
   justify-content: space-between;
 
   .cooperate-form {
-    width: 65%;
+    flex: 1;
     padding: 30px 50px;
     background-color: #fff;
     box-shadow: $boxShadow;
     border-top: 4px solid $themeColor;
+
+    .cooperate-describe {
+      padding-bottom: 30px;
+    }
 
     .form-submit {
       width: 70%;
@@ -24,7 +28,7 @@
   }
 
   .cooperate-why {
-    flex: 1;
+    width: 355px;
     padding: 30px;
     margin-left: 50px;
     border-top: 4px solid $themeColor;

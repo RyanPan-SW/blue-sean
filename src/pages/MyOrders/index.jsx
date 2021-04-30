@@ -27,10 +27,13 @@ function MyOrder(params) {
   }
 
   const onSearchOrders = (value, e) => {
-    console.log(value, 'value', e, 'e')
-    searchOrder().then((res) => {
+    // console.log(value, 'value', e, 'e')
+    searchOrder(value).then((res) => {
       console.log(res)
       if (res.data.length !== 0) {
+        setOrdersdata(res.data)
+      setListtotal(res.total || 0)
+      } else {
         setVisible(true)
       }
     })

@@ -10,16 +10,16 @@ function JoinUs(props) {
   const validateMessages = {
     required: 'is required!',
     types: {
-      FristName: 'Please Enter',
-      LastName: 'Please Enter',
-      Email: 'Please Enter you email!',
-      Problem: 'Please Enter you problem!',
+      fristName: 'Please Enter',
+      lastName: 'Please Enter',
+      email: 'Please Enter you email!',
+      problem: 'Please Enter you problem!',
     },
   }
 
   const onFinish = (values) => {
     console.log('ask表单内容', values)
-    getAsk().then((res) => {
+    getAsk(values.user).then((res) => {
       if (res || res.code === 200) {
         setVisible(true)
       }
@@ -47,7 +47,7 @@ function JoinUs(props) {
           >
             <div className='join-name'>
               <Form.Item
-                name={['user', 'FristName']}
+                name={['user', 'firstName']}
                 rules={[{ required: true, message: 'please Enter' }]}
                 normalize={normFile}
                 className='formItem'
@@ -56,7 +56,7 @@ function JoinUs(props) {
               </Form.Item>
 
               <Form.Item
-                name={['user', 'LastName']}
+                name={['user', 'lastName']}
                 rules={[{ required: true, message: 'please Enter' }]}
                 normalize={normFile}
                 className='formItem'
@@ -66,7 +66,7 @@ function JoinUs(props) {
             </div>
 
             <Form.Item
-              name={['user', 'Email']}
+              name={['user', 'email']}
               rules={[
                 { required: true, message: 'please Enter' },
                 { type: 'email', message: 'Please enter the correct email!' },
@@ -77,7 +77,7 @@ function JoinUs(props) {
             </Form.Item>
 
             <Form.Item
-              name={['user', 'Problem']}
+              name={['user', 'problem']}
               rules={[{ required: true, message: 'please Enter' }]}
               className='formItem'
             >
@@ -98,7 +98,7 @@ function JoinUs(props) {
 
       <Modal
         className='modal-body'
-        width={640}
+        width={600}
         centered
         closable={false}
         onCancel={() => {

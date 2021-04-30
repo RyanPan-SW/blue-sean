@@ -2,7 +2,7 @@ import API from '@/service/request'
 import querystring from 'querystring'
 
 export function searchOrder(params) {
-  return API.get('/searchOrder')
+  return API.post('/searchOrder', params)
 }
 
 export function getOrdersList(params) {

@@ -5,7 +5,7 @@ import './index.scss'
 function TopContent() {
   return (
     <section className='ourSericer'>
-      <div className='container'>
+      <div className='ourSericer-container'>
         <h3>Our Services</h3>
 
         <div className='ourSericer-colContent'>
