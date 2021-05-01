@@ -7,10 +7,14 @@ import { Link } from 'react-router-dom'
 import './index.scss'
 import FieldDom from '@/components/Field'
 import { ExclamationCircleFilled } from '@ant-design/icons'
+import { setCookie } from '@/helper/env'
+
+const loginType = { personal: '01', corporate: '02' }
 
 const Login = ({ login, history }) => {
   const [activeTab, setActiveTab] = useState(1)
   const [loginError, setLoginError] = useState(false)
+  const [errormsg, setErrormsg] = useState('')
 
   useEffect(() => {})
 
@@ -19,14 +23,31 @@ const Login = ({ login, history }) => {
     console.log(key)
   }
 
-  const onFinish = (values) => {
+  const onFinishPersonal = (values) => {
     console.log('Received values of form: ', values)
-    loginApi(values).then((res) => {
-      let data = res.data
-      if (data.verifySuccess) {
+    loginApi({ ...values, loginType: loginType['personal'] }).then((res) => {
+      const { code, data, errmsg } = res
+      if (code === 200) {
+        const token = data.token
+        setCookie(token)
         history.push('/account')
       } else {
         setLoginError(true)
+        setErrormsg(errmsg)
+      }
+    })
+  }
+
+  const onFishCorporate = (values) => {
+    loginApi({ ...values, loginType: loginType['corporate'] }).then((res) => {
+      const { code, data, errmsg } = res
+      if (code === 200) {
+        const token = data.token
+        setCookie(token)
+        history.push('/account')
+      } else {
+        setLoginError(true)
+        setErrormsg(errmsg)
       }
     })
   }
@@ -47,7 +68,7 @@ const Login = ({ login, history }) => {
           {loginError && (
             <div className='login-error'>
               <ExclamationCircleFilled style={{ color: '#A40000' }} />
-              <span>Incorrect email address or password.</span>
+              <span>{errormsg}</span>
             </div>
           )}
 
@@ -64,14 +85,11 @@ const Login = ({ login, history }) => {
             // form={form}
             className='login-form'
             layout='vertical'
-            onFinish={onFinish}
-            // initialValues={{ requiredMark }}
-            // onValuesChange={onRequiredTypeChange}
-            // requiredMark={requiredMark}
+            onFinish={onFinishPersonal}
           >
             <Form.Item
               label={<span className='label'>YOUR EMAIL</span>}
-              name='username'
+              name='userName'
               rules={[
                 {
                   required: true,
@@ -100,6 +118,7 @@ const Login = ({ login, history }) => {
                 className='login-remmeber-forgot'
                 valuePropName='checked'
                 noStyle
+                initialValue={false}
               >
                 <Checkbox>Keep me log in</Checkbox>
               </Form.Item>
@@ -131,15 +150,7 @@ const Login = ({ login, history }) => {
             </Link>
           </div>
 
-          <Form
-            // form={form}
-            className='login-form'
-            layout='vertical'
-            onFinish={onFinish}
-            // initialValues={{ requiredMark }}
-            // onValuesChange={onRequiredTypeChange}
-            // requiredMark={requiredMark}
-          >
+          <Form className='login-form' layout='vertical' onFinish={onFishCorporate}>
             <Form.Item
               label={<span className='label'>USERNAME</span>}
               name='username'
@@ -166,6 +177,7 @@ const Login = ({ login, history }) => {
                 className='login-remmeber-forgot'
                 valuePropName='checked'
                 noStyle
+                initialValue={false}
               >
                 <Checkbox>Keep me log in</Checkbox>
               </Form.Item>

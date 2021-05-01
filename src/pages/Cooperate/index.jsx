@@ -15,16 +15,11 @@ function Cooperate(props) {
     return e.replace(/[\u4e00-\u9fa5]/gm, '')
   }
 
-  const onFinish = (value) => {
-    // 1、字段如图所示
-    // 2、所有字段为必填项
-    // 3、选项为单选项，默认不选中
-    // 4、所有输入框：不能输入中文，其他无限制
-    // 5、输入框中都默认自带文字，鼠标点击后清空输入框
+  const onFinish = (values) => {
     // TODO: 1.校验通过，当前页跳转到【企业用户合作申请完成】页
-    // TODO: 2.校验不通过，在没有填写的字段下提示：This field is required.
-    createCorporate(value).then((res) => {
-      if (res.success) {
+    createCorporate(values).then((res) => {
+      const { code /* data */ } = res
+      if (code === 200) {
         setShowPromptBox(true)
       } else {
         message.error('Network Error')
@@ -45,37 +40,31 @@ function Cooperate(props) {
               </p>
 
               <Form layout='vertical' onFinish={onFinish}>
-                <Form.Item
-                  label='CONTACTS'
-                  name='contacts'
-                  rules={[{ required: true, message: ' ' }]}
-                >
-                  <Input.Group compact>
-                    <Form.Item
-                      name={['contacts', 'firstName']}
-                      normalize={normFile}
-                      rules={[{ required: true, message: <FieldDom /> }]}
-                      style={{ width: '48%' }}
-                    >
-                      <Input placeholder='First Name' />
-                    </Form.Item>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <Form.Item
-                      name={['contacts', 'lastName']}
-                      normalize={normFile}
-                      rules={[{ required: true, message: <FieldDom /> }]}
-                      style={{ width: '48%' }}
-                    >
-                      <Input placeholder='Last Name' />
-                    </Form.Item>
-                  </Input.Group>
+                <Form.Item label='CONTACTS' required>
+                  <Form.Item
+                    name='firstName'
+                    normalize={normFile}
+                    rules={[{ required: true, message: <FieldDom />, whitespace: true }]}
+                    style={{ flex: 1, marginRight: 20 }}
+                  >
+                    <Input placeholder='Last Name' />
+                  </Form.Item>
+
+                  <Form.Item
+                    name='lastName'
+                    normalize={normFile}
+                    rules={[{ required: true, message: <FieldDom />, whitespace: true }]}
+                    style={{ flex: 1 }}
+                  >
+                    <Input placeholder='Last Name' />
+                  </Form.Item>
                 </Form.Item>
 
                 <Form.Item
                   label='PHONE'
                   name='phone'
                   rules={[
-                    { required: true, message: <FieldDom /> },
+                    { required: true, message: <FieldDom />, whitespace: true },
                     { pattern: patterns.tel, message: 'Please enter the phone number.' },
                   ]}
                   normalize={normFile}
@@ -87,7 +76,7 @@ function Cooperate(props) {
                   name='email'
                   normalize={normFile}
                   rules={[
-                    { required: true, message: <FieldDom /> },
+                    { required: true, message: <FieldDom />, whitespace: true },
                     { type: 'email', message: emailMsg.email },
                   ]}
                 >
@@ -97,51 +86,51 @@ function Cooperate(props) {
                   label='COMPANY NAME'
                   name='companyName'
                   normalize={normFile}
-                  rules={[{ required: true, message: <FieldDom /> }]}
+                  rules={[{ required: true, message: <FieldDom />, whitespace: true }]}
                 >
                   <Input placeholder='Company Name' />
                 </Form.Item>
                 <Form.Item
                   label='CAN THE BUSINESS LICENSE BE PROVIDED?'
-                  name='license'
+                  name='provided'
                   normalize={normFile}
-                  rules={[{ required: true, message: <FieldDom /> }]}
+                  rules={[{ required: true, message: <FieldDom />, whitespace: true }]}
                 >
                   <Radio.Group>
-                    <Radio value='a'>Yes</Radio>
-                    <Radio value='b'>No</Radio>
+                    <Radio value='1'>Yes</Radio>
+                    <Radio value='0'>No</Radio>
                   </Radio.Group>
                 </Form.Item>
                 <Form.Item
                   label='COMPANY ADDRESS'
                   name='companyAddress'
                   normalize={normFile}
-                  rules={[{ required: true, message: <FieldDom /> }]}
+                  rules={[{ required: true, message: <FieldDom />, whitespace: true }]}
                 >
                   <Input placeholder='Company Address' />
                 </Form.Item>
                 <Form.Item
                   label='CITY'
                   name='city'
-                  rules={[{ required: true, message: <FieldDom /> }]}
+                  rules={[{ required: true, message: <FieldDom />, whitespace: true }]}
                 >
                   <Input placeholder='City' />
                 </Form.Item>
 
                 <Form.Item
                   label='STATE/PROVINCE/REGION'
-                  name='REGION'
+                  name='state'
                   normalize={normFile}
-                  rules={[{ required: true, message: <FieldDom /> }]}
+                  rules={[{ required: true, message: <FieldDom />, whitespace: true }]}
                 >
                   <Input placeholder='State/Province/Region' />
                 </Form.Item>
                 <Form.Item
                   label='ZIP CODE'
-                  name='code'
+                  name='zipcode'
                   normalize={normFile}
                   rules={[
-                    { required: true, message: <FieldDom /> },
+                    { required: true, message: <FieldDom />, whitespace: true },
                     {
                       pattern: patterns.ZIPCode,
                       message: 'Please enter a valid zip code address.',

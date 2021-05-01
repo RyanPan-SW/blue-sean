@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Breadcrumb, Form, Input, Modal } from 'antd'
+import { Breadcrumb, Form, Input } from 'antd'
 import { Link } from 'react-router-dom'
 import CustomizeModal from '@/components/CustomizeModal'
 // import { ReactComponent as Fish } from '../../asset/fishing.svg'

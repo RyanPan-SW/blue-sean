@@ -6,7 +6,7 @@
   justify-content: space-between;
 
   .cooperate-form {
-    flex: 1;
+    width: 64%;
     padding: 30px 50px;
     background-color: #fff;
     box-shadow: $boxShadow;
@@ -16,9 +16,18 @@
       padding-bottom: 30px;
     }
 
+    .ant-input-group.ant-input-group-compact {
+      display: flex;
+    }
+
+    .ant-form-item-control-input-content {
+      display: flex;
+    }
+
     .form-submit {
-      width: 70%;
+      width: 100%;
       margin: 0 auto;
+      font-size: 25px;
       background-color: $themeColor;
       color: #fff;
       height: 56px;
@@ -28,7 +37,8 @@
   }
 
   .cooperate-why {
-    width: 355px;
+    width: 33%;
+    max-width: 355px;
     padding: 30px;
     margin-left: 50px;
     border-top: 4px solid $themeColor;
@@ -40,7 +50,7 @@
     }
 
     h4 {
-      padding-top: 30px;
+      padding-bottom: 30px;
       font-size: 18px;
     }
 
@@ -51,6 +61,8 @@
 
     .cooperate-feature {
       padding-left: 20px;
+      padding-bottom: 100px;
+      
       li {
         line-height: 40px;
         padding-top: 20px;
@@ -60,22 +72,27 @@
 
     .cooperate-note {
       padding-left: 20px;
+
       li {
-        padding-top: 30px;
+        // padding-top: 30px;
+        line-height: 22px;
         list-style: disc;
         font-size: 16px;
       }
     }
 
     .step {
-      padding-top: 100px;
+      // padding-top: 100px;
+      padding-bottom: 20px;
     }
     .step-ul {
       padding-left: 20px;
+      padding-bottom: 80px;
+
       li {
-        // line-height: 25px;
-        padding-top: 25px;
+        // padding-top: 25px;
         list-style: decimal;
+        line-height: 22px;
       }
     }
   }

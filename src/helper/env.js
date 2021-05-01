@@ -7,7 +7,7 @@ export function isOpenPages(pathname) {
 
 export function setCookie(parmas, days = 1) {
   let inFifteenMinutes = new Date(new Date().getTime() + 24 * 3600 * 1000 * days) // 一个月
-  return cookie.save('userId', parmas, { expires: inFifteenMinutes })
+  return cookie.save('token', parmas, { expires: inFifteenMinutes })
 }
 
 export function getCookie(key) {

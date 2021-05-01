@@ -1,5 +1,5 @@
 import API from '@/service/request'
 
 export function createCorporate(params) {
-  return API.post('/createCooperate', params)
+  return API.post('/login/companyApply', params)
 }
