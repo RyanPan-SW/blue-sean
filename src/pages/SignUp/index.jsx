@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import { Button, Form, Input /* message */ } from 'antd'
+import { Button, Form, Input } from 'antd'
 import { Link } from 'react-router-dom'
 import { ExclamationCircleFilled } from '@ant-design/icons'
 import { emailMsg, passwordMsg, setCookie } from '@/helper/env'
 import { signup } from '@/api/signup'
-
-import './index.scss'
 import { errorCode } from '@/helper/error'
+import './index.scss'
 
 function SignUp(props) {
   const [showError, setShowError] = useState(false)
@@ -16,7 +15,6 @@ function SignUp(props) {
   const onFinish = (values) => {
     setLoading(true)
     signup({ ...values }).then((res) => {
-      debugger
       const { code, data, errmsg } = res
       if (code !== '200') {
         console.log(errorCode[code])

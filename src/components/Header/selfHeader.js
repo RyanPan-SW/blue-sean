@@ -5,15 +5,14 @@ import * as UserActionCreator from '@/store/actions/user'
 import classnames from 'classnames'
 import Logo from '../../asset/footer-logo.jpg'
 import LogoDark from '../../asset/logo-dark.png'
-import login from '../../asset/login.svg'
-import signup from '../../asset/signup.svg'
+import login from '../../asset/right.svg'
+import signup from '../../asset/add.svg'
 import down from '../../asset/down.svg'
 import home from '../../asset/home.svg'
 import logout from '../../asset/x.svg'
-
-import './selfHeader.scss'
 import { clearAllCookie, getCookie } from '@/helper/env'
 import { Modal } from 'antd'
+import './selfHeader.scss'
 
 const servicesMenus = [
   { url: 'housingProperty', title: 'Property Settlement & Lodgment Services' },
@@ -49,7 +48,7 @@ const Header = (props) => {
 
   const clickToLogout = () => {
     Modal.confirm({
-      title: '12',
+      title: 'About to log out?',
       onOk: () => {
         clearAllCookie()
         sessionStorage.clear()
@@ -69,12 +68,20 @@ const Header = (props) => {
         <div className='header-loginbox container'>
           {!token ? (
             <>
-              <Link to='/login' className='header-login'>
+              <Link
+                to='/login'
+                className='header-login'
+                style={{ color: pathnameStatus ? '' : '#fff' }}
+              >
                 <img src={login} alt='login' />
                 <span>Log in</span>
               </Link>
 
-              <Link to='/signup' className='header-signup'>
+              <Link
+                to='/signup'
+                className='header-signup'
+                style={{ color: pathnameStatus ? '' : '#fff' }}
+              >
                 <img src={signup} alt='signup' />
                 <span>Sign up</span>
               </Link>
