@@ -27,7 +27,7 @@ const Login = ({ login, history }) => {
     console.log('Received values of form: ', values)
     loginApi({ ...values, loginType: loginType['personal'] }).then((res) => {
       const { code, data, errmsg } = res
-      if (code === 200) {
+      if (code === '200') {
         const token = data.token
         setCookie(token)
         history.push('/account')
@@ -41,7 +41,7 @@ const Login = ({ login, history }) => {
   const onFishCorporate = (values) => {
     loginApi({ ...values, loginType: loginType['corporate'] }).then((res) => {
       const { code, data, errmsg } = res
-      if (code === 200) {
+      if (code === '200') {
         const token = data.token
         setCookie(token)
         history.push('/account')

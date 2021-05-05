@@ -1,9 +1,42 @@
 .header {
   width: 100%;
-  // height: 125px;
-  padding-top: 40px;
   background: #000000a8;
-  // border-bottom: 1px solid #fff;
+
+  .header-loginbox {
+    height: 33px;
+    display: flex;
+    justify-content: flex-end;
+
+    a {
+      padding: 10px 23px;
+      color: #333;
+      line-height: 30px;
+    }
+
+    .header-login,
+    .header-signup {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+
+      img {
+        width: 15px;
+        // height: 20px;
+        margin-right: 10px;
+      }
+    }
+
+    .login-user {
+      font-size: 14px;
+      padding: 10px 23px;
+      line-height: 30px;
+
+      img {
+        width: 15px;
+        margin-right: 10px;
+      }
+    }
+  }
 
   .header-navbar,
   .other-navbar {
@@ -111,29 +144,6 @@
         background: $themeColor;
         border-radius: 15px;
         cursor: pointer;
-      }
-
-      .header-loginbox {
-        position: absolute;
-        right: 20px;
-        top: -40px;
-        width: 180px;
-        display: flex;
-        justify-content: space-between;
-
-        .header-login,
-        .header-signup {
-          display: flex;
-          align-items: center;
-          font-size: 14px;
-          color: #fff;
-
-          img {
-            width: 15px;
-            height: 20px;
-            margin-right: 10px;
-          }
-        }
       }
     }
   }

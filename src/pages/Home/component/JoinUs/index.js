@@ -20,7 +20,7 @@ function JoinUs(props) {
   const onFinish = (values) => {
     console.log('ask表单内容', values)
     getAsk(values.user).then((res) => {
-      if (res || res.code === 200) {
+      if (res || res.code === '200') {
         setVisible(true)
       }
     })

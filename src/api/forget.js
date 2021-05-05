@@ -5,5 +5,5 @@ export function sendEmail(params) {
 }
 
 export function verificationCode(params) {
-  return API.post('/sendCode', params)
+  return API.post('/login/forgetPwd', params)
 }

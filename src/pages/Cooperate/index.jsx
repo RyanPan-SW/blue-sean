@@ -19,7 +19,7 @@ function Cooperate(props) {
     // TODO: 1.校验通过，当前页跳转到【企业用户合作申请完成】页
     createCorporate(values).then((res) => {
       const { code /* data */ } = res
-      if (code === 200) {
+      if (code === '200') {
         setShowPromptBox(true)
       } else {
         message.error('Network Error')

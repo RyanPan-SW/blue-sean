@@ -8,8 +8,12 @@ import LogoDark from '../../asset/logo-dark.png'
 import login from '../../asset/login.svg'
 import signup from '../../asset/signup.svg'
 import down from '../../asset/down.svg'
+import home from '../../asset/home.svg'
+import logout from '../../asset/x.svg'
 
 import './selfHeader.scss'
+import { clearAllCookie, getCookie } from '@/helper/env'
+import { Modal } from 'antd'
 
 const servicesMenus = [
   { url: 'housingProperty', title: 'Property Settlement & Lodgment Services' },
@@ -20,6 +24,7 @@ const servicesMenus = [
 
 const Header = (props) => {
   const { pathname, search } = useLocation()
+  const token = getCookie('token')
 
   const [pathnameStatus, setPathnameStatus] = useState(false)
   const [showSubtitle, setShowSubtitle] = useState(false)
@@ -42,6 +47,16 @@ const Header = (props) => {
     return pathname.search(str) > -1 ? 'active' : ''
   }
 
+  const clickToLogout = () => {
+    Modal.confirm({
+      title: '12',
+      onOk: () => {
+        clearAllCookie()
+        sessionStorage.clear()
+      },
+    })
+  }
+
   return (
     <>
       <div
@@ -51,6 +66,34 @@ const Header = (props) => {
           borderBottom: pathnameStatus ? '1px solid #BCBCBC' : '1px solid #B1ABA8',
         }}
       >
+        <div className='header-loginbox container'>
+          {!token ? (
+            <>
+              <Link to='/login' className='header-login'>
+                <img src={login} alt='login' />
+                <span>Log in</span>
+              </Link>
+
+              <Link to='/signup' className='header-signup'>
+                <img src={signup} alt='signup' />
+                <span>Sign up</span>
+              </Link>
+            </>
+          ) : (
+            <>
+              <div className='login-user'>Welcome forvo</div>
+              <div className='login-user'>
+                <img src={home} alt='' />
+                <span>Welcome forvo</span>
+              </div>
+              <div className='login-user' onClick={clickToLogout}>
+                <img src={logout} alt='' />
+                <span>Log out</span>
+              </div>
+            </>
+          )}
+        </div>
+
         <div className='container'>
           <div className={pathnameStatus ? 'other-navbar' : 'header-navbar'}>
             <div className='header-navBrand'>
@@ -126,18 +169,6 @@ const Header = (props) => {
                   Become A Runner
                 </Link>
               </li>
-
-              <div className='header-loginbox'>
-                <Link to='/login' className='header-login'>
-                  <img src={login} alt='login' />
-                  <span>Log in</span>
-                </Link>
-
-                <Link to='/signup' className='header-signup'>
-                  <img src={signup} alt='signup' />
-                  <span>Sign up</span>
-                </Link>
-              </div>
             </ul>
           </div>
 

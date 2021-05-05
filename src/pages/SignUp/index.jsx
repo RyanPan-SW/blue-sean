@@ -2,51 +2,44 @@ import React, { useState } from 'react'
 import { Button, Form, Input /* message */ } from 'antd'
 import { Link } from 'react-router-dom'
 import { ExclamationCircleFilled } from '@ant-design/icons'
-import { emailMsg, passwordMsg } from '@/helper/env'
+import { emailMsg, passwordMsg, setCookie } from '@/helper/env'
 import { signup } from '@/api/signup'
 
 import './index.scss'
+import { errorCode } from '@/helper/error'
 
 function SignUp(props) {
   const [showError, setShowError] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [errormsg, setErrormsg] = useState('')
 
   const onFinish = (values) => {
-    console.log('Received values of form: ', values)
-
     setLoading(true)
     signup({ ...values }).then((res) => {
-      if (res.code === 200) {
-        setShowError(false)
-        props.history.push('/personal')
-      } else {
+      debugger
+      const { code, data, errmsg } = res
+      if (code !== '200') {
+        console.log(errorCode[code])
+        setErrormsg(errmsg)
         setShowError(true)
-        // message.success({
-        //   content: 'This is a prompt message with custom className and style',
-        //   className: 'custom-class',
-        //   duration: 2,
-        //   style: {
-        //     marginTop: '20vh',
-        //   },
-        // })
+        setLoading(false)
+        return
       }
+      setShowError(false)
+      setCookie(data.token)
+      sessionStorage.setItem('user', JSON.stringify(data.loginUser))
+      props.history.push('/personal')
       setLoading(false)
     })
   }
-
-  // const messageError = {
-  //   2001: 'Email has already been registered.',
-  //   2002: 'Use a password of at least 6 characters. Suggest you include an uppercase letter, a lowercase letter, a number, and a special character.',
-  //   2003: 'Passwords can only be entered up to 20 characters.',
-  // }
 
   return (
     <div className='signup'>
       <div className='signup-content'>
         {showError && (
           <div className='message-error'>
-            <ExclamationCircleFilled style={{ color: '#A40000' }} />
-            <span>Email has already been registered.</span>
+            <ExclamationCircleFilled style={{ width: 16, color: '#A40000' }} />
+            <span>{errormsg}</span>
           </div>
         )}
 
@@ -67,7 +60,7 @@ function SignUp(props) {
         <Form className='signup-form' layout='vertical' onFinish={onFinish}>
           <Form.Item
             label={'YOUR EMAIL'}
-            name='email'
+            name='userName'
             rules={[
               { type: 'email', message: emailMsg.email },
               { required: true, message: emailMsg.email },
@@ -76,7 +69,7 @@ function SignUp(props) {
             <Input placeholder='yourname@email.com' />
           </Form.Item>
           <Form.Item
-            label={'PASSWORD'}
+            label='PASSWORD'
             name='password'
             rules={[
               { required: true, message: passwordMsg.required },

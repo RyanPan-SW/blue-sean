@@ -5,6 +5,7 @@ import { passwordMsg, patterns } from '@/helper/env'
 import { sendEmail as sendEmailAPI, verificationCode } from '@/api/forget'
 import './index.scss'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import { errorCode } from '@/helper/error'
 
 function Forget(props) {
   const [form] = Form.useForm()
@@ -13,15 +14,24 @@ function Forget(props) {
   const [visibleCode, setVisibleCode] = useState(false)
   const [visibleSendCode, setVisibleSendCode] = useState(false)
   const [email, setEmail] = useState('')
+  const [msg, setMsg] = useState('')
 
   const sendEmail = (values) => {
-    setEmail(values.email)
-    setType('code')
+    verificationCode(values).then((res) => {
+      const { code, errmsg } = res
+      if (code !== 200) {
+        console.log(errorCode[code])
+        setMsg(errmsg)
+        return
+      }
+      setEmail(values.email)
+      setType('code')
+    })
   }
 
   const sendCode = (values) => {
     verificationCode(values).then((res) => {
-      if (res.code === 200) {
+      if (res.code === '200') {
         setType('password')
         setVisibleCode(false)
       } else {
@@ -37,34 +47,10 @@ function Forget(props) {
 
   const sendEmailAgain = () => {
     sendEmailAPI().then((res) => {
-      if (res.code === 200) {
+      if (res.code === '200') {
         setVisibleSendCode(true)
       }
     })
-  }
-
-  const modeType = {
-    email: 'email',
-    code: 'code',
-    password: 'password',
-    success: 'success',
-  }
-
-  const modeContent = {
-    email: {
-      title: 'FORGOT YOUR PASSWORD?',
-      subTitle: '',
-      describe:
-        "Enter your email address and we'll send you a code you can use to reset your password.",
-    },
-    code: {
-      title: 'ENTER THE CODE WE DENT TO',
-      subTitle: '',
-      describe:
-        'We sent a 6-digit code to your email address.Enter that code to reset your password.',
-    },
-    password: { title: 'ENTER YOUR PASSWORD', subTitle: '', describe: '' },
-    success: { title: 'Congratulations!', subTitle: 'Your password has been changed.' },
   }
 
   const formFish = {
@@ -76,86 +62,109 @@ function Forget(props) {
   return (
     <div className='forgrt'>
       <div className='forget-content'>
-        <h4>{modeContent[type]['title']}</h4>
-        {type === modeType['code'] && <h4>{email}</h4>}
-        {type === modeType['success'] && (
-          <>
-            <h4>Your password has been changed.</h4>
+        <div className='error'>
+          <FieldDom message={msg} />
+        </div>
+
+        {/* step-01, email gain code*/}
+        {type === 'email' && (
+          <Form layout='vertical' onFinish={formFish['email']}>
+            <h4>FORGOT YOUR PASSWORD?</h4>
+
             <p>
-              Do you want to <Link to='/login'><b>log in</b></Link>?
+              Enter your email address and we'll send you a code you can use to reset your password.
             </p>
-          </>
-        )}
 
-        <p>{modeContent[type]['describe']}</p>
+            <Form.Item
+              label='YOU EMAIL'
+              name='userName'
+              rules={[
+                {
+                  required: true,
+                  message: <FieldDom />,
+                },
+                { type: 'email', message: 'Please enter a valid email address.' },
+              ]}
+            >
+              <Input placeholder='yourname@email.com' />
+            </Form.Item>
 
-        {type !== modeType['success'] && (
-          <Form layout='vertical' onFinish={formFish[type]}>
-            {type === modeType['email'] && (
-              <Form.Item
-                label='YOU EMAIL'
-                name='email'
-                rules={[
-                  {
-                    required: true,
-                    message: <FieldDom />,
-                  },
-                  { type: 'email', message: 'Please enter a valid email address.' },
-                ]}
-              >
-                <Input placeholder='yourname@email.com' />
-              </Form.Item>
-            )}
-            {type === modeType['code'] && (
-              <>
-                <Form.Item
-                  label='6-Digit Code'
-                  name='code'
-                  rules={[
-                    {
-                      required: true,
-                      message: <FieldDom />,
-                    },
-                  ]}
-                >
-                  <Input placeholder='Enter Code' />
-                </Form.Item>
-
-                <span>
-                  Didn't get the email? <b onClick={sendEmailAgain}>Send email again</b>
-                </span>
-              </>
-            )}
-            {type === modeType['password'] && (
-              <>
-                <Form.Item
-                  label='NEW PASSWORD'
-                  name='password'
-                  rules={[
-                    {
-                      required: true,
-                      message: <FieldDom />,
-                    },
-                    { min: 6, max: 20, message: passwordMsg.pattern },
-                    {
-                      pattern: patterns.pwd,
-                      message: passwordMsg.pwd,
-                    },
-                  ]}
-                >
-                  <Input.Password placeholder='Password' />
-                </Form.Item>
-                <span>
-                  Please use at least 6 characters. <b>Remember</b>: Passwords are case sensitive.
-                </span>
-              </>
-            )}
             <Form.Item>
               <Button htmlType='submit' className='forget-continue'>
                 Continue
               </Button>
             </Form.Item>
           </Form>
+        )}
+
+        {/* code */}
+        {type === 'code' && (
+          <Form layout='vertical' onFinish={formFish['code']}>
+            <h4>ENTER THE CODE WE DENT TO</h4>
+
+            <p>
+              We sent a 6-digit code to your email address.Enter that code to reset your password.
+            </p>
+
+            <Form.Item
+              label='6-Digit Code'
+              name='email'
+              rules={[
+                {
+                  required: true,
+                  message: <FieldDom />,
+                },
+                { type: 'email', message: 'Please enter a valid email address.' },
+              ]}
+            >
+              <Input placeholder='yourname@email.com' />
+            </Form.Item>
+
+            <Form.Item>
+              <span>
+                Didn't get the email? <b onClick={sendEmailAgain}>Send email again</b>
+              </span>
+            </Form.Item>
+          </Form>
+        )}
+
+        {/* new password */}
+        {type === 'password' && (
+          <Form layout='vertical' onFinish={formFish['password']}>
+            <h4>ENTER YOUR PASSWORD</h4>
+
+            <Form.Item
+              label='NEW PASSWORD'
+              name='email'
+              rules={[
+                {
+                  required: true,
+                  message: <FieldDom />,
+                },
+                { type: 'email', message: 'Please enter a valid email address.' },
+              ]}
+            >
+              <Input placeholder='yourname@email.com' />
+            </Form.Item>
+
+            <span>
+              Please use at least 6 characters. <b>Remember</b>: Passwords are case sensitive.
+            </span>
+          </Form>
+        )}
+
+        {/* change success */}
+        {type === 'success' && (
+          <>
+            <h4>Your password has been changed.</h4>
+            <p>
+              Do you want to{' '}
+              <Link to='/login'>
+                <b>log in</b>
+              </Link>
+              ?
+            </p>
+          </>
         )}
       </div>
 
