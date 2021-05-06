@@ -2,7 +2,7 @@
   "name": "dc-pc",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/home",
+  "homepage": "/",
   "dependencies": {
     "@ant-design/icons": "^4.5.0",
     "@babel/core": "7.12.3",
