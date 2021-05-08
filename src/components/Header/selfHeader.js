@@ -23,10 +23,9 @@ const servicesMenus = [
 
 const Header = (props) => {
   const { pathname, search } = useLocation()
-  const token = getCookie('token')
-
   const [pathnameStatus, setPathnameStatus] = useState(false)
   const [showSubtitle, setShowSubtitle] = useState(false)
+  // const [loginStatus, setLoginStatus] = useState(false)
 
   useEffect(() => {
     pathname.search('/home') > -1 ? setPathnameStatus(false) : setPathnameStatus(true)
@@ -58,50 +57,51 @@ const Header = (props) => {
 
   return (
     <>
-      <div
-        className='header'
-        style={{
-          backgroundColor: pathnameStatus ? '#fff' : '#000000a8',
-          borderBottom: pathnameStatus ? '1px solid #BCBCBC' : '1px solid #B1ABA8',
-        }}
-      >
-        <div className='header-loginbox container'>
-          {!token ? (
-            <>
-              <Link
-                to='/login'
-                className='header-login'
-                style={{ color: pathnameStatus ? '' : '#fff' }}
-              >
-                <img src={login} alt='login' />
-                <span>Log in</span>
-              </Link>
+      <div className={pathnameStatus ? 'home-header' : 'header'}>
+        <div className='header-loginbox '>
+          <div className='container'>
+            {!getCookie('token') ? (
+              <>
+                <Link
+                  to='/login'
+                  className='header-login'
+                  style={{ color: pathnameStatus ? '' : '#fff' }}
+                >
+                  <img src={login} alt='' />
+                  <span>Log in</span>
+                </Link>
 
-              <Link
-                to='/signup'
-                className='header-signup'
-                style={{ color: pathnameStatus ? '' : '#fff' }}
-              >
-                <img src={signup} alt='signup' />
-                <span>Sign up</span>
-              </Link>
-            </>
-          ) : (
-            <>
-              <div className='login-user'>Welcome forvo</div>
-              <div className='login-user'>
-                <img src={home} alt='' />
-                <span>Welcome forvo</span>
-              </div>
-              <div className='login-user' onClick={clickToLogout}>
-                <img src={logout} alt='' />
-                <span>Log out</span>
-              </div>
-            </>
-          )}
+                <Link
+                  to='/signup'
+                  className='header-signup'
+                  style={{ color: pathnameStatus ? '' : '#fff' }}
+                >
+                  <img src={signup} alt='' />
+                  <span>Sign up</span>
+                </Link>
+              </>
+            ) : (
+              <>
+                <div className={pathnameStatus ? 'login-user' : 'login-home-user'}>
+                  Welcome forvo
+                </div>
+                <div className={pathnameStatus ? 'login-user' : 'login-home-user'}>
+                  <img src={home} alt='' />
+                  <span>Welcome forvo</span>
+                </div>
+                <div
+                  className={pathnameStatus ? 'login-user' : 'login-home-user'}
+                  onClick={clickToLogout}
+                >
+                  <img src={logout} alt='' />
+                  <span>Log out</span>
+                </div>
+              </>
+            )}
+          </div>
         </div>
 
-        <div className='container'>
+        <div className='header-content container'>
           <div className={pathnameStatus ? 'other-navbar' : 'header-navbar'}>
             <div className='header-navBrand'>
               <Link to='/home'>
@@ -156,7 +156,7 @@ const Header = (props) => {
                   </div>
                 )}
               </li>
-              <li className={isActive('cooperation')}>
+              <li className={isActive('cooperate')}>
                 <Link to='/cooperate' target='_blank'>
                   Cooperation
                 </Link>
@@ -166,7 +166,7 @@ const Header = (props) => {
                   Contact
                 </Link>
               </li>
-              <li className={isActive('question')}>
+              <li className={isActive('help')}>
                 <Link to='/help' target='_blank'>
                   Q&A
                 </Link>

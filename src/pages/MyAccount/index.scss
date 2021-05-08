@@ -102,16 +102,21 @@
 @media only screen and (max-width: 1200px) {
   .myAccount {
     .account-card {
-      flex-direction: column;
+      a {
+        width: calc(33.33% - 20px);
+      }
+    }
+  }
+}
 
+@media only screen and (max-width: 992px) {
+  .myAccount {
+    .account-card {
+      flex-direction: column;
       a {
         width: 100%;
-        margin: 0 auto;
-        margin-top: 60px;
-
-        &:nth-of-type(1) {
-          margin-top: 0;
-        }
+        margin-bottom: 60px;
+        // width: calc(33.33% - 20px);
       }
     }
   }

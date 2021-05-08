@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import triangle from '@/asset/triangle.png'
-import { Form, Input, Button, Modal } from 'antd'
+import { Form, Input, Button, Modal, message } from 'antd'
 import './index.scss'
 import { getAsk } from '@/api/home'
 
@@ -18,10 +18,11 @@ function JoinUs(props) {
   }
 
   const onFinish = (values) => {
-    console.log('ask表单内容', values)
     getAsk(values.user).then((res) => {
       if (res || res.code === '200') {
         setVisible(true)
+      } else {
+        message.error(res.errmsg)
       }
     })
   }
@@ -39,12 +40,7 @@ function JoinUs(props) {
           <h3>Don’t Hesltate To Ask</h3>
           <p>If you have any questions, don't hesitate to ask. Let us help you</p>
 
-          <Form
-            // {...layout}s
-            name='nest-messages'
-            onFinish={onFinish}
-            validateMessages={validateMessages}
-          >
+          <Form name='nest-messages' onFinish={onFinish} validateMessages={validateMessages}>
             <div className='join-name'>
               <Form.Item
                 name={['user', 'firstName']}
