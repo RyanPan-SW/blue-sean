@@ -12,7 +12,7 @@ const API = axios.create({
 
 // 请求拦截器
 API.interceptors.request.use((config) => {
-  config.headers.Authorization = getCookie()
+  config.headers.authorization = getCookie('token')
   return config
 })
 

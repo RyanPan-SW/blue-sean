@@ -8,6 +8,6 @@ export function verificationCode(params) {
   return API.post('/login/checkCode', params)
 }
 
-export function updatePwd(params) {
+export function updatePwdByCode(params) {
   return API.post('/login/updatePwdByCode', params)
 }

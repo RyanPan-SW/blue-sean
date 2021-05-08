@@ -64,12 +64,7 @@ const Login = ({ login, history }) => {
 
       {activeTab === 1 && (
         <div className='login-content'>
-          {loginError && (
-            <div className='login-error'>
-              <ExclamationCircleFilled style={{ color: '#A40000' }} />
-              <span>{errormsg}</span>
-            </div>
-          )}
+          {loginError && <FieldDom border message={errormsg} />}
 
           <div className='login-welcome'>WELCOME BACK</div>
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Form, Input, message, Modal, Button } from 'antd'
-import { getCode, updatePwd, verificationCode } from '@/api/forget'
+import { getCode, updatePwdByCode, verificationCode } from '@/api/forget'
 import { errorCode } from '@/helper/error'
 import FieldDom from '@/components/Field'
 
@@ -166,8 +166,8 @@ export const VerificationCodeDom = ({ userName, setType }) => {
 export const SetNewPasswordDom = ({ userName, setType }) => {
   const setNewPassword = (values) => {
     let params = { userName: userEmail, code: userCode, newpassword: values.newpassword }
-    updatePwd(params).then((res) => {
-      const { code, data } = res
+    updatePwdByCode(params).then((res) => {
+      const { code, /* data */ } = res
       if (code !== '200') {
         
       }

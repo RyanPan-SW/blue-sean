@@ -1,0 +1,40 @@
+.change-content {
+  padding-left: 50px;
+  padding-right: 50px;
+
+  .change-title {
+    font-size: 32px;
+    padding-top: 24px;
+    padding-bottom: 135px;
+  }
+
+  .change-form {
+    width: 590px;
+    margin: 0 auto;
+
+    .ant-form-item {
+      // margin-bottom: 60px;
+
+      label {
+        font-weight: bold;
+      }
+    }
+
+    .update-password {
+      width: 100%;
+      height: 56px;
+      border-radius: 50px;
+      color: #fff;
+      font-size: 25px;
+      font-weight: bold;
+      background-color: $themeColor;
+      margin-top: 110px;
+      margin-bottom: 170px;
+    }
+  }
+
+  .ant-btn-primary {
+    background: $themeColor;
+    border-color: $themeColor;
+  }
+}

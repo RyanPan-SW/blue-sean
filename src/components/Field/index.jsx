@@ -2,9 +2,9 @@ import React from 'react'
 import { ExclamationCircleFilled } from '@ant-design/icons'
 import './index.scss'
 
-function FieldDom({ message = 'This field is required.' }) {
+function FieldDom({ message = 'This field is required.', border }) {
   return (
-    <div className='message-error'>
+    <div className={border ? 'message-error-border' : 'message-error'}>
       <ExclamationCircleFilled style={{ color: '#A40000' }} />
       <span>{message}</span>
     </div>
