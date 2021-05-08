@@ -41,6 +41,14 @@
     padding: 10px 23px;
     line-height: 30px;
 
+    &:nth-last-of-type(1) {
+      cursor: pointer;
+
+      &:hover {
+        color: $themeColor;
+      }
+    }
+
     img {
       width: 15px;
       margin-right: 10px;
@@ -117,6 +125,10 @@
 
       a {
         font-size: 1rem;
+        
+        &:hover {
+          color: $themeColor !important;
+        }
       }
     }
 

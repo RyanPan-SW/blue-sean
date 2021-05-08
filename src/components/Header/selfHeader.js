@@ -45,16 +45,6 @@ const Header = (props) => {
     return pathname.search(str) > -1 ? 'active' : ''
   }
 
-  const clickToLogout = () => {
-    Modal.confirm({
-      title: 'About to log out?',
-      onOk: () => {
-        clearAllCookie()
-        sessionStorage.clear()
-      },
-    })
-  }
-
   return (
     <>
       <div className={pathnameStatus ? 'home-header' : 'header'}>
@@ -89,13 +79,10 @@ const Header = (props) => {
                   <img src={home} alt='' />
                   <span>Welcome forvo</span>
                 </div>
-                <div
-                  className={pathnameStatus ? 'login-user' : 'login-home-user'}
-                  onClick={clickToLogout}
-                >
+                <Link to="/logOut" className={pathnameStatus ? 'login-user' : 'login-home-user'}>
                   <img src={logout} alt='' />
                   <span>Log out</span>
-                </div>
+                </Link>
               </>
             )}
           </div>

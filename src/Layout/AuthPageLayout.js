@@ -25,13 +25,14 @@ import MyAccount from '@/pages/MyAccount'
 import MyOrders from '@/pages/MyOrders'
 import MyAddress from '@/pages/MyAddress'
 import ChangePassword from '@/pages/ChangePassword'
+import Logout from '@/pages/LogOut'
 import Page404 from '@/pages/404/404'
 
 import './index.scss'
 import DetailsView from '@/pages/DetailsView'
 import { Redirect } from 'react-router'
 
-function BaseLayout({ footer = true }) {
+function BaseLayout(props) {
   const { pathname } = useLocation()
 
   return (
@@ -46,7 +47,7 @@ function BaseLayout({ footer = true }) {
           background: 'none',
         }}
       >
-        <PageHeader />
+        <PageHeader history={props.history} />
       </Layout.Header>
       <Layout.Content
         className='layout-main'
@@ -78,16 +79,17 @@ function BaseLayout({ footer = true }) {
           <Route path='/detailsview' component={DetailsView} />
           <Route path='/address' component={MyAddress} />
           <Route path='/changepassword' component={ChangePassword} />
+          <Route path='/logOut' component={Logout} />
           <Route path='/404' component={Page404} />
           <Redirect to='/home' />
         </Switch>
       </Layout.Content>
 
-      {footer && (
+      {/* {footer && ( */}
         <Layout.Footer style={{ padding: 0 }}>
           <FooterComponent />
         </Layout.Footer>
-      )}
+      {/* )} */}
     </Layout>
   )
 }
