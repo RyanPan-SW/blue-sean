@@ -1,19 +1,73 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Breadcrumb, Table } from 'antd'
+import { Breadcrumb, message, Table } from 'antd'
 import './index.scss'
+import { getAddressPagination, setDefaultAddress, deleteAddress } from '@/api/address'
+import AddressModal from '@/components/AddAddressModal'
 
 function AddressBook(props) {
+  const [data, setData] = useState([])
+  const [visibleAdd, setVisible] = useState(false)
+  const [total, setTotal] = useState(0)
+  const [currentDate, setCurrentDate] = useState({})
+  const [editType, setEditType] = useState('add')
+
+  useEffect(() => {
+    getAddressList()
+  }, [])
+
+  const getAddressList = () => {
+    getAddressPagination({ pageIndex: 0, pageSize: 10 /* , keyWord: '' */ }).then((res) => {
+      const { code, data } = res
+      if (code === '200') {
+        setData(data.data || [])
+        setTotal(data.total || 0)
+      }
+    })
+  }
+
+  const addModal = (record) => {
+    setVisible(true)
+    setCurrentDate({}, () => {
+      setEditType('add')
+    })
+  }
+
+  const editModal = (record) => {
+    setVisible(true)
+    setEditType('edit')
+    setCurrentDate(record)
+  }
+
+  const clickSetDefault = (id) => {
+    setDefaultAddress({ addressId: id }).then((res) => {
+      if (res.code === '200') {
+        message.success(res.data.msg)
+      }
+    })
+  }
+
+  const removeAddress = (id) => {
+    deleteAddress({ addressId: id }).then((res) => {
+      if (res.code === '200') {
+        message.success(res.data.msg)
+        getAddressList()
+      }
+    })
+  }
+
   const columns = [
     {
       title: 'Contact',
       dataIndex: 'contact',
       key: 'contact',
       render: (text, record, index) => {
-        console.log('11111111', text, record, index)
         return (
-          <div>
-            <p>{record.name}</p>
+          <div className={record.isDefault === '0' ? 'column-default' : 'table-column'}>
+            <p>
+              {record.firstName}&nbsp;
+              {record.lastName}
+            </p>
             <p>{record.phone}</p>
             <p>{record.email}</p>
           </div>
@@ -24,45 +78,48 @@ function AddressBook(props) {
       title: 'Address',
       dataIndex: 'address',
       key: 'address',
+      render: (text, record, index) => {
+        return (
+          <div className={record.isDefault === '0' ? 'column-default' : 'table-column'}>{text}</div>
+        )
+      },
     },
     {
       title: 'Operate',
       key: 'operate',
       dataIndex: 'operate',
-      render: (tags) => (
-        <>
-          <p>Cancel as default address</p>
-          <p>Edit</p>
-          <p>Remove</p>
-        </>
+      render: (text, record, index) => (
+        <div className={record.isDefault === '0' ? 'column-default' : 'table-column'}>
+          {record.isDefault === '0' ? (
+            <p className='edit'>Cancel as default address</p>
+          ) : (
+            <p
+              className='edit'
+              onClick={() => {
+                clickSetDefault(record.addressId)
+              }}
+            >
+              Set as default address
+            </p>
+          )}
+          <p
+            className='edit'
+            onClick={() => {
+              editModal(record)
+            }}
+          >
+            Edit
+          </p>
+          <p
+            className='edit'
+            onClick={() => {
+              removeAddress(record.addressId)
+            }}
+          >
+            Remove
+          </p>
+        </div>
       ),
-    },
-  ]
-
-  const data = [
-    {
-      key: '1',
-      name: 'Angelina Jolie',
-      phone: '040322931',
-      email: 'Jolie@gmail.com',
-      address: '1101 S Main St APT 203 Cold Coast',
-      operate: 1,
-    },
-    {
-      key: '2',
-      name: 'Angelina Jolie',
-      phone: '040322931',
-      email: 'Jolie@gmail.com',
-      address: 'London No. 1 Lake Park',
-      operate: 0,
-    },
-    {
-      key: '3',
-      name: 'Angelina Jolie',
-      phone: '040322931',
-      email: 'Jolie@gmail.com',
-      address: 'Sidney No. 1 Lake Park',
-      operate: 0,
     },
   ]
 
@@ -79,14 +136,45 @@ function AddressBook(props) {
 
           <h3 className='h4-title'>Address Book</h3>
 
-          <Table
-            className='address-table'
-            columns={columns}
-            dataSource={data}
-            footer={() => <div className='table-footer'>+ Add a New Address</div>}
-          />
+          {data.length > 0 ? (
+            <Table
+              bordered
+              className='address-table'
+              columns={columns}
+              dataSource={data}
+              pagination={{
+                total: total,
+                pageSize: 10,
+                pageSizeOptions: 10,
+                showSizeChanger: false,
+              }}
+              // onHeaderRow={(columns, index) => {
+              //   console.log('=====', columns, index)
+              // }}
+              footer={() => (
+                <div className='table-footer' onClick={addModal}>
+                  + Add a New Address
+                </div>
+              )}
+            />
+          ) : (
+            <p className='empy-address'>
+              You have not added any addresses yet.{' '}
+              <span className='add-new' onClick={addModal}>
+                Add a New Address
+              </span>
+            </p>
+          )}
         </div>
       </div>
+
+      <AddressModal
+        data={currentDate}
+        editType={editType}
+        getAddressList={getAddressList}
+        setVisible={setVisible}
+        visible={visibleAdd}
+      />
     </div>
   )
 }

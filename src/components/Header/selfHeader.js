@@ -77,7 +77,7 @@ const Header = (props) => {
                 </div>
                 <div className={pathnameStatus ? 'login-user' : 'login-home-user'}>
                   <img src={home} alt='' />
-                  <span>Welcome forvo</span>
+                  <span>Account info</span>
                 </div>
                 <Link to="/logOut" className={pathnameStatus ? 'login-user' : 'login-home-user'}>
                   <img src={logout} alt='' />
