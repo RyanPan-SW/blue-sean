@@ -37,16 +37,15 @@
   }
 
   .login-user {
+    display: flex;
+    align-items: center;
     font-size: 14px;
     padding: 10px 23px;
     line-height: 30px;
+    cursor: pointer;
 
-    &:nth-last-of-type(1) {
-      cursor: pointer;
-
-      &:hover {
-        color: $themeColor;
-      }
+    &:hover {
+      color: $themeColor;
     }
 
     img {
@@ -56,10 +55,16 @@
   }
 
   .login-home-user {
+    display: flex;
+    align-items: center;
     font-size: 14px;
     padding: 10px 23px;
     line-height: 30px;
     color: #fff;
+
+    &:hover {
+      color: $themeColor;
+    }
 
     img {
       width: 15px;
@@ -118,16 +123,24 @@
       box-sizing: border-box;
       padding: 0.5em 1em;
 
+      a {
+        font-size: 1rem;
+
+        &:hover {
+          color: $themeColor;
+        }
+      }
+
       &:nth-last-of-type(1) {
         display: flex;
         align-items: center;
-      }
 
-      a {
-        font-size: 1rem;
-        
-        &:hover {
-          color: $themeColor !important;
+        a {
+          font-size: 1rem;
+
+          &:hover {
+            color: #fff;
+          }
         }
       }
     }

@@ -1,12 +1,30 @@
-import React from 'react'
-import { Form, Input, Button, Select } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { Form, Input, Button, Select, message } from 'antd'
 import deleteIcon from '../../asset/delete.png'
 import userBook from '../../asset/userbook.png'
+import { getSessionRecipient, setRecipientApi } from '@/api/fileStep'
 import './index.scss'
 
 const messageTitle = 'Please Enter.'
 
 function FileStep2({ recipient = [], cityArray, setStep }) {
+  const [recipientData, setRecipientData] = useState({})
+
+  useEffect(() => {
+    const sessionid = sessionStorage.getItem('sessionid')
+    if (sessionid) sessionToObtainRecipient(sessionid)
+  }, [])
+
+  const sessionToObtainRecipient = (sessionid) => {
+    getSessionRecipient({ sessionid: sessionid }).then((res) => {
+      if (res.code === '200') {
+        setRecipientData(res.data.sender || {})
+      } else {
+        message.error(res.data.msg)
+      }
+    })
+  }
+
   return (
     <>
       <div className='step2'>

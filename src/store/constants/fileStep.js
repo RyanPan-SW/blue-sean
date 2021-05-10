@@ -1,0 +1,2 @@
+export const SETSENDER = 'SETSENDER'
+export const SETRECIPIENT = 'SETRECIPIENT'

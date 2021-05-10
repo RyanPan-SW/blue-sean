@@ -1,203 +1,29 @@
-import React from 'react'
-import { Modal, Form, Input, Button, message, Table } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { Modal, Form, Input, Button, message, Table, ConfigProvider } from 'antd'
 import { addNewAddress, updateAddress } from '@/api/address'
 import './index.scss'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
+import { getSearchAddress } from '@/api/fileStep'
+
+const { Search } = Input
 
 function AddFromAddressBook(props) {
-  const { Search } = Input
-
   const { visible, setVisible, data = [] } = props
+  const [total, setTotal] = useState(0)
+  const [dataSource, setDataSource] = useState([])
 
-  const dataSource = [
-    {
-      key: '1',
-      name: '胡彦斌',
-      age: 32,
-      address: '西湖区湖底公园1号',
-      isDefault: '0',
-      firstName: 'AA',
-      lastName: 'BB',
-      phone: '132313123',
-      email: '1321312@313.com',
-    },
-    {
-      key: '2',
-      name: '胡彦祖',
-      age: 42,
-      address: '西湖区湖底公园1号',
-      isDefault: '1',
-      firstName: 'AA',
-      lastName: 'BB',
-      phone: '132313123',
-      email: '1321312@313.com',
-    },
-    {
-      key: '3',
-      name: '胡彦祖',
-      age: 42,
-      address: '西湖区湖底公园1号',
-      isDefault: '1',
-      firstName: 'AA',
-      lastName: 'BB',
-      phone: '132313123',
-      email: '1321312@313.com',
-    },
-    {
-      key: '4',
-      name: '胡彦祖',
-      age: 42,
-      address: '西湖区湖底公园1号',
-      isDefault: '1',
-      firstName: 'AA',
-      lastName: 'BB',
-      phone: '132313123',
-      email: '1321312@313.com',
-    },
-    {
-      key: '5',
-      name: '胡彦祖',
-      age: 42,
-      address: '西湖区湖底公园1号',
-      isDefault: '1',
-      firstName: 'AA',
-      lastName: 'BB',
-      phone: '132313123',
-      email: '1321312@313.com',
-    },
-    {
-      key: '6',
-      name: '胡彦祖',
-      age: 42,
-      address: '西湖区湖底公园1号',
-      isDefault: '1',
-      firstName: 'AA',
-      lastName: 'BB',
-      phone: '132313123',
-      email: '1321312@313.com',
-    },
-    {
-      key: '7',
-      name: '胡彦祖',
-      age: 42,
-      address: '西湖区湖底公园1号',
-      isDefault: '1',
-      firstName: 'AA',
-      lastName: 'BB',
-      phone: '132313123',
-      email: '1321312@313.com',
-    },
-    {
-      key: '8',
-      name: '胡彦祖',
-      age: 42,
-      address: '西湖区湖底公园1号',
-      isDefault: '1',
-      firstName: 'AA',
-      lastName: 'BB',
-      phone: '132313123',
-      email: '1321312@313.com',
-    },
-    {
-      key: '9',
-      name: '胡彦祖',
-      age: 42,
-      address: '西湖区湖底公园1号',
-      isDefault: '1',
-      firstName: 'AA',
-      lastName: 'BB',
-      phone: '132313123',
-      email: '1321312@313.com',
-    },
-    {
-      key: '10',
-      name: '胡彦祖',
-      age: 42,
-      address: '西湖区湖底公园1号',
-      isDefault: '1',
-      firstName: 'AA',
-      lastName: 'BB',
-      phone: '132313123',
-      email: '1321312@313.com',
-    },
-    {
-      key: '11',
-      name: '胡彦祖',
-      age: 42,
-      address: '西湖区湖底公园1号',
-      isDefault: '1',
-      firstName: 'AA',
-      lastName: 'BB',
-      phone: '132313123',
-      email: '1321312@313.com',
-    },
-    {
-      key: '12',
-      name: '胡彦祖',
-      age: 42,
-      address: '西湖区湖底公园1号',
-      isDefault: '1',
-      firstName: 'AA',
-      lastName: 'BB',
-      phone: '132313123',
-      email: '1321312@313.com',
-    },
-    {
-      key: '13',
-      name: '胡彦祖',
-      age: 42,
-      address: '西湖区湖底公园1号',
-      isDefault: '1',
-      firstName: 'AA',
-      lastName: 'BB',
-      phone: '132313123',
-      email: '1321312@313.com',
-    },
-    {
-      key: '14',
-      name: '胡彦祖',
-      age: 42,
-      address: '西湖区湖底公园1号',
-      isDefault: '1',
-      firstName: 'AA',
-      lastName: 'BB',
-      phone: '132313123',
-      email: '1321312@313.com',
-    },
-    {
-      key: '15',
-      name: '胡彦祖',
-      age: 42,
-      address: '西湖区湖底公园1号',
-      isDefault: '1',
-      firstName: 'AA',
-      lastName: 'BB',
-      phone: '132313123',
-      email: '1321312@313.com',
-    },
-    {
-      key: '16',
-      name: '胡彦祖',
-      age: 42,
-      address: '西湖区湖底公园1号',
-      isDefault: '1',
-      firstName: 'AA',
-      lastName: 'BB',
-      phone: '132313123',
-      email: '1321312@313.com',
-    },
-    {
-      key: '17',
-      name: '胡彦祖',
-      age: 42,
-      address: '西湖区湖底公园1号',
-      isDefault: '1',
-      firstName: 'AA',
-      lastName: 'BB',
-      phone: '132313123',
-      email: '1321312@313.com',
-    },
-  ]
+  useEffect(() => {
+    searchAddress()
+  }, [])
+
+  const searchAddress = (value, event) => {
+    const keyWord = value && value.replace(/(^\s*)|(\s*$)/, '')
+    const params = { pageIndex: 0, pageSize: 10, keyWord: keyWord }
+    getSearchAddress(params).then((res) => {
+      setTotal(res.data.total || 0)
+      setDataSource(res.data.data || [])
+    })
+  }
 
   const columns = [
     {
@@ -221,13 +47,18 @@ function AddFromAddressBook(props) {
       title: 'Address',
       dataIndex: 'address',
       key: 'address',
-      // render: (text, record, index) => {
-      //   return (
-      //     <div>
-      //       <p>{}</p>
-      //     </div>
-      //   )
-      // },
+      render: (text, record, index) => {
+        return (
+          <div>
+            <p>
+              {record.address}&nbsp;
+              {record.other}
+            </p>
+            <p>{record.cityName}</p>
+            <p>{record.zipcode}</p>
+          </div>
+        )
+      },
     },
   ]
 
@@ -240,6 +71,13 @@ function AddFromAddressBook(props) {
       name: record.name,
     }),
   }
+
+  const customizeRenderEmpty = () => (
+    //这里面就是我们自己定义的空状态
+    <div style={{ textAlign: 'center', height: 300 }}>
+      <p style={{ paddingTop: 150 }}>No results were found. Please try other searches.</p>
+    </div>
+  )
 
   return (
     <Modal
@@ -260,23 +98,25 @@ function AddFromAddressBook(props) {
           <Search
             className='search'
             enterButton='Search'
-            placeholder=' Search contacts for a person
-'
+            placeholder='Search contacts for a person'
+            onSearch={searchAddress}
           />
         </div>
 
-        <Table
-          rowClassName='table-row'
-          rowSelection={{
-            type: 'radio',
-            ...rowSelection,
-          }}
-          dataSource={dataSource}
-          columns={columns}
-          pagination={{ pageSize: 10, pageSizeOptions: 10, itemRender: itemRender }}
-        />
+        <ConfigProvider renderEmpty={customizeRenderEmpty}>
+          <Table
+            rowClassName='table-row'
+            rowSelection={{
+              type: 'radio',
+              ...rowSelection,
+            }}
+            dataSource={dataSource}
+            columns={columns}
+            pagination={{ total: total, pageSize: 10, pageSizeOptions: 10, itemRender: itemRender }}
+          />
+        </ConfigProvider>
 
-        <Button className='form-submit'>Submit</Button>
+        {dataSource.length > 0 && <Button className='form-submit'>Submit</Button>}
       </div>
     </Modal>
   )

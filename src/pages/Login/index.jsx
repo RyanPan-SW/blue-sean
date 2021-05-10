@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Button, Form, Input, Checkbox } from 'antd'
+import { Button, Form, Input, Checkbox, Popover } from 'antd'
 import { loginApi } from '@/api/login'
 import * as UserActionCreator from '@/store/actions/user'
 import { Link } from 'react-router-dom'
@@ -13,7 +13,8 @@ const loginType = { personal: '01', corporate: '02' }
 
 const Login = ({ login, history }) => {
   const [activeTab, setActiveTab] = useState(1)
-  const [loginError, setLoginError] = useState(false)
+  const [loginPersonError, setLoginPersonError] = useState(false)
+  const [loginCorporateError, setLoginCorporateError] = useState(false)
   const [errormsg, setErrormsg] = useState('')
 
   useEffect(() => {})
@@ -29,23 +30,29 @@ const Login = ({ login, history }) => {
       if (code === '200') {
         const token = data.token
         setCookie(token)
+        sessionStorage.setItem('loginUser', JSON.stringify(data.loginUser))
         history.push('/account')
       } else {
-        setLoginError(true)
+        setLoginPersonError(true)
         setErrormsg(errmsg)
       }
     })
   }
 
   const onFishCorporate = (values) => {
-    loginApi({ ...values, loginType: loginType['corporate'] }).then((res) => {
+    const params = {
+      password: values.password,
+      username: values.username,
+      loginType: loginType['corporate'],
+    }
+    loginApi(params).then((res) => {
       const { code, data, errmsg } = res
       if (code === '200') {
         const token = data.token
         setCookie(token)
         history.push('/account')
       } else {
-        setLoginError(true)
+        setLoginCorporateError(true)
         setErrormsg(errmsg)
       }
     })
@@ -64,7 +71,7 @@ const Login = ({ login, history }) => {
 
       {activeTab === 1 && (
         <div className='login-content'>
-          {loginError && <FieldDom border message={errormsg} />}
+          {loginPersonError && <FieldDom border message={errormsg} />}
 
           <div className='login-welcome'>WELCOME BACK</div>
 
@@ -75,12 +82,7 @@ const Login = ({ login, history }) => {
             </Link>
           </div>
 
-          <Form
-            // form={form}
-            className='login-form'
-            layout='vertical'
-            onFinish={onFinishPersonal}
-          >
+          <Form className='login-form' layout='vertical' onFinish={onFinishPersonal}>
             <Form.Item
               label={<span className='label'>YOUR EMAIL</span>}
               name='userName'
@@ -128,12 +130,13 @@ const Login = ({ login, history }) => {
               </Button>
             </Form.Item>
           </Form>
-          {/* <Button onClick={loginClick}>登录</Button> */}
         </div>
       )}
 
       {activeTab === 2 && (
         <div className='login-content'>
+          {loginCorporateError && <FieldDom border message={errormsg} />}
+
           <div className='login-welcome'>WELCOME BACK</div>
 
           <div className='login-personal'>
@@ -177,7 +180,26 @@ const Login = ({ login, history }) => {
               </Form.Item>
 
               <Link to='/forget' className='login-form-forgot'>
-                Forgot password
+                <Popover
+                  placement='right'
+                  content={
+                    <div className="forget-popover">
+                      <p>Please contact us, you can call or email us.</p>
+                      <p>
+                        <b>Email:</b> info@dcglobalsolutions.com.au
+                      </p>
+                      <p>
+                        <b>PH:</b> 07 5649 8619
+                      </p>
+                      <p>
+                        <b>Office </b>Hours: Monday – Friday 8:30am-5:00pm
+                      </p>
+                    </div>
+                  }
+                  trigger='hover'
+                >
+                  Forgot password?
+                </Popover>
               </Link>
             </Form.Item>
 
@@ -187,7 +209,6 @@ const Login = ({ login, history }) => {
               </Button>
             </Form.Item>
           </Form>
-          {/* <Button onClick={loginClick}>登录</Button> */}
         </div>
       )}
     </div>

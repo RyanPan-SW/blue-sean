@@ -91,17 +91,23 @@
     }
 
     .order-search {
-      width: 34%;
+      width: 490px;
       height: 35px;
       border-radius: 50px;
 
       input {
         height: 35px;
       }
-      .ant-input-group-addon {
-        background: $themeColor;
-        color: #fff;
-      }
+    }
+
+    .ant-input-group > .ant-input:first-child {
+      border-bottom-left-radius: 25px;
+      border-top-left-radius: 25px;
+    }
+
+    .ant-input-search > .ant-input-group > .ant-input-group-addon .ant-input-search-button {
+      border-radius: 0 25px 25px 0;
+      height: 35px;
     }
   }
 

@@ -1,14 +1,13 @@
-// TODO:寄件列表
 import React, { useState, useEffect } from 'react'
-// import { getOrdersList } from '@/api/orders'
 import { enumsOrderStatus } from '@/helper/env'
 import { Input, Tabs, Breadcrumb, Popover, Pagination } from 'antd'
 import { Link } from 'react-router-dom'
-import './index.scss'
 import CustomizeModal from '@/components/CustomizeModal'
 import { getOrdersList, searchOrder } from '@/api/orders'
+import './index.scss'
 
 const { TabPane } = Tabs
+const { Search } = Input
 
 function MyOrder(params) {
   const [ordersdata, setOrdersdata] = useState([])
@@ -27,7 +26,6 @@ function MyOrder(params) {
   }
 
   const onSearchOrders = (value, e) => {
-    // console.log(value, 'value', e, 'e')
     searchOrder(value).then((res) => {
       console.log(res)
       if (res.data.length !== 0) {
@@ -40,7 +38,6 @@ function MyOrder(params) {
   }
 
   const changePageSize = (page, pageSize) => {
-    console.log('object', page, pageSize)
     getOrdersList(page, pageSize).then((res) => {
       setOrdersdata(res.data)
       setListtotal(res.total || 0)
@@ -58,11 +55,12 @@ function MyOrder(params) {
         </Breadcrumb>
 
         <div className='order-top'>
-          <h2 className='order-title'>My Orders</h2>
+          <div className='order-title'>My Orders</div>
 
-          <Input.Search
+          <Search
             className='order-search'
-            enterButton={<span className='order-addoAfter'>Search Orders</span>}
+            enterButton='Search Orders'
+            placeholder='Search for the recipient or tracking number'
             onSearch={onSearchOrders}
           />
         </div>
@@ -132,19 +130,25 @@ function MyOrder(params) {
                 )}
               </div>
             ) : (
-              <p className="empy-order-list">
+              <p className='empy-order-list'>
                 You have not placed any orders in.{' '}
-                <Link to="/filestep" className='new-pickup'>Schedule a New Pickup</Link>
+                <Link to='/filestep' className='new-pickup'>
+                  Schedule a New Pickup
+                </Link>
               </p>
             )}
           </TabPane>
+
           <TabPane tab='Open Orders' key='2'>
             <div className='order-nothing'>
               You have not placed any orders in. <b>Schedule a New Pickup</b>
             </div>
           </TabPane>
+
           <TabPane tab='Completed orders' key='3'>
-            3
+            <div className='order-nothing'>
+              You have not placed any orders in. <b>Schedule a New Pickup</b>
+            </div>
           </TabPane>
         </Tabs>
       </div>

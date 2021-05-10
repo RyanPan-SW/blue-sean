@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Input, Button, Select } from 'antd'
-import userBook from '../../asset/userbook.png'
-import deleteIcon from '../../asset/delete.png'
 import { getAllCity } from '@/api/fileStep'
 import './index.scss'
 import FileStep1 from '@/components/FileStep1'
@@ -9,25 +6,22 @@ import FileStep2 from '@/components/FileStep2'
 import FileStep3 from '@/components/FileStep3'
 import FileStepSuccessful from '@/components/FileStepSuccessful'
 
-const messageTitle = 'Please Enter.'
+const recipient = {
+  firstName: 'First Name',
+  lastName: 'Last Name',
+  phone: 'Phone Number',
+  email: 'Email',
+  companyName: 'Company Name',
+  address: 'Street Address',
+  cityCode: 'City',
+  other: 'Apt/Suite/Other',
+  zipcode: 'ZIP Code',
+  note: 'Note',
+}
 
-function FileStep(params) {
-  const recipient = {
-    firstName: 'First Name',
-    lastName: 'Last Name',
-    phone: 'Phone Number',
-    email: 'Email',
-    companyName: 'Company Name',
-    address: 'Street Address',
-    cityCode: 'City',
-    other: 'Apt/Suite/Other',
-    zipcode: 'ZIP Code',
-    note: 'Note',
-  }
-
-  const [cityArray, setCityArray] = useState([])
+function FileStep(props) {
   const [step, setStep] = useState(1)
-  const [recipientArray, setRecipientArray] = useState([recipient])
+  const [cityArray, setCityArray] = useState([])
   const [status, setStatus] = useState(null)
 
   useEffect(() => {
@@ -40,21 +34,6 @@ function FileStep(params) {
   }, [])
 
   useEffect(() => {}, [step])
-
-  const addNewRecipient = () => {
-    const arrayData = recipientArray
-    setRecipientArray(arrayData.push(recipient))
-  }
-
-  const payNow = () => {
-    // payNow().then((res) => {
-    //   if (res.code === '200') {
-    //     setStatus('successful')
-    //   } else {
-    //     setStatus('failed')
-    //   }
-    // })
-  }
 
   return (
     <div className='file-step'>
@@ -70,7 +49,7 @@ function FileStep(params) {
       {(() => {
         switch (step) {
           case 1:
-            return <FileStep1 cityArray={cityArray} setStep={setStep} />
+            return <FileStep1 cityArray={cityArray} setStep={setStep} history={props.history} />
 
           case 2:
             return <FileStep2 recipient={[{}]} cityArray={cityArray} setStep={setStep} />
@@ -82,7 +61,7 @@ function FileStep(params) {
             return <FileStepSuccessful setStep={setStep} status={status} />
 
           default:
-            break
+            return <></>
         }
       })()}
     </div>

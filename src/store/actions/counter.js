@@ -1,4 +1,3 @@
-import request from '@/service/request'
 import { ADD, MINUS } from '../constants/counter'
 
 export const add = () => ({
@@ -15,15 +14,4 @@ export function asyncAdd() {
       dispatch(add())
     }, 2000)
   }
-}
-
-export function question() {
-  request({
-    url: 'http://localhost:8081/askQuestion',
-    method: 'get',
-  }).then((res) => {
-    return (dispatch) => {
-      dispatch({ type: 'QUESTION' })
-    }
-  })
 }

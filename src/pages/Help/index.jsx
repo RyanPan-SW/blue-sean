@@ -8,10 +8,10 @@ const helpList = [
   {
     title:
       'How do I track using a reference number?How do I track using a reference number?How do I track using a reference number?How do I track How do I track using a reference number?How do I track using a reference number?',
-    dircetion: '11111===',
+    dircetion: 'This is going to be the content',
   },
-  { title: '2222', dircetion: '11111===' },
-  { title: '3333', dircetion: '11111===' },
+  { title: '2222', dircetion: 'This is going to be the content' },
+  { title: '3333', dircetion: 'This is going to be the content' },
 ]
 
 function HelpContent(props) {

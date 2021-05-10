@@ -97,3 +97,14 @@
     }
   }
 }
+
+
+.forget-popover {
+  p {
+    font-size: 12px;
+
+    &:nth-of-type(1) {
+      padding-bottom: 15px;
+    }
+  }
+}

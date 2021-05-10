@@ -10,15 +10,26 @@ import signup from '../../asset/add.svg'
 import down from '../../asset/down.svg'
 import home from '../../asset/home.svg'
 import logout from '../../asset/x.svg'
-import { clearAllCookie, getCookie } from '@/helper/env'
-import { Modal } from 'antd'
+import { getCookie } from '@/helper/env'
 import './selfHeader.scss'
 
 const servicesMenus = [
-  { url: 'housingProperty', title: 'Property Settlement & Lodgment Services' },
-  { url: 'legalInvestigation', title: 'Property & Body Corporate Searches & Report' },
-  { url: 'documentBusiness', title: 'Legal Documents Deliveries & Service of Court Documents' },
-  { url: 'documentOrder', title: 'Schedule a New Pickup' },
+  {
+    name: 'housingProperty',
+    to: '/services?type=housingProperty',
+    title: 'Property Settlement & Lodgment Services',
+  },
+  {
+    name: 'legalInvestigation',
+    to: '/services?type=legalInvestigation',
+    title: 'Property & Body Corporate Searches & Report',
+  },
+  {
+    name: 'documentBusiness',
+    to: '/services?type=documentBusiness',
+    title: 'Legal Documents Deliveries & Service of Court Documents',
+  },
+  { name: 'filestep', to: '/filestep', title: 'Schedule a New Pickup' },
 ]
 
 const Header = (props) => {
@@ -26,10 +37,15 @@ const Header = (props) => {
   const [pathnameStatus, setPathnameStatus] = useState(false)
   const [showSubtitle, setShowSubtitle] = useState(false)
   // const [loginStatus, setLoginStatus] = useState(false)
+  const [loginUser, setLoginUser] = useState({})
 
   useEffect(() => {
     pathname.search('/home') > -1 ? setPathnameStatus(false) : setPathnameStatus(true)
   }, [pathname])
+
+  useEffect(() => {
+    setLoginUser(JSON.parse(sessionStorage.getItem('loginUser')))
+  }, [])
 
   const ExpandSubtitle = (e) => {
     e.stopPropagation()
@@ -73,13 +89,24 @@ const Header = (props) => {
             ) : (
               <>
                 <div className={pathnameStatus ? 'login-user' : 'login-home-user'}>
-                  Welcome forvo
+                  Welcome&nbsp;&nbsp;
+                  {(() => {
+                    switch (loginUser.loginType) {
+                      case '01':
+                        return loginUser.loginEmail
+                      case '02':
+                        return loginUser.companyId
+
+                      default:
+                        break
+                    }
+                  })()}
                 </div>
-                <div className={pathnameStatus ? 'login-user' : 'login-home-user'}>
+                <Link to="/account" className={pathnameStatus ? 'login-user' : 'login-home-user'}>
                   <img src={home} alt='' />
                   <span>Account info</span>
-                </div>
-                <Link to="/logOut" className={pathnameStatus ? 'login-user' : 'login-home-user'}>
+                </Link>
+                <Link to='/logOut' className={pathnameStatus ? 'login-user' : 'login-home-user'}>
                   <img src={logout} alt='' />
                   <span>Log out</span>
                 </Link>
@@ -124,15 +151,15 @@ const Header = (props) => {
                 <img src={down} alt='' />
                 {showSubtitle && (
                   <div className='header-menu-sub-list'>
-                    {servicesMenus.map(({ url, title }, index) => {
+                    {servicesMenus.map(({ name, to, title }, index) => {
                       return (
                         <Link
                           key={index}
                           // className={search === `?type=${url}` ? 'currentPage' : ''}
-                          to={`/services?type=${url}`}
+                          to={to}
                         >
                           <div
-                            style={{ color: search === `?type=${url}` ? '$themeColor' : '' }}
+                            style={{ color: search === `?type=${name}` ? '$themeColor' : '' }}
                             className='menu-item'
                           >
                             {title}

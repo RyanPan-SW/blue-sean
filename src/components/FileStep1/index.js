@@ -1,17 +1,48 @@
-import React, { useState } from 'react'
-import { Form, Input, Button, Select } from 'antd'
+import React, { useState, useEffect } from 'react'
+import { Form, Input, Button, Select, message } from 'antd'
 import userBook from '../../asset/userbook.png'
-import './index.scss'
 import AddFromAddressBook from '../AddFromAddressBook'
+import { getCookie } from '@/helper/env'
+import { setSenderApi, getSessionSender } from '@/api/fileStep'
+import './index.scss'
+import { connect } from 'react-redux'
+import { setSenderAction } from '@/store/actions/fielStep'
 
 const messageTitle = 'Please Enter.'
 
-function FileStep1({ cityArray, setStep }) {
+function FileStep1(props) {
+  const { cityArray, setStep, history } = props
+
   const [visible, setVisible] = useState(false)
+  const [sender, setSender] = useState({})
+
+  useEffect(() => {
+    const sessionid = sessionStorage.getItem('sessionid')
+    if (sessionid) sessionToObtainSender(sessionid)
+  }, [])
+
+  const sessionToObtainSender = (sessionid) => {
+    getSessionSender({ sessionid: sessionid }).then((res) => {
+      if (res.code === '200') {
+        setSender(res.data.sender || {})
+      }
+    })
+  }
 
   const addFromAddressBook = () => {
-    console.log('object')
-    setVisible(true)
+    return getCookie('token') ? setVisible(true) : history.push('/login')
+  }
+
+  const setSenderInformation = (values) => {
+    setSenderApi(values).then((res) => {
+      if (res.code === '200') {
+        sessionStorage.setItem('sessionid', res.data.sessionid)
+        props.setSender(values)
+        setStep(2)
+      } else {
+        message.error(res.errmsg)
+      }
+    })
   }
 
   return (
@@ -24,7 +55,13 @@ function FileStep1({ cityArray, setStep }) {
         </div>
       </div>
 
-      <Form layout='vertical' name='step1' className='step1-form'>
+      <Form
+        layout='vertical'
+        name='step1'
+        className='step1-form'
+        onFinish={setSenderInformation}
+        initialValues={sender}
+      >
         <div className='step1-form-flex'>
           <div className='step1-form-column'>
             <div className='step1-name'>
@@ -89,7 +126,7 @@ function FileStep1({ cityArray, setStep }) {
 
             <Form.Item
               label='City'
-              name='city'
+              name='cityCode'
               rules={[
                 {
                   required: true,
@@ -118,38 +155,16 @@ function FileStep1({ cityArray, setStep }) {
                   required: true,
                   message: messageTitle,
                 },
-                {
-                  type: 'number',
-                  message: 'Please enter the correct phone number.',
-                },
               ]}
             >
               <Input placeholder='Phone Number' />
             </Form.Item>
 
-            <Form.Item
-              label='Company Name'
-              name='companyName'
-              rules={[
-                {
-                  required: true,
-                  message: messageTitle,
-                },
-              ]}
-            >
+            <Form.Item label='Company Name' name='companyName'>
               <Input placeholder='Company Name' />
             </Form.Item>
 
-            <Form.Item
-              label='Apt/Suite/Other'
-              name='other'
-              rules={[
-                {
-                  required: true,
-                  message: messageTitle,
-                },
-              ]}
-            >
+            <Form.Item label='Apt/Suite/Other' name='other'>
               <Input placeholder='Apt/Suite/Other' />
             </Form.Item>
 
@@ -173,12 +188,7 @@ function FileStep1({ cityArray, setStep }) {
         </Form.Item>
 
         <Form.Item className='form-submit'>
-          <Button
-            className='form-submit-button'
-            onClick={() => {
-              setStep(2)
-            }}
-          >
+          <Button type='primary' className='form-submit-button' htmlType='submit'>
             Confirm Address
           </Button>
         </Form.Item>
@@ -189,4 +199,17 @@ function FileStep1({ cityArray, setStep }) {
   )
 }
 
-export default FileStep1
+const mapStateToProps = ({ fileStep }, ownProps) => {
+  return {
+    sender: fileStep.sender,
+  }
+}
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    setSender: () => {
+      dispatch(setSenderAction)
+    },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FileStep1)

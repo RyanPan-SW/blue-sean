@@ -100,6 +100,15 @@ a:hover {
   border-color: $themeColor;
 }
 
+.ant-input-search .ant-input:focus,
+.ant-input-search .ant-input:hover {
+  border-color: $themeColor;
+}
+
+.ant-input:focus {
+  box-shadow: 0 0 0 2px #b3894833;
+}
+
 @media screen and (max-width: 1440px) {
   .container {
     width: 80%;
