@@ -75,6 +75,31 @@ a:hover {
   border-color: $themeColor;
 }
 
+.ant-modal-header {
+  border-bottom: none;
+}
+
+.ant-radio-inner {
+  border: 1px solid $themeColor;
+}
+.ant-radio-inner:after {
+  background-color: $themeColor;
+}
+
+.ant-radio-checked .ant-radio-inner {
+  border-color: $themeColor;
+}
+
+.ant-radio-inner {
+  border: 1px solid $themeColor;
+}
+
+.ant-radio-input:focus + .ant-radio-inner,
+.ant-radio-wrapper:hover .ant-radio,
+.ant-radio:hover .ant-radio-inner {
+  border-color: $themeColor;
+}
+
 @media screen and (max-width: 1440px) {
   .container {
     width: 80%;

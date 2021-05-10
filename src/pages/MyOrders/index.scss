@@ -111,6 +111,18 @@
     line-height: 50px;
   }
 
+  .empy-order-list {
+    text-align: center;
+    font-size: 18px;
+    line-height: 57px;
+    padding-top: 80px;
+
+    .new-pickup {
+      cursor: pointer;
+      color: $themeColor;
+    }
+  }
+
   > p {
     font-size: 16px;
     line-height: 22px;
@@ -131,18 +143,19 @@
   .ant-tabs-tab:hover {
     color: $themeColor;
   }
-  
+
   .ant-tabs-ink-bar {
     background: $themeColor;
   }
 
-  .ant-pagination-item:focus, .ant-pagination-item:hover {
+  .ant-pagination-item:focus,
+  .ant-pagination-item:hover {
     border-color: $themeColor;
     color: #fff !important;
   }
   .ant-pagination-item-active {
     border-color: $themeColor;
     background: $themeColor;
-    color: #FFF;
+    color: #fff;
   }
 }

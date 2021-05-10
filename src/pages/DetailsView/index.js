@@ -27,10 +27,10 @@ function DetailsView(props) {
 
   useEffect(() => {
     getOrderDateils({ number: 111 }).then((res) => {
-      let date1 = dayjs(`${res?.orderDetails.orderDay} ${res?.orderDetails.orderTime}`)
+      let date1 = dayjs(`${res?.orderDetails?.orderDay} ${res?.orderDetails?.orderTime}`)
       let date2 = dayjs(dayjs().format('YYYY-MM-DD HH:mm:ss'))
       if (date2.diff(date1, 'minute') >= 30) {
-        // setOverTime(true)
+        setOverTime(true)
       }
       setData(res)
     })
@@ -66,10 +66,10 @@ function DetailsView(props) {
 
         <div className='detail-notes'>
           <h3>Notes:</h3>
-          {/* <p>这里可以放一些规则说明，比如取消和修改快递的一些规则说明。 </p>
+          <p>这里可以放一些规则说明，比如取消和修改快递的一些规则说明。 </p>
           <p>修改的规则： </p>
-          <p>取消的规则：</p> */}
-          <div dangerouslySetInnerHTML={{ __html: data?.notes }}></div>
+          <p>取消的规则：</p>
+          {/* <div dangerouslySetInnerHTML={{ __html: data?.notes }}></div> */}
         </div>
 
         <div className='detail-orders'>
@@ -77,12 +77,12 @@ function DetailsView(props) {
             <div>
               <b>Order Placed: </b>
               <span>
-                {data?.orderDetails.orderTime} on {data?.orderDetails.orderDay}
+                {data?.orderDetails?.orderTime} on {data?.orderDetails?.orderDay}
               </span>
               &nbsp;&nbsp;|&nbsp;&nbsp;<b>Tracking Numb: </b>
-              {data?.orderDetails.number}
+              {data?.orderDetails?.number}
             </div>
-            {data?.orderDetails.status <= 2 && (
+            {data?.orderDetails?.status <= 2 && (
               <div
                 className='orders-cancel'
                 onClick={() => {

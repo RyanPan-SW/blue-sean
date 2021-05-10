@@ -1,0 +1,76 @@
+.step1 {
+  border-top: 4px solid $themeColor;
+  padding: 40px 80px;
+  margin-bottom: 80px;
+  box-shadow: $boxShadow;
+
+  .step1-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 40px;
+
+    .step1-title {
+      font-size: 25px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .form-address-book {
+      cursor: pointer;
+    }
+
+    img {
+      width: 20px;
+      height: 21px;
+      margin-right: 7px;
+    }
+
+    .add-address-book {
+      color: #333;
+      opacity: 0.5;
+      font-size: 14px;
+    }
+  }
+
+  .step1-form {
+    .step1-form-flex {
+      display: flex;
+      justify-content: space-between;
+
+      .step1-form-column {
+        width: 100%;
+
+        &:nth-of-type(1) {
+          margin-right: 30px;
+        }
+
+        .step1-name {
+          display: flex;
+          justify-content: space-between;
+
+          .name {
+            width: 100%;
+
+            &:nth-of-type(1) {
+              margin-right: 30px;
+            }
+          }
+        }
+      }
+    }
+
+    .form-submit {
+      text-align: center;
+      padding-top: 40px;
+
+      .form-submit-button {
+        width: 310px;
+        height: 56px;
+        font-size: 25px;
+        background-color: $themeColor;
+        color: #fff;
+      }
+    }
+  }
+}

@@ -32,7 +32,7 @@ function MyOrder(params) {
       console.log(res)
       if (res.data.length !== 0) {
         setOrdersdata(res.data)
-      setListtotal(res.total || 0)
+        setListtotal(res.total || 0)
       } else {
         setVisible(true)
       }
@@ -77,8 +77,9 @@ function MyOrder(params) {
 
         <Tabs defaultActiveKey='1' tabBarStyle={{ color: '#333' }}>
           <TabPane tab='Orders' key='1'>
-            <div>
+            {ordersdata.length > 0 ? (
               <div>
+                {/* <div> */}
                 {ordersdata.map((item, index) => {
                   return (
                     <div className='ordersList' key={index}>
@@ -118,18 +119,24 @@ function MyOrder(params) {
                     </div>
                   )
                 })}
+                {/* </div> */}
+                {listtotal > 15 && (
+                  <Pagination
+                    style={{ textAlign: 'right', paddingTop: 30 }}
+                    defaultCurrent={1}
+                    // defaultPageSize={15}
+                    pageSize={15}
+                    total={listtotal}
+                    onChange={changePageSize}
+                  />
+                )}
               </div>
-              {listtotal > 15 && (
-                <Pagination
-                  style={{ textAlign: 'right', paddingTop: 30 }}
-                  defaultCurrent={1}
-                  // defaultPageSize={15}
-                  pageSize={15}
-                  total={listtotal}
-                  onChange={changePageSize}
-                />
-              )}
-            </div>
+            ) : (
+              <p className="empy-order-list">
+                You have not placed any orders in.{' '}
+                <Link to="/filestep" className='new-pickup'>Schedule a New Pickup</Link>
+              </p>
+            )}
           </TabPane>
           <TabPane tab='Open Orders' key='2'>
             <div className='order-nothing'>

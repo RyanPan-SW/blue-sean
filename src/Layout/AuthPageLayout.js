@@ -31,6 +31,7 @@ import Page404 from '@/pages/404/404'
 import './index.scss'
 import DetailsView from '@/pages/DetailsView'
 import { Redirect } from 'react-router'
+import FileStep from '@/pages/FileStep'
 
 function BaseLayout(props) {
   const { pathname } = useLocation()
@@ -80,6 +81,7 @@ function BaseLayout(props) {
           <Route path='/address' component={MyAddress} />
           <Route path='/changepassword' component={ChangePassword} />
           <Route path='/logOut' component={Logout} />
+          <Route path='/filestep' component={FileStep} />
           <Route path='/404' component={Page404} />
           <Redirect to='/home' />
         </Switch>

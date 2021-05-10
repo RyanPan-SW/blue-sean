@@ -1,0 +1,102 @@
+.step2 {
+  border-top: 4px solid $themeColor;
+  padding: 40px 80px;
+  margin-bottom: 80px;
+  box-shadow: $boxShadow;
+
+  .step2-title {
+    font-size: 25px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .step2-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 40px;
+
+    img {
+      width: 20px;
+      height: 21px;
+      margin-right: 7px;
+    }
+
+    .add-address-book {
+      color: #333;
+      opacity: 0.5;
+      font-size: 14px;
+      margin-right: 10px;
+    }
+  }
+
+  .step2-form {
+    .step2-form-flex {
+      display: flex;
+      justify-content: space-between;
+
+      .step2-form-column {
+        width: 100%;
+
+        &:nth-of-type(1) {
+          margin-right: 30px;
+        }
+
+        .step2-name {
+          display: flex;
+          justify-content: space-between;
+
+          .name {
+            width: 100%;
+
+            &:nth-of-type(1) {
+              margin-right: 30px;
+            }
+          }
+        }
+      }
+    }
+
+    .form-line {
+      margin: 40px 0;
+      border-top: 1px dashed #a7a7a7;
+    }
+
+    .add-new-address {
+      span {
+        font-size: 18px;
+
+        &:nth-of-type(1) {
+          cursor: pointer;
+          color: $themeColor;
+          margin-right: 10px;
+        }
+      }
+    }
+
+    .form-submit {
+      text-align: center;
+      padding-top: 40px;
+
+      .form-submit-back {
+        width: 310px;
+        max-width: 40%;
+        height: 56px;
+        background-color: #fff;
+        font-size: 25px;
+        color: #aeaeae;
+        border-radius: 50px;
+        margin-right: 20px;
+      }
+
+      .form-submit-button {
+        max-width: 40%;
+        width: 310px;
+        height: 56px;
+        font-size: 25px;
+        background-color: $themeColor;
+        color: #fff;
+      }
+    }
+  }
+}

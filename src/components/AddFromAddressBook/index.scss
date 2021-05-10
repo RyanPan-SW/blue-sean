@@ -1,0 +1,87 @@
+.form-modal-body {
+  .title-search {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+
+    .select-from-your-address-book {
+      width: 276px;
+      height: 14px;
+      font-family: Arial-BoldMT;
+      font-size: 18px;
+      font-weight: normal;
+      font-stretch: normal;
+      letter-spacing: 0px;
+      color: #333333;
+    }
+
+    .search {
+      width: 344px;
+      border-radius: 25px;
+      height: 35px;
+    }
+
+    .suffix-search {
+      width: 70px;
+      height: 35px;
+      background-color: $themeColor;
+      text-align: center;
+      color: #fff;
+    }
+
+    .ant-btn-primary {
+      background: $themeColor;
+      border-color: $themeColor;
+    }
+
+    .ant-input-group > .ant-input:first-child {
+      border-bottom-left-radius: 25px;
+      border-top-left-radius: 25px;
+    }
+
+    .ant-input-search > .ant-input-group > .ant-input-group-addon .ant-input-search-button {
+      border-radius: 0 25px 25px 0;
+    }
+  }
+
+  .ant-table-thead > tr > th {
+    background-color: #eee;
+  }
+  .ant-table-tbody > tr > td {
+    border-bottom: 2px dashed #c9c9c9;
+  }
+
+  .ant-table-tbody > tr {
+    &:nth-last-of-type(1) {
+      td {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .default {
+    background-color: #b38948;
+    border-radius: 19px;
+    font-size: 12px;
+    color: #ffffff;
+    font-weight: 400;
+    padding: 4px 8px;
+  }
+
+  .table-column {
+    font-size: 16px;
+  }
+
+  .form-submit {
+    margin-top: 40px;
+    width: 308px;
+    height: 56px;
+    background-color: #b38948;
+    border-radius: 28px;
+    color: #ffffff;
+    display: block;
+    margin: 0 auto;
+    font-size: 25px;
+  }
+}

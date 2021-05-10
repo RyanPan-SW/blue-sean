@@ -1,0 +1,140 @@
+.step3 {
+  padding: 40px 80px;
+  border-top: 4px solid $themeColor;
+  box-shadow: $boxShadow;
+  margin-bottom: 125px;
+
+  .step3-title {
+    font-size: 25px;
+    font-weight: bold;
+    color: #333;
+    padding-bottom: 30px;
+  }
+
+  .step3-item {
+    display: flex;
+    margin-bottom: 40px;
+
+    .step3-decribe {
+      width: 200px;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    .step-content {
+      flex: 1;
+
+      .step-content-time {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px dashed #a4a4a4;
+        padding-bottom: 40px;
+        margin-bottom: 30px;
+
+        .time-box {
+          text-align: center;
+          width: 176px;
+          height: 52px;
+          border: 1px solid #999999;
+
+          &:nth-of-type(1) {
+            p {
+              line-height: 25px;
+            }
+          }
+          p {
+            line-height: 50px;
+            font-size: 16px;
+          }
+
+          .today {
+            font-size: 11px;
+            color: #9f9f9f;
+            line-height: 20px;
+          }
+        }
+      }
+
+      .step-delivered {
+        display: flex;
+        flex-wrap: wrap;
+
+        .delivered-time {
+          width: 50%;
+          padding-top: 25px;
+        }
+      }
+    }
+
+    .step-charge {
+      flex: 1;
+      color: #333;
+      opacity: 0.5;
+      font-size: 16px;
+    }
+
+    .ant-radio-inner:after {
+      background-color: $themeColor;
+    }
+
+    .ant-radio-checked .ant-radio-inner {
+      border-color: $themeColor;
+    }
+
+    .ant-radio-inner {
+      border: 1px solid $themeColor;
+    }
+  }
+
+  .step-agree {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 120px;
+
+    .contract {
+      color: $themeColor;
+      font-weight: bold;
+    }
+
+    .ant-checkbox-checked .ant-checkbox-inner {
+      background-color: $themeColor;
+      border-color: $themeColor;
+    }
+    .ant-checkbox-checked:after {
+      border: 1px solid $themeColor;
+    }
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 40px;
+    padding-bottom: 20px;
+  }
+
+  .button-back {
+    width: 300px;
+    height: 56px;
+    color: #aeaeae;
+    background-color: #fff;
+    text-align: center;
+    font-size: 25px;
+    border-radius: 50px;
+    border-color: #aeaeae;
+
+    &:hover {
+      background-color: #fff;
+      color: #a4a4a4;
+    }
+  }
+
+  .button-pay {
+    width: 300px;
+    height: 56px;
+    color: #fff;
+    background-color: $themeColor;
+    border-color: $themeColor;
+    border-radius: 50px;
+    font-size: 25px;
+  }
+}
