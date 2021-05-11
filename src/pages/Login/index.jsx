@@ -6,12 +6,11 @@ import * as UserActionCreator from '@/store/actions/user'
 import { Link } from 'react-router-dom'
 import './index.scss'
 import FieldDom from '@/components/Field'
-import { ExclamationCircleFilled } from '@ant-design/icons'
 import { setCookie } from '@/helper/env'
 
 const loginType = { personal: '01', corporate: '02' }
 
-const Login = ({ login, history }) => {
+const Login = ({ login, setLoginUser, history }) => {
   const [activeTab, setActiveTab] = useState(1)
   const [loginPersonError, setLoginPersonError] = useState(false)
   const [loginCorporateError, setLoginCorporateError] = useState(false)
@@ -29,8 +28,10 @@ const Login = ({ login, history }) => {
       const { code, data, errmsg } = res
       if (code === '200') {
         const token = data.token
+        const loginUser = JSON.stringify(data.loginUser)
         setCookie(token)
-        sessionStorage.setItem('loginUser', JSON.stringify(data.loginUser))
+        login()
+        sessionStorage.setItem('user', loginUser)
         history.push('/account')
       } else {
         setLoginPersonError(true)
@@ -49,7 +50,10 @@ const Login = ({ login, history }) => {
       const { code, data, errmsg } = res
       if (code === '200') {
         const token = data.token
+        const loginUser = JSON.stringify(data.loginUser)
         setCookie(token)
+        login()
+        sessionStorage.setItem('user', loginUser)
         history.push('/account')
       } else {
         setLoginCorporateError(true)
@@ -183,7 +187,7 @@ const Login = ({ login, history }) => {
                 <Popover
                   placement='right'
                   content={
-                    <div className="forget-popover">
+                    <div className='forget-popover'>
                       <p>Please contact us, you can call or email us.</p>
                       <p>
                         <b>Email:</b> info@dcglobalsolutions.com.au

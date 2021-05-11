@@ -1,6 +1,5 @@
 import React from 'react'
-import { Radio, Space, Checkbox, Button } from 'antd'
-import Paypal from '../../asset/paypal.png'
+import { Button } from 'antd'
 import Successful from '../../asset/Successful.png'
 import Failed from '../../asset/Failed.png'
 import './index.scss'

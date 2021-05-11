@@ -56,6 +56,17 @@ const Header = (props) => {
     return pathname.search(str) > -1 ? 'active' : ''
   }
 
+  const welcomeUser = () => {
+    const user = sessionStorage.getItem('user') && JSON.parse(sessionStorage.getItem('user'))
+    if (user && user.loginType === '01') {
+      return `Welcome  ${user.loginEmail}`
+    } else if (user && user.loginType === '02') {
+      return `Welcome  ${user.companyId}`
+    } else {
+      return `Welcome`
+    }
+  }
+
   return (
     <>
       <div className={pathnameStatus ? 'home-header' : 'header'}>
@@ -84,10 +95,8 @@ const Header = (props) => {
             ) : (
               <>
                 <div className={pathnameStatus ? 'login-user' : 'login-home-user'}>
-                  Welcome&nbsp;&nbsp;
-                  {/* <span onClick={logout}>1313131</span> */}
-                  {/* {loginUser?.loginType === '01' && loginUser?.loginEmail}
-                  {loginUser?.loginType === '02' && loginUser?.companyId} */}
+                  {/* Welcome&nbsp;&nbsp; */}
+                  {welcomeUser()}
                 </div>
                 <Link to='/account' className={pathnameStatus ? 'login-user' : 'login-home-user'}>
                   <img src={home} alt='' />

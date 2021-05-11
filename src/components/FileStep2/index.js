@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Form, Input, Button, Select, message } from 'antd'
 import deleteIcon from '../../asset/delete.png'
 import userBook from '../../asset/userbook.png'
-import { getSessionRecipient, setRecipientApi } from '@/api/fileStep'
+import { getSessionRecipient } from '@/api/fileStep'
 import './index.scss'
 
 const messageTitle = 'Please Enter.'

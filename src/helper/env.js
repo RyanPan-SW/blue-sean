@@ -1,4 +1,4 @@
-import { TOKEN_KEY } from '@/config'
+// import { TOKEN_KEY } from '@/config'
 import cookie from 'react-cookies'
 
 export function isOpenPages(pathname) {

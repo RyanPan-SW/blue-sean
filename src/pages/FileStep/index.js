@@ -6,7 +6,7 @@ import FileStep2 from '@/components/FileStep2'
 import FileStep3 from '@/components/FileStep3'
 import FileStepSuccessful from '@/components/FileStepSuccessful'
 
-const recipient = {
+/* const recipient = {
   firstName: 'First Name',
   lastName: 'Last Name',
   phone: 'Phone Number',
@@ -17,7 +17,7 @@ const recipient = {
   other: 'Apt/Suite/Other',
   zipcode: 'ZIP Code',
   note: 'Note',
-}
+} */
 
 function FileStep(props) {
   const [step, setStep] = useState(1)

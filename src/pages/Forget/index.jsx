@@ -1,11 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import FieldDom from '@/components/Field'
-import { errorCode } from '@/helper/error'
-import { Form, Input, Button, Modal, message } from 'antd'
-import { getCode, verificationCode } from '@/api/forget'
-import './index.scss'
 import { SendEmailGetCodeDom, VerificationCodeDom, SetNewPasswordDom } from './formDom'
+import './index.scss'
 
 function Forget(props) {
   const [type, setType] = useState('email')

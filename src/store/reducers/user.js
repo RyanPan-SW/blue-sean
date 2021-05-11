@@ -1,7 +1,8 @@
-import { LOGIN, LOGOUT } from '@/store/constants/user'
+import { LOGIN, LOGIN_USER, LOGOUT } from '@/store/constants/user'
 
 const INITIAL_STATE = {
   isLogin: false,
+  loginUser: null,
 }
 
 export default function setInformation(state = INITIAL_STATE, action) {
@@ -15,6 +16,11 @@ export default function setInformation(state = INITIAL_STATE, action) {
       return {
         ...state,
         isLogin: false,
+      }
+    case LOGIN_USER:
+      return {
+        ...state,
+        loginUser: action.loginUser
       }
     default:
       return state
