@@ -37,15 +37,10 @@ const Header = (props) => {
   const [pathnameStatus, setPathnameStatus] = useState(false)
   const [showSubtitle, setShowSubtitle] = useState(false)
   // const [loginStatus, setLoginStatus] = useState(false)
-  const [loginUser, setLoginUser] = useState({})
 
   useEffect(() => {
     pathname.search('/home') > -1 ? setPathnameStatus(false) : setPathnameStatus(true)
   }, [pathname])
-
-  useEffect(() => {
-    setLoginUser(JSON.parse(sessionStorage.getItem('loginUser')))
-  }, [])
 
   const ExpandSubtitle = (e) => {
     e.stopPropagation()
@@ -90,19 +85,11 @@ const Header = (props) => {
               <>
                 <div className={pathnameStatus ? 'login-user' : 'login-home-user'}>
                   Welcome&nbsp;&nbsp;
-                  {(() => {
-                    switch (loginUser.loginType) {
-                      case '01':
-                        return loginUser.loginEmail
-                      case '02':
-                        return loginUser.companyId
-
-                      default:
-                        break
-                    }
-                  })()}
+                  {/* <span onClick={logout}>1313131</span> */}
+                  {/* {loginUser?.loginType === '01' && loginUser?.loginEmail}
+                  {loginUser?.loginType === '02' && loginUser?.companyId} */}
                 </div>
-                <Link to="/account" className={pathnameStatus ? 'login-user' : 'login-home-user'}>
+                <Link to='/account' className={pathnameStatus ? 'login-user' : 'login-home-user'}>
                   <img src={home} alt='' />
                   <span>Account info</span>
                 </Link>
