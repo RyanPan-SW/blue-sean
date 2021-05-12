@@ -1,37 +1,47 @@
-import React from 'react'
-import { Modal, Form, Input, Button, message } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { Modal, Form, Input, Button, message, Select } from 'antd'
 import { addNewAddress, updateAddress } from '@/api/address'
+import { getAllCity } from '@/api/fileStep'
+import { normFile } from '@/helper'
+
+const modalTitle = {
+  add: 'Add a New  Address',
+  edit: 'Edit Address Entry',
+}
 
 function AddressModal(props) {
-  const [form] = Form.useForm()
-  const { editType, visible, setVisible, data = {}, getAddressList } = props
-  console.log('data', data)
+  const { id, type, visible, form, onCancel, getAddressList } = props
+  const [cityarray, setCityarray] = useState([])
+
+  useEffect(() => {
+    getAllCity().then((res) => {
+      if (res.code === '200') setCityarray(res.data.list)
+    })
+  }, [])
 
   const onFinishAddress = (values) => {
-    if (editType === 'add') {
+    if (type === 'add') {
       addNewAddress(values).then((res) => {
         const { code, data } = res
         if (code !== '200') {
           message.error(res.errmsg)
           return
-        }
-        if (code === '200') {
+        } else if (code === '200') {
           message.success(data.msg)
-          setVisible(false)
+          onCancel(false)
           getAddressList()
         }
       })
-    }
-    if (editType === 'edit') {
-      updateAddress({ ...data, ...values }).then((res) => {
+    } else if (type === 'edit') {
+      const updateValues = form.getFieldsValue()
+      updateAddress({ ...updateValues, id }).then((res) => {
         const { code, data } = res
         if (code !== '200') {
           message.error(res.errmsg)
           return
-        }
-        if (code === '200') {
+        } else if (code === '200') {
           message.success(data.msg)
-          setVisible(false)
+          onCancel(false)
           getAddressList()
         }
       })
@@ -40,42 +50,22 @@ function AddressModal(props) {
 
   return (
     <Modal
-      destroyOnClose
-      width={1100}
       centered
-      title={'Add a New Address'}
+      width={1100}
+      title={modalTitle[type]}
       visible={visible}
-      onCancel={() => {
-        setVisible(false)
-      }}
+      onCancel={onCancel}
       footer={null}
     >
-      {/* <div className='add-modal-title'>Add a New Address</div> */}
-
-      <Form
-        form={form}
-        layout='vertical'
-        // initialValues={{
-        //   firstName: data.firstName || null,
-        //   lastName: data.lastName || null,
-        //   email: data.email || null,
-        //   address: data.address || null,
-        //   cityCode: data.cityCode || null,
-        //   phone: data.phone || null,
-        //   companyName: data.companyName || null,
-        //   other: data.other || null,
-        //   zipcode: data.zipcode || null,
-        // }}
-        onFinish={onFinishAddress}
-      >
+      <Form form={form} layout='vertical' onFinish={onFinishAddress}>
         <div className='form-content'>
           <div className='form-column'>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <Form.Item
                 label='First Name'
                 name='firstName'
+                normalize={normFile}
                 style={{ width: '45%' }}
-                initialValue={data.firstName}
                 rules={[{ required: true, message: 'Please Enter' }]}
               >
                 <Input placeholder='First Name' />
@@ -112,7 +102,15 @@ function AddressModal(props) {
               name='cityCode'
               rules={[{ required: true, message: 'Please Enter' }]}
             >
-              <Input placeholder='City' />
+              <Select placeholder='Please Select'>
+                {cityarray.map((item, index) => {
+                  return (
+                    <Select.Option key={item.cityCode} value={item.cityCode}>
+                      {item.cityName}
+                    </Select.Option>
+                  )
+                })}
+              </Select>
             </Form.Item>
           </div>
 
@@ -128,7 +126,7 @@ function AddressModal(props) {
             <Form.Item
               label='Company Name'
               name='companyName'
-              rules={[{ required: true, message: 'Please Enter' }]}
+              // rules={[{ required: true, message: 'Please Enter' }]}
             >
               <Input placeholder='Company Name' />
             </Form.Item>
@@ -136,7 +134,7 @@ function AddressModal(props) {
             <Form.Item
               label='Apt/Suite/Other'
               name='other'
-              rules={[{ required: true, message: 'Please Enter' }]}
+              // rules={[{ required: true, message: 'Please Enter' }]}
             >
               <Input placeholder='Apt/Suite/Other' />
             </Form.Item>

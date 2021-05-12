@@ -9,3 +9,9 @@ export function scrollToAnchor(anchorName) {
     }
   }
 }
+
+
+// 输入框去中文
+export const normFile = (e) => {
+  return e.replace(/[\u4e00-\u9fa5]/g, '')
+}

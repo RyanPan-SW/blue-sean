@@ -31,7 +31,7 @@ const Login = ({ login, setLoginUser, history }) => {
         const loginUser = JSON.stringify(data.loginUser)
         setCookie(token)
         login()
-        sessionStorage.setItem('user', loginUser)
+        localStorage.setItem('user', loginUser)
         history.push('/account')
       } else {
         setLoginPersonError(true)
@@ -53,7 +53,7 @@ const Login = ({ login, setLoginUser, history }) => {
         const loginUser = JSON.stringify(data.loginUser)
         setCookie(token)
         login()
-        sessionStorage.setItem('user', loginUser)
+        localStorage.setItem('user', loginUser)
         history.push('/account')
       } else {
         setLoginCorporateError(true)

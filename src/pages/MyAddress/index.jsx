@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Breadcrumb, message, Table } from 'antd'
-import './index.scss'
-import { getAddressPagination, setDefaultAddress, deleteAddress } from '@/api/address'
+import { Breadcrumb, message, Table, Form } from 'antd'
 import AddressModal from '@/components/AddAddressModal'
+import * as UserActionCreator from '@/store/actions/counter'
+import { getAddressPagination, setDefaultAddress, deleteAddress } from '@/api/address'
+import './index.scss'
 
 function AddressBook(props) {
+  const [form] = Form.useForm()
+
   const [data, setData] = useState([])
   const [visibleAdd, setVisible] = useState(false)
   const [total, setTotal] = useState(0)
-  const [currentDate, setCurrentDate] = useState({})
-  const [editType, setEditType] = useState('add')
+  const [modalType, setModalType] = useState('add')
+  const [addressId, setAddressId] = useState(null)
 
   useEffect(() => {
     getAddressList()
@@ -28,21 +32,22 @@ function AddressBook(props) {
 
   const addModal = (record) => {
     setVisible(true)
-    setCurrentDate({}, () => {
-      setEditType('add')
-    })
+    form.resetFields()
+    setModalType('add')
   }
 
   const editModal = (record) => {
     setVisible(true)
-    setEditType('edit')
-    setCurrentDate(record)
+    form.setFieldsValue(record)
+    setAddressId(record.addressId)
+    setModalType('edit')
   }
 
   const clickSetDefault = (id) => {
     setDefaultAddress({ addressId: id }).then((res) => {
       if (res.code === '200') {
         message.success(res.data.msg)
+        getAddressList()
       }
     })
   }
@@ -54,6 +59,9 @@ function AddressBook(props) {
         getAddressList()
       }
     })
+  }
+  const onCancel = () => {
+    setVisible(false)
   }
 
   const columns = [
@@ -169,13 +177,29 @@ function AddressBook(props) {
       </div>
 
       <AddressModal
-        data={currentDate}
-        editType={editType}
+        form={form}
+        id={addressId}
+        type={modalType}
         getAddressList={getAddressList}
-        setVisible={setVisible}
+        onCancel={onCancel}
         visible={visibleAdd}
       />
     </div>
   )
 }
-export default AddressBook
+// export default AddressBook
+const mapStateToProps = ({ address }, ownProps) => {
+  return {
+    currentDate: address.currentDate,
+  }
+}
+
+// const mapDispatchToProps = (dispatch, ownProps) => {
+//   return {
+//     dispatch1: () => {
+//       dispatch(actionCreator)
+//     },
+//   }
+// }
+
+export default connect(mapStateToProps, UserActionCreator)(AddressBook)
