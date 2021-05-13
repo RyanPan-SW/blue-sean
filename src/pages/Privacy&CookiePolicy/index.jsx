@@ -41,7 +41,7 @@ function PrivacyPolicy() {
   return (
     <div className='container'>
       <div className='privacy'>
-        <h3 className='privacy-title'>Privacy Policy</h3>
+        <h3 className='privacy-title'>Privacy & Cookie Policy</h3>
         <div className="privacy-content">{content}</div>
       </div>
     </div>

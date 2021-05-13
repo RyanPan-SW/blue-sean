@@ -88,7 +88,7 @@ function SignUp(props) {
           <br />
           <p>
             <span>By pressing the Sign Up button below, you agree to our&nbsp;</span>
-            <Link to='/terms' target='_blank'>
+            <Link to='/website' target='_blank'>
               Terms of use
             </Link>
             <span> &nbsp;and&nbsp;</span>

@@ -15,6 +15,10 @@ API.interceptors.request.use((config) => {
   if (getCookie('token')) {
     config.headers.authorization = getCookie('token')
   }
+  const sessionid = localStorage.getItem('senderid')
+  if (sessionid) {
+    config.headers.sessionid = sessionid
+  }
   return config
 })
 

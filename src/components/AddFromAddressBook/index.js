@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Modal, Form, Input, Button, message, Table, ConfigProvider } from 'antd'
-import { addNewAddress, updateAddress } from '@/api/address'
+import { Modal, Input, Button, Table, ConfigProvider } from 'antd'
 import './index.scss'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import { getSearchAddress } from '@/api/fileStep'
@@ -8,7 +7,7 @@ import { getSearchAddress } from '@/api/fileStep'
 const { Search } = Input
 
 function AddFromAddressBook(props) {
-  const { visible, setVisible, data = [] } = props
+  const { visible, setVisible } = props
   const [total, setTotal] = useState(0)
   const [dataSource, setDataSource] = useState([])
 
@@ -20,8 +19,10 @@ function AddFromAddressBook(props) {
     const keyWord = value && value.replace(/(^\s*)|(\s*$)/, '')
     const params = { pageIndex: 0, pageSize: 10, keyWord: keyWord }
     getSearchAddress(params).then((res) => {
-      setTotal(res.data.total || 0)
-      setDataSource(res.data.data || [])
+      if (res.code === '200') {
+        setTotal(res.data.total || 0)
+        setDataSource(res.data.data || [])
+      }
     })
   }
 

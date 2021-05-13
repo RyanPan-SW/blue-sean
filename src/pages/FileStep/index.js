@@ -20,7 +20,7 @@ import FileStepSuccessful from '@/components/FileStepSuccessful'
 } */
 
 function FileStep(props) {
-  const [step, setStep] = useState(1)
+  const [step, setStep] = useState(3)
   const [cityArray, setCityArray] = useState([])
   const [status, setStatus] = useState(null)
 

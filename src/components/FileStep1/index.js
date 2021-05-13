@@ -11,20 +11,24 @@ import { setSenderAction } from '@/store/actions/fielStep'
 const messageTitle = 'Please Enter.'
 
 function FileStep1(props) {
+  const [form] = Form.useForm()
   const { cityArray, setStep, history } = props
 
   const [visible, setVisible] = useState(false)
   const [sender, setSender] = useState({})
 
   useEffect(() => {
-    const sessionid = sessionStorage.getItem('sessionid')
-    if (sessionid) sessionToObtainSender(sessionid)
+    const sessionid = localStorage.getItem('senderid')
+    if (sessionid) {
+      sessionToObtainSender()
+    }
   }, [])
 
-  const sessionToObtainSender = (sessionid) => {
-    getSessionSender({ sessionid: sessionid }).then((res) => {
+  const sessionToObtainSender = () => {
+    getSessionSender().then((res) => {
       if (res.code === '200') {
-        setSender(res.data.sender || {})
+        setSender(res.data.sender)
+        form.setFieldsValue(res.data.sender)
       }
     })
   }
@@ -36,8 +40,8 @@ function FileStep1(props) {
   const setSenderInformation = (values) => {
     setSenderApi(values).then((res) => {
       if (res.code === '200') {
-        sessionStorage.setItem('sessionid', res.data.sessionid)
-        props.setSender(values)
+        localStorage.setItem('senderid', res.data.sessionid)
+        // props.setSender(values)
         setStep(2)
       } else {
         message.error(res.errmsg)
@@ -56,8 +60,9 @@ function FileStep1(props) {
       </div>
 
       <Form
-        layout='vertical'
+        form={form}
         name='step1'
+        layout='vertical'
         className='step1-form'
         onFinish={setSenderInformation}
         initialValues={sender}
@@ -130,7 +135,7 @@ function FileStep1(props) {
               rules={[
                 {
                   required: true,
-                  message: messageTitle,
+                  message: 'Please Select.',
                 },
               ]}
             >

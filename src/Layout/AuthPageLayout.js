@@ -13,7 +13,6 @@ import Login from '@/pages/Login'
 import SignUp from '@/pages/SignUp'
 import Become from '@/pages/Become'
 import Privacy from '@/pages/Privacy&CookiePolicy'
-import TermsOfUse from '@/pages/TermsOfUse'
 import BusinessCooperation from '@/pages/BusinessCooperation'
 import Cooperate from '@/pages/Cooperate'
 import Forget from '@/pages/Forget'
@@ -32,6 +31,8 @@ import './index.scss'
 import DetailsView from '@/pages/DetailsView'
 import { Redirect } from 'react-router'
 import FileStep from '@/pages/FileStep'
+import ContractTerms from '@/pages/ContractTerms'
+import WebsiteTerms from '@/pages/WebsiteTerms'
 
 function BaseLayout(props) {
   const { pathname } = useLocation()
@@ -55,19 +56,15 @@ function BaseLayout(props) {
         style={{
           paddingTop: pathname === '/home' ? 0 : 120,
           minHeight: 'calc(100vh - 60px)',
-          background: '#FFF'
+          background: '#FFF',
         }}
       >
         <Switch>
           <Route path='/login' component={Login} />
           <Route path='/signup' component={SignUp} />
           <Route path='/home' component={Home} />
-          <Route path='/services' component={Services}>
-            {/* <Route path='/services:id' component={'1'} /> */}
-          </Route>
+          <Route path='/services' component={Services} />
           <Route path='/become' component={Become} />
-          <Route path='/privacypolicy' component={Privacy} />
-          <Route path='/terms' component={TermsOfUse} />
           <Route path='/business' component={BusinessCooperation} />
           <Route path='/cooperate' component={Cooperate} />
           <Route path='/personal' component={Personal} />
@@ -82,15 +79,20 @@ function BaseLayout(props) {
           <Route path='/changepassword' component={ChangePassword} />
           <Route path='/logOut' component={Logout} />
           <Route path='/filestep' component={FileStep} />
+
+          <Route path='/privacypolicy' component={Privacy} />
+          <Route path='/website' component={WebsiteTerms} />
+          <Route path='/contract' component={ContractTerms} />
+
           <Route path='/404' component={Page404} />
           <Redirect to='/home' />
         </Switch>
       </Layout.Content>
 
       {/* {footer && ( */}
-        <Layout.Footer style={{ padding: 0 }}>
-          <FooterComponent />
-        </Layout.Footer>
+      <Layout.Footer style={{ padding: 0 }}>
+        <FooterComponent />
+      </Layout.Footer>
       {/* )} */}
     </Layout>
   )

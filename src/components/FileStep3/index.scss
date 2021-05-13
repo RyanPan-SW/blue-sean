@@ -32,9 +32,9 @@
         margin-bottom: 30px;
 
         .time-box {
-          text-align: center;
           width: 176px;
           height: 52px;
+          text-align: center;
           border: 1px solid #999999;
 
           &:nth-of-type(1) {
@@ -53,6 +53,14 @@
             line-height: 20px;
           }
         }
+
+        .time-active {
+          width: 176px;
+          height: 52px;
+          text-align: center;
+          background-color: $themeColor;
+          color: #fff;
+        }
       }
 
       .step-delivered {
@@ -62,6 +70,18 @@
         .delivered-time {
           width: 50%;
           padding-top: 25px;
+        }
+
+        .delivered-active {
+          width: 50%;
+          padding-top: 25px;
+          color: $themeColor;
+        }
+
+        .disabled-time {
+          width: 50%;
+          padding-top: 25px;
+          color: #33333380;
         }
       }
     }
@@ -87,6 +107,7 @@
   }
 
   .step-agree {
+    cursor: pointer;
     text-align: center;
     font-size: 16px;
     margin-top: 120px;

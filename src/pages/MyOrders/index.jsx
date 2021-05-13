@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { enumsOrderStatus } from '@/helper/env'
-import { Input, Tabs, Breadcrumb, Popover, Pagination } from 'antd'
 import { Link } from 'react-router-dom'
+import { enumsOrderStatus } from '@/helper/env'
 import CustomizeModal from '@/components/CustomizeModal'
 import { getOrdersList, searchOrder } from '@/api/orders'
+import { Input, Tabs, Breadcrumb, Popover, Pagination } from 'antd'
 import './index.scss'
 
 const { TabPane } = Tabs
@@ -11,13 +11,13 @@ const { Search } = Input
 
 function MyOrder(params) {
   const [ordersdata, setOrdersdata] = useState([])
-  const [listtotal, setListtotal] = useState(0)
+  const [listtotal, setListTotal] = useState(0)
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     getOrdersList().then((res) => {
-      setOrdersdata(res.data || [])
-      setListtotal(res.total || 0)
+      setOrdersdata(res.data)
+      setListTotal(res.total)
     })
   }, [])
 
@@ -30,7 +30,7 @@ function MyOrder(params) {
       console.log(res)
       if (res.data.length !== 0) {
         setOrdersdata(res.data)
-        setListtotal(res.total || 0)
+        setListTotal(res.total || 0)
       } else {
         setVisible(true)
       }
@@ -40,7 +40,7 @@ function MyOrder(params) {
   const changePageSize = (page, pageSize) => {
     getOrdersList(page, pageSize).then((res) => {
       setOrdersdata(res.data)
-      setListtotal(res.total || 0)
+      setListTotal(res.total || 0)
     })
   }
 
@@ -132,7 +132,7 @@ function MyOrder(params) {
             ) : (
               <p className='empy-order-list'>
                 You have not placed any orders in.{' '}
-                <Link to='/filestep' className='new-pickup'>
+                <Link to='/filestep/add' className='new-pickup'>
                   Schedule a New Pickup
                 </Link>
               </p>

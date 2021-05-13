@@ -7,7 +7,7 @@ export function getAllCity() {
 export function getSearchAddress(params) {
   return API.post('/address/getAddress', params)
 }
-// 发件人
+// step1 发件人
 export function setSenderApi(params) {
   return API.post('/express/setSender', params)
 }
@@ -15,11 +15,24 @@ export function setSenderApi(params) {
 export function getSessionSender(params) {
   return API.post('/express/getSender', params)
 }
-// 收件人
+// step2 收件人
 export function setRecipientApi(params) {
   return API.post('/express/setRecipient', params)
 }
 
 export function getSessionRecipient(params) {
   return API.post('/express/getRecipient', params)
+}
+
+// step2 可选时间
+export function getOptionalTime(params) {
+  return API.post('/express/getOptionalDate', params)
+}
+
+export function getDayOrTime(params) {
+  return API.post('/express/selectDateTime', params)
+}
+
+export function methodOfPayment(params) {
+  return API.post('/express/payOrder', params)
 }
