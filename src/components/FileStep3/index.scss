@@ -17,8 +17,13 @@
 
     .step3-decribe {
       width: 200px;
+      min-width: 200px;
       text-align: left;
       font-weight: bold;
+
+      &:nth-of-type(1) {
+        margin-top: 20px;
+      }
     }
 
     .step-content {
@@ -26,11 +31,16 @@
 
       .step-content-time {
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
-        border-bottom: 1px dashed #a4a4a4;
+        border-bottom: dashed 3px #c9c9c9;
         padding-bottom: 40px;
         margin-bottom: 30px;
 
+        >div {
+          margin-top: 20px;
+        }
+        
         .time-box {
           width: 176px;
           height: 52px;
@@ -93,6 +103,23 @@
       font-size: 16px;
     }
 
+    .payment-code {
+      display: flex;
+      padding: 45px 0;
+      border-top: 3px dashed #c9c9c9;
+      margin-top: 36px;
+
+      > div {
+        width: 200px;
+        font-size: 16px;
+        line-height: 25px;
+      }
+
+      .code {
+        width: 280px;
+      }
+    }
+
     .ant-radio-inner:after {
       background-color: $themeColor;
     }
@@ -110,7 +137,8 @@
     cursor: pointer;
     text-align: center;
     font-size: 16px;
-    margin-top: 120px;
+    // margin-top: 120px;
+    margin-top: 50px;
 
     .contract {
       color: $themeColor;

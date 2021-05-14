@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Radio, Space, Checkbox, Button, message } from 'antd'
+import { Radio, Space, Checkbox, Button, message, Input } from 'antd'
 import Paypal from '../../asset/paypal.png'
 import CorporatePayment from '../../asset/corporate.png'
 import { getDayOrTime, getOptionalTime } from '@/api/fileStep'
@@ -8,7 +8,7 @@ import './index.scss'
 import { Link } from 'react-router-dom'
 
 function FileStep3({ recipient = [], cityArray, setStep }) {
-  const [value, setValue] = useState(1)
+  const [payment, setPayment] = useState(1)
   const [datelist, setDatelist] = useState([])
   const [activeDay, setActiveDay] = useState(0)
   const [activeTime, setActiveTime] = useState(0)
@@ -36,8 +36,7 @@ function FileStep3({ recipient = [], cityArray, setStep }) {
   }
 
   const onChangePayment = (e) => {
-    console.log('radio checked', e.target.value)
-    setValue(e.target.value)
+    setPayment(e.target.value)
   }
 
   const onChangeAgree = (e) => {
@@ -45,10 +44,8 @@ function FileStep3({ recipient = [], cityArray, setStep }) {
   }
 
   const selectTime = (data, index) => {
-    debugger
     const { time } = data
     setActiveTime(index)
-
     const params = { date: datelist[activeDay].date, time: time }
     getDayOrTime(params).then((res) => {
       const { code, data } = res
@@ -124,21 +121,36 @@ function FileStep3({ recipient = [], cityArray, setStep }) {
       <div className='step3-item'>
         <div className='step3-decribe'>Payment Method</div>
 
-        <Radio.Group onChange={onChangePayment} value={value} defaultValue={2}>
+        <div className='step-content'>
           <Space direction='vertical'>
-            <Radio value={1}>
-              <img src={Paypal} alt='' />
-            </Radio>
-            <Radio value={2}>
-              <img src={CorporatePayment} alt='' />
-            </Radio>
+            <Radio.Group onChange={onChangePayment} value={payment} defaultValue={2}>
+              <Space direction='vertical'>
+                <Radio value={1}>
+                  <img src={Paypal} alt='' />
+                </Radio>
+                <Radio value={2}>
+                  <img src={CorporatePayment} alt='' />
+                </Radio>
+              </Space>
+            </Radio.Group>
+
+            {payment === 2 && (
+              <div className='payment-code'>
+                <div>Corporate Payment Code:</div>
+
+                <Input className='code' />
+              </div>
+            )}
           </Space>
-        </Radio.Group>
+        </div>
       </div>
 
       <div className='step-agree'>
         <Checkbox onChange={onChangeAgree}>
-          I agree <Link to="/contract" className='contract'>XXXX contract terms</Link>
+          I agree
+          <Link to='/contract' className='contract'>
+            XXXX contract terms
+          </Link>
         </Checkbox>
       </div>
 

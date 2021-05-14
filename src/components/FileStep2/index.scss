@@ -4,8 +4,6 @@
   margin-bottom: 80px;
   box-shadow: $boxShadow;
 
-  
-  
   .step2-title {
     font-size: 25px;
     font-weight: bold;
@@ -83,6 +81,7 @@
     }
 
     .add-new-address {
+      padding: 25px 0;
       span {
         font-size: 18px;
 
@@ -97,26 +96,24 @@
     .form-submit {
       text-align: center;
       padding-top: 40px;
+    }
 
-      .form-submit-back {
-        width: 310px;
-        max-width: 40%;
-        height: 56px;
-        background-color: #fff;
-        font-size: 25px;
-        color: #aeaeae;
-        border-radius: 50px;
-        margin-right: 20px;
-      }
+    .form-submit-back {
+      width: 310px;
+      height: 56px;
+      background-color: #fff;
+      font-size: 25px;
+      color: #aeaeae;
+      border-radius: 50px;
+      margin-right: 20px;
+    }
 
-      .form-submit-button {
-        max-width: 40%;
-        width: 310px;
-        height: 56px;
-        font-size: 25px;
-        background-color: $themeColor;
-        color: #fff;
-      }
+    .form-submit-button {
+      width: 310px;
+      height: 56px;
+      font-size: 25px;
+      background-color: $themeColor;
+      color: #fff;
     }
   }
 }

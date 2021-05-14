@@ -15,19 +15,17 @@ function FileStep1(props) {
   const { cityArray, setStep, history } = props
 
   const [visible, setVisible] = useState(false)
-  const [sender, setSender] = useState({})
 
   useEffect(() => {
-    const sessionid = localStorage.getItem('senderid')
-    if (sessionid) {
-      sessionToObtainSender()
-    }
+    sessionToObtainSender()
   }, [])
 
   const sessionToObtainSender = () => {
+    const sessionid = localStorage.getItem('sessionid')
+    if (!sessionid) return
+
     getSessionSender().then((res) => {
       if (res.code === '200') {
-        setSender(res.data.sender)
         form.setFieldsValue(res.data.sender)
       }
     })
@@ -40,13 +38,17 @@ function FileStep1(props) {
   const setSenderInformation = (values) => {
     setSenderApi(values).then((res) => {
       if (res.code === '200') {
-        localStorage.setItem('senderid', res.data.sessionid)
-        // props.setSender(values)
+        localStorage.setItem('sessionid', res.data.sessionid)
         setStep(2)
       } else {
         message.error(res.errmsg)
       }
     })
+  }
+
+  const selectedModalAddressBook = (row) => {
+    form.setFieldsValue(row)
+    setVisible(false)
   }
 
   return (
@@ -64,8 +66,8 @@ function FileStep1(props) {
         name='step1'
         layout='vertical'
         className='step1-form'
+        // initialValues={sender}
         onFinish={setSenderInformation}
-        initialValues={sender}
       >
         <div className='step1-form-flex'>
           <div className='step1-form-column'>
@@ -199,7 +201,11 @@ function FileStep1(props) {
         </Form.Item>
       </Form>
 
-      <AddFromAddressBook visible={visible} setVisible={setVisible} />
+      <AddFromAddressBook
+        visible={visible}
+        setVisible={setVisible}
+        submit={selectedModalAddressBook}
+      />
     </div>
   )
 }

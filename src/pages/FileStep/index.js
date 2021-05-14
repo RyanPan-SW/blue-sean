@@ -20,7 +20,7 @@ import FileStepSuccessful from '@/components/FileStepSuccessful'
 } */
 
 function FileStep(props) {
-  const [step, setStep] = useState(3)
+  const [step, setStep] = useState(1)
   const [cityArray, setCityArray] = useState([])
   const [status, setStatus] = useState(null)
 
@@ -52,7 +52,7 @@ function FileStep(props) {
             return <FileStep1 cityArray={cityArray} setStep={setStep} history={props.history} />
 
           case 2:
-            return <FileStep2 recipient={[{}]} cityArray={cityArray} setStep={setStep} />
+            return <FileStep2 cityArray={cityArray} setStep={setStep} history={props.history} />
 
           case 3:
             return <FileStep3 setStep={setStep} />

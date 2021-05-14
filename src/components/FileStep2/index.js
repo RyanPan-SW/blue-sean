@@ -5,19 +5,29 @@ import userBook from '../../asset/userbook.png'
 import { setRecipientApi, getSessionRecipient } from '@/api/fileStep'
 import './index.scss'
 import { normFile } from '@/helper'
+import { getCookie } from '@/helper/env'
+import AddFromAddressBook from '../AddFromAddressBook'
 
 const messageTitle = 'Please Enter.'
 
-function FileStep2({ /* recipient = [], */ cityArray, setStep }) {
+function FileStep2({ cityArray, setStep, history }) {
+  const [form] = Form.useForm()
+  const [visible, setVisible] = useState(false)
+  const [recipientList, setRecipientList] = useState([{}])
+  const [key, setkey] = useState(null)
+
   useEffect(() => {
-    const sessionid = localStorage.getItem('repcipientid')
-    if (sessionid) sessionToObtainRecipient()
+    sessionToObtainRecipient()
   }, [])
 
   const sessionToObtainRecipient = () => {
+    const sessionid = localStorage.getItem('sessionid')
+    if (!sessionid) return
+
     getSessionRecipient().then((res) => {
       if (res.code === '200') {
-        // setRecipientArray(res.data.sender)
+        form.setFieldsValue({ recipientList: res.data.recipientList })
+        setRecipientList(res.data.recipientList)
       } else {
         message.error(res.data.msg)
       }
@@ -27,7 +37,7 @@ function FileStep2({ /* recipient = [], */ cityArray, setStep }) {
   const fishedRecipient = (values) => {
     setRecipientApi(values).then((res) => {
       if (res.code === '200' && !res.data.msg) {
-        localStorage.setItem('recipientid', res.data.sessionid)
+        localStorage.setItem('sessionid', res.data.sessionid)
         setStep(3)
       } else if (res.code === '200' && res.data.msg) {
         message.error(res.data.msg)
@@ -35,32 +45,43 @@ function FileStep2({ /* recipient = [], */ cityArray, setStep }) {
     })
   }
 
+  const addFromAddressBook = (key) => {
+    setkey(key)
+    return getCookie('token') ? setVisible(true) : history.push('/login')
+  }
+
+  const selectedRecipientItem = (row) => {
+    const newRecipientList = recipientList
+    newRecipientList[key] = row
+    form.setFieldsValue(newRecipientList)
+    setVisible(false)
+  }
+
   return (
     <>
       <div className='step2'>
         <Form
+          form={form}
           layout='vertical'
           name='step2'
           className='step2-form'
-          initialValues={{
-            recipientList: [{}],
-          }}
+          initialValues={{ recipientList: [{}] }}
           onFinish={fishedRecipient}
         >
           <Form.List name='recipientList'>
             {(fields, { add, remove }) => (
               <>
                 {fields.map(({ key, name, fieldKey, ...restField }) => (
-                  <Space direction='vertical'>
-                    {fields.name !== 0 && name === 0 && (
+                  <Space direction='vertical' key='key' style={{ width: '100%' }}>
+                    {fields.length > 1 && (
                       <div className='step2-title'>Step2: Recipient information</div>
                     )}
 
                     <div className='step2-top'>
                       <div className='top-title'>
-                        {fields.name === 0
-                          ? 'Step2: Recipient  information'
-                          : `Recipient-${name + 1}`}
+                        {fields.length > 1
+                          ? `Recipient-${name + 1}`
+                          : 'Step2: Recipient  information'}
                       </div>
 
                       <Space
@@ -78,7 +99,11 @@ function FileStep2({ /* recipient = [], */ cityArray, setStep }) {
                           </div>
                         )}
 
-                        <div>
+                        <div
+                          onClick={() => {
+                            addFromAddressBook(name)
+                          }}
+                        >
                           <img src={userBook} alt='' />
                           <span className='add-address-book'>Add from address book</span>
                         </div>
@@ -215,7 +240,7 @@ function FileStep2({ /* recipient = [], */ cityArray, setStep }) {
                   </Space>
                 ))}
 
-                {fields.name < 5 && (
+                {fields.length < 5 && (
                   <div className='add-new-address'>
                     <span
                       onClick={() => {
@@ -231,34 +256,29 @@ function FileStep2({ /* recipient = [], */ cityArray, setStep }) {
             )}
           </Form.List>
 
-          {/* {index + 1 === recipient.length && (
-                  <div className='add-new-address'>
-                    <span
-                      onClick={() => {
-                        add()
-                      }}
-                    >
-                      +Add a new recipient
-                    </span>
-                    <span>You can add up to 5 recipient</span>
-                  </div>
-                )} */}
-
           <Form.Item className='form-submit'>
-            <Button
-              className='form-submit-back'
-              onClick={() => {
-                setStep(1)
-              }}
-            >
-              Back
-            </Button>
+            <Space>
+              <Button
+                className='form-submit-back'
+                onClick={() => {
+                  setStep(1)
+                }}
+              >
+                Back
+              </Button>
 
-            <Button type='primary' htmlType='submit' className='form-submit-button'>
-              Confirm Address
-            </Button>
+              <Button type='primary' htmlType='submit' className='form-submit-button'>
+                Confirm Address
+              </Button>
+            </Space>
           </Form.Item>
         </Form>
+
+        <AddFromAddressBook
+          visible={visible}
+          setVisible={setVisible}
+          submit={selectedRecipientItem}
+        />
       </div>
     </>
   )

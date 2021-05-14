@@ -10,6 +10,7 @@ import clock from '../../asset/clock.png'
 import './index.scss'
 import { useLocation } from 'react-router'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import { Space } from 'antd'
 
 // const { Footer } = Layout
 
@@ -58,12 +59,12 @@ const FooterComponent = () => {
       <div className='Copyright'>
         <div className='container'>
           <span>Copyright © DC Global Solution - All rights reserved.</span>
-          <span>
+          <Space>
             <Link className='Privacy-Policy' to='/privacypolicy'>
               Privacy Policy
             </Link>
             <Link to='/website'>Terms of Use</Link>
-          </span>
+          </Space>
         </div>
       </div>
     </>

@@ -7,9 +7,12 @@ import { getSearchAddress } from '@/api/fileStep'
 const { Search } = Input
 
 function AddFromAddressBook(props) {
-  const { visible, setVisible } = props
+  const { visible, setVisible, submit } = props
   const [total, setTotal] = useState(0)
   const [dataSource, setDataSource] = useState([])
+  // const [selectedRowKeys, setSelectedRowKeys] = useState([])
+  const [selectedRowKeys, setSelectedRowKeys] = useState(null)
+  const [selectedRows, setSelectedRows] = useState(null)
 
   useEffect(() => {
     searchAddress()
@@ -21,6 +24,9 @@ function AddFromAddressBook(props) {
     getSearchAddress(params).then((res) => {
       if (res.code === '200') {
         setTotal(res.data.total || 0)
+        for (const item of res.data.data) {
+          item.key = item.addressId
+        }
         setDataSource(res.data.data || [])
       }
     })
@@ -64,13 +70,19 @@ function AddFromAddressBook(props) {
   ]
 
   const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
+    onChange: (selectedRowKeys, selectedRows, ...other) => {
       console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)
+      setSelectedRowKeys(selectedRowKeys)
+      setSelectedRows(selectedRows)
     },
-    getCheckboxProps: (record) => ({
-      disabled: record.name === 'Disabled User',
-      name: record.name,
-    }),
+  }
+
+  // const onSelectedRowKeysChange = (selectedRowKeys) => {
+  //   setSelectedRowKeys(selectedRowKeys)
+  // }
+
+  const submitAddressBook = () => {
+    submit(selectedRows[0], selectedRowKeys)
   }
 
   const customizeRenderEmpty = () => (
@@ -109,6 +121,8 @@ function AddFromAddressBook(props) {
             rowClassName='table-row'
             rowSelection={{
               type: 'radio',
+              // selectedRowKeys,
+              // onChange: onSelectedRowKeysChange,
               ...rowSelection,
             }}
             dataSource={dataSource}
@@ -117,7 +131,11 @@ function AddFromAddressBook(props) {
           />
         </ConfigProvider>
 
-        {dataSource.length > 0 && <Button className='form-submit'>Submit</Button>}
+        {dataSource.length > 0 && (
+          <Button className='form-submit' onClick={submitAddressBook}>
+            Submit
+          </Button>
+        )}
       </div>
     </Modal>
   )
