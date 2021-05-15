@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { Radio, Space, Checkbox, Button, message, Input } from 'antd'
+import { Radio, Space, Checkbox, Button, message, Input, Modal } from 'antd'
 import Paypal from '../../asset/paypal.png'
 import CorporatePayment from '../../asset/corporate.png'
-import { getDayOrTime, getOptionalTime } from '@/api/fileStep'
+import { getDayOrTime, getOptionalTime, methodOfPayment } from '@/api/fileStep'
 import dayjs from 'dayjs'
 import './index.scss'
 import { Link } from 'react-router-dom'
+
+const paymentEmnu = {
+  paypal: 1,
+  corporate: 2,
+}
 
 function FileStep3({ recipient = [], cityArray, setStep }) {
   const [payment, setPayment] = useState(1)
@@ -14,6 +19,8 @@ function FileStep3({ recipient = [], cityArray, setStep }) {
   const [activeTime, setActiveTime] = useState(0)
   const [paydata, setPaydata] = useState(null)
   const [checkedAgree, setCheckedAgree] = useState(false)
+  const [PaypalModal, setPaypalModal] = useState(false)
+  const [code, setCode] = useState(null)
 
   useEffect(() => {
     getOptionalTime().then((res) => {
@@ -61,8 +68,26 @@ function FileStep3({ recipient = [], cityArray, setStep }) {
     if (!checkedAgree) {
       message.warn('Please check I agree XXXX contract terms.')
       return
+    } else if (payment === paymentEmnu['paypal']) {
+      setPaypalModal(true)
+      return
+    } else if (payment === paymentEmnu['corporate'] && !code) {
+      message.warn('Please input Corporate Payment Code.')
+      return
+    } else {
+      const params = { payType: `0${payment}`, paymentCode: code }
+      methodOfPayment(params).then((res) => {
+        const { code, data } = res
+        if (code === '200' && data.msg)
+          Modal.error({
+            content: res.data.msg,
+            icon: null,
+            centered: true
+          })
+      })
     }
-    setStep(4)
+
+    // setStep(4)
   }
 
   return (
@@ -97,6 +122,7 @@ function FileStep3({ recipient = [], cityArray, setStep }) {
               if (item.enable === '1') {
                 return (
                   <div
+                    key={index}
                     className={activeTime === index ? 'delivered-active' : 'delivered-time'}
                     onClick={() => selectTime(item, index)}
                   >
@@ -114,7 +140,7 @@ function FileStep3({ recipient = [], cityArray, setStep }) {
       <div className='step3-item'>
         <div className='step3-decribe'>Charge</div>
         <div className='step-charge'>
-          {paydata ? paydata.totle : 'Please choose the time first'}
+          {paydata ? `$${paydata.total}` : 'Please choose the time first'}
         </div>
       </div>
 
@@ -123,12 +149,12 @@ function FileStep3({ recipient = [], cityArray, setStep }) {
 
         <div className='step-content'>
           <Space direction='vertical'>
-            <Radio.Group onChange={onChangePayment} value={payment} defaultValue={2}>
+            <Radio.Group onChange={onChangePayment} value={payment}>
               <Space direction='vertical'>
-                <Radio value={1}>
+                <Radio value={paymentEmnu['paypal']}>
                   <img src={Paypal} alt='' />
                 </Radio>
-                <Radio value={2}>
+                <Radio value={paymentEmnu['corporate']}>
                   <img src={CorporatePayment} alt='' />
                 </Radio>
               </Space>
@@ -138,16 +164,21 @@ function FileStep3({ recipient = [], cityArray, setStep }) {
               <div className='payment-code'>
                 <div>Corporate Payment Code:</div>
 
-                <Input className='code' />
+                <Input
+                  className='code'
+                  onChange={(e) => {
+                    setCode(e.target.value)
+                  }}
+                />
               </div>
             )}
           </Space>
         </div>
       </div>
 
-      <div className='step-agree'>
+      <div className='step-agree' style={{ paddingTop: payment === 2 ? 55 : 180 }}>
         <Checkbox onChange={onChangeAgree}>
-          I agree
+          <span className='agree'>I agree</span>
           <Link to='/contract' className='contract'>
             XXXX contract terms
           </Link>
@@ -168,6 +199,34 @@ function FileStep3({ recipient = [], cityArray, setStep }) {
           Pay Now
         </Button>
       </div>
+
+      <Modal visible={PaypalModal} centered closable={false} footer={null}>
+        <p>
+          Please pay in the newly opened payment platform page. Please do not close this window
+          until you have completed the payment.
+        </p>
+
+        <div className='paypal-modal-footer'>
+          <Button
+            onClick={() => {
+              setPaypalModal(false)
+            }}
+            type='primary'
+            className='paypal-modal-cancel'
+          >
+            Change payment method
+          </Button>
+          <Button
+            onClick={() => {
+              setPaypalModal(false)
+            }}
+            type='primary'
+            className='paypal-modal-ok'
+          >
+            Completed payment
+          </Button>
+        </div>
+      </Modal>
     </div>
   )
 }

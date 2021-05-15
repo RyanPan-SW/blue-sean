@@ -115,6 +115,12 @@ a:hover {
   border-color: $themeColor;
 }
 
+.ant-btn-primary:focus,
+.ant-btn-primary:hover {
+  background: $themeColor;
+  border-color: $themeColor;
+}
+
 .ant-checkbox-checked:after {
   border: 1px solid $themeColor;
 }

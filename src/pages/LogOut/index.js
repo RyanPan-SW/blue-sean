@@ -12,7 +12,7 @@ function LogOut(props) {
         setTime(time - 1)
       } else {
         clearAllCookie()
-        sessionStorage.clear()
+        localStorage.clear()
         props.history.push('/home')
       }
     }, 1000)

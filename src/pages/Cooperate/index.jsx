@@ -47,7 +47,7 @@ function Cooperate(props) {
                     rules={[{ required: true, message: <FieldDom />, whitespace: true }]}
                     style={{ flex: 1, marginRight: 20 }}
                   >
-                    <Input placeholder='Last Name' />
+                    <Input placeholder='First Name' />
                   </Form.Item>
 
                   <Form.Item

@@ -2,45 +2,59 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { enumsOrderStatus } from '@/helper/env'
 import CustomizeModal from '@/components/CustomizeModal'
-import { getOrdersList, searchOrder } from '@/api/orders'
+import { getOrdersListApi, searchOrder } from '@/api/orders'
 import { Input, Tabs, Breadcrumb, Popover, Pagination } from 'antd'
 import './index.scss'
 
 const { TabPane } = Tabs
 const { Search } = Input
+const orderStatus = {
+  all: null,
+  open: '01',
+  completed: '02',
+}
 
 function MyOrder(params) {
   const [ordersdata, setOrdersdata] = useState([])
-  const [listtotal, setListTotal] = useState(0)
+  // const [listtotal, setListTotal] = useState(0)
   const [visible, setVisible] = useState(false)
+  const [tabsKey, setTabsKey] = useState('1')
 
   useEffect(() => {
-    getOrdersList().then((res) => {
-      setOrdersdata(res.data)
-      setListTotal(res.total)
-    })
+    getOrdersList({ pageIndex: 0, pageSize: 10, keyWord: null, orderTab: null })
   }, [])
 
-  const onCancel = () => {
-    setVisible(false)
-  }
-
-  const onSearchOrders = (value, e) => {
-    searchOrder(value).then((res) => {
-      console.log(res)
-      if (res.data.length !== 0) {
+  const getOrdersList = ({ pageIndex = 0, pageSize = 10, keyWord = null, orderTab = null }) => {
+    getOrdersListApi({ pageIndex, pageSize, keyWord, orderTab }).then((res) => {
+      const { code } = res
+      if (code === '200' && res.data.data) {
         setOrdersdata(res.data)
-        setListTotal(res.total || 0)
       } else {
         setVisible(true)
       }
     })
   }
 
+  const onCancel = () => {
+    setVisible(false)
+  }
+
+  const onSearchOrders = (value, e) => {
+    getOrdersList({ pageIndex: 0, pageSize: 10, keyWord: value, orderTab: `0${tabsKey - 1}` })
+  }
+
+  const changeTabs = (activeKey) => {
+    setTabsKey(activeKey)
+    const orderTab = `0${activeKey - 1}`
+    getOrdersList({ pageIndex: 0, pageSize: 10, keyWord: null, orderTab: orderTab })
+  }
+
   const changePageSize = (page, pageSize) => {
-    getOrdersList(page, pageSize).then((res) => {
-      setOrdersdata(res.data)
-      setListTotal(res.total || 0)
+    getOrdersList({
+      pageIndex: page,
+      pageSize: pageSize,
+      keyWord: null,
+      orderTab: `0${tabsKey - 1}`,
     })
   }
 
@@ -73,11 +87,10 @@ function MyOrder(params) {
           orders to view details and make changes.
         </p>
 
-        <Tabs defaultActiveKey='1' tabBarStyle={{ color: '#333' }}>
+        <Tabs defaultActiveKey='1' tabBarStyle={{ color: '#333' }} onChange={changeTabs}>
           <TabPane tab='Orders' key='1'>
-            {ordersdata.length > 0 ? (
+            {ordersdata?.length > 0 ? (
               <div>
-                {/* <div> */}
                 {ordersdata.map((item, index) => {
                   return (
                     <div className='ordersList' key={index}>
@@ -117,14 +130,14 @@ function MyOrder(params) {
                     </div>
                   )
                 })}
-                {/* </div> */}
-                {listtotal > 15 && (
+
+                {ordersdata.total > 15 && (
                   <Pagination
                     style={{ textAlign: 'right', paddingTop: 30 }}
                     defaultCurrent={1}
                     // defaultPageSize={15}
                     pageSize={15}
-                    total={listtotal}
+                    total={ordersdata?.total || 0}
                     onChange={changePageSize}
                   />
                 )}

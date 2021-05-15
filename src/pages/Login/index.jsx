@@ -124,7 +124,26 @@ const Login = ({ login, setLoginUser, history }) => {
               </Form.Item>
 
               <Link to='/forget' className='login-form-forgot'>
-                Forgot password
+                <Popover
+                  placement='right'
+                  content={
+                    <div className='forget-popover'>
+                      <p>Please contact us, you can call or email us.</p>
+                      <p>
+                        <b>Email:</b> info@dcglobalsolutions.com.au
+                      </p>
+                      <p>
+                        <b>PH:</b> 07 5649 8619
+                      </p>
+                      <p>
+                        <b>Office </b>Hours: Monday – Friday 8:30am-5:00pm
+                      </p>
+                    </div>
+                  }
+                  trigger='hover'
+                >
+                  Forgot password?
+                </Popover>
               </Link>
             </Form.Item>
 

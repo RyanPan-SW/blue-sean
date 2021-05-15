@@ -37,10 +37,10 @@
         padding-bottom: 40px;
         margin-bottom: 30px;
 
-        >div {
+        > div {
           margin-top: 20px;
         }
-        
+
         .time-box {
           width: 176px;
           height: 52px;
@@ -140,6 +140,10 @@
     // margin-top: 120px;
     margin-top: 50px;
 
+    .agree {
+      margin-right: 10px;
+    }
+
     .contract {
       color: $themeColor;
       font-weight: bold;
@@ -185,5 +189,26 @@
     border-color: $themeColor;
     border-radius: 50px;
     font-size: 25px;
+  }
+}
+
+.paypal-modal-footer {
+  text-align: right;
+  padding-top: 40px;
+
+  .paypal-modal-cancel {
+    color: #47474733;
+    font-size: 16px;
+    border: none;
+    box-shadow: none;
+    background: #fff;
+  }
+  
+  .paypal-modal-ok {
+    background: #fff;
+    font-size: 16px;
+    color: #474747;
+    box-shadow: none;
+    border: none;
   }
 }

@@ -25,8 +25,12 @@ function FileStep2({ cityArray, setStep, history }) {
     if (!sessionid) return
 
     getSessionRecipient().then((res) => {
-      if (res.code === '200') {
-        form.setFieldsValue({ recipientList: res.data.recipientList })
+      if (res.code === '200' && res.data.recipientList) {
+        if (res.data.recipientList.length === 0) {
+          form.setFieldsValue({ recipientList: [{}] })
+        } else {
+          form.setFieldsValue({ recipientList: res.data.recipientList })
+        }
         setRecipientList(res.data.recipientList)
       } else {
         message.error(res.data.msg)
