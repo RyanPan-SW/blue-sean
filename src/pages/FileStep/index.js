@@ -23,6 +23,7 @@ function FileStep(props) {
   const [step, setStep] = useState(1)
   const [cityArray, setCityArray] = useState([])
   const [status, setStatus] = useState(null)
+  const [message, setMessage] = useState(null)
 
   useEffect(() => {
     getAllCity().then((res) => {
@@ -33,7 +34,15 @@ function FileStep(props) {
     })
   }, [])
 
-  useEffect(() => {}, [step])
+  const getPayOrder = (res) => {
+    if (res.code === '201') {
+      setStep(4)
+      setStatus('failed')
+      setMessage(res.data.msg)
+    } else if (res.code === '200') {
+      setStatus('successful')
+    }
+  }
 
   return (
     <div className='file-step'>
@@ -55,10 +64,10 @@ function FileStep(props) {
             return <FileStep2 cityArray={cityArray} setStep={setStep} history={props.history} />
 
           case 3:
-            return <FileStep3 setStep={setStep} />
+            return <FileStep3 getPayOrder={getPayOrder} setStep={setStep} />
 
           case 4:
-            return <FileStepSuccessful setStep={setStep} status={status} />
+            return <FileStepSuccessful setStep={setStep} status={status} message={message} />
 
           default:
             return <></>

@@ -58,10 +58,8 @@ const Header = (props) => {
 
   const welcomeUser = () => {
     const user = localStorage.getItem('user') && JSON.parse(localStorage.getItem('user'))
-    if (user && user.loginType === '01') {
+    if (user /* && user.loginType === '01' */) {
       return `Welcome  ${user.loginEmail}`
-    } else if (user && user.loginType === '02') {
-      return `Welcome  ${user.companyId}`
     } else {
       return `Welcome`
     }

@@ -12,7 +12,7 @@ const paymentEmnu = {
   corporate: 2,
 }
 
-function FileStep3({ recipient = [], cityArray, setStep }) {
+function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
   const [payment, setPayment] = useState(1)
   const [datelist, setDatelist] = useState([])
   const [activeDay, setActiveDay] = useState(0)
@@ -77,17 +77,9 @@ function FileStep3({ recipient = [], cityArray, setStep }) {
     } else {
       const params = { payType: `0${payment}`, paymentCode: code }
       methodOfPayment(params).then((res) => {
-        const { code, data } = res
-        if (code === '200' && data.msg)
-          Modal.error({
-            content: res.data.msg,
-            icon: null,
-            centered: true
-          })
+        getPayOrder(res)
       })
     }
-
-    // setStep(4)
   }
 
   return (

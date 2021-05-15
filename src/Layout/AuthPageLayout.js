@@ -70,7 +70,7 @@ function BaseLayout(props) {
           <Route path='/contactus' component={ContactUs} />
           <Route path='/account' component={MyAccount} />
           <Route path='/orders' component={MyOrders} />
-          <Route path='/detailsview' component={DetailsView} />
+          <Route path='/detailsview/:id' component={DetailsView} />
           <Route path='/address' component={MyAddress} />
           <Route path='/changepassword' component={ChangePassword} />
           <Route path='/logOut' component={Logout} />

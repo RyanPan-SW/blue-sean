@@ -2,20 +2,30 @@ import React, { useState, useEffect } from 'react'
 import { Breadcrumb, Form, Input } from 'antd'
 import { Link } from 'react-router-dom'
 import CustomizeModal from '@/components/CustomizeModal'
-// import { ReactComponent as Fish } from '../../asset/fishing.svg'
-// import { ReactComponent as Wait } from '../../asset/wait.svg'
 import * as dayjs from 'dayjs'
 import { getOrderDateils } from '@/api/orders'
 import FieldDom from '@/components/Field'
 import './index.scss'
 
 function DetailsView(props) {
+  const [form] = Form.useForm()
+
   const [cancelVisible, setCancelVisible] = useState(false)
   const [changeVisible, setChangeVisible] = useState(false)
   const [overTime, setOverTime] = useState(false)
-  const [data, setData] = useState(null)
+  const [orderDetail, setOrderDetail] = useState(null)
 
-  const [form] = Form.useForm()
+  useEffect(() => {
+    const number = props.match.params.id
+    getOrderDateils({ trackingNumber: number }).then((res) => {
+      // let date1 = dayjs(`${res??.orderDay} ${res??.orderTime}`)
+      // let date2 = dayjs(dayjs().format('YYYY-MM-DD HH:mm:ss'))
+      // if (date2.diff(date1, 'minute') >= 30) {
+      //   setOverTime(true)
+      // }
+      setOrderDetail(res.data.order)
+    })
+  }, [props.match.params.id])
 
   const onCancel = () => {
     console.log('取消订单')
@@ -24,17 +34,6 @@ function DetailsView(props) {
   const onOk = () => {
     setCancelVisible(false)
   }
-
-  useEffect(() => {
-    getOrderDateils({ number: 111 }).then((res) => {
-      let date1 = dayjs(`${res?.orderDetails?.orderDay} ${res?.orderDetails?.orderTime}`)
-      let date2 = dayjs(dayjs().format('YYYY-MM-DD HH:mm:ss'))
-      if (date2.diff(date1, 'minute') >= 30) {
-        setOverTime(true)
-      }
-      setData(res)
-    })
-  }, [])
 
   const showChangeForm = () => {
     setChangeVisible(true)
@@ -76,13 +75,12 @@ function DetailsView(props) {
           <div className='order-title'>
             <div>
               <b>Order Placed: </b>
-              <span>
-                {data?.orderDetails?.orderTime} on {data?.orderDetails?.orderDay}
-              </span>
+              <span>{orderDetail?.orderPlaced || '--'}</span>
               &nbsp;&nbsp;|&nbsp;&nbsp;<b>Tracking Numb: </b>
-              {data?.orderDetails?.number}
+              {orderDetail?.trackingNumber || '--'}
             </div>
-            {data?.orderDetails?.status <= 2 && (
+
+            {orderDetail?.orderStatus <= 2 && (
               <div
                 className='orders-cancel'
                 onClick={() => {
@@ -94,11 +92,11 @@ function DetailsView(props) {
             )}
           </div>
 
-          {data?.orderDetails.status < 3 ? (
+          {orderDetail?.orderStatus < 3 ? (
             <div className='order-steps'>
               <div
                 className={`order-step-item ${
-                  data?.orderDetails.status >= 0 ? 'order-step-fished' : null
+                  orderDetail?.orderStatus >= 0 ? 'order-step-fished' : null
                 }`}
               >
                 <div className='order-step-box'>
@@ -106,14 +104,14 @@ function DetailsView(props) {
                   <div className='step-icon'></div>
                   <div className='step-line'></div>
                   <div className='step-content'>
-                    {data?.orderDetails.status === 0 && 'waiting to be received'}
+                    {orderDetail?.orderStatus === 0 && 'waiting to be received'}
                   </div>
                 </div>
               </div>
 
               <div
                 className={`order-step-item ${
-                  data?.orderDetails.status >= 1 ? 'order-step-fished' : null
+                  orderDetail?.orderStatus >= 1 ? 'order-step-fished' : null
                 }`}
               >
                 <div className='order-step-box'>
@@ -126,7 +124,7 @@ function DetailsView(props) {
 
               <div
                 className={`order-step-item ${
-                  data?.orderDetails.status >= 2 ? 'order-step-fished' : null
+                  orderDetail?.orderStatus >= 2 ? 'order-step-fished' : null
                 }`}
               >
                 <div className='order-step-box'>
@@ -135,7 +133,7 @@ function DetailsView(props) {
                   <div className='step-line'></div>
                   <div className='step-content'>
                     <p>Expected</p>
-                    <p>{data?.orderDetails.expectedTime}</p>
+                    <p>{orderDetail?.expectedTime}</p>
                   </div>
                 </div>
               </div>
@@ -165,28 +163,28 @@ function DetailsView(props) {
               <div className='sender-item-title'>Sender:</div>
               <div className='sender-item-content'>
                 <p>
-                  {data?.orderDetails.sender.firstName || '-'}&nbsp;
-                  {data?.orderDetails.sender.lastName || '-'}
+                  {orderDetail?.sender.firstName || '-'}&nbsp;
+                  {orderDetail?.sender.lastName || '-'}
                 </p>
-                <p>{data?.orderDetails.sender.CompanyName}</p>
-                <p>{data?.orderDetails.sender.address}</p>
-                <p>{data?.orderDetails.sender.zipCode}</p>
-                <p>{data?.orderDetails.sender.phone}</p>
-                <p>{data?.orderDetails.sender.email}</p>
+                <p>{orderDetail?.sender.CompanyName}</p>
+                <p>{orderDetail?.sender.address}</p>
+                <p>{orderDetail?.sender.zipCode}</p>
+                <p>{orderDetail?.sender.phone}</p>
+                <p>{orderDetail?.sender.email}</p>
               </div>
             </div>
             <div className='sender-item'>
               <div className='sender-item-title'>Recipient:</div>
               <div className='sender-item-content'>
                 <p>
-                  {data?.orderDetails.recipient.firstName || '-'}&nbsp;
-                  {data?.orderDetails.recipient.lastName || '-'}
+                  {orderDetail?.recipient.firstName || '-'}&nbsp;
+                  {orderDetail?.recipient.lastName || '-'}
                 </p>
-                <p>{data?.orderDetails.recipient.CompanyName}</p>
-                <p>{data?.orderDetails.recipient.address}</p>
-                <p>{data?.orderDetails.recipient.zipCode}</p>
-                <p>{data?.orderDetails.recipient.phone}</p>
-                <p>{data?.orderDetails.recipient.email}</p>
+                <p>{orderDetail?.recipient.CompanyName}</p>
+                <p>{orderDetail?.recipient.address}</p>
+                <p>{orderDetail?.recipient.zipCode}</p>
+                <p>{orderDetail?.recipient.phone}</p>
+                <p>{orderDetail?.recipient.email}</p>
               </div>
             </div>
           </div>
@@ -195,23 +193,21 @@ function DetailsView(props) {
             <div>
               <div className='payment-item'>
                 <span className='payment-item-title'>Payment method:</span>
-                <span className='payment-item-content'>
-                  {data?.orderDetails.paymentMethod || '--'}
-                </span>
+                <span className='payment-item-content'>{orderDetail?.paymentMethod || '--'}</span>
               </div>
               <div className='payment-item'>
                 <span className='payment-item-title'>Iterm:</span>
-                <span className='payment-item-content'>{data?.orderDetails.iterm || '--'}</span>
+                <span className='payment-item-content'>{orderDetail?.iterm || '--'}</span>
               </div>
             </div>
             <div>
               <div className='payment-item'>
                 <span className='payment-item-title'>Charges:</span>
-                <span className='payment-item-content'>$ {data?.orderDetails.charges || '--'}</span>
+                <span className='payment-item-content'>$ {orderDetail?.charges || '--'}</span>
               </div>
               <div className='payment-item'>
                 <span className='payment-item-title'>Count:</span>
-                <span className='payment-item-content'>{data?.orderDetails.count || '--'}</span>
+                <span className='payment-item-content'>{orderDetail?.count || '--'}</span>
               </div>
             </div>
           </div>
@@ -290,15 +286,15 @@ function DetailsView(props) {
               layout='vertical'
               style={{ display: 'flex' }}
               initialValues={{
-                FirstName: data?.orderDetails.recipient.firstName || '',
-                LastName: data?.orderDetails.recipient.lastName,
-                Email: data?.orderDetails.recipient.email,
-                StreetAddress: data?.orderDetails.recipient.StreetAddress,
-                City: data?.orderDetails.recipient.city,
-                PhoneNumber: data?.orderDetails.recipient.phone,
-                CompanyName: data?.orderDetails.recipient.CompanyName,
-                address: data?.orderDetails.recipient.address,
-                ZIPCode: data?.orderDetails.recipient.zipCode,
+                FirstName: orderDetail?.recipient.firstName || '',
+                LastName: orderDetail?.recipient.lastName,
+                Email: orderDetail?.recipient.email,
+                StreetAddress: orderDetail?.recipient.StreetAddress,
+                City: orderDetail?.recipient.city,
+                PhoneNumber: orderDetail?.recipient.phone,
+                CompanyName: orderDetail?.recipient.CompanyName,
+                address: orderDetail?.recipient.address,
+                ZIPCode: orderDetail?.recipient.zipCode,
               }}
               // onFinish={onFinish}
             >
@@ -389,15 +385,15 @@ function DetailsView(props) {
               layout='vertical'
               style={{ display: 'flex' }}
               initialValues={{
-                FirstName: data?.orderDetails.recipient.firstName || '',
-                LastName: data?.orderDetails.recipient.lastName,
-                Email: data?.orderDetails.recipient.email,
-                StreetAddress: data?.orderDetails.recipient.StreetAddress,
-                City: data?.orderDetails.recipient.city,
-                PhoneNumber: data?.orderDetails.recipient.phone,
-                CompanyName: data?.orderDetails.recipient.CompanyName,
-                address: data?.orderDetails.recipient.address,
-                ZIPCode: data?.orderDetails.recipient.zipCode,
+                FirstName: orderDetail?.recipient.firstName || '',
+                LastName: orderDetail?.recipient.lastName,
+                Email: orderDetail?.recipient.email,
+                StreetAddress: orderDetail?.recipient.StreetAddress,
+                City: orderDetail?.recipient.city,
+                PhoneNumber: orderDetail?.recipient.phone,
+                CompanyName: orderDetail?.recipient.CompanyName,
+                address: orderDetail?.recipient.address,
+                ZIPCode: orderDetail?.recipient.zipCode,
               }}
               // onFinish={onFinish}
             >

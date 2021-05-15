@@ -28,7 +28,7 @@ function MyOrder(params) {
     getOrdersListApi({ pageIndex, pageSize, keyWord, orderTab }).then((res) => {
       const { code } = res
       if (code === '200' && res.data.data) {
-        setOrdersdata(res.data)
+        setOrdersdata(res.data.data)
       } else {
         setVisible(true)
       }
@@ -94,11 +94,11 @@ function MyOrder(params) {
                 {ordersdata.map((item, index) => {
                   return (
                     <div className='ordersList' key={index}>
-                      <div className='list-title'>Tracking number: {item.number}</div>
+                      <div className='list-title'>Tracking number: {item.trackingNumber}</div>
                       <div className='list-content'>
                         <div className='list-news'>
                           <div className='list-from'>
-                            <p>{LengthLimit(item.from, 25)}</p>
+                            <p>{LengthLimit(item.senderCity, 25)}</p>
                             <p>{LengthLimit(item.senderName, 25)}</p>
                           </div>
                           <div className='list-status'>
@@ -111,19 +111,21 @@ function MyOrder(params) {
                             </div>
                             <div
                               className={
-                                item.status === 1 || item.status === 4 ? 'colorbcbc' : 'color666'
+                                item.orderStatus === 1 || item.orderStatus === 4
+                                  ? 'colorbcbc'
+                                  : 'color666'
                               }
                             >
-                              {enumsOrderStatus[item.status]}
+                              {enumsOrderStatus[item.orderStatus]}
                             </div>
                           </div>
                           <div className='list-to'>
-                            <p>{LengthLimit(item.to, 25)}</p>
-                            <p>{LengthLimit(item.addresseeName, 25)}</p>
+                            <p>{LengthLimit(item.recipientCity, 25)}</p>
+                            <p>{LengthLimit(item.recipientName, 25)}</p>
                           </div>
                         </div>
 
-                        <Link to='/detailsview' className='list-details'>
+                        <Link to={'/detailsview/' + item.trackingNumber} className='list-details'>
                           View Details
                         </Link>
                       </div>

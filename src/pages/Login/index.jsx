@@ -43,7 +43,7 @@ const Login = ({ login, setLoginUser, history }) => {
   const onFishCorporate = (values) => {
     const params = {
       password: values.password,
-      username: values.username,
+      userName: values.userName,
       loginType: loginType['corporate'],
     }
     loginApi(params).then((res) => {
@@ -173,7 +173,7 @@ const Login = ({ login, setLoginUser, history }) => {
           <Form className='login-form' layout='vertical' onFinish={onFishCorporate}>
             <Form.Item
               label={<span className='label'>USERNAME</span>}
-              name='username'
+              name='userName'
               rules={[{ required: true, message: 'Please input your Username!' }]}
             >
               <Input placeholder='yourname@email.com' />

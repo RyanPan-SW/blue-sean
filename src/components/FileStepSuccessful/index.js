@@ -5,7 +5,7 @@ import Failed from '../../asset/Failed.png'
 import './index.scss'
 import { Link } from 'react-router-dom'
 
-function FileStepSuccessful({ setStep, status }) {
+function FileStepSuccessful({ setStep, status, message }) {
   return (
     <div className='step-successful'>
       <img
@@ -18,7 +18,8 @@ function FileStepSuccessful({ setStep, status }) {
 
       {status === 'failed' && (
         <p className='step-failed'>
-          Sorry, network exception. The payment result cannot be checked temporarily
+          {/* Sorry, network exception. The payment result cannot be checked temporarily */}
+          {message}
         </p>
       )}
 

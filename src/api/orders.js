@@ -11,7 +11,6 @@ export function searchOrder(params) {
 
 export function getOrderDateils(params) {
   let str = querystring.stringify(params)
-  debugger
   return API.post('/order/getOrderDetailById', params)
 }
 

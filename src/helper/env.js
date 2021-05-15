@@ -46,8 +46,8 @@ export const patterns = {
 }
 
 export const enumsOrderStatus = {
-  1: 'Pending',
-  2: 'In transit',
-  3: 'Delivered',
-  4: 'Canceled',
+  '01': 'Pending',
+  '02': 'In transit',
+  '03': 'Delivered',
+  '04': 'Canceled',
 }

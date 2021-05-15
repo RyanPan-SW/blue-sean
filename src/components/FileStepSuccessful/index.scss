@@ -19,9 +19,10 @@
 
   .step-failed {
     font-size: 18px;
-    line-height: 57px;
+    line-height: 27px;
     color: $errorColor;
     text-align: center;
+    padding-bottom: 50px;
   }
 
   .step-button-group {
