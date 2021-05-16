@@ -23,10 +23,7 @@ function AddressModal(props) {
     if (type === 'add') {
       addNewAddress(values).then((res) => {
         const { code, data } = res
-        if (code !== '200') {
-          message.error(res.errmsg)
-          return
-        } else if (code === '200') {
+        if (code === '200') {
           message.success(data.msg)
           onCancel(false)
           getAddressList()
@@ -36,10 +33,7 @@ function AddressModal(props) {
       const updateValues = form.getFieldsValue()
       updateAddress({ ...updateValues, id }).then((res) => {
         const { code, data } = res
-        if (code !== '200') {
-          message.error(res.errmsg)
-          return
-        } else if (code === '200') {
+        if (code === '200') {
           message.success(data.msg)
           onCancel(false)
           getAddressList()

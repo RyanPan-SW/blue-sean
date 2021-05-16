@@ -3,16 +3,25 @@ import { Link } from 'react-router-dom'
 import { enumsOrderStatus } from '@/helper/env'
 import CustomizeModal from '@/components/CustomizeModal'
 import { getOrdersListApi, searchOrder } from '@/api/orders'
-import { Input, Tabs, Breadcrumb, Popover, Pagination } from 'antd'
+import { Input, Tabs, Breadcrumb, Popover, Pagination, message } from 'antd'
 import './index.scss'
 
 const { TabPane } = Tabs
 const { Search } = Input
-const orderStatus = {
-  all: null,
-  open: '01',
-  completed: '02',
-}
+const tabsList = [
+  {
+    key: 1,
+    tabTitle: 'Orders',
+  },
+  {
+    key: 2,
+    tabTitle: 'Open Orders',
+  },
+  {
+    key: 3,
+    tabTitle: 'Completed orders',
+  },
+]
 
 function MyOrder(params) {
   const [ordersdata, setOrdersdata] = useState([])
@@ -40,12 +49,13 @@ function MyOrder(params) {
   }
 
   const onSearchOrders = (value, e) => {
-    getOrdersList({ pageIndex: 0, pageSize: 10, keyWord: value, orderTab: `0${tabsKey - 1}` })
+    const orderTab = Number(tabsKey) === 1 ? null : `0${tabsKey - 1}`
+    getOrdersList({ pageIndex: 0, pageSize: 10, keyWord: value, orderTab: orderTab })
   }
 
   const changeTabs = (activeKey) => {
     setTabsKey(activeKey)
-    const orderTab = `0${activeKey - 1}`
+    const orderTab = Number(activeKey) === 1 ? null : `0${activeKey - 1}`
     getOrdersList({ pageIndex: 0, pageSize: 10, keyWord: null, orderTab: orderTab })
   }
 
@@ -54,7 +64,7 @@ function MyOrder(params) {
       pageIndex: page,
       pageSize: pageSize,
       keyWord: null,
-      orderTab: `0${tabsKey - 1}`,
+      orderTab: Number(tabsKey) === 1 ? null : `0${tabsKey - 1}`,
     })
   }
 
@@ -88,83 +98,78 @@ function MyOrder(params) {
         </p>
 
         <Tabs defaultActiveKey='1' tabBarStyle={{ color: '#333' }} onChange={changeTabs}>
-          <TabPane tab='Orders' key='1'>
-            {ordersdata?.length > 0 ? (
-              <div>
-                {ordersdata.map((item, index) => {
-                  return (
-                    <div className='ordersList' key={index}>
-                      <div className='list-title'>Tracking number: {item.trackingNumber}</div>
-                      <div className='list-content'>
-                        <div className='list-news'>
-                          <div className='list-from'>
-                            <p>{LengthLimit(item.senderCity, 25)}</p>
-                            <p>{LengthLimit(item.senderName, 25)}</p>
-                          </div>
-                          <div className='list-status'>
-                            <div>
-                              <i className='list-status-icon'></i>
-                              <i className='list-status-icon'></i>
-                              <i className='list-status-icon'></i>
-                              <i className='list-status-icon'></i>
-                              <i className='list-status-icon'></i>
+          {tabsList.map((item, index) => {
+            return (
+              <TabPane tab={item.tabTitle} key={item.key}>
+                {ordersdata?.length > 0 ? (
+                  <div>
+                    {ordersdata.map((item, index) => {
+                      return (
+                        <div className='ordersList' key={index}>
+                          <div className='list-title'>Tracking number: {item.trackingNumber}</div>
+                          <div className='list-content'>
+                            <div className='list-news'>
+                              <div className='list-from'>
+                                <p>{LengthLimit(item.senderCity, 25)}</p>
+                                <p>{LengthLimit(item.senderName, 25)}</p>
+                              </div>
+                              <div className='list-status'>
+                                <div>
+                                  <i className='list-status-icon'></i>
+                                  <i className='list-status-icon'></i>
+                                  <i className='list-status-icon'></i>
+                                  <i className='list-status-icon'></i>
+                                  <i className='list-status-icon'></i>
+                                </div>
+                                <div
+                                  className={
+                                    item.orderStatus === 1 || item.orderStatus === 4
+                                      ? 'colorbcbc'
+                                      : 'color666'
+                                  }
+                                >
+                                  {enumsOrderStatus[item.orderStatus]}
+                                </div>
+                              </div>
+                              <div className='list-to'>
+                                <p>{LengthLimit(item.recipientCity, 25)}</p>
+                                <p>{LengthLimit(item.recipientName, 25)}</p>
+                              </div>
                             </div>
-                            <div
-                              className={
-                                item.orderStatus === 1 || item.orderStatus === 4
-                                  ? 'colorbcbc'
-                                  : 'color666'
-                              }
+
+                            <Link
+                              to={'/detailsview/' + item.trackingNumber}
+                              className='list-details'
                             >
-                              {enumsOrderStatus[item.orderStatus]}
-                            </div>
-                          </div>
-                          <div className='list-to'>
-                            <p>{LengthLimit(item.recipientCity, 25)}</p>
-                            <p>{LengthLimit(item.recipientName, 25)}</p>
+                              View Details
+                            </Link>
                           </div>
                         </div>
+                      )
+                    })}
 
-                        <Link to={'/detailsview/' + item.trackingNumber} className='list-details'>
-                          View Details
-                        </Link>
-                      </div>
-                    </div>
-                  )
-                })}
-
-                {ordersdata.total > 15 && (
-                  <Pagination
-                    style={{ textAlign: 'right', paddingTop: 30 }}
-                    defaultCurrent={1}
-                    // defaultPageSize={15}
-                    pageSize={15}
-                    total={ordersdata?.total || 0}
-                    onChange={changePageSize}
-                  />
+                    {ordersdata.total > 15 && (
+                      <Pagination
+                        style={{ textAlign: 'right', paddingTop: 30 }}
+                        defaultCurrent={1}
+                        // defaultPageSize={15}
+                        pageSize={15}
+                        total={ordersdata?.total || 0}
+                        onChange={changePageSize}
+                      />
+                    )}
+                  </div>
+                ) : (
+                  <p className='empy-order-list'>
+                    You have not placed any orders in.{' '}
+                    <Link to='/filestep/add' className='new-pickup'>
+                      Schedule a New Pickup
+                    </Link>
+                  </p>
                 )}
-              </div>
-            ) : (
-              <p className='empy-order-list'>
-                You have not placed any orders in.{' '}
-                <Link to='/filestep/add' className='new-pickup'>
-                  Schedule a New Pickup
-                </Link>
-              </p>
-            )}
-          </TabPane>
-
-          <TabPane tab='Open Orders' key='2'>
-            <div className='order-nothing'>
-              You have not placed any orders in. <b>Schedule a New Pickup</b>
-            </div>
-          </TabPane>
-
-          <TabPane tab='Completed orders' key='3'>
-            <div className='order-nothing'>
-              You have not placed any orders in. <b>Schedule a New Pickup</b>
-            </div>
-          </TabPane>
+              </TabPane>
+            )
+          })}
         </Tabs>
       </div>
 

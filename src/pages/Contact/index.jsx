@@ -5,7 +5,7 @@ import { Button } from 'antd'
 
 const Test = (props) => {
   const { num, add, minus } = props
-  debugger
+  
 
   const getQues = () => {
     console.log('object')

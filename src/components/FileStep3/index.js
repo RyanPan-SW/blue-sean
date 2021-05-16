@@ -77,6 +77,7 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
     } else {
       const params = { payType: `0${payment}`, paymentCode: code }
       methodOfPayment(params).then((res) => {
+        
         getPayOrder(res)
       })
     }

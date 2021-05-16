@@ -176,7 +176,9 @@
         }
 
         .sender-item-content {
-          // line-height: 38px;
+          > p {
+            line-height: 38px;
+          }
         }
       }
     }

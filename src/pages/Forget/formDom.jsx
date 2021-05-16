@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Form, Input, message, Modal, Button } from 'antd'
 import { getCode, updatePwdByCode, verificationCode } from '@/api/forget'
-import { errorCode } from '@/helper/error'
+import { errorCodeMessage } from '@/helper/error'
 import FieldDom from '@/components/Field'
 
 let userEmail = null
@@ -13,7 +13,7 @@ export const SendEmailGetCodeDom = ({ setMsg, setEmail, setType }) => {
     getCode(values).then((res) => {
       const { code, /* data, */ errmsg } = res
       if (code !== '200') {
-        console.log(errorCode[code])
+        console.log(errorCodeMessage[code])
         setMsg(errmsg)
         return
       }
@@ -59,7 +59,7 @@ export const VerificationCodeDom = ({ userName, setType }) => {
     getCode({ userName: userName }).then((res) => {
       const { code /* data, errmsg */ } = res
       if (code !== '200') {
-        console.log(errorCode[code])
+        console.log(errorCodeMessage[code])
         return
       }
       message.success('Send success!')
@@ -85,7 +85,7 @@ export const VerificationCodeDom = ({ userName, setType }) => {
   }
 
   const tryAgainCode = () => {
-    debugger
+    
     form.resetFields()
     setVisibleCode(false)
   }

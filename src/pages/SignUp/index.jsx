@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { ExclamationCircleFilled } from '@ant-design/icons'
 import { emailMsg, passwordMsg, setCookie } from '@/helper/env'
 import { signup } from '@/api/signup'
-import { errorCode } from '@/helper/error'
+import { errorCodeMessage } from '@/helper/error'
 import './index.scss'
 
 function SignUp(props) {
@@ -17,7 +17,7 @@ function SignUp(props) {
     signup({ ...values }).then((res) => {
       const { code, data, errmsg } = res
       if (code !== '200') {
-        console.log(errorCode[code])
+        console.log(errorCodeMessage[code])
         setErrormsg(errmsg)
         setShowError(true)
         setLoading(false)

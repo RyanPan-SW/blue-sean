@@ -12,6 +12,7 @@ import home from '../../asset/home.svg'
 import logout from '../../asset/x.svg'
 import { getCookie } from '@/helper/env'
 import './selfHeader.scss'
+import { message } from 'antd'
 
 const servicesMenus = [
   {
@@ -40,6 +41,12 @@ const Header = (props) => {
 
   useEffect(() => {
     pathname.search('/home') > -1 ? setPathnameStatus(false) : setPathnameStatus(true)
+    // const token = getCookie('token')
+    // if (!token) {
+    //   message.error('Need log in.')
+    //   props.history.push('/home')
+    //   return
+    // }
   }, [pathname])
 
   const ExpandSubtitle = (e) => {

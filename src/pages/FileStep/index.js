@@ -41,6 +41,7 @@ function FileStep(props) {
       setMessage(res.data.msg)
     } else if (res.code === '200') {
       setStatus('successful')
+      setStep(4)
     }
   }
 

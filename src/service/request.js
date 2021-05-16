@@ -1,6 +1,8 @@
-import { API_HOST } from '@/config'
-import { getCookie } from '@/helper/env'
 import axios from 'axios'
+import { API_HOST } from '@/config'
+import { clearAllCookie, getCookie } from '@/helper/env'
+import { message } from 'antd'
+import { router } from 'react-router-dom'
 
 // const codeWhiteList = [2001, 2003, 3001, 4011, 4007, 5004, 4012, 4013, 4014, 4015, 4016, 4017, 4003] // 不需要弹窗的code错误码白名单
 // 创建axios实例
@@ -30,20 +32,37 @@ API.interceptors.response.use(
 )
 
 // // 响应拦截器
-// API.interceptors.response.use((response) => {
-//   // 拦截文件流
-//   const { headers } = response
-//   if (headers['content-type'] === 'application/octet-stream') {
-//     return response.data
-//   }
-
-//   const res = response.data
-//   if (res.code === 200) {
-//     // 响应成功
-//     return res.data
-//   }
-//   // 2004:  token 无效; 2005:  token 过期; 2008 token强制登出
-//   return Promise.reject(res)
-// })
+API.interceptors.response.use((response) => {
+  const { code, errmsg } = response
+  if (code === '200') {
+    return response
+  }
+  if (code !== 200) {
+    if (errmsg) {
+      message.error(errmsg)
+      return response
+    } else if (code === 'LO007' || code === 'LO008') {
+      message.error(errmsg)
+      clearAllCookie()
+      localStorage.clear()
+      window.location.href = '/login'
+      return response
+    } else {
+      return response
+    }
+  }
+  //   // 拦截文件流
+  //   const { headers } = response
+  //   if (headers['content-type'] === 'application/octet-stream') {
+  //     return response.data
+  //   }
+  //   const res = response.data
+  //   if (res.code === 200) {
+  //     // 响应成功
+  //     return res.data
+  //   }
+  //   // 2004:  token 无效; 2005:  token 过期; 2008 token强制登出
+  //   return Promise.reject(res)
+})
 
 export default API

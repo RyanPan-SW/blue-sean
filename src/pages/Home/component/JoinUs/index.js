@@ -21,8 +21,6 @@ function JoinUs(props) {
     getAsk(values.user).then((res) => {
       if (res || res.code === '200') {
         setVisible(true)
-      } else {
-        message.error(res.errmsg)
       }
     })
   }

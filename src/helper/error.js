@@ -1,6 +1,18 @@
 // 错误码
+export const errorCode = {
+  LO001: 'LO001',
+  LO002: 'LO002',
+  LO003: 'LO003',
+  LO004: 'LO004',
+  LO005: 'LO005',
+  LO006: 'LO006',
+  LO007: 'LO007',
+  LO008: 'LO008',
+  SY001: 'SY001',
+  SY002: 'SY002',
+}
 
- export const errorCode = {
+export const errorCodeMessage = {
   // 邮箱或密码错误
   LO001: 'Incorrect email address or password.(个人用户)',
   // 用户名或密码错误
@@ -15,6 +27,7 @@
   LO006: "The new password can't be the same as the current password.",
   // 未登录
   LO007: 'Not logged in.',
+  LO008: 'Not logged in.',
   // 系统异常
   SY001: 'System exception.',
   // 参数异常

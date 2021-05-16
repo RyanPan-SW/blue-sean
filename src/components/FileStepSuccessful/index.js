@@ -28,7 +28,8 @@ function FileStepSuccessful({ setStep, status, message }) {
           <div className='step-button-group'>
             <Button
               onClick={() => {
-                setStep(3)
+                setStep(1)
+                localStorage.clear('sessionid')
               }}
             >
               Back

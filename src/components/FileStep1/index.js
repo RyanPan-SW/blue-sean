@@ -40,8 +40,6 @@ function FileStep1(props) {
       if (res.code === '200') {
         localStorage.setItem('sessionid', res.data.sessionid)
         setStep(2)
-      } else {
-        message.error(res.errmsg)
       }
     })
   }

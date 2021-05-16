@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Breadcrumb, Form, Input } from 'antd'
+import { Breadcrumb, Form, Input, message, Select, Space } from 'antd'
 import { Link } from 'react-router-dom'
 import CustomizeModal from '@/components/CustomizeModal'
 import * as dayjs from 'dayjs'
 import { getOrderDateils } from '@/api/orders'
 import FieldDom from '@/components/Field'
 import './index.scss'
+import { getAllCity } from '@/api/fileStep'
+import { errorCode } from '@/helper/error'
 
 function DetailsView(props) {
   const [form] = Form.useForm()
@@ -14,6 +16,7 @@ function DetailsView(props) {
   const [changeVisible, setChangeVisible] = useState(false)
   const [overTime, setOverTime] = useState(false)
   const [orderDetail, setOrderDetail] = useState(null)
+  const [allCity, setAllCity] = useState([])
 
   useEffect(() => {
     const number = props.match.params.id
@@ -23,7 +26,16 @@ function DetailsView(props) {
       // if (date2.diff(date1, 'minute') >= 30) {
       //   setOverTime(true)
       // }
-      setOrderDetail(res.data.order)
+      const { code, data } = res
+      if (code === '200' && data.order) {
+        setOrderDetail(res?.data?.order)
+      }
+    })
+
+    getAllCity().then((res) => {
+      if (res.code === '200') {
+        setAllCity(res.data.list)
+      }
     })
   }, [props.match.params.id])
 
@@ -33,6 +45,10 @@ function DetailsView(props) {
 
   const onOk = () => {
     setCancelVisible(false)
+    const number = props.match.params.id
+    getOrderDateils({ trackingNumber: number }).then((res) => {
+      setOrderDetail(res.data.order)
+    })
   }
 
   const showChangeForm = () => {
@@ -168,7 +184,7 @@ function DetailsView(props) {
                 </p>
                 <p>{orderDetail?.sender.CompanyName}</p>
                 <p>{orderDetail?.sender.address}</p>
-                <p>{orderDetail?.sender.zipCode}</p>
+                <p>{orderDetail?.sender.zipcode}</p>
                 <p>{orderDetail?.sender.phone}</p>
                 <p>{orderDetail?.sender.email}</p>
               </div>
@@ -182,7 +198,7 @@ function DetailsView(props) {
                 </p>
                 <p>{orderDetail?.recipient.CompanyName}</p>
                 <p>{orderDetail?.recipient.address}</p>
-                <p>{orderDetail?.recipient.zipCode}</p>
+                <p>{orderDetail?.recipient.zipcode}</p>
                 <p>{orderDetail?.recipient.phone}</p>
                 <p>{orderDetail?.recipient.email}</p>
               </div>
@@ -286,15 +302,15 @@ function DetailsView(props) {
               layout='vertical'
               style={{ display: 'flex' }}
               initialValues={{
-                FirstName: orderDetail?.recipient.firstName || '',
-                LastName: orderDetail?.recipient.lastName,
-                Email: orderDetail?.recipient.email,
-                StreetAddress: orderDetail?.recipient.StreetAddress,
-                City: orderDetail?.recipient.city,
-                PhoneNumber: orderDetail?.recipient.phone,
-                CompanyName: orderDetail?.recipient.CompanyName,
+                firstName: orderDetail?.recipient.firstName || '',
+                lastName: orderDetail?.recipient.lastName,
+                email: orderDetail?.recipient.email,
                 address: orderDetail?.recipient.address,
-                ZIPCode: orderDetail?.recipient.zipCode,
+                cityCode: orderDetail?.recipient.cityCode,
+                phone: orderDetail?.recipient.phone,
+                companyName: orderDetail?.recipient.companyName,
+                other: orderDetail?.recipient.other,
+                zipcode: orderDetail?.recipient.zipcode,
               }}
               // onFinish={onFinish}
             >
@@ -302,7 +318,7 @@ function DetailsView(props) {
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <Form.Item
                     label='First Name'
-                    name='FirstName'
+                    name='firstName'
                     style={{ width: '45%' }}
                     rules={[{ required: true, message: <FieldDom /> }]}
                   >
@@ -311,7 +327,7 @@ function DetailsView(props) {
 
                   <Form.Item
                     label='Last Name'
-                    name='LastName'
+                    name='lastName'
                     style={{ width: '45%' }}
                     rules={[{ required: true, message: <FieldDom /> }]}
                   >
@@ -321,7 +337,7 @@ function DetailsView(props) {
 
                 <Form.Item
                   label='Email'
-                  name='Email'
+                  name='email'
                   rules={[{ required: true, message: <FieldDom /> }]}
                 >
                   <Input placeholder='Email' />
@@ -329,7 +345,7 @@ function DetailsView(props) {
 
                 <Form.Item
                   label='Street Address'
-                  name='StreetAddress'
+                  name='address'
                   rules={[{ required: true, message: <FieldDom /> }]}
                 >
                   <Input placeholder='Street Address' />
@@ -337,10 +353,14 @@ function DetailsView(props) {
 
                 <Form.Item
                   label='City'
-                  name='City'
+                  name='cityCode'
                   rules={[{ required: true, message: <FieldDom /> }]}
                 >
-                  <Input placeholder='City' />
+                  <Select placeholder='Please Select'>
+                    {allCity.map((item, index) => {
+                      return <Select.Option value={item.cityCode}>{item.cityName}</Select.Option>
+                    })}
+                  </Select>
                 </Form.Item>
               </div>
 
@@ -355,23 +375,23 @@ function DetailsView(props) {
 
                 <Form.Item
                   label='Company Name'
-                  name='CompanyName'
-                  rules={[{ required: true, message: <FieldDom /> }]}
+                  name='companyName'
+                  // rules={[{ required: true, message: <FieldDom /> }]}
                 >
                   <Input placeholder='Company Name' />
                 </Form.Item>
 
                 <Form.Item
                   label='Apt/Suite/Other'
-                  name='address'
-                  rules={[{ required: true, message: <FieldDom /> }]}
+                  name='other'
+                  // rules={[{ required: true, message: <FieldDom /> }]}
                 >
                   <Input placeholder='Apt/Suite/Other' />
                 </Form.Item>
 
                 <Form.Item
                   label='ZIP Code'
-                  name='ZIPCode'
+                  name='zipcode'
                   rules={[{ required: true, message: <FieldDom /> }]}
                 >
                   <Input placeholder='ZIP Code' />
@@ -385,15 +405,15 @@ function DetailsView(props) {
               layout='vertical'
               style={{ display: 'flex' }}
               initialValues={{
-                FirstName: orderDetail?.recipient.firstName || '',
-                LastName: orderDetail?.recipient.lastName,
-                Email: orderDetail?.recipient.email,
-                StreetAddress: orderDetail?.recipient.StreetAddress,
-                City: orderDetail?.recipient.city,
-                PhoneNumber: orderDetail?.recipient.phone,
-                CompanyName: orderDetail?.recipient.CompanyName,
+                firstName: orderDetail?.recipient.firstName || '',
+                lastName: orderDetail?.recipient.lastName,
+                email: orderDetail?.recipient.email,
                 address: orderDetail?.recipient.address,
-                ZIPCode: orderDetail?.recipient.zipCode,
+                cityCode: orderDetail?.recipient.cityCode,
+                phone: orderDetail?.recipient.phone,
+                companyName: orderDetail?.recipient.companyName,
+                other: orderDetail?.recipient.other,
+                zipcode: orderDetail?.recipient.zipcode,
               }}
               // onFinish={onFinish}
             >
@@ -420,7 +440,7 @@ function DetailsView(props) {
 
                 <Form.Item
                   label='Email'
-                  name='Email'
+                  name='email'
                   rules={[{ required: true, message: <FieldDom /> }]}
                 >
                   <Input placeholder='Email' />
@@ -428,7 +448,7 @@ function DetailsView(props) {
 
                 <Form.Item
                   label='Street Address'
-                  name='StreetAddress'
+                  name='address'
                   rules={[{ required: true, message: <FieldDom /> }]}
                 >
                   <Input placeholder='Street Address' />
@@ -436,10 +456,14 @@ function DetailsView(props) {
 
                 <Form.Item
                   label='City'
-                  name='City'
+                  name='cityCode'
                   rules={[{ required: true, message: <FieldDom /> }]}
                 >
-                  <Input placeholder='City' />
+                  <Select placeholder='Please Select'>
+                    {allCity.map((item, index) => {
+                      return <Select.Option value={item.cityCode}>{item.cityName}</Select.Option>
+                    })}
+                  </Select>
                 </Form.Item>
               </div>
 
@@ -454,23 +478,23 @@ function DetailsView(props) {
 
                 <Form.Item
                   label='Company Name'
-                  name='CompanyName'
-                  rules={[{ required: true, message: <FieldDom /> }]}
+                  name='companyName'
+                  // rules={[{ required: true, message: <FieldDom /> }]}
                 >
                   <Input placeholder='Company Name' />
                 </Form.Item>
 
                 <Form.Item
                   label='Apt/Suite/Other'
-                  name='address'
-                  rules={[{ required: true, message: <FieldDom /> }]}
+                  name='other'
+                  // rules={[{ required: true, message: <FieldDom /> }]}
                 >
                   <Input placeholder='Apt/Suite/Other' />
                 </Form.Item>
 
                 <Form.Item
                   label='ZIP Code'
-                  name='ZIPCode'
+                  name='zipcode'
                   rules={[{ required: true, message: <FieldDom /> }]}
                 >
                   <Input placeholder='ZIP Code' />
