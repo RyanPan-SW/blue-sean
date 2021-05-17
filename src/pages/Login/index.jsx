@@ -27,10 +27,13 @@ const Login = ({ login, setLoginUser, history }) => {
     loginApi({ ...values, loginType: loginType['personal'] }).then((res) => {
       const { code, data, errmsg } = res
       if (code === '200') {
-        const token = data.token
+        if (values.remember) {
+          setCookie('token', data.token, 30)
+        } else {
+          setCookie('token', data.token, 7)
+        }
+
         const loginUser = JSON.stringify(data.loginUser)
-        setCookie(token)
-        login()
         localStorage.setItem('user', loginUser)
         history.push('/account')
       } else {
@@ -49,9 +52,13 @@ const Login = ({ login, setLoginUser, history }) => {
     loginApi(params).then((res) => {
       const { code, data, errmsg } = res
       if (code === '200') {
-        const token = data.token
+        if (values.remember) {
+          setCookie('token', data.token, 30)
+        } else {
+          setCookie('token', data.token, 7)
+        }
+
         const loginUser = JSON.stringify(data.loginUser)
-        setCookie(token)
         localStorage.setItem('user', loginUser)
         history.push('/account')
       } else {

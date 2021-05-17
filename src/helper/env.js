@@ -1,25 +1,20 @@
 // import { TOKEN_KEY } from '@/config'
-import cookie from 'react-cookies'
+import Cookies from 'js-cookie'
 
 export function isOpenPages(pathname) {
   return pathname.startsWith('/o/')
 }
 
-export function setCookie(parmas, days = 1) {
-  let inFifteenMinutes = new Date(new Date().getTime() + 24 * 3600 * 1000 * days) // 一个月
-  return cookie.save('token', parmas, { expires: inFifteenMinutes })
+export function setCookie(name, value, expires) {
+  Cookies.set(name, value, { expires: expires || 7 })
 }
 
 export function getCookie(key) {
-  return cookie.load(key)
+  return Cookies.get(key)
 }
 
 export function clearAllCookie() {
-  var keys = document.cookie.match(/[^ =;]+(?=\=)/g)
-  if (keys) {
-    for (var i = keys.length; i--; )
-      document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
-  }
+  Cookies.remove('token')
 }
 
 export const emailMsg = {

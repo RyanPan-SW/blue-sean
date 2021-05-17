@@ -99,6 +99,10 @@ a:hover {
   border: 1px solid $themeColor;
 }
 
+.ant-breadcrumb a:hover {
+  color: $themeColor;
+}
+
 .ant-radio-input:focus + .ant-radio-inner,
 .ant-radio-wrapper:hover .ant-radio,
 .ant-radio:hover .ant-radio-inner {
