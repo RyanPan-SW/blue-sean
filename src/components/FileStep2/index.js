@@ -57,7 +57,7 @@ function FileStep2({ cityArray, setStep, history }) {
   const selectedRecipientItem = (row) => {
     const newRecipientList = recipientList
     newRecipientList[key] = row
-    form.setFieldsValue(newRecipientList)
+    form.setFieldsValue({ recipientList: newRecipientList })
     setVisible(false)
   }
 

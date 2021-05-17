@@ -91,6 +91,9 @@
         }
 
         .step-content {
+          p {
+            font-size: 16px;
+          }
           // text-align: center;
         }
       }
@@ -128,7 +131,10 @@
             border: 1px solid $themeColor;
           }
           .cancel-content {
-            color: $themeColor;
+            p {
+              color: $themeColor;
+              font-size: 16px;
+            }
           }
         }
       }
@@ -246,5 +252,36 @@
       color: #fff;
       border-radius: 50px;
     }
+  }
+}
+
+.fill-button-next {
+  // width: 300px;
+  padding: 0 100px;
+  height: 56px;
+  border-radius: 25px;
+  background: $themeColor;
+  color: #fff;
+  font-size: 25px;
+}
+
+.recipient-button-group {
+  .fill-button-back {
+    height: 56px;
+    color: #aeaeae;
+    font-size: 25px;
+    padding: 0 100px;
+    border-radius: 25px;
+    border-color: #aeaeae;
+    background: #fff;
+  }
+
+  .fill-button-submit {
+    color: #fff;
+    height: 56px;
+    font-size: 25px;
+    padding: 0 100px;
+    border-radius: 25px;
+    background: $themeColor;
   }
 }

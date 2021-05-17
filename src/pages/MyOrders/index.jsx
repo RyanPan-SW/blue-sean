@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { enumsOrderStatus } from '@/helper/env'
+import { orderDetailEnums } from '@/helper/env'
 import CustomizeModal from '@/components/CustomizeModal'
-import { getOrdersListApi, searchOrder } from '@/api/orders'
+import { getOrdersListApi, searchOrderApi } from '@/api/orders'
 import { Input, Tabs, Breadcrumb, Popover, Pagination, message } from 'antd'
 import './index.scss'
 
@@ -128,7 +128,7 @@ function MyOrder(params) {
                                       : 'color666'
                                   }
                                 >
-                                  {enumsOrderStatus[item.orderStatus]}
+                                  {orderDetailEnums[item.orderStatus]}
                                 </div>
                               </div>
                               <div className='list-to'>

@@ -75,6 +75,11 @@ a:hover {
   border-color: $themeColor;
 }
 
+.ant-btn-primary {
+  background: $themeColor;
+  border-color: $themeColor;
+}
+
 .ant-modal-header {
   border-bottom: none;
 }

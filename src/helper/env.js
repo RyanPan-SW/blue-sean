@@ -45,9 +45,16 @@ export const patterns = {
   ZIPCode: /^[1-9]\d{5}(?!\d)$/,
 }
 
-export const enumsOrderStatus = {
+export const orderDetailEnums = {
   '01': 'Pending',
   '02': 'In transit',
   '03': 'Delivered',
   '04': 'Canceled',
+}
+
+export const orderStatusEnums = {
+  Pending: '01',
+  InTransit: '02',
+  Delivered: '03',
+  Canceled: '04',
 }

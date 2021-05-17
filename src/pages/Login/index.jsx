@@ -52,7 +52,6 @@ const Login = ({ login, setLoginUser, history }) => {
         const token = data.token
         const loginUser = JSON.stringify(data.loginUser)
         setCookie(token)
-        login()
         localStorage.setItem('user', loginUser)
         history.push('/account')
       } else {
@@ -164,7 +163,6 @@ const Login = ({ login, setLoginUser, history }) => {
 
           <div className='login-personal'>
             <span>Don't have a corporate account?</span>
-            {/* <span className='login-sgin'>Sgin up.</span> */}
             <Link to='/cooperate' className='login-sgin'>
               Sgin up.
             </Link>

@@ -33,19 +33,22 @@ API.interceptors.response.use(
 
 // // 响应拦截器
 API.interceptors.response.use((response) => {
-  const { code, errmsg } = response
+  const { code, errmsg, data } = response
   if (code === '200') {
+    if (data.msg) {
+      message.success(data.msg)
+    }
     return response
   }
   if (code !== 200) {
-    if (errmsg) {
-      message.error(errmsg)
-      return response
-    } else if (code === 'LO007' || code === 'LO008') {
-      message.error(errmsg)
+    if (code === 'LO007' || code === 'LO008') {
       clearAllCookie()
       localStorage.clear()
       window.location.href = '/login'
+      message.error(errmsg)
+      return response
+    } else if (errmsg) {
+      message.error(errmsg)
       return response
     } else {
       return response
