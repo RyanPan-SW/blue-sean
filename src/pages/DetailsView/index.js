@@ -71,22 +71,22 @@ function DetailsView(props) {
   }
 
   const onCancel = () => {
+    setCancelVisible(false)
+  }
+
+  const onOk = () => {
     if (cancelStatus) {
       //  cancel order
       cancelOrderApi({ trackingNumber: trackingNumber }).then((res) => {
-        const { code, data } = res
-        if (code === '200' && data.msg) {
-          message.success(data.msg)
+        const { code } = res
+        if (code === '200') {
           getOrderDateilsApi({ trackingNumber: trackingNumber }).then((res) => {
             setOrderDetail(res?.data?.order)
+            setCancelVisible(false)
           })
         }
       })
     }
-  }
-
-  const onOk = () => {
-    setCancelVisible(false)
   }
 
   const showModifyForm = () => {
@@ -104,7 +104,9 @@ function DetailsView(props) {
   const onFishObject = (senderValue) => {
     const recipient = { recipientId: orderDetail.recipient.recipientId, ...form.getFieldsValue() }
     const params = { trackingNumber, sender: SenderInformationObject, recipient }
-    updateSenderAndRecipient(params)
+    updateSenderAndRecipient(params).then((res) => {
+      getOrderDateils(trackingNumber)
+    })
     setModifyVisible(false)
   }
 
@@ -280,9 +282,9 @@ function DetailsView(props) {
       <CustomizeModal
         width={'57%'}
         visible={cancelVisible}
-        cancelText={cancelStatus ? <span style={{ color: '#ccc' }}>Yes</span> : null}
+        cancelText={cancelStatus ? null : <span style={{ color: '#ccc' }}>Yes</span>}
         onCancel={onCancel}
-        okText={cancelStatus ? 'No' : 'Ok'}
+        okText={cancelStatus ? 'Ok' : 'No'}
         onOk={onOk}
       >
         <div>

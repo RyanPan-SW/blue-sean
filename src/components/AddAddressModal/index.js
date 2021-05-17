@@ -21,22 +21,23 @@ function AddressModal(props) {
 
   const onFinishAddress = (values) => {
     if (type === 'add') {
+      // add new address
       addNewAddress(values).then((res) => {
-        const { code, data } = res
+        const { code } = res
         if (code === '200') {
-          message.success(data.msg)
           onCancel(false)
           getAddressList()
         }
       })
     } else if (type === 'edit') {
-      const updateValues = form.getFieldsValue()
-      updateAddress({ ...updateValues, id }).then((res) => {
+      // edit address
+      const updateValues = { addressId: id, ...form.getFieldsValue() }
+      updateAddress(updateValues).then((res) => {
         const { code, data } = res
         if (code === '200') {
           message.success(data.msg)
-          onCancel(false)
           getAddressList()
+          onCancel(false)
         }
       })
     }
@@ -68,6 +69,7 @@ function AddressModal(props) {
               <Form.Item
                 label='Last Name'
                 name='lastName'
+                normalize={normFile}
                 style={{ width: '45%' }}
                 rules={[{ required: true, message: 'Please Enter' }]}
               >
@@ -78,6 +80,7 @@ function AddressModal(props) {
             <Form.Item
               label='Email'
               name='email'
+              normalize={normFile}
               rules={[{ required: true, message: 'Please Enter' }]}
             >
               <Input placeholder='Email' />
@@ -86,6 +89,7 @@ function AddressModal(props) {
             <Form.Item
               label='Street Address'
               name='address'
+              normalize={normFile}
               rules={[{ required: true, message: 'Please Enter' }]}
             >
               <Input placeholder='Street Address' />
@@ -94,6 +98,7 @@ function AddressModal(props) {
             <Form.Item
               label='City'
               name='cityCode'
+              normalize={normFile}
               rules={[{ required: true, message: 'Please Enter' }]}
             >
               <Select placeholder='Please Select'>
@@ -112,30 +117,24 @@ function AddressModal(props) {
             <Form.Item
               label='Phone Number'
               name='phone'
+              normalize={normFile}
               rules={[{ required: true, message: 'Please Enter' }]}
             >
               <Input placeholder='email' />
             </Form.Item>
 
-            <Form.Item
-              label='Company Name'
-              name='companyName'
-              // rules={[{ required: true, message: 'Please Enter' }]}
-            >
+            <Form.Item label='Company Name' normalize={normFile} name='companyName'>
               <Input placeholder='Company Name' />
             </Form.Item>
 
-            <Form.Item
-              label='Apt/Suite/Other'
-              name='other'
-              // rules={[{ required: true, message: 'Please Enter' }]}
-            >
+            <Form.Item label='Apt/Suite/Other' name='other' normalize={normFile}>
               <Input placeholder='Apt/Suite/Other' />
             </Form.Item>
 
             <Form.Item
               label='ZIP Code'
               name='zipcode'
+              normalize={normFile}
               rules={[{ required: true, message: 'Please Enter' }]}
             >
               <Input placeholder='ZIP Code' />
@@ -143,7 +142,7 @@ function AddressModal(props) {
           </div>
         </div>
 
-        <Form.Item label='Note' name='note'>
+        <Form.Item label='Note' name='note' normalize={normFile}>
           <Input.TextArea />
         </Form.Item>
 
