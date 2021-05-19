@@ -1,13 +1,24 @@
 // TODO： 联系我们（使用条款，内容差不多）
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { getConfigContent } from '@/api/config'
 
 function ContactUs(props) {
-  return (
-    <div className='container'>
-      <h4>Contact Us</h4>
+  const [content, setContent] = useState(null)
 
-      <p style={{ marginTop: 60 }}>
+  useEffect(() => {
+    getConfigContent({ code: 'contact_us' }).then((res) => {
+      setContent(res.data)
+    })
+  }, [])
+
+  return (
+    <div className='contact-us'>
+      <div className='container'>
+        <h4 style={{ padding: '40px 0px' }}>Contact Us</h4>
+
+        <div style={{ lineHeight: '22px' }} dangerouslySetInnerHTML={{ __html: content }}></div>
+        {/* <p style={{ marginTop: 60 }}>
         PLEASE READ THESE WEB SITE TERMS OF USE CAREFULLY BEFORE USING THIS WEB SITE (THE "WEB
         SITE"). THESE WEB SITE TERMS OF USE (THE "TERMS OF USE") GOVERN YOUR ACCESS TO AND USE OF
         THE WEB SITE. THE WEB SITE IS AVAILABLE FOR YOUR USE ONLY ON THE CONDITION THAT YOU AGREE TO
@@ -15,7 +26,8 @@ function ContactUs(props) {
         ACCESS OR USE THE WEB SITE. BY ACCESSING OR USING THE WEB SITE, YOU AND THE ENTITY YOU ARE
         AUTHORISED TO REPRESENT (HEREINAFTER "YOU" OR "YOUR") SIGNIFY YOUR AGREEMENT TO BE BOUND BY
         THE TERMS OF USE.
-      </p>
+      </p> */}
+      </div>
     </div>
   )
 }

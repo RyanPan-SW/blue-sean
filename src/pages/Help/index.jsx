@@ -1,21 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Collapse } from 'antd'
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons'
+import { getConfigContent } from '@/api/config'
 import './index.scss'
 
 const { Panel } = Collapse
-const helpList = [
-  {
-    title:
-      'How do I track using a reference number?How do I track using a reference number?How do I track using a reference number?How do I track How do I track using a reference number?How do I track using a reference number?',
-    dircetion: 'This is going to be the content',
-  },
-  { title: '2222', dircetion: 'This is going to be the content' },
-  { title: '3333', dircetion: 'This is going to be the content' },
-]
 
 function HelpContent(props) {
   const [activeArray, setActive] = useState([])
+
+  const [Content, setContent] = useState([])
+
+  useEffect(() => {
+    getConfigContent({ code: 'help_center' }).then((res) => {
+      setContent(res.data)
+    })
+  }, [])
 
   const panelProps = (panelProps) => {
     return panelProps.isActive ? <MinusOutlined /> : <PlusOutlined />
@@ -37,19 +37,19 @@ function HelpContent(props) {
           onChange={changeCollapse}
           style={{ borderColor: 'none' }}
         >
-          {helpList.map((item, index) => {
+          {Content.map((item, index) => {
             return (
               <Panel
                 header={
                   <span
                     className={activeArray.includes(`${index}`) ? 'help-active' : 'help-header'}
                   >
-                    {item.title}
+                    <span dangerouslySetInnerHTML={{ __html: item.Q }}></span>
                   </span>
                 }
                 key={index}
               >
-                <div>{item.dircetion}</div>
+                <ul dangerouslySetInnerHTML={{ __html: item.A }}></ul>
               </Panel>
             )
           })}
