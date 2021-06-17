@@ -20,10 +20,6 @@
       min-width: 200px;
       text-align: left;
       font-weight: bold;
-
-      &:nth-of-type(1) {
-        margin-top: 20px;
-      }
     }
 
     .step-content {
@@ -35,11 +31,6 @@
         justify-content: space-between;
         border-bottom: dashed 3px #c9c9c9;
         padding-bottom: 40px;
-        margin-bottom: 30px;
-
-        > div {
-          margin-top: 20px;
-        }
 
         .time-box {
           width: 176px;
@@ -96,11 +87,92 @@
       }
     }
 
+    .step3-card-visa {
+      display: flex;
+
+      .step3-card-visa-left {
+        flex: 1;
+        margin-right: 15px;
+      }
+
+      .step3-card-visa-right {
+        flex: 1;
+      }
+    }
+
+    .step3-visa-tip {
+      font-size: 14px;
+      margin-left: 25px;
+      color: #0113b3;
+    }
+
+    .step3-visa-form {
+      width: 80%;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+      padding: 15px 30px;
+    }
+
+    .step3-corporate-form {
+      padding: 20px 30px;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    .step3-bpay-div {
+      position: relative;
+      overflow: hidden;
+      margin-top: 10px;
+      margin-left: 25px;
+
+      &::before {
+        content: ' ';
+        position: absolute;
+        display: inline-block;
+        left: 0;
+        top: 0;
+        width: 32px;
+        height: 20px;
+        background: $themeColor;
+      }
+
+      .step3-bpay-icon {
+        width: 32px;
+        height: 20px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding-top: 2px;
+        background: $themeColor;
+
+        img {
+          width: 16px;
+          height: 16px;
+          display: block;
+          margin: auto;
+        }
+      }
+
+      .step3-bpay-dirscrbe {
+        border-radius: 5px;
+        border: solid 1px #b38948;
+        padding: 20px 45px;
+
+        p {
+          color: #333333;
+          font-size: 13px;
+          line-height: 32px;
+        }
+      }
+    }
+
     .step-charge {
       flex: 1;
-      color: #333;
-      opacity: 0.5;
+      color: rgba(51, 51, 51, 0.5);
       font-size: 16px;
+
+      .step3-charge-tip {
+        color: #0113b3;
+        font-size: 14px;
+      }
     }
 
     .payment-code {
@@ -192,6 +264,17 @@
   }
 }
 
+.ant-tooltip-arrow-content {
+  width: 8px !important;
+  height: 8px !important;
+  background: $themeColor !important;
+}
+
+.ant-tooltip-inner {
+  background: rgb(255, 255, 255);
+  border: 1px solid $themeColor;
+}
+
 .paypal-modal-footer {
   text-align: right;
   padding-top: 40px;
@@ -203,7 +286,7 @@
     box-shadow: none;
     background: #fff;
   }
-  
+
   .paypal-modal-ok {
     background: #fff;
     font-size: 16px;
