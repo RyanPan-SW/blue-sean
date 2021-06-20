@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Radio, Space, Checkbox, Button, message, Input, Form, Modal, Popover, Tooltip } from 'antd'
+import { Radio, Space, Checkbox, Button, Input, Form, Modal, Tooltip } from 'antd'
 import { ExclamationCircleFilled } from '@ant-design/icons'
 import { getDayOrTime, getOptionalTime, methodOfPayment } from '@/api/fileStep'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
-import Paypal from '../../asset/paypal.png'
-import CorporatePayment from '../../asset/corporate.png'
 import visa from '../../asset/visa.png'
 import doubt from '../../asset/doubt.png'
 import lock from '../../asset/lock.png'
@@ -21,6 +19,8 @@ const paymentEmnu = {
 }
 
 function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
+  const [form] = Form.useForm()
+
   const [payment, setPayment] = useState(null)
   const [datelist, setDatelist] = useState([])
   const [activeDay, setActiveDay] = useState(0)
@@ -29,6 +29,8 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
   const [checkedAgree, setCheckedAgree] = useState(false)
   const [PaypalModal, setPaypalModal] = useState(false)
   const [code, setCode] = useState(null)
+  const [phoneHomeRequired, setPhoneHomeRequired] = useState(true)
+  const [phoneMobileRequired, setPhoneMobileRequired] = useState(true)
 
   useEffect(() => {
     getOptionalTime().then((res) => {
@@ -66,39 +68,69 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
       const { code, data } = res
       if (code === '200' && !data.msg) {
         setPaydata(data)
-      } else {
-        message.error(data.msg)
       }
     })
   }
 
   const payNow = () => {
-    if (!checkedAgree) {
-      message.warn('Please check I agree XXXX contract terms.')
-      return
-    } else if (payment === paymentEmnu['visa']) {
-      setPaypalModal(true)
-      return
-    } else if (payment === paymentEmnu['corporate'] && !code) {
-      message.warn('Please input Corporate Payment Code.')
-      return
-    } else if (payment === paymentEmnu['bpay']) {
-      message.info('这里带确定')
-      return
+    form
+      .validateFields()
+      .then((values) => {})
+      .catch((error) => {})
+    // if (!checkedAgree) {
+    //   message.warn('Please check I agree XXXX contract terms.')
+    //   return
+    // } else if (payment === paymentEmnu['visa']) {
+    //   setPaypalModal(true)
+    //   return
+    // } else if (payment === paymentEmnu['corporate'] && !code) {
+    //   message.warn('Please input Corporate Payment Code.')
+    //   return
+    // } else if (payment === paymentEmnu['bpay']) {
+    //   message.info('这里带确定')
+    //   return
+    // } else {
+    //   const params = { payType: `0${payment}`, paymentCode: code }
+    //   methodOfPayment(params).then((res) => {
+    //     getPayOrder(res)
+    //   })
+    // }
+  }
+
+  const phoneDom = (
+    <div className='phone-tip'>
+      <ExclamationCircleFilled
+        style={{
+          color: phoneHomeRequired && phoneMobileRequired ? '#ff4d4f' : '#0113B3',
+          marginRight: 6,
+        }}
+      />
+      <span style={{ color: phoneHomeRequired && phoneMobileRequired ? '#ff4d4f' : '#0113B3' }}>
+        At least one phone number is required.
+      </span>
+    </div>
+  )
+
+  const onValuesChange = (changeValue, allValues) => {
+    if (allValues.phoneHome) {
+      setPhoneHomeRequired(true)
+      setPhoneMobileRequired(false)
+    } else if (allValues.phoneMobile) {
+      setPhoneHomeRequired(false)
+      setPhoneMobileRequired(true)
     } else {
+      setPhoneMobileRequired(true)
+      setPhoneHomeRequired(true)
+    }
+  }
+
+  const onFinish = (values) => {
+    debugger
       const params = { payType: `0${payment}`, paymentCode: code }
       methodOfPayment(params).then((res) => {
         getPayOrder(res)
       })
-    }
   }
-
-  const phoneDom = (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <ExclamationCircleFilled style={{ color: '#0113B3', marginRight: 6 }} />
-      At least one phone number is required
-    </div>
-  )
 
   return (
     <div className='step3'>
@@ -141,7 +173,11 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
                   </div>
                 )
               } else {
-                return <s className='disabled-time'>{item.title}</s>
+                return (
+                  <s key={index} className='disabled-time'>
+                    {item.title}
+                  </s>
+                )
               }
             })}
           </div>
@@ -151,8 +187,8 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
       <div className='step3-item'>
         <div className='step3-decribe'>Charge</div>
         <div className='step-charge'>
-          <p>{paydata ? `$${paydata.total}` : 'Please choose the time first'}</p>
-          {paydata.total && (
+          <p>{paydata ? `$${paydata?.total || '0.00'}` : 'Please choose the time first.'}</p>
+          {paydata?.total && (
             <span className='step3-charge-tip'>
               If you use corporate payment, you only have to pay $6.
             </span>
@@ -164,41 +200,14 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
         <div className='step3-decribe'>Payment Method</div>
 
         <div className='step-content'>
-          {/* old */}
-          {/* <Space direction='vertical'>
-            <Radio.Group onChange={onChangePayment} value={payment}>
-              <Space direction='vertical'>
-                <Radio value={paymentEmnu['paypal']}>
-                  <img src={Paypal} alt='' />
-                </Radio>
-                <Radio value={paymentEmnu['corporate']}>
-                  <img src={CorporatePayment} alt='' />
-                </Radio>
-              </Space>
-            </Radio.Group>
-
-            {payment === 2 && (
-              <div className='payment-code'>
-                <div>Corporate Payment Code:</div>
-
-                <Input
-                  className='code'
-                  onChange={(e) => {
-                    setCode(e.target.value)
-                  }}
-                />
-              </div>
-            )}
-          </Space> */}
-
-          {/* new */}
-          <Form layout='vertical'>
+          <Form layout='vertical' form={form} onValuesChange={onValuesChange} onFinish={onFinish}>
             <div className='step3-card-visa'>
               <div className='step3-card-visa-left'>
                 <Space>
                   <Form.Item
                     label='First Name'
                     name='firstName'
+                    messageVariables={{ another: 'good' }}
                     rules={[
                       {
                         required: true,
@@ -223,8 +232,17 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
                   </Form.Item>
                 </Space>
 
-                <Form.Item label='Phone (home)' name='phoneHome'>
-                  <Input placeholder='' />
+                <Form.Item
+                  label='Phone (home)'
+                  name='phoneHome'
+                  rules={[
+                    {
+                      required: phoneHomeRequired,
+                      message: 'Please Enter.',
+                    },
+                  ]}
+                >
+                  <Input />
                 </Form.Item>
               </div>
 
@@ -245,9 +263,10 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
                 <Form.Item
                   label='Phone (mobile)'
                   name='phoneMobile'
-                  rules={[{ required: true, message: phoneDom }]}
+                  extra={phoneDom}
+                  rules={[{ required: phoneMobileRequired, message: 'Please Enter.' }]}
                 >
-                  <Input placeholder='' />
+                  <Input />
                 </Form.Item>
               </div>
             </div>
@@ -292,13 +311,49 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
                         />
                       </Form.Item>
 
-                      <Space>
-                        <Form.Item label='Expiry date(MM/YY)' name='Expiry'>
-                          <Input />
+                      <div className='card-visa'>
+                        <Form.Item
+                          label='Expiry date(MM/YY)'
+                          name='Expiry'
+                          rules={[
+                            { required: true, message: 'Please enter.' },
+                            ({ getFieldValue }) => ({
+                              validator: (_, value) => {
+                                const [M, Y] = value.split('/')
+                                const nowY = dayjs().format('YY')
+                                if (!value || (M.match(/^0?[0-9]$|^1[0-2]$/) && Y >= nowY)) {
+                                  return Promise.resolve()
+                                }
+                                return Promise.reject(
+                                  <span>
+                                    Enter a valid card expiry <br /> date.
+                                  </span>,
+                                )
+                              },
+                            }),
+                          ]}
+                        >
+                          <Input placeholder='MM/YY' maxLength={5} />
                         </Form.Item>
 
-                        <Form.Item label='CVV' name='CVV'>
+                        <Form.Item
+                          label='CVV'
+                          name='CVV'
+                          rules={[
+                            {
+                              required: true,
+                              pattern: new RegExp(/^\d+$/),
+                              message: (
+                                <span>
+                                  Enter the CVV or security
+                                  <br /> code on your card.
+                                </span>
+                              ),
+                            },
+                          ]}
+                        >
                           <Input
+                            maxLength={3}
                             suffix={
                               <Tooltip
                                 placement='right'
@@ -315,17 +370,21 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
                             }
                           />
                         </Form.Item>
-                      </Space>
+                      </div>
                     </div>
                   )}
                 </Radio>
 
                 <Radio value={paymentEmnu['corporate']}>
-                  <span>Corporate paymen</span>
+                  <span>Corporate payment</span>
 
                   {payment === paymentEmnu['corporate'] && (
                     <div className='step3-corporate-form'>
-                      <Form.Item label='Corporate Payment Code' name='corporateCode'>
+                      <Form.Item
+                        label='Corporate Payment Code'
+                        name='corporateCode'
+                        rules={[{ required: true, message: 'Please Enter.' }]}
+                      >
                         <Input />
                       </Form.Item>
                     </div>
@@ -356,33 +415,43 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
                 </Radio>
               </Space>
             </Radio.Group>
+
+            <Form.Item
+              className='step-agree'
+              style={{ paddingTop: payment === 2 ? 55 : 180 }}
+              name='agree'
+              valuePropName='checked'
+              rules={[{ required: true, message: 'Please agree contract terms' }]}
+            >
+              <Checkbox /* onChange={onChangeAgree} */>
+                <span className='agree'>I agree</span>
+                <Link to='/contract' className='contract'>
+                  XXXX contract terms
+                </Link>
+              </Checkbox>
+            </Form.Item>
+
+            <div className='button-group'>
+              <Button
+                type='primary'
+                className='button-back'
+                onClick={() => {
+                  setStep(2)
+                }}
+              >
+                Back
+              </Button>
+
+              <Button
+                type='primary'
+                className='button-pay'
+                htmlType='submit' /* onClick={payNow} */
+              >
+                Pay Now
+              </Button>
+            </div>
           </Form>
         </div>
-      </div>
-
-      <div className='step-agree' style={{ paddingTop: payment === 2 ? 55 : 180 }}>
-        <Checkbox onChange={onChangeAgree}>
-          <span className='agree'>I agree</span>
-          <Link to='/contract' className='contract'>
-            XXXX contract terms
-          </Link>
-        </Checkbox>
-      </div>
-
-      <div className='button-group'>
-        <Button
-          type='primary'
-          className='button-back'
-          onClick={() => {
-            setStep(2)
-          }}
-        >
-          Back
-        </Button>
-
-        <Button type='primary' className='button-pay' onClick={payNow}>
-          Pay Now
-        </Button>
       </div>
 
       <Modal visible={PaypalModal} centered closable={false} footer={null}>
@@ -418,3 +487,8 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
 }
 
 export default FileStep3
+
+function valitorDate(value) {
+  debugger
+  return false
+}

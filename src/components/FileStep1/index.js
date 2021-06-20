@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Input, Button, Select, message } from 'antd'
+import { Form, Input, Button, Select } from 'antd'
 import userBook from '../../asset/userbook.png'
 import AddFromAddressBook from '../AddFromAddressBook'
 import { getCookie } from '@/helper/env'
@@ -18,6 +18,7 @@ function FileStep1(props) {
 
   useEffect(() => {
     sessionToObtainSender()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const sessionToObtainSender = () => {

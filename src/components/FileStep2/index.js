@@ -18,6 +18,7 @@ function FileStep2({ cityArray, setStep, history }) {
 
   useEffect(() => {
     sessionToObtainRecipient()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const sessionToObtainRecipient = () => {

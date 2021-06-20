@@ -107,9 +107,22 @@
     }
 
     .step3-visa-form {
-      width: 80%;
+      width: 420px;
       box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
       padding: 15px 30px;
+    }
+
+    .card-visa {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+
+      & > div {
+        flex: auto;
+        &:nth-of-type(1) {
+          margin-right: 10px;
+        }
+      }
     }
 
     .step3-corporate-form {
@@ -261,6 +274,15 @@
     border-color: $themeColor;
     border-radius: 50px;
     font-size: 25px;
+  }
+}
+
+.phone-tip {
+  display: flex;
+  align-items: center;
+
+  span {
+    color: #0113b3;
   }
 }
 

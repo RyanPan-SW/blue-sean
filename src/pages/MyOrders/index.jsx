@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { orderDetailEnums } from '@/helper/env'
 import CustomizeModal from '@/components/CustomizeModal'
-import { getOrdersListApi, searchOrderApi } from '@/api/orders'
-import { Input, Tabs, Breadcrumb, Popover, Pagination, message } from 'antd'
+import { getOrdersListApi } from '@/api/orders'
+import { Input, Tabs, Breadcrumb, Popover, Pagination } from 'antd'
 import './index.scss'
 
 const { TabPane } = Tabs

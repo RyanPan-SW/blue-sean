@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import triangle from '@/asset/triangle.png'
-import { Form, Input, Button, Modal, message } from 'antd'
+import { Form, Input, Button, Modal } from 'antd'
 import './index.scss'
 import { getAsk } from '@/api/home'
 

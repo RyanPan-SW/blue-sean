@@ -12,7 +12,6 @@ import home from '../../asset/home.svg'
 import logout from '../../asset/x.svg'
 import { getCookie } from '@/helper/env'
 import './selfHeader.scss'
-import { message } from 'antd'
 
 const servicesMenus = [
   {

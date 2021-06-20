@@ -2,7 +2,6 @@ import axios from 'axios'
 import { API_HOST } from '@/config'
 import { clearAllCookie, getCookie } from '@/helper/env'
 import { message } from 'antd'
-import { router } from 'react-router-dom'
 
 // const codeWhiteList = [2001, 2003, 3001, 4011, 4007, 5004, 4012, 4013, 4014, 4015, 4016, 4017, 4003] // 不需要弹窗的code错误码白名单
 // 创建axios实例
