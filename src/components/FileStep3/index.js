@@ -26,7 +26,6 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
   const [activeDay, setActiveDay] = useState(0)
   const [activeTime, setActiveTime] = useState(0)
   const [paydata, setPaydata] = useState(null)
-  const [checkedAgree, setCheckedAgree] = useState(false)
   const [PaypalModal, setPaypalModal] = useState(false)
   const [code, setCode] = useState(null)
   const [phoneHomeRequired, setPhoneHomeRequired] = useState(true)
@@ -56,10 +55,6 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
     setPayment(e.target.value)
   }
 
-  const onChangeAgree = (e) => {
-    setCheckedAgree(e.target.checked)
-  }
-
   const selectTime = (data, index) => {
     const { time } = data
     setActiveTime(index)
@@ -70,31 +65,6 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
         setPaydata(data)
       }
     })
-  }
-
-  const payNow = () => {
-    form
-      .validateFields()
-      .then((values) => {})
-      .catch((error) => {})
-    // if (!checkedAgree) {
-    //   message.warn('Please check I agree XXXX contract terms.')
-    //   return
-    // } else if (payment === paymentEmnu['visa']) {
-    //   setPaypalModal(true)
-    //   return
-    // } else if (payment === paymentEmnu['corporate'] && !code) {
-    //   message.warn('Please input Corporate Payment Code.')
-    //   return
-    // } else if (payment === paymentEmnu['bpay']) {
-    //   message.info('这里带确定')
-    //   return
-    // } else {
-    //   const params = { payType: `0${payment}`, paymentCode: code }
-    //   methodOfPayment(params).then((res) => {
-    //     getPayOrder(res)
-    //   })
-    // }
   }
 
   const phoneDom = (
@@ -125,11 +95,10 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
   }
 
   const onFinish = (values) => {
-    debugger
-      const params = { payType: `0${payment}`, paymentCode: code }
-      methodOfPayment(params).then((res) => {
-        getPayOrder(res)
-      })
+    const params = { payType: `0${payment}`, paymentCode: code }
+    methodOfPayment(params).then((res) => {
+      getPayOrder(res)
+    })
   }
 
   return (
@@ -423,7 +392,7 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
               valuePropName='checked'
               rules={[{ required: true, message: 'Please agree contract terms' }]}
             >
-              <Checkbox /* onChange={onChangeAgree} */>
+              <Checkbox>
                 <span className='agree'>I agree</span>
                 <Link to='/contract' className='contract'>
                   XXXX contract terms
@@ -487,8 +456,3 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
 }
 
 export default FileStep3
-
-function valitorDate(value) {
-  debugger
-  return false
-}

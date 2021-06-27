@@ -4,10 +4,10 @@ import { Provider } from 'react-redux'
 import reportWebVitals from './reportWebVitals'
 import configStore from './store'
 import App from './App'
-// import { createHashHistory } from 'history'
 import 'antd/dist/antd.min.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.scss'
+// import { createHashHistory } from 'history'
 // const history = createHashHistory()
 
 const store = configStore()

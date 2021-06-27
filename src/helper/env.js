@@ -1,4 +1,3 @@
-// import { TOKEN_KEY } from '@/config'
 import Cookies from 'js-cookie'
 
 export function isOpenPages(pathname) {
