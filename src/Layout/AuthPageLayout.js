@@ -59,7 +59,7 @@ function BaseLayout(props) {
           <Route path='/login' component={Login} />
           <Route path='/signup' component={SignUp} />
           <Route path='/home' component={Home} />
-          <Route path='/services' component={Services} />
+          <Route path='/services/:id' component={Services} />
           <Route path='/become' component={Become} />
           <Route path='/business' component={BusinessCooperation} />
           <Route path='/cooperate' component={Cooperate} />
@@ -80,8 +80,8 @@ function BaseLayout(props) {
           <Route path='/website' component={WebsiteTerms} />
           <Route path='/contract' component={ContractTerms} />
 
-          <Route path='/404' component={Page404} />
-          <Redirect to='/home' />
+          <Route path='/notFound' component={Page404} />
+          {/* <Redirect to='/home' /> */}
         </Switch>
       </Layout.Content>
 

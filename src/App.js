@@ -1,6 +1,6 @@
 import React from 'react'
-import { BrowserRouter as Router, Redirect, Switch } from 'react-router-dom'
-import { PrivateRoute, RouteWithSubRoutes } from './router/renderRoutes'
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
+// import { PrivateRoute, RouteWithSubRoutes } from './router/renderRoutes'
 import { routesConfig } from './router'
 import Page404 from './pages/404/404'
 import { createBrowserHistory } from 'history'
@@ -11,16 +11,15 @@ const App = () => {
     <Router history={createBrowserHistory()}>
       <Switch>
         {routesConfig.map((route, i) => {
-          const { auth, path, component: Component } = route
-          if (auth) {
-            return (
-              <PrivateRoute key={i} path={path}>
-                <Component />
-              </PrivateRoute>
-            )
-          }
+          const { path, component: Component, exact, routes } = route
 
-          return <RouteWithSubRoutes key={i} {...route} />
+          return (
+            <Route
+              exact={exact}
+              path={path}
+              render={(props) => <Component {...props} routes={routes} />}
+            />
+          )
         })}
         <Redirect exact to='/notFound' component={Page404} />
       </Switch>

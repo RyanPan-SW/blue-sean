@@ -16,17 +16,20 @@ import './selfHeader.scss'
 const servicesMenus = [
   {
     name: 'housingProperty',
-    to: '/services?type=housingProperty',
+    to: '/services',
+    id: 'housingProperty',
     title: 'Property Settlement & Lodgment Services',
   },
   {
     name: 'legalInvestigation',
-    to: '/services?type=legalInvestigation',
+    to: '/services',
+    id: 'legalInvestigation',
     title: 'Property & Body Corporate Searches & Report',
   },
   {
     name: 'documentBusiness',
-    to: '/services?type=documentBusiness',
+    to: '/services',
+    id: 'documentBusiness',
     title: 'Legal Documents Deliveries & Service of Court Documents',
   },
   { name: 'filestep', to: '/filestep', title: 'Schedule a New Pickup' },
@@ -151,12 +154,12 @@ const Header = (props) => {
                 <img src={down} alt='' />
                 {showSubtitle && (
                   <div className='header-menu-sub-list'>
-                    {servicesMenus.map(({ name, to, title }, index) => {
+                    {servicesMenus.map(({ name, to, id, title }, index) => {
                       return (
                         <Link
                           key={index}
                           // className={search === `?type=${url}` ? 'currentPage' : ''}
-                          to={to}
+                          to={`${to}/${id}`}
                         >
                           <div
                             style={{ color: search === `?type=${name}` ? '$themeColor' : '' }}
@@ -192,21 +195,6 @@ const Header = (props) => {
               </li>
             </ul>
           </div>
-
-          {/* 
-            <NavDropdown title='Services' id='basic-nav-dropdown'>
-              <NavDropdown.Item href='/services?type=1'>
-                Property Settlement & Lodgment Services
-              </NavDropdown.Item>
-              <NavDropdown.Item href='/services?type=2'>
-                Property & Body Corporate Searches & Report
-              </NavDropdown.Item>
-              <NavDropdown.Item href='/services?type=3'>
-                Legal Documents Deliveries & Service of Court Documents
-              </NavDropdown.Item>
-              <NavDropdown.Item href='/services?type=3'>Schedule a New Pickup</NavDropdown.Item>
-            </NavDropdown>
-            */}
         </div>
       </div>
     </>

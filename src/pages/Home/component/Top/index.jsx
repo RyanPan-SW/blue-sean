@@ -4,11 +4,20 @@ import triangle from '../../../../asset/triangle.png'
 import './index.scss'
 
 const list = [
-  { title: 'Property Settlement & Lodgment Services', to: '/services?type=1' },
-  { title: 'Property & Body Corporate Searches & Report', to: '/services?type=2' },
+  {
+    title: 'Property Settlement & Lodgment Services',
+    to: '/services',
+    id: 'housingProperty',
+  },
+  {
+    title: 'Property & Body Corporate Searches & Report',
+    to: '/services',
+    id: 'legalInvestigation',
+  },
   {
     title: 'Legal Documents Deliveries & Service of Court Documents',
-    to: '/services?type=3',
+    to: '/services',
+    id: 'documentBusiness',
   },
 ]
 
@@ -29,7 +38,7 @@ function TopContent() {
             <div className='topContent-list'>
               {list.map((item, index) => {
                 return (
-                  <Link to={item.to} className='topContent-item' key={index}>
+                  <Link to={`${item.to}/${item.id}`} className='topContent-item' key={index}>
                     {item.title}
                   </Link>
                 )

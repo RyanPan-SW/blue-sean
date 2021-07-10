@@ -1,18 +1,15 @@
 import React from 'react'
-import { Redirect, useLocation } from 'react-router-dom'
+import { /* Redirect, */ useLocation } from 'react-router-dom'
 import OpenPageLayout from './OpenPageLayout'
 import AuthPageLayout from './AuthPageLayout'
 import { isOpenPages } from '@/helper/env'
 
-console.log(process.env.REACT_APP_BASEURL)
-
 function BaseLayout(props) {
   const { children } = props
   const { pathname } = useLocation()
-
-  if (pathname === '/') {
-    return <Redirect to='/home' />
-  }
+  // if (pathname === '/') {
+  //   return <Redirect to='/home' />
+  // }
 
   if (isOpenPages(pathname)) {
     return <OpenPageLayout>{children}</OpenPageLayout>

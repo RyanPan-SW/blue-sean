@@ -1,7 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import * as CounterActionCreator from '@/store/actions/counter'
-// import Services from '@/components/PageContent/Services'
 import housingProperty from '../../asset/services-page.png'
 import LegalInvestigation from '../../asset/services-body.png'
 import DocumentBusiness from '../../asset/services-legal.png'
@@ -54,28 +51,27 @@ const serverPageContent = {
   },
 }
 
-const Services = ({ num, add, minus }) => {
-  const type = getQueryVariable('type') || 'housingProperty'
+const Services = (props) => {
+  const { id = 'housingProperty' } = props.match.params
 
   return (
     <div className='services-pages'>
-      {/* <Services type={type} /> */}
       <div className='container'>
-        <h3>{serverPageContent[type]?.title || ''}</h3>
+        <h3>{serverPageContent[id]?.title || ''}</h3>
 
-        <div className="services-content">
+        <div className={id === 'legalInvestigation' ? 'legalInvestigation-content' : 'services-content'}>
           <div className='services-img'>
-            <img src={serverPageContent[type]?.image || ''} alt='' />
+            <img src={serverPageContent[id]?.image || ''} alt='' />
           </div>
 
-          <ul className='services-list '>
-            {serverPageContent[type]?.describe.map((item, index) => {
+          <ul className='services-list'>
+            {serverPageContent[id]?.describe.map((item, index) => {
               return <li key={index}>{item}</li>
             })}
           </ul>
         </div>
 
-        {type === 'documentBusiness' && (
+        {id === 'documentBusiness' && (
           <>
             <div className='services-or'>or</div>
             {/* TODO: 1、固定展示在下方 2、点击按钮当前页跳转到【文件下单Step1】页*/}
@@ -87,11 +83,7 @@ const Services = ({ num, add, minus }) => {
   )
 }
 
-const mapStateToProps = ({ counter }) => ({
-  num: counter.num,
-})
-
-export default connect(mapStateToProps, CounterActionCreator)(Services)
+export default Services
 
 function getQueryVariable(variable) {
   var query = window.location.search.substring(1)
