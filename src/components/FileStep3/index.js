@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Radio, Space, Checkbox, Button, Input, Form, Modal, Tooltip } from 'antd'
+import { Radio, Space, Checkbox, Button, Input, Form, Modal, Tooltip, Row, Col } from 'antd'
 import { ExclamationCircleFilled } from '@ant-design/icons'
 import { getDayOrTime, getOptionalTime, methodOfPayment } from '@/api/fileStep'
 import dayjs from 'dayjs'
@@ -13,9 +13,9 @@ import Tanhao from '../../asset/tanhao.png'
 import './index.scss'
 
 const paymentEmnu = {
-  visa: 1,
-  corporate: 2,
-  bpay: 3,
+  visa: '01',
+  corporate: '02',
+  bpay: '03',
 }
 
 function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
@@ -95,7 +95,13 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
   }
 
   const onFinish = (values) => {
-    const params = { payType: `0${payment}`, paymentCode: code }
+    let params = {}
+    if (payment === paymentEmnu['visa']) {
+      params = { payType: payment, ...values /* paymentCode: code */ }
+    } else {
+      params = { payType: payment, /* ...values */ paymentCode: code }
+    }
+    debugger
     methodOfPayment(params).then((res) => {
       getPayOrder(res)
     })
@@ -283,7 +289,7 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
                       <div className='card-visa'>
                         <Form.Item
                           label='Expiry date(MM/YY)'
-                          name='Expiry'
+                          name='expiryDate'
                           rules={[
                             { required: true, message: 'Please enter.' },
                             ({ getFieldValue }) => ({
@@ -307,7 +313,7 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
 
                         <Form.Item
                           label='CVV'
-                          name='CVV'
+                          name='cvv'
                           rules={[
                             {
                               required: true,
