@@ -98,8 +98,8 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
     let params = {}
     if (payment === paymentEmnu['visa']) {
       params = { payType: payment, ...values /* paymentCode: code */ }
-    } else {
-      params = { payType: payment, /* ...values */ paymentCode: code }
+    } else if (payment === paymentEmnu['corporate']) {
+      params = { payType: payment, /* ...values */ paymentCode: values.corporateCode }
     }
     debugger
     methodOfPayment(params).then((res) => {

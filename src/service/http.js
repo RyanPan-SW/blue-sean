@@ -10,7 +10,6 @@ axios.defaults.baseURL = 'http://localhost:8081'
 // })
 
 axios.interceptors.response.use((config) => {
-  console.log('config22', config)
   config.headers.Authorization = getCookie()
   return config
 })

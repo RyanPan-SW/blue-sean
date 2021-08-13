@@ -26,13 +26,8 @@ const Login = ({ login, setLoginUser, history }) => {
   const onFinishPersonal = (values) => {
     loginApi({ ...values, loginType: loginType['personal'] }).then((res) => {
       const { code, data, errmsg } = res
-      if (code === '200') {
-        if (values.remember) {
-          setCookie('token', data.token, 30)
-        } else {
-          setCookie('token', data.token, 7)
-        }
-
+      if (code === '200' && data) {
+        setCookie('token', data.token, values.remember ? 30 : 7)
         const loginUser = JSON.stringify(data.loginUser)
         localStorage.setItem('user', loginUser)
         history.push('/account')

@@ -7,6 +7,7 @@ import './index.scss'
 function Forget(props) {
   const [type, setType] = useState('email')
   const [msg, setMsg] = useState(null)
+  const [Email, setEmail] = useState('')
 
   return (
     <div className='forgrt'>
@@ -19,13 +20,13 @@ function Forget(props) {
         {(() => {
           switch (type) {
             case 'email':
-              return <SendEmailGetCodeDom setMsg={setMsg} setType={setType} />
+              return <SendEmailGetCodeDom setMsg={setMsg} setType={setType}  setEmail={setEmail} />
 
             case 'code':
-              return <VerificationCodeDom setType={setType} />
+              return <VerificationCodeDom setType={setType} Email={Email} />
 
             case 'password':
-              return <SetNewPasswordDom setType={setType} />
+              return <SetNewPasswordDom setType={setType} Email={Email} />
 
             case 'success':
               return (

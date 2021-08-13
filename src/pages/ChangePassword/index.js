@@ -1,24 +1,45 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { updatePwd } from '@/api/changePassword'
-import { Breadcrumb, Form, Input, Button, message } from 'antd'
+import { Breadcrumb, Form, Input, Button, Modal, message } from 'antd'
 import { Link } from 'react-router-dom'
 import FieldDom from '@/components/Field'
 import './index.scss'
+import { clearAllCookie, passwordMsg } from '@/helper/env'
 
 function ChangePassword(props) {
-  const [errorMsg, setErrorMsg] = useState(null)
+  const formRef = useRef()
 
-  const updatePassword = (values) => {
+  const [visible, setVisible] = useState(false)
+
+  const onFinish = (values) => {
     updatePwd(values).then((res) => {
       const { code, data, errmsg } = res
-      if (code !== '200') {
-        setErrorMsg(errmsg)
+
+      if (code === '200' && data) {
+        setVisible(true)
+        clearAllCookie()
+        localStorage.clear()
+        props.history.push('/login')
         return
       }
-      message.success(data.msg)
-      props.history.push('/account')
+
+      if (code === 'LO007' && errmsg) {
+        formRef.current.setFields([
+          { name: 'password', value: values.password, errors: [errmsg] }
+        ])
+        return
+      }
+      if (code === 'LO006' && errmsg) {
+        formRef.current.setFields([
+          { name: 'newpassword', value: values.password, errors: [errmsg] }
+        ])
+        return
+      }
+      // props.history.push('/account')
     })
   }
+
+
 
   return (
     <div className='container'>
@@ -33,14 +54,17 @@ function ChangePassword(props) {
 
         <p className='change-title'>Update Your Password</p>
 
-        <Form layout='vertical' className='change-form' onFinish={updatePassword}>
-          {errorMsg && <FieldDom border message={errorMsg} />}
+        <Form layout='vertical' className='change-form' onFinish={onFinish} ref={formRef} >
+          {/* {errorMsg && <FieldDom border message={errorMsg} />} */}
 
-          <Form.Item label='CURRENT PASSWORD' name='password'>
+          <Form.Item label='CURRENT PASSWORD' name='password' rules={[{ required: true, message: <FieldDom message={'This field is required.'} /> }]}>
             <Input.Password placeholder='Current  Password' />
           </Form.Item>
 
-          <Form.Item label='NEW PASSWORD' name='newpassword'>
+          <Form.Item label='NEW PASSWORD' name='newpassword' rules={[
+            { required: true, message: <FieldDom message={'This field is required.'} /> },
+            { min: 6, max: 20, message: passwordMsg.pattern }
+          ]}>
             <Input.Password placeholder='Password' />
           </Form.Item>
 
@@ -55,6 +79,19 @@ function ChangePassword(props) {
           </Form.Item>
         </Form>
       </div>
+
+      <Modal
+        visible={visible}
+        footer={null}
+        width={600}
+        closable={false}
+        centered
+      >
+        <span className="password-update">Password  has  been updated.</span>
+        <div className="password-bottom">
+          <span onClick={() => setVisible(false)}>OK</span>
+        </div>
+      </Modal>
     </div>
   )
 }

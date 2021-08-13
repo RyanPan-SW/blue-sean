@@ -3,13 +3,15 @@ import { Form, Input, message, Modal, Button } from 'antd'
 import { getCode, updatePwdByCode, verificationCode } from '@/api/forget'
 import { errorCodeMessage } from '@/helper/error'
 import FieldDom from '@/components/Field'
+import { setCookie } from '@/helper/env'
 
 let userEmail = null
 let userCode = null
 
 export const SendEmailGetCodeDom = ({ setMsg, setEmail, setType }) => {
   const sendEmail = (values) => {
-    userEmail = values.email
+    userEmail = values.userName
+    setEmail && setEmail(values.userName)
     getCode(values).then((res) => {
       const { code, /* data, */ errmsg } = res
       if (code !== '200') {
@@ -50,13 +52,13 @@ export const SendEmailGetCodeDom = ({ setMsg, setEmail, setType }) => {
   )
 }
 
-export const VerificationCodeDom = ({ userName, setType }) => {
+export const VerificationCodeDom = ({ Email, setType }) => {
   const [form] = Form.useForm()
   const [visibleCode, setVisibleCode] = useState(false)
   const [visibleSendCode, setVisibleSendCode] = useState(false)
 
   const sendEmailAgain = () => {
-    getCode({ userName: userName }).then((res) => {
+    getCode({ userName: Email }).then((res) => {
       const { code /* data, errmsg */ } = res
       if (code !== '200') {
         console.log(errorCodeMessage[code])
@@ -69,7 +71,7 @@ export const VerificationCodeDom = ({ userName, setType }) => {
 
   const sendCode = (values) => {
     userCode = values.code
-    verificationCode({ userName, ...values }).then((res) => {
+    verificationCode({ userName: Email, ...values }).then((res) => {
       if (res.code === '200') {
         setType('password')
         setVisibleCode(false)
@@ -163,14 +165,16 @@ export const VerificationCodeDom = ({ userName, setType }) => {
   )
 }
 
-export const SetNewPasswordDom = ({ userName, setType }) => {
+export const SetNewPasswordDom = ({ Email, setType }) => {
   const setNewPassword = (values) => {
-    let params = { userName: userEmail, code: userCode, newpassword: values.newpassword }
+    let params = { userName: Email, code: userCode, newpassword: values.newpassword }
     updatePwdByCode(params).then((res) => {
-      const { code, /* data */ } = res
-      if (code !== '200') {
-        
+      const { code, errmsg, data } = res
+      if (code !== '200' && !data) {
+        message.error(errmsg)
+        return
       }
+      setCookie('token', data.token, 30)
     })
     setType('success')
   }

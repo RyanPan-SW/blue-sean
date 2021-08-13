@@ -34,13 +34,19 @@ API.interceptors.response.use(
 API.interceptors.response.use((response) => {
   const { code, errmsg, data } = response
   if (code === '200') {
+    if (window.location.pathname === '/changepassword') {
+      return response
+    }
     if (data.msg) {
       message.success(data.msg)
     }
     return response
   }
   if (code !== 200) {
-    if (code === 'LO007' || code === 'LO008') {
+    if (window.location.pathname === '/changepassword') {
+      return response
+    }
+    if (code === 'LO008') { // 只有LO008才需要退出
       clearAllCookie()
       localStorage.clear()
       window.location.href = '/login'

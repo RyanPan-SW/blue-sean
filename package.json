@@ -210,5 +210,6 @@
       "node_modules/.bin/prettier --write",
       "git add"
     ]
-  }
+  },
+  "proxy": "http://175.27.210.239:8080/dcexpress"
 }

@@ -37,6 +37,16 @@
   }
 }
 
+a:hover {
+  color: #b38948 !important;
+}
+
+/* message 提示  */
+.ant-message-custom-content {
+  display: flex;
+  align-items: center;
+}
+
 @media only screen and (max-width: 1400px) {
 }
 @media only screen and (max-width: 1200px) {
