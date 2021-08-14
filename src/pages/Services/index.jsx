@@ -4,6 +4,7 @@ import LegalInvestigation from '../../asset/services-body.png'
 import DocumentBusiness from '../../asset/services-legal.png'
 
 import './index.scss'
+import { Link } from 'react-router-dom'
 
 const serverPageContent = {
   housingProperty: {
@@ -75,7 +76,7 @@ const Services = (props) => {
           <>
             <div className='services-or'>or</div>
             {/* TODO: 1、固定展示在下方 2、点击按钮当前页跳转到【文件下单Step1】页*/}
-            <div className='services-pickup'>Schedule a New Pickup</div>
+            <Link to="filestep/add" className='services-pickup' >Schedule a New Pickup</Link>
           </>
         )}
       </div>

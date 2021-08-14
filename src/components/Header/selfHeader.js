@@ -32,7 +32,7 @@ const servicesMenus = [
     id: 'documentBusiness',
     title: 'Legal Documents Deliveries & Service of Court Documents',
   },
-  { name: 'filestep', to: '/filestep', title: 'Schedule a New Pickup' },
+  { name: 'filestep', id: 'add', to: '/filestep', title: 'Schedule a New Pickup' },
 ]
 
 const Header = (props) => {

@@ -101,6 +101,7 @@
   }
 
   .services-pickup {
+    display: block;
     width: 584px;
     height: 56px;
     line-height: 56px;
@@ -111,6 +112,11 @@
     text-align: center;
     margin: auto;
     margin-bottom: 30px;
+    cursor: pointer;
+
+    &:hover {
+      color: #ffffff !important;
+    }
   }
 }
 

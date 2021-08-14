@@ -33,14 +33,14 @@ function Cooperate(props) {
         <div className='container'>
           <div className='cooperate-content'>
             <div className='cooperate-form'>
-              <h4>Creat An ACCOUNT FOR CORPORATE</h4>
+              <h4>CREATE AN ACCOUNT FOR CORPORATE</h4>
               <p className='cooperate-describe'>
                 Please fill in the following information, and our customer service representatives
                 will contact you to assist you with opening an account.
               </p>
 
               <Form layout='vertical' onFinish={onFinish}>
-                <Form.Item label='CONTACTS' required>
+                <Form.Item label={<span>CONTACTS</span>} required>
                   <Form.Item
                     name='firstName'
                     normalize={normFile}
@@ -61,7 +61,7 @@ function Cooperate(props) {
                 </Form.Item>
 
                 <Form.Item
-                  label='PHONE'
+                  label={<span>PHONE</span>}
                   name='phone'
                   rules={[
                     { required: true, message: <FieldDom />, whitespace: true },
@@ -72,7 +72,7 @@ function Cooperate(props) {
                   <Input placeholder='Phone' />
                 </Form.Item>
                 <Form.Item
-                  label='EMAIL'
+                  label={<span>EMAIL</span>}
                   name='email'
                   normalize={normFile}
                   rules={[
@@ -83,7 +83,7 @@ function Cooperate(props) {
                   <Input placeholder='company@email.com' />
                 </Form.Item>
                 <Form.Item
-                  label='COMPANY NAME'
+                  label={<span>COMPANY NAME</span>}
                   name='companyName'
                   normalize={normFile}
                   rules={[{ required: true, message: <FieldDom />, whitespace: true }]}
@@ -91,18 +91,18 @@ function Cooperate(props) {
                   <Input placeholder='Company Name' />
                 </Form.Item>
                 <Form.Item
-                  label='CAN THE BUSINESS LICENSE BE PROVIDED?'
+                  label={<span>CAN THE BUSINESS LICENSE BE PROVIDED?</span>}
                   name='provided'
                   normalize={normFile}
                   rules={[{ required: true, message: <FieldDom />, whitespace: true }]}
                 >
                   <Radio.Group>
-                    <Radio value='1'>Yes</Radio>
-                    <Radio value='0'>No</Radio>
+                    <Radio value='1'>YES</Radio>
+                    <Radio value='0'>NO</Radio>
                   </Radio.Group>
                 </Form.Item>
                 <Form.Item
-                  label='COMPANY ADDRESS'
+                  label={<span>COMPANY ADDRESS</span>}
                   name='companyAddress'
                   normalize={normFile}
                   rules={[{ required: true, message: <FieldDom />, whitespace: true }]}
@@ -110,7 +110,7 @@ function Cooperate(props) {
                   <Input placeholder='Company Address' />
                 </Form.Item>
                 <Form.Item
-                  label='CITY'
+                  label={<span>CITY</span>}
                   name='city'
                   rules={[{ required: true, message: <FieldDom />, whitespace: true }]}
                 >
@@ -118,7 +118,7 @@ function Cooperate(props) {
                 </Form.Item>
 
                 <Form.Item
-                  label='STATE/PROVINCE/REGION'
+                  label={<span>STATE/PROVINCE/REGION</span>}
                   name='state'
                   normalize={normFile}
                   rules={[{ required: true, message: <FieldDom />, whitespace: true }]}
@@ -126,7 +126,7 @@ function Cooperate(props) {
                   <Input placeholder='State/Province/Region' />
                 </Form.Item>
                 <Form.Item
-                  label='ZIP CODE'
+                  label={<span>ZIP CODE</span>}
                   name='zipcode'
                   normalize={normFile}
                   rules={[

@@ -2,6 +2,7 @@
   width: 100%;
   // height: 1060px;
   height: 100vh;
+  min-height: 900px;
   background: url('../../../../asset/write@2x.jpg') no-repeat;
   background-size: cover;
   display: flex;
@@ -18,8 +19,10 @@
     color: #ffffff;
 
     .topContent-here {
-      width: 40%;
+      // width: 40%;
+      width: 450px;
       h2 {
+        min-width: 400px;
         width: 90%;
         font-size: 50px;
         color: #ffffff;
@@ -35,6 +38,7 @@
 
       .topContent-item {
         width: 100%;
+        min-width: 500px;
         height: 105px;
         display: flex;
         align-items: center;
@@ -62,8 +66,8 @@
         }
 
         &:hover {
-          color: $themeColor;
-          // background: $themeColor;
+          color: #fff !important;
+          background: $themeColor;
         }
       }
     }

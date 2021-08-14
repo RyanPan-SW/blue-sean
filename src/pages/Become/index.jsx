@@ -19,12 +19,12 @@ const becomeList = [
   },
   {
     image: becomeJob,
-    title: 'Be Your Own Boss',
+    title: 'A Friendly Job',
     dircetion: 'Drive around town and deliver //documents to happy & //excited customers.',
   },
   {
     image: becomeWork,
-    title: 'Be Your Own Boss',
+    title: 'Easy Work',
     dircetion: 'All you have to do is follow the route //and use your common sense.',
   },
 ]
@@ -57,11 +57,11 @@ function Become() {
     let offsetTop2 = refRegisterNow && refRegisterNow.current.offsetTop
     if (i === 1) {
       window.scrollTo({
-        top: offsetTop1-130,
+        top: offsetTop1 - 130,
       })
     } else if (i === 2) {
       window.scrollTo({
-        top: offsetTop2-130,
+        top: offsetTop2 - 130,
       })
     }
   }

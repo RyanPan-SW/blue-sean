@@ -96,4 +96,16 @@
       }
     }
   }
+
+  .ant-form-item-required {
+    font-weight: bold;
+  }
+
+  .ant-col-24.ant-form-item-label>label, .ant-col-xl-24.ant-form-item-label>label, .ant-form-vertical .ant-form-item-label>label {
+    display: inline-flex;
+    flex-direction: row-reverse;
+  }
+  .ant-form-item-label>label.ant-form-item-required:not(.ant-form-item-required-mark-optional):before {
+    margin-left: 4px;
+  }
 }

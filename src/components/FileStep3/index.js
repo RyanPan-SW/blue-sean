@@ -20,14 +20,12 @@ const paymentEmnu = {
 
 function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
   const [form] = Form.useForm()
-
   const [payment, setPayment] = useState(null)
   const [datelist, setDatelist] = useState([])
   const [activeDay, setActiveDay] = useState(0)
   const [activeTime, setActiveTime] = useState(0)
   const [paydata, setPaydata] = useState(null)
   const [PaypalModal, setPaypalModal] = useState(false)
-  const [code, setCode] = useState(null)
   const [phoneHomeRequired, setPhoneHomeRequired] = useState(true)
   const [phoneMobileRequired, setPhoneMobileRequired] = useState(true)
 
@@ -101,7 +99,6 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
     } else if (payment === paymentEmnu['corporate']) {
       params = { payType: payment, /* ...values */ paymentCode: values.corporateCode }
     }
-    debugger
     methodOfPayment(params).then((res) => {
       getPayOrder(res)
     })
