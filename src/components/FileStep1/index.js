@@ -4,9 +4,9 @@ import userBook from '../../asset/userbook.png'
 import AddFromAddressBook from '../AddFromAddressBook'
 import { getCookie } from '@/helper/env'
 import { setSenderApi, getSessionSender } from '@/api/fileStep'
-import './index.scss'
-import { connect } from 'react-redux'
 import { setSenderAction } from '@/store/actions/fielStep'
+import { connect } from 'react-redux'
+import './index.scss'
 
 const messageTitle = 'Please Enter.'
 
@@ -18,7 +18,7 @@ function FileStep1(props) {
 
   useEffect(() => {
     sessionToObtainSender()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const sessionToObtainSender = () => {

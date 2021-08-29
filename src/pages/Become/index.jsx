@@ -139,8 +139,7 @@ function Become() {
             <li> 2. Enter your ABN</li>
             <li> 3. Take a selfie of you and your licence</li>
             <li> 4. Describe your vehicle, attach a photo</li>
-            <li> 5. Please email these to: </li>
-            <li>hr@dcglobalsolutions.com.au</li>
+            <li> 5. Please email these to: hr@dcglobalsolutions.com.au</li>
           </ul>
         </div>
       </div>

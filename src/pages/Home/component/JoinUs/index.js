@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import triangle from '@/asset/triangle.png'
 import { Form, Input, Button, Modal } from 'antd'
 import './index.scss'
 import { getAsk } from '@/api/home'
 
 function JoinUs(props) {
+  const formRef = useRef();
+
   const [visible, setVisible] = useState(false)
 
   const validateMessages = {
@@ -20,7 +22,8 @@ function JoinUs(props) {
   const onFinish = (values) => {
     getAsk(values.user).then((res) => {
       if (res || res.code === '200') {
-        setVisible(true)
+        setVisible(true);
+        formRef.current.resetFields()
       }
     })
   }
@@ -36,13 +39,14 @@ function JoinUs(props) {
 
         <div className='Join-us'>
           <h3>Don’t Hesltate To Ask</h3>
-          <p>If you have any questions, don't hesitate to ask. Let us help you</p>
+          <p>If you have any questions, don't hesitate to ask. Let us help you!</p>
 
-          <Form name='nest-messages' onFinish={onFinish} validateMessages={validateMessages}>
+          <Form name='nest-messages' ref={formRef} onFinish={onFinish} validateMessages={validateMessages}>
             <div className='join-name'>
               <Form.Item
                 name={['user', 'firstName']}
-                rules={[{ required: true, message: 'please Enter' }]}
+                rules={[{ required: true, message: 'Please Enter' }]}
+                initialValue={''}
                 normalize={normFile}
                 className='formItem'
               >
@@ -51,8 +55,9 @@ function JoinUs(props) {
 
               <Form.Item
                 name={['user', 'lastName']}
-                rules={[{ required: true, message: 'please Enter' }]}
+                rules={[{ required: true, message: 'Please Enter' }]}
                 normalize={normFile}
+                initialValue={''}
                 className='formItem'
               >
                 <Input placeholder='Last Name' className='form-input' />
@@ -61,8 +66,9 @@ function JoinUs(props) {
 
             <Form.Item
               name={['user', 'email']}
+              initialValue={''}
               rules={[
-                { required: true, message: 'please Enter' },
+                { required: true, message: 'Please Enter' },
                 { type: 'email', message: 'Please enter the correct email!' },
               ]}
               className='formItem'
@@ -72,11 +78,12 @@ function JoinUs(props) {
 
             <Form.Item
               name={['user', 'problem']}
-              rules={[{ required: true, message: 'please Enter' }]}
+              initialValue={''}
+              rules={[{ required: true, message: 'Please Enter' }]}
               className='formItem'
             >
               <Input.TextArea
-                placeholder='Describe your problems'
+                placeholder='Your Problem'
                 style={{ width: '100%', height: 300 }}
               />
             </Form.Item>
@@ -92,7 +99,7 @@ function JoinUs(props) {
 
       <Modal
         className='modal-body'
-        width={600}
+        width={620}
         centered
         closable={false}
         onCancel={() => {

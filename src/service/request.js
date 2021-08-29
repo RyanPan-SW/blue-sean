@@ -3,7 +3,6 @@ import { API_HOST } from '@/config'
 import { clearAllCookie, getCookie } from '@/helper/env'
 import { message } from 'antd'
 
-// const codeWhiteList = [2001, 2003, 3001, 4011, 4007, 5004, 4012, 4013, 4014, 4015, 4016, 4017, 4003] // 不需要弹窗的code错误码白名单
 // 创建axios实例
 const API = axios.create({
   // baseURL: process.env.REACT_APP_BASEURL,
@@ -37,9 +36,6 @@ API.interceptors.response.use((response) => {
     if (window.location.pathname === '/changepassword') {
       return response
     }
-    if (data.msg) {
-      message.success(data.msg)
-    }
     return response
   }
   if (code !== 200) {
@@ -49,13 +45,13 @@ API.interceptors.response.use((response) => {
     if (code === 'LO008') { // 只有LO008才需要退出
       clearAllCookie()
       localStorage.clear()
-      window.location.href = '/login'
+      // window.location.href = '/login'
       message.error(errmsg)
       return response
-    } else if (errmsg) {
+    }/*  else if (errmsg) {
       message.error(errmsg)
       return response
-    } else {
+    } */ else {
       return response
     }
   }

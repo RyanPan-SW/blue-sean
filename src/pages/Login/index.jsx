@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import { Button, Form, Input, Checkbox, Popover } from 'antd'
 import { loginApi } from '@/api/login'
@@ -7,25 +7,49 @@ import { Link } from 'react-router-dom'
 import './index.scss'
 import FieldDom from '@/components/Field'
 import { setCookie } from '@/helper/env'
+import Cookies from 'js-cookie'
 
 const loginType = { personal: '01', corporate: '02' }
 
 const Login = ({ login, setLoginUser, history }) => {
+  const [form] = Form.useForm()
   const [activeTab, setActiveTab] = useState(1)
   const [loginPersonError, setLoginPersonError] = useState(false)
   const [loginCorporateError, setLoginCorporateError] = useState(false)
   const [errormsg, setErrormsg] = useState('')
+  const [hideRemeber, setHideRemeber] = useState(false)
 
-  useEffect(() => {})
-
-  const changeTabs = (key) => {
-    setActiveTab(key)
-    console.log(key)
-  }
+  useEffect(() => {
+    if (Cookies.get('type') === 'personal') {
+      form.setFieldsValue({
+        userName: Cookies.get('userName-personal'),
+        password: Cookies.get('password-personal'),
+        remember: Cookies.get('remember-personal'),
+      })
+    }
+    if (Cookies.get('type') === 'corporate') {
+      form.setFieldsValue({
+        userName: Cookies.get('userName-corporate'),
+        password: Cookies.get('password-corporate'),
+        remember: Cookies.get('remember-corporate'),
+      })
+    }
+  }, [])
 
   const onFinishPersonal = (values) => {
     loginApi({ ...values, loginType: loginType['personal'] }).then((res) => {
       const { code, data, errmsg } = res
+      if (values.remember) {
+        Cookies.set('type', 'personal')
+        Cookies.set('userName-personal', values.userName)
+        Cookies.set('password-personal', values.password)
+        Cookies.set('remember-personal', values.remember)
+      } else {
+        Cookies.remove('type', 'personal')
+        Cookies.remove('userName-personal')
+        Cookies.remove('password-personal')
+        Cookies.remove('remember-personal')
+      }
       if (code === '200' && data) {
         setCookie('token', data.token, values.remember ? 30 : 7)
         const loginUser = JSON.stringify(data.loginUser)
@@ -34,6 +58,7 @@ const Login = ({ login, setLoginUser, history }) => {
       } else {
         setLoginPersonError(true)
         setErrormsg(errmsg)
+        setHideRemeber(false)
       }
     })
   }
@@ -45,6 +70,17 @@ const Login = ({ login, setLoginUser, history }) => {
       loginType: loginType['corporate'],
     }
     loginApi(params).then((res) => {
+      if (values.remember) {
+        Cookies.set('type', 'corporate')
+        Cookies.set('userName-corporate', values.userName)
+        Cookies.set('password-corporate', values.password)
+        Cookies.set('remember-corporate', values.remember)
+      } else {
+        Cookies.remove('type', 'corporate')
+        Cookies.remove('userName-corporate')
+        Cookies.remove('password-corporate')
+        Cookies.remove('remember-corporate')
+      }
       const { code, data, errmsg } = res
       if (code === '200') {
         if (values.remember) {
@@ -55,10 +91,12 @@ const Login = ({ login, setLoginUser, history }) => {
 
         const loginUser = JSON.stringify(data.loginUser)
         localStorage.setItem('user', loginUser)
+        setLoginCorporateError(false)
         history.push('/account')
       } else {
         setLoginCorporateError(true)
         setErrormsg(errmsg)
+        setHideRemeber(false)
       }
     })
   }
@@ -66,10 +104,24 @@ const Login = ({ login, setLoginUser, history }) => {
   return (
     <div className='login'>
       <div className='login-tabs'>
-        <div className={activeTab === 1 ? 'active' : ''} onClick={() => changeTabs(1)}>
+        <div
+          className={activeTab === 1 ? 'active' : ''}
+          onClick={() => {
+            setActiveTab(1)
+            setLoginPersonError(false)
+            setHideRemeber(false)
+          }}
+        >
           Personal Account
         </div>
-        <div className={activeTab === 2 ? 'active' : ''} onClick={() => changeTabs(2)}>
+        <div
+          className={activeTab === 2 ? 'active' : ''}
+          onClick={() => {
+            setActiveTab(2)
+            setLoginPersonError(false)
+            setHideRemeber(false)
+          }}
+        >
           Corporate Account
         </div>
       </div>
@@ -87,18 +139,27 @@ const Login = ({ login, setLoginUser, history }) => {
             </Link>
           </div>
 
-          <Form className='login-form' layout='vertical' onFinish={onFinishPersonal}>
+          <Form
+            form={form}
+            className='login-form'
+            layout='vertical'
+            onFinish={onFinishPersonal}
+            onFinishFailed={() => {
+              setHideRemeber(true)
+            }}
+          >
             <Form.Item
               label={<span className='label'>YOUR EMAIL</span>}
               name='userName'
               rules={[
                 {
                   required: true,
-                  message: <FieldDom message='Please enter a valid email address.' />,
+                  type: 'email',
+                  message: <FieldDom message='This field is required.' />,
                 },
               ]}
             >
-              <Input placeholder='yourname@email.com' />
+              <Input placeholder='Yourname@email.com' />
             </Form.Item>
 
             <Form.Item
@@ -109,9 +170,11 @@ const Login = ({ login, setLoginUser, history }) => {
               <Input.Password placeholder='Password' />
             </Form.Item>
 
-            <div>
-              <b>Remember:</b> Passwords are case sensitive.
-            </div>
+            {!hideRemeber && (
+              <div className='remember'>
+                <b>Remember:</b> Passwords are case sensitive.
+              </div>
+            )}
 
             <Form.Item>
               <Form.Item
@@ -137,7 +200,7 @@ const Login = ({ login, setLoginUser, history }) => {
                         <b>PH:</b> 07 5649 8619
                       </p>
                       <p>
-                        <b>Office </b>Hours: Monday – Friday 8:30am-5:00pm
+                        <b>Office Hours:</b> Monday – Friday 8:30am-5:00pm
                       </p>
                     </div>
                   }
@@ -170,26 +233,36 @@ const Login = ({ login, setLoginUser, history }) => {
             </Link>
           </div>
 
-          <Form className='login-form' layout='vertical' onFinish={onFishCorporate}>
+          <Form
+            form={form}
+            className='login-form'
+            layout='vertical'
+            onFinish={onFishCorporate}
+            onFinishFailed={() => {
+              setHideRemeber(true)
+            }}
+          >
             <Form.Item
               label={<span className='label'>USERNAME</span>}
               name='userName'
-              rules={[{ required: true, message: 'Please input your Username!' }]}
+              rules={[{ required: true, message: <FieldDom /> }]}
             >
-              <Input placeholder='yourname@email.com' />
+              <Input placeholder='Username@email.com' />
             </Form.Item>
 
             <Form.Item
               label={<span className='label'>PASSWORD</span>}
               name='password'
-              rules={[{ required: true, message: 'Please input your Password!' }]}
+              rules={[{ required: true, message: <FieldDom /> }]}
             >
               <Input.Password placeholder='Password' />
             </Form.Item>
 
-            <div>
-              <span>Remember:</span> Passwords are case sensitive.
-            </div>
+            {!hideRemeber && (
+              <div className='remember'>
+                <b>Remember:</b> Passwords are case sensitive.
+              </div>
+            )}
 
             <Form.Item>
               <Form.Item
@@ -202,7 +275,7 @@ const Login = ({ login, setLoginUser, history }) => {
                 <Checkbox>Keep me log in</Checkbox>
               </Form.Item>
 
-              <Link to='/forget' className='login-form-forgot'>
+              <span /* to='/forget' */ className='login-form-forgot'>
                 <Popover
                   placement='right'
                   content={
@@ -223,12 +296,12 @@ const Login = ({ login, setLoginUser, history }) => {
                 >
                   Forgot password?
                 </Popover>
-              </Link>
+              </span>
             </Form.Item>
 
             <Form.Item>
               <Button type='primary' htmlType='submit' className='login-form-button'>
-                Log in
+                Log In
               </Button>
             </Form.Item>
           </Form>

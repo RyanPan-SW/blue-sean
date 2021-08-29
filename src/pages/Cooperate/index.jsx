@@ -40,7 +40,7 @@ function Cooperate(props) {
               </p>
 
               <Form layout='vertical' onFinish={onFinish}>
-                <Form.Item label={<span>CONTACTS</span>} required>
+                <Form.Item className='CONTACTS' label={<span>CONTACTS</span>} required>
                   <Form.Item
                     name='firstName'
                     normalize={normFile}
@@ -65,7 +65,7 @@ function Cooperate(props) {
                   name='phone'
                   rules={[
                     { required: true, message: <FieldDom />, whitespace: true },
-                    { pattern: patterns.tel, message: 'Please enter the phone number.' },
+                    // { pattern: patterns.tel, message: 'Please enter the phone number.' },
                   ]}
                   normalize={normFile}
                 >
@@ -131,10 +131,10 @@ function Cooperate(props) {
                   normalize={normFile}
                   rules={[
                     { required: true, message: <FieldDom />, whitespace: true },
-                    {
-                      pattern: patterns.ZIPCode,
-                      message: 'Please enter a valid zip code address.',
-                    },
+                    // {
+                    //   pattern: patterns.ZIPCode,
+                    //   message: 'Please enter a valid zip code address.',
+                    // },
                   ]}
                 >
                   <Input placeholder='ZIP CODE' />

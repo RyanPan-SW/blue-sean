@@ -24,6 +24,8 @@
     font-weight: bold;
     // border: 1px solid #333;
     line-height: 70px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
 
     > div {
       flex: 1;
@@ -42,7 +44,7 @@
 
     .login-personal {
       font-size: 16px;
-      font-weight: bold;
+      // font-weight: bold;
       padding-top: 30px;
       color: #333333;
       padding-bottom: 30px;
@@ -96,12 +98,29 @@
       padding-left: 10px;
     }
   }
+
+  .remember {
+    margin-top: -15px;
+  }
+
+  .ant-form-item-label
+    > label.ant-form-item-required:not(.ant-form-item-required-mark-optional):before {
+    display: none;
+  }
 }
 
+.ant-popover-inner-content {
+  border: 2px solid $themeColor !important;
+}
+.ant-popover-placement-left > .ant-popover-content > .ant-popover-arrow,
+.ant-popover-placement-leftBottom > .ant-popover-content > .ant-popover-arrow,
+.ant-popover-placement-leftTop > .ant-popover-content > .ant-popover-arrow {
+  border-color: $themeColor $themeColor transparent transparent !important;
+}
 
 .forget-popover {
   p {
-    font-size: 12px;
+    font-size: 16px;
 
     &:nth-of-type(1) {
       padding-bottom: 15px;

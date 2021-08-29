@@ -74,6 +74,11 @@ const Header = (props) => {
     }
   }
 
+  const clickLogo = () => {
+    window.location.pathname = '/home'
+  }
+
+
   return (
     <>
       <div className={pathnameStatus ? 'home-header' : 'header'}>
@@ -121,7 +126,7 @@ const Header = (props) => {
         <div className='header-content container'>
           <div className={pathnameStatus ? 'other-navbar' : 'header-navbar'}>
             <div className='header-navBrand'>
-              <Link to='/home'>
+              <div onClick={clickLogo} className="Logo-a" to='/home'>
                 {pathnameStatus ? (
                   <div className='logo-img'>
                     <img src={LogoDark} alt='logo' />
@@ -134,7 +139,7 @@ const Header = (props) => {
                   </div>
                 )}
                 <div className='title-font'>DC Global Solutions</div>
-              </Link>
+              </div>
             </div>
 
             <ul className='header-nav-menu'>

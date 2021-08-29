@@ -60,10 +60,12 @@ const FooterComponent = () => {
         <div className='container'>
           <span>Copyright © DC Global Solution - All rights reserved.</span>
           <Space>
-            <Link className='Privacy-Policy' to='/privacypolicy'>
+            <Link className='Privacy-Policy' target='_blank' to='/privacypolicy'>
               Privacy Policy
             </Link>
-            <Link to='/website'>Terms of Use</Link>
+            <Link target='_blank' to='/website'>
+              Terms of Use
+            </Link>
           </Space>
         </div>
       </div>

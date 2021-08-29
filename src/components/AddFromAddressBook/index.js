@@ -15,8 +15,8 @@ function AddFromAddressBook(props) {
   const [selectedRows, setSelectedRows] = useState(null)
 
   useEffect(() => {
-    searchAddress()
-  }, [])
+    visible && searchAddress()
+  }, [visible])
 
   const searchAddress = (value, event) => {
     const keyWord = value && value.replace(/(^\s*)|(\s*$)/, '')
