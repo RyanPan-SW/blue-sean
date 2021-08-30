@@ -73,7 +73,9 @@ function MyOrder(params) {
       <div className='container'>
         <Breadcrumb separator='>'>
           <Breadcrumb.Item>
-            <Link to='/account'>My Account</Link>
+            <Link className='breadcrumb-link' to='/account'>
+              My Account
+            </Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>My Orders</Breadcrumb.Item>
         </Breadcrumb>
@@ -91,7 +93,7 @@ function MyOrder(params) {
 
         <h4 className='order-subTitle'>Modify or Cancel Pickups</h4>
 
-        <p>
+        <p className='order-dication'>
           You can modify a scheduled pickup at any time by changing the pickup date, pickup location
           and receiving location, or you can cancel the pickup. Click a pickup in your list of
           orders to view details and make changes.
@@ -162,9 +164,11 @@ function MyOrder(params) {
                 ) : (
                   <p className='empy-order-list'>
                     You have not placed any orders in.{' '}
-                    <Link to='/filestep/add' className='new-pickup'>
-                      Schedule a New Pickup
-                    </Link>
+                    <b>
+                      <Link to='/filestep/add' className='new-pickup'>
+                        Schedule a New Pickup
+                      </Link>
+                    </b>
                   </p>
                 )}
               </TabPane>

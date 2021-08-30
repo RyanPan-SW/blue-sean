@@ -151,6 +151,9 @@ const Login = ({ login, setLoginUser, history }) => {
             <Form.Item
               label={<span className='label'>YOUR EMAIL</span>}
               name='userName'
+              getValueFromEvent={(e) => {
+                return e.target.value.replace(/\s+/g, '')
+              }}
               rules={[
                 {
                   required: true,
@@ -165,6 +168,9 @@ const Login = ({ login, setLoginUser, history }) => {
             <Form.Item
               label={<span className='label'>PASSWORD</span>}
               name='password'
+              getValueFromEvent={(e) => {
+                return e.target.value.replace(/\s+/g, '')
+              }}
               rules={[{ required: true, message: <FieldDom /> }]}
             >
               <Input.Password placeholder='Password' />
@@ -245,6 +251,9 @@ const Login = ({ login, setLoginUser, history }) => {
             <Form.Item
               label={<span className='label'>USERNAME</span>}
               name='userName'
+              getValueFromEvent={(e) => {
+                return e.target.value.replace(/\s+/g, '')
+              }}
               rules={[{ required: true, message: <FieldDom /> }]}
             >
               <Input placeholder='Username@email.com' />
@@ -253,6 +262,9 @@ const Login = ({ login, setLoginUser, history }) => {
             <Form.Item
               label={<span className='label'>PASSWORD</span>}
               name='password'
+              getValueFromEvent={(e) => {
+                return e.target.value.replace(/\s+/g, '')
+              }}
               rules={[{ required: true, message: <FieldDom /> }]}
             >
               <Input.Password placeholder='Password' />

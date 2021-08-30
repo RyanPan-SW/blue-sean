@@ -6,6 +6,10 @@
     text-align: center;
   }
 
+  .breadcrumb-link {
+    color: #000000D9;
+  }
+
   .ordersList {
     width: 63%;
     padding: 25px;
@@ -118,6 +122,10 @@
     line-height: 50px;
   }
 
+  .order-dication {
+    margin-bottom: 30px;
+  }
+
   .empy-order-list {
     text-align: center;
     font-size: 18px;
@@ -164,5 +172,10 @@
     border-color: $themeColor;
     background: $themeColor;
     color: #fff;
+  }
+
+  .ant-tabs-tab {
+    font-size: 18px;
+    padding: 12px;
   }
 }

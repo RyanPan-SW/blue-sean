@@ -11,6 +11,7 @@ function SignUp(props) {
   const [showError, setShowError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [errormsg, setErrormsg] = useState('')
+  const [hidenTip, setHidenTip] = useState(true)
 
   const onFinish = (values) => {
     setLoading(true)
@@ -24,7 +25,7 @@ function SignUp(props) {
         return
       }
       setShowError(false)
-      setCookie(data.token)
+      setCookie('token',data.token)
       sessionStorage.setItem('user', JSON.stringify(data.loginUser))
       props.history.push('/personal')
       setLoading(false)
@@ -55,13 +56,21 @@ function SignUp(props) {
           </Link>
         </div>
 
-        <Form className='signup-form' layout='vertical' onFinish={onFinish}>
+        <Form
+          className='signup-form'
+          layout='vertical'
+          onFinish={onFinish}
+          onFinishFailed={() => setHidenTip(false)}
+        >
           <Form.Item
             label={'YOUR EMAIL'}
             name='userName'
+            getValueFromEvent={(e) => {
+              return e.target.value.replace(/\s+/g, '')
+            }}
             rules={[
-              { type: 'email', message: emailMsg.email },
-              { required: true, message: emailMsg.email },
+              { required: true, type: 'email', message: 'This field is required.' },
+              // { required: true, message: emailMsg.email },
             ]}
           >
             <Input placeholder='yourname@email.com' />
@@ -69,9 +78,12 @@ function SignUp(props) {
           <Form.Item
             label='PASSWORD'
             name='password'
+            getValueFromEvent={(e) => {
+              return e.target.value.replace(/\s+/g, '')
+            }}
             rules={[
-              { required: true, message: passwordMsg.required },
-              { min: 6, max: 20, message: passwordMsg.pattern },
+              { required: true, message: 'This field is required.' },
+              // { min: 6, max: 20, message: passwordMsg.pattern },
               // {
               //   pattern: patterns.pwd,
               //   message: passwordMsg.pattern,
@@ -80,8 +92,8 @@ function SignUp(props) {
           >
             <Input.Password autocomplete placeholder='Password' />
           </Form.Item>
-          {true && (
-            <p>
+          {hidenTip && (
+            <p className='tips'>
               Please use at least 6 characters. <b>Remember:</b> Passwords are case sensitive.
             </p>
           )}
@@ -121,7 +133,7 @@ function SignUp(props) {
       </div>
 
       <p className='create'>
-        <Link to='/business'>Create an account</Link> for corporate
+        <Link to='/cooperate'>Create an account</Link> for corporate
       </p>
     </div>
   )

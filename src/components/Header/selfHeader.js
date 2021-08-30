@@ -49,7 +49,7 @@ const Header = (props) => {
     //   props.history.push('/home')
     //   return
     // }
-  }, [pathname])
+  }, [pathname,])
 
   const ExpandSubtitle = (e) => {
     e.stopPropagation()

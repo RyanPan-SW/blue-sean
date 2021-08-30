@@ -8,6 +8,7 @@ import { clearAllCookie, passwordMsg } from '@/helper/env'
 
 function ChangePassword(props) {
   const formRef = useRef()
+  const [hideRemeber, setHideRemeber] = useState(false)
 
   const [visible, setVisible] = useState(false)
 
@@ -54,7 +55,9 @@ function ChangePassword(props) {
 
         <p className='change-title'>Update Your Password</p>
 
-        <Form layout='vertical' className='change-form' onFinish={onFinish} ref={formRef} >
+        <Form layout='vertical' className='change-form' onFinish={onFinish} ref={formRef} onFinishFailed={() => {
+          setHideRemeber(true)
+        }} >
           {/* {errorMsg && <FieldDom border message={errorMsg} />} */}
 
           <Form.Item label='CURRENT PASSWORD' name='password' rules={[{ required: true, message: <FieldDom message={'This field is required.'} /> }]}>
@@ -63,14 +66,14 @@ function ChangePassword(props) {
 
           <Form.Item label='NEW PASSWORD' name='newpassword' rules={[
             { required: true, message: <FieldDom message={'This field is required.'} /> },
-            { min: 6, max: 20, message: passwordMsg.pattern }
+            { min: 6, max: 20, message: <FieldDom message={'This field is required.'} /> }
           ]}>
             <Input.Password placeholder='Password' />
           </Form.Item>
 
-          <p>
+          {!hideRemeber && <p>
             Please use at least 6 characters. <b>Remember:</b> Passwords are case sensitive.
-          </p>
+          </p>}
 
           <Form.Item>
             <Button type='primary' htmlType='submit' className='update-password'>
@@ -87,7 +90,7 @@ function ChangePassword(props) {
         closable={false}
         centered
       >
-        <span className="password-update">Password  has  been updated.</span>
+        <span className="password-update">Password has been updated.</span>
         <div className="password-bottom">
           <span onClick={() => setVisible(false)}>OK</span>
         </div>

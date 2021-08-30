@@ -13,6 +13,8 @@
     h4 {
       font-size: 25px;
       line-height: 40px;
+      font-weight: bold;
+      
       &:nth-last-of-type(1) {
         padding-bottom: 30px;
       }
@@ -30,7 +32,8 @@
     box-shadow: $boxShadow;
     border-top: 6px solid $themeColor;
 
-    h3 {
+    h4 {
+      font-weight: bold;
       padding-bottom: 60px;
     }
 
@@ -48,6 +51,7 @@
         }
 
         span {
+          font-weight: bold;
           padding-top: 10px;
           font-size: 16px;
           color: #333;
@@ -85,6 +89,7 @@
 
   .new-pickup {
     width: 100%;
+    display: block;
     color: #fff;
     background-color: $themeColor;
     border-radius: 50px;
@@ -92,5 +97,9 @@
     font-weight: bold;
     text-align: center;
     line-height: 60px;
+
+    &:hover {
+      color: #fff !important;
+    }
   }
 }

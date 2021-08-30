@@ -9,17 +9,20 @@ let userEmail = null
 let userCode = null
 
 export const SendEmailGetCodeDom = ({ setMsg, setEmail, setType }) => {
+  const [errmsg, setErrmsg] = useState(false)
+
   const sendEmail = (values) => {
     userEmail = values.userName
     setEmail && setEmail(values.userName)
     getCode(values).then((res) => {
       const { code, /* data, */ errmsg } = res
       if (code !== '200') {
-        console.log(errorCodeMessage[code])
         setMsg(errmsg)
+        setErrmsg(true)
         return
       }
       setType('code')
+      setMsg(null)
     })
   }
 
@@ -30,21 +33,29 @@ export const SendEmailGetCodeDom = ({ setMsg, setEmail, setType }) => {
       <p>Enter your email address and we'll send you a code you can use to reset your password.</p>
 
       <Form.Item
-        label='YOU EMAIL'
+        label='YOUR EMAIL'
         name='userName'
+        getValueFromEvent={(e) => {
+          return e.target.value.replace(/\s+/g, '')
+        }}
         rules={[
           {
             required: true,
-            message: <FieldDom />,
+            type: 'email',
+            message: 'Please enter a valid email address.',
           },
-          { type: 'email', message: 'Please enter a valid email address.' },
+          // { type: 'email', message: 'Please enter a valid email address.' },
         ]}
       >
         <Input placeholder='yourname@email.com' />
       </Form.Item>
 
       <Form.Item>
-        <Button htmlType='submit' className='forget-continue'>
+        <Button
+          htmlType='submit'
+          className='forget-continue'
+          style={{ marginTop: errmsg ? 200 : 280 }}
+        >
           Continue
         </Button>
       </Form.Item>
@@ -87,14 +98,13 @@ export const VerificationCodeDom = ({ Email, setType }) => {
   }
 
   const tryAgainCode = () => {
-    
     form.resetFields()
     setVisibleCode(false)
   }
 
   return (
     <>
-      <Form name='code' layout='vertical' onFinish={sendCode}>
+      <Form form={form} name='code' layout='vertical' onFinish={sendCode}>
         <h4>ENTER THE CODE WE DENT TO</h4>
         <h4>{userEmail}</h4>
 
@@ -103,6 +113,9 @@ export const VerificationCodeDom = ({ Email, setType }) => {
         <Form.Item
           label='6-Digit Code'
           name='code'
+          getValueFromEvent={(e) => {
+            return e.target.value.replace(/^\D+$/g, '')
+          }}
           rules={[
             {
               required: true,
@@ -127,13 +140,13 @@ export const VerificationCodeDom = ({ Email, setType }) => {
         </Form.Item>
 
         <Form.Item>
-          <Button htmlType='submit' className='forget-continue'>
+          <Button htmlType='submit' className='forget-code-continue'>
             Continue
           </Button>
         </Form.Item>
       </Form>
 
-      <Modal width={604} /* centered */ visible={visibleCode} closable={false} footer={null}>
+      <Modal width={604} centered visible={visibleCode} closable={false} footer={null}>
         <div className='cusmodal-body'>That code doesn't work. Please try again.</div>
         <div className='cusmodal-footer'>
           <span className='model-resend' onClick={resendCode}>
@@ -153,8 +166,10 @@ export const VerificationCodeDom = ({ Email, setType }) => {
         </div>
         <div className='cusmodal-footer'>
           <span
+            className='cusmodal-ok'
             onClick={() => {
               setVisibleSendCode(false)
+              form.resetFields()
             }}
           >
             OK
@@ -186,6 +201,9 @@ export const SetNewPasswordDom = ({ Email, setType }) => {
       <Form.Item
         label='NEW PASSWORD'
         name='newpassword'
+        getValueFromEvent={(e) => {
+          return e.target.value.replace(/\s+/g, '')
+        }}
         rules={[
           {
             required: true,
@@ -210,7 +228,7 @@ export const SetNewPasswordDom = ({ Email, setType }) => {
       </span>
 
       <Form.Item>
-        <Button htmlType='submit' className='submit-newpassword'>
+        <Button htmlType='submit' className='submit-new-newpassword'>
           Submit
         </Button>
       </Form.Item>
