@@ -6,8 +6,8 @@ function PrivacyPolicy() {
   const [content, setContent] = useState(null)
 
   useEffect(() => {
-    getConfigContent({ code: 'contact_us' }).then((res) => {
-      setContent(res.data)
+    getConfigContent({ code: 'PCP' }).then((res) => {
+      setContent(res.data.content)
     })
   }, [])
 

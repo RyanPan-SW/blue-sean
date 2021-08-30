@@ -33,9 +33,18 @@
     }
   }
 
+  .remember {
+    font-size: 14px;
+    margin-top: -15px;
+  }
+
   .ant-btn-primary {
     background: $themeColor;
     border-color: $themeColor;
+  }
+
+  .ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional):before {
+    display: none !important;
   }
 }
 .password-update {

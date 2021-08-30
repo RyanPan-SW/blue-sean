@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { Button, Form, Input, message, Radio } from 'antd'
 import './index.scss'
 import FieldDom from '@/components/Field'
-import { emailMsg, patterns } from '@/helper/env'
+import { emailMsg, /* patterns */ } from '@/helper/env'
 import PromptModel from '@/components/PromptModel'
 import { createCorporate } from '@/api/cooperate'
 

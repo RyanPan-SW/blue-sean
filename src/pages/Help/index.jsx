@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Collapse } from 'antd'
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons'
-import { getConfigContent } from '@/api/config'
+import { getFAQ } from '@/api/config'
 import './index.scss'
 
 const { Panel } = Collapse
@@ -12,8 +12,8 @@ function HelpContent(props) {
   const [Content, setContent] = useState([])
 
   useEffect(() => {
-    getConfigContent({ code: 'help_center' }).then((res) => {
-      setContent(res.data)
+    getFAQ().then((res) => {
+      setContent(res.data.list)
     })
   }, [])
 
@@ -44,12 +44,12 @@ function HelpContent(props) {
                   <span
                     className={activeArray.includes(`${index}`) ? 'help-active' : 'help-header'}
                   >
-                    <span dangerouslySetInnerHTML={{ __html: item.Q }}></span>
+                    <span dangerouslySetInnerHTML={{ __html: item.q }}></span>
                   </span>
                 }
                 key={index}
               >
-                <ul dangerouslySetInnerHTML={{ __html: item.A }}></ul>
+                <ul dangerouslySetInnerHTML={{ __html: item.a }}></ul>
               </Panel>
             )
           })}

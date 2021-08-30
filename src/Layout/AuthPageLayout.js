@@ -25,7 +25,7 @@ import Page404 from '@/pages/404/404'
 
 import './index.scss'
 import DetailsView from '@/pages/DetailsView'
-import { Redirect } from 'react-router'
+// import { Redirect } from 'react-router'
 import FileStep from '@/pages/FileStep'
 import ContractTerms from '@/pages/ContractTerms'
 import WebsiteTerms from '@/pages/WebsiteTerms'

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, Form, Input } from 'antd'
 import { Link } from 'react-router-dom'
 import { ExclamationCircleFilled } from '@ant-design/icons'
-import { emailMsg, passwordMsg, setCookie } from '@/helper/env'
+import { /* emailMsg, passwordMsg, */ setCookie } from '@/helper/env'
 import { signup } from '@/api/signup'
 import { errorCodeMessage } from '@/helper/error'
 import './index.scss'
@@ -25,7 +25,7 @@ function SignUp(props) {
         return
       }
       setShowError(false)
-      setCookie('token',data.token)
+      setCookie('token', data.token)
       sessionStorage.setItem('user', JSON.stringify(data.loginUser))
       props.history.push('/personal')
       setLoading(false)
@@ -90,7 +90,11 @@ function SignUp(props) {
               // },
             ]}
           >
-            <Input.Password autocomplete placeholder='Password' />
+            <Input.Password
+              autocomplete
+              placeholder='Password'
+              iconRender={(visible) => (visible ? 'hide' : 'show')}
+            />
           </Form.Item>
           {hidenTip && (
             <p className='tips'>

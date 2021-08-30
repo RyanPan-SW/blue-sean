@@ -77,7 +77,7 @@ function FileStep2({ cityArray, setStep, history }) {
             {(fields, { add, remove }) => (
               <>
                 {fields.map(({ key, name, fieldKey, ...restField }) => (
-                  <Space direction='vertical' key='key' style={{ width: '100%' }}>
+                  <Space direction='vertical' key={key} style={{ width: '100%' }}>
                     {fields.length > 1 && (
                       <div className='step2-title'>Step2: Recipient information</div>
                     )}

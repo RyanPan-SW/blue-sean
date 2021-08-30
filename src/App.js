@@ -15,6 +15,7 @@ const App = () => {
 
           return (
             <Route
+              key={i}
               exact={exact}
               path={path}
               render={(props) => <Component {...props} routes={routes} />}

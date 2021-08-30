@@ -6,8 +6,8 @@ function WebsiteTerms(props) {
   const [content, setContent] = useState(null)
 
   useEffect(() => {
-    getConfigContent({ code: 'contact_us' }).then((res) => {
-      setContent(res.data)
+    getConfigContent({ code: 'WTOU' }).then((res) => {
+      setContent(res.data.content)
     })
   }, [])
 
@@ -16,9 +16,9 @@ function WebsiteTerms(props) {
       <div className='container'>
         <h3 className='title'>Website Terms of Use</h3>
 
-        <ul className='content-ul' dangerouslySetInnerHTML={{ __html: content }}></ul>
+        {/* <ul className='content-ul' dangerouslySetInnerHTML={{ __html: content }}></ul> */}
 
-        {/* <ul>
+        <ul>
           <h5><u>DC Global Solutions Website Terms and Conditions</u></h5>
           <br />
           <p>These Terms and Conditions describe the rights and obligations of clients of DC Settlements Pty Ltd (ABN 86 637 002 234) (DC Global Solutions,  the Company, we, us) and govern the use of our Platform or Software (as defined below) by individuals and companies (you, your, DC Global Solutions User, User) to access the Services to facilitate the delivery of documents to an End Recipient. In order to use the Services and the associated Software as listed below, you must read and agree to these Terms and Conditions. By accessing the Platform, receiving any Service supplied by us or installing and utilising any associated Software we provide to enable you to use the Service, you expressly acknowledge and agree to be bound these Terms and Conditions as well as any future amendments, revisions or additions thereto which we will publish from time to time.The Company reserves its right to modify or amend this Terms and Conditions at any time which, unless otherwise provided by us, will take effect immediately upon its posting in our Platform and will be applicable from the date of the posting. Your continued use of the Company’s Service or Software after the posting shall be deemed as your consent to such changes.</p>
@@ -324,7 +324,7 @@ function WebsiteTerms(props) {
           <p>&nbsp;&nbsp;&nbsp;&nbsp;·   Special events and public holidays. (Valentine’s Day, Mother’s Day, Easter, Christmas etc.)</p>
 
 
-        </ul> */}
+        </ul>
       </div>
     </div>
   )

@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react'
 import { updatePwd } from '@/api/changePassword'
-import { Breadcrumb, Form, Input, Button, Modal, message } from 'antd'
+import { Breadcrumb, Form, Input, Button, Modal, /* message */ } from 'antd'
 import { Link } from 'react-router-dom'
 import FieldDom from '@/components/Field'
 import './index.scss'
-import { clearAllCookie, passwordMsg } from '@/helper/env'
+import { clearAllCookie, /* passwordMsg */ } from '@/helper/env'
+import InputPassword from '@/components/InputPassword'
 
 function ChangePassword(props) {
   const formRef = useRef()
@@ -61,19 +62,20 @@ function ChangePassword(props) {
           {/* {errorMsg && <FieldDom border message={errorMsg} />} */}
 
           <Form.Item label='CURRENT PASSWORD' name='password' rules={[{ required: true, message: <FieldDom message={'This field is required.'} /> }]}>
-            <Input.Password placeholder='Current  Password' />
+            <Input.Password placeholder='Current  Password' iconRender={(visible) => (visible ? 'hide' : 'show')} />
           </Form.Item>
 
           <Form.Item label='NEW PASSWORD' name='newpassword' rules={[
             { required: true, message: <FieldDom message={'This field is required.'} /> },
             { min: 6, max: 20, message: <FieldDom message={'This field is required.'} /> }
           ]}>
-            <Input.Password placeholder='Password' />
+            <Input.Password placeholder='Password' iconRender={(visible) => (visible ? 'hide' : 'show')} />
           </Form.Item>
 
-          {!hideRemeber && <p>
+
+          {!hideRemeber && (<p className="remember">
             Please use at least 6 characters. <b>Remember:</b> Passwords are case sensitive.
-          </p>}
+          </p>)}
 
           <Form.Item>
             <Button type='primary' htmlType='submit' className='update-password'>

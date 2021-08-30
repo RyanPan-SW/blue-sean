@@ -8,7 +8,7 @@
   border-bottom: 1px solid #000;
 
   .container {
-    width: 42%;
+    width: 50%;
     display: flex;
 
     .footContent {
@@ -16,6 +16,7 @@
       display: flex;
       align-items: center;
       margin-right: 10%;
+      margin-left: 8%;
 
       img {
         width: 100px;
@@ -60,6 +61,12 @@
   .page-footer {
     .container {
       width: 60%;
+
+      ul {
+        li {
+          font-size: 20px;
+        }
+      }
     }
   }
 }
@@ -68,6 +75,12 @@
     .container {
       .footContent {
         margin-right: 10%;
+      }
+
+      ul {
+        li {
+          font-size: 18px;
+        }
       }
     }
   }

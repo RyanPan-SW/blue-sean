@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Button, Form, Input, Checkbox, Popover } from 'antd'
 import { loginApi } from '@/api/login'
@@ -6,7 +6,7 @@ import * as UserActionCreator from '@/store/actions/user'
 import { Link } from 'react-router-dom'
 import './index.scss'
 import FieldDom from '@/components/Field'
-import { setCookie } from '@/helper/env'
+import { getCookie, setCookie } from '@/helper/env'
 import Cookies from 'js-cookie'
 
 const loginType = { personal: '01', corporate: '02' }
@@ -33,6 +33,12 @@ const Login = ({ login, setLoginUser, history }) => {
         password: Cookies.get('password-corporate'),
         remember: Cookies.get('remember-corporate'),
       })
+    }
+  }, [form])
+
+  useEffect(() => {
+    if (getCookie('token')) {
+      window.location.href = '/account'
     }
   }, [])
 
@@ -173,7 +179,10 @@ const Login = ({ login, setLoginUser, history }) => {
               }}
               rules={[{ required: true, message: <FieldDom /> }]}
             >
-              <Input.Password placeholder='Password' />
+              <Input.Password
+                placeholder='Password'
+                iconRender={(visible) => (visible ? 'hide' : 'show')}
+              />
             </Form.Item>
 
             {!hideRemeber && (
@@ -267,7 +276,10 @@ const Login = ({ login, setLoginUser, history }) => {
               }}
               rules={[{ required: true, message: <FieldDom /> }]}
             >
-              <Input.Password placeholder='Password' />
+              <Input.Password
+                placeholder='Password'
+                iconRender={(visible) => (visible ? 'hide' : 'show')}
+              />
             </Form.Item>
 
             {!hideRemeber && (

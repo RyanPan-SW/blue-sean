@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Radio, Space, Checkbox, Button, Input, Form, Modal, Tooltip, Row, Col } from 'antd'
+import { Radio, Space, Checkbox, Button, Input, Form, Modal, Tooltip, } from 'antd'
 import { ExclamationCircleFilled } from '@ant-design/icons'
 import { getDayOrTime, getOptionalTime, methodOfPayment } from '@/api/fileStep'
 import dayjs from 'dayjs'
@@ -397,8 +397,11 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
             >
               <Checkbox>
                 <span className='agree'>I agree</span>
-                <Link to='/contract' className='contract'>
+                {/* <Link to='/contract' className='contract'>
                   XXXX contract terms
+                </Link> */}
+                <Link to='/website' className='contract'>
+                  Terms of Use
                 </Link>
               </Checkbox>
             </Form.Item>

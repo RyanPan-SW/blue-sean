@@ -31,7 +31,7 @@ API.interceptors.response.use(
 
 // // 响应拦截器
 API.interceptors.response.use((response) => {
-  const { code, errmsg, data } = response
+  const { code, errmsg, /* data */ } = response
   if (code === '200') {
     if (window.location.pathname === '/changepassword') {
       return response
