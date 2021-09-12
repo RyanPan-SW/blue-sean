@@ -222,7 +222,9 @@ export const SetNewPasswordDom = ({ Email, setType }) => {
       >
         <Input.Password
           placeholder='Password'
-          iconRender={(visible) => (visible ? 'hide' : 'show')}
+          iconRender={(visible) =>
+            visible ? <span style={{ color: '#b38948' }}>hide</span> : 'show'
+          }
         />
       </Form.Item>
 

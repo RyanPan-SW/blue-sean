@@ -112,7 +112,7 @@ function JoinUs(props) {
         visible={visible}
       >
         <div className='join-modal-body'>
-          <h3 className='modal-title'>Thank you for your Request!</h3>
+          <h3 className='modal-title'>Thank you for your request!</h3>
 
           <div className='modal-content-span'>
             We will process your application and contact you within the next two working days.
@@ -124,7 +124,7 @@ function JoinUs(props) {
                 setVisible(false)
               }}
             >
-              ok
+              OK
             </span>
           </div>
         </div>

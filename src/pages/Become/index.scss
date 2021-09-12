@@ -146,11 +146,12 @@
         color: $themeColor;
         font-size: 20px;
         line-height: 57px;
+        margin-left: -30%;
       }
 
       ul {
         background-color: #414141;
-        padding: 60px 30%;
+        padding: 60px 10% 60px 30%;
         border-bottom-right-radius: 50px;
       }
 
@@ -159,9 +160,9 @@
         font-size: 16px;
         line-height: 30px;
 
-        &:nth-last-of-type(1) {
-          padding-left: 20px;
-        }
+        // &:nth-last-of-type(1) {
+        //   padding-left: 20px;
+        // }
       }
     }
   }

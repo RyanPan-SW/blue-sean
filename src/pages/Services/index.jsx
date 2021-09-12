@@ -75,8 +75,7 @@ const Services = (props) => {
         {id === 'documentBusiness' && (
           <>
             <div className='services-or'>or</div>
-            {/* TODO: 1、固定展示在下方 2、点击按钮当前页跳转到【文件下单Step1】页*/}
-            <Link to="filestep/add" className='services-pickup' >Schedule a New Pickup</Link>
+            <Link to="/filestep/add" className='services-pickup' >Schedule a New Pickup</Link>
           </>
         )}
       </div>

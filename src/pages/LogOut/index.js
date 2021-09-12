@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import PromptModel from '@/components/PromptModel'
+import Cookies from 'js-cookie'
 import './index.scss'
-import { clearAllCookie } from '@/helper/env'
 
 function LogOut(props) {
   const [time, setTime] = useState(3)
 
   useEffect(() => {
+
+    Cookies.remove('token')
+    localStorage.clear()
+
     const timer = setInterval(() => {
       if (time > 0) {
         setTime(time - 1)
       } else {
-        clearAllCookie()
-        localStorage.clear()
         props.history.push('/home')
       }
     }, 1000)

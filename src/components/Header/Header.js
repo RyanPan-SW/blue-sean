@@ -11,7 +11,8 @@ import down from '../../asset/down.svg'
 import home from '../../asset/home.svg'
 import logout from '../../asset/x.svg'
 import { getCookie } from '@/helper/env'
-import './selfHeader.scss'
+import Cookies from 'js-cookie'
+import './Header.scss'
 
 const servicesMenus = [
   {
@@ -36,6 +37,8 @@ const servicesMenus = [
 ]
 
 const Header = (props) => {
+  const { history } = props
+
   const { pathname, search } = useLocation()
   const [pathnameStatus, setPathnameStatus] = useState(false)
   const [showSubtitle, setShowSubtitle] = useState(false)
@@ -49,7 +52,7 @@ const Header = (props) => {
     //   props.history.push('/home')
     //   return
     // }
-  }, [pathname,])
+  }, [pathname])
 
   const ExpandSubtitle = (e) => {
     e.stopPropagation()
@@ -76,6 +79,11 @@ const Header = (props) => {
 
   const clickLogo = () => {
     window.location.pathname = '/home'
+  }
+
+  const clickLogOut = () => {
+    Cookies.remove('token')
+    history.push('/logOut')
   }
 
 
@@ -114,10 +122,10 @@ const Header = (props) => {
                   <img src={home} alt='' />
                   <span>Account info</span>
                 </Link>
-                <Link to='/logOut' className={pathnameStatus ? 'login-user' : 'login-home-user'}>
+                <span className={pathnameStatus ? 'login-user' : 'login-home-user'} onClick={clickLogOut}>
                   <img src={logout} alt='' />
                   <span>Log out</span>
-                </Link>
+                </span>
               </>
             )}
           </div>

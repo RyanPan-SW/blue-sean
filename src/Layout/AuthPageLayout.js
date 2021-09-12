@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch, useLocation } from 'react-router-dom'
 import FooterComponent from '@/components/Footer'
-import PageHeader from '@/components/Header/selfHeader'
+import PageHeader from '@/components/Header/Header'
 import { Layout } from 'antd'
 import Home from '@/pages/Home'
 import Services from '@/pages/Services'
@@ -45,7 +45,7 @@ function BaseLayout(props) {
           background: 'none',
         }}
       >
-        <PageHeader history={props.history} />
+        <PageHeader {...props} />
       </Layout.Header>
       <Layout.Content
         className='layout-main'

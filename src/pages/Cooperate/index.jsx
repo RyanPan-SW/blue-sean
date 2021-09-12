@@ -186,7 +186,7 @@ function Cooperate(props) {
 
       {ShowPromptBox && (
         <PromptModel>
-          <h3 className='prompt-title'>Thank you for your Request!</h3>
+          <h3 className='prompt-title'>Thank you for your request!</h3>
 
           <p className='prompt-describe'>
             We will process your application and contact you within the next two working days. For

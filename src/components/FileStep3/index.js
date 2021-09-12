@@ -400,7 +400,7 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
                 {/* <Link to='/contract' className='contract'>
                   XXXX contract terms
                 </Link> */}
-                <Link to='/website' className='contract'>
+                <Link to='/website' target="_blank" className='contract'>
                   Terms of Use
                 </Link>
               </Checkbox>

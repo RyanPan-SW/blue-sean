@@ -93,7 +93,9 @@ function SignUp(props) {
             <Input.Password
               autocomplete
               placeholder='Password'
-              iconRender={(visible) => (visible ? 'hide' : 'show')}
+              iconRender={(visible) =>
+                visible ? <span style={{ color: '#b38948' }}>hide</span> : 'show'
+              }
             />
           </Form.Item>
           {hidenTip && (

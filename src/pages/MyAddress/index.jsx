@@ -6,6 +6,7 @@ import AddressModal from '@/components/AddAddressModal'
 import * as UserActionCreator from '@/store/actions/counter'
 import { getAddressPagination, setDefaultAddress, deleteAddress } from '@/api/address'
 import './index.scss'
+import { getCookie } from '@/helper/env'
 
 function AddressBook(props) {
   const [form] = Form.useForm()
@@ -21,13 +22,15 @@ function AddressBook(props) {
   }, [])
 
   const getAddressList = () => {
-    getAddressPagination({ pageIndex: 0, pageSize: 10 /* , keyWord: '' */ }).then((res) => {
-      const { code, data } = res
-      if (code === '200') {
-        setData(data.data || [])
-        setTotal(data.total || 0)
-      }
-    })
+    if (getCookie('token')) {
+      getAddressPagination({ pageIndex: 0, pageSize: 10 /* , keyWord: '' */ }).then((res) => {
+        const { code, data } = res
+        if (code === '200') {
+          setData(data.data || [])
+          setTotal(data.total || 0)
+        }
+      })
+    }
   }
 
   const addModal = (record) => {
