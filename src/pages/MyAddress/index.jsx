@@ -74,7 +74,7 @@ function AddressBook(props) {
       key: 'contact',
       render: (text, record, index) => {
         return (
-          <div className={record.isDefault === '0' ? 'column-default' : 'table-column'}>
+          <div className='table-column'>
             <p>
               {record.firstName}&nbsp;
               {record.lastName}
@@ -90,9 +90,7 @@ function AddressBook(props) {
       dataIndex: 'address',
       key: 'address',
       render: (text, record, index) => {
-        return (
-          <div className={record.isDefault === '0' ? 'column-default' : 'table-column'}>{text}</div>
-        )
+        return <div className='table-column'>{text}</div>
       },
     },
     {
@@ -100,9 +98,16 @@ function AddressBook(props) {
       key: 'operate',
       dataIndex: 'operate',
       render: (text, record, index) => (
-        <div className={record.isDefault === '0' ? 'column-default' : 'table-column'}>
+        <div className='table-column'>
           {record.isDefault === '0' ? (
-            <p className='edit'>Cancel as default address</p>
+            <p
+              className='edit'
+              onClick={() => {
+                clickSetDefault(record.addressId)
+              }}
+            >
+              Cancel as default address
+            </p>
           ) : (
             <p
               className='edit'
@@ -136,8 +141,8 @@ function AddressBook(props) {
 
   return (
     <div style={{ background: '#FFF' }}>
-      <div className='container'>
-        <div className='address'>
+      <div className='address container'>
+        <div className=''>
           <Breadcrumb separator='>'>
             <Breadcrumb.Item>
               <Link to='/account'>My Account</Link>
@@ -159,9 +164,9 @@ function AddressBook(props) {
                 pageSizeOptions: 10,
                 showSizeChanger: false,
               }}
-              // onHeaderRow={(columns, index) => {
-              //   console.log('=====', columns, index)
-              // }}
+              rowClassName={(record, index) =>
+                record.isDefault === '0' ? 'column-default' : 'table-column'
+              }
               footer={() => (
                 <div className='table-footer' onClick={addModal}>
                   + Add a New Address
@@ -183,6 +188,7 @@ function AddressBook(props) {
         form={form}
         id={addressId}
         type={modalType}
+        className='add-address-modal'
         getAddressList={getAddressList}
         onCancel={onCancel}
         visible={visibleAdd}

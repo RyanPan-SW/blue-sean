@@ -47,6 +47,11 @@ a:hover {
   align-items: center;
 }
 
+.ant-input-password-icon {
+  color: #333 !important;
+  font-weight: bold;
+}
+
 .ant-input-password-icon:hover {
   color: #333;
   font-weight: bold;

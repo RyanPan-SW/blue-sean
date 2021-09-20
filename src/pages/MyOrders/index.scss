@@ -130,10 +130,11 @@
     text-align: center;
     font-size: 18px;
     line-height: 57px;
-    padding-top: 80px;
+    padding: 290px 0px;
 
     .new-pickup {
       cursor: pointer;
+      font-weight: bold;
       color: $themeColor;
     }
   }

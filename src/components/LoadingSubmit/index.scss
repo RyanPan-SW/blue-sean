@@ -1,0 +1,114 @@
+.signup-form-loading {
+  width: 100%;
+}
+
+.signup-loading {
+  width: 80px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+
+  i {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #fff;
+
+    &:nth-of-type(1) {
+      animation: spScaleAlpha 1s infinite linear;
+    }
+    &:nth-of-type(2) {
+      animation: spScaleAlphaFirst 1s infinite linear;
+    }
+    &:nth-of-type(3) {
+      animation: spScaleAlphaLast 1s infinite linear;
+    }
+  }
+}
+
+@keyframes spScaleAlpha {
+  0% {
+    opacity: 1;
+  }
+  33% {
+    opacity: 0.25;
+  }
+  66% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes spScaleAlpha {
+  0% {
+    opacity: 1;
+  }
+  33% {
+    opacity: 0.25;
+  }
+  66% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes spScaleAlphaFirst {
+  0% {
+    opacity: 0.25;
+  }
+  33% {
+    opacity: 1;
+  }
+  66% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}
+@-webkit-keyframes spScaleAlphaFirst {
+  0% {
+    opacity: 0.25;
+  }
+  33% {
+    opacity: 1;
+  }
+  66% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes spScaleAlphaLast {
+  0% {
+    opacity: 0.25;
+  }
+  33% {
+    opacity: 0.25;
+  }
+  66% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}
+@-webkit-keyframes spScaleAlphaLast {
+  0% {
+    opacity: 0.25;
+  }
+  33% {
+    opacity: 0.25;
+  }
+  66% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}

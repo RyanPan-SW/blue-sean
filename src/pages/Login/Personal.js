@@ -111,7 +111,7 @@ function PerSonal(props) {
         >
           <Input.Password
             placeholder='Password'
-            iconRender={(visible) => (visible ? <span style={{ color: '#b38948' }}>hide</span> : 'show')}
+            iconRender={(visible) => (visible ? <span style={{ color: '#b38948' }}>Hide</span> : 'Show')}
             onChange={changePassword}
           />
         </Form.Item>

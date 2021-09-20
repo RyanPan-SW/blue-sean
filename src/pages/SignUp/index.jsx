@@ -6,6 +6,7 @@ import { /* emailMsg, passwordMsg, */ setCookie } from '@/helper/env'
 import { signup } from '@/api/signup'
 import { errorCodeMessage } from '@/helper/error'
 import './index.scss'
+import LoadingSubmit from '@/components/LoadingSubmit'
 
 function SignUp(props) {
   const [showError, setShowError] = useState(false)
@@ -94,7 +95,7 @@ function SignUp(props) {
               autocomplete
               placeholder='Password'
               iconRender={(visible) =>
-                visible ? <span style={{ color: '#b38948' }}>hide</span> : 'show'
+                visible ? <span style={{ color: '#b38948' }}>Hide</span> : 'Show'
               }
             />
           </Form.Item>
@@ -123,15 +124,7 @@ function SignUp(props) {
               </Button>
             )}
 
-            {loading && (
-              <Button type='primary' htmlType='submit' className='signup-form-loading'>
-                <div className='signup-loading'>
-                  <i></i>
-                  <i></i>
-                  <i></i>
-                </div>
-              </Button>
-            )}
+            {loading && (<LoadingSubmit />)}
           </Form.Item>
         </Form>
 

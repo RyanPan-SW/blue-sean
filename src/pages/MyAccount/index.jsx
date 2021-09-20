@@ -1,21 +1,22 @@
-import React, { /* useState, useEffect */ } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import node from '../../asset/account-node.png'
 import lock from '../../asset/account-lock.png'
 import address from '../../asset/account-address.png'
 import announcement from '../../asset/announcement.png'
+import { getConfigContent } from '@/api/config'
 import './index.scss'
-// import { getAccount } from '@/api/account'
 
 function MyAccount(params) {
-  // const [adsNotes, setAdsNotes] = useState('')
+  const [adsNotes, setAdsNotes] = useState('')
 
-  // useEffect(() => {
-  //   getAccount().then((res) => {
-  //     console.log(res)
-  //     setAdsNotes(res)
-  //   })
-  // }, [])
+  useEffect(() => {
+    getConfigContent({ code: 'PMCP' }).then(({ data, code }) => {
+      if (code === '200') {
+        setAdsNotes(data.content)
+      }
+    })
+  }, [])
 
   return (
     <div className='container'>
@@ -56,13 +57,13 @@ function MyAccount(params) {
           </div>
 
           {/* TODO：该模块所有内容由后台编辑展示，此处仅文字展示，可加粗、变色 */}
-          <ul className='account-list' /* dangerouslySetInnerHTML={{ __html: adsNotes.data }} */>
-            <li>Warm prompt: Due to the weather, delivery to Brisbane will be delayed by 2 hour</li>
+          <ul className='account-list' dangerouslySetInnerHTML={{ __html: adsNotes }}>
+            {/* <li>Warm prompt: Due to the weather, delivery to Brisbane will be delayed by 2 hour</li>
             <li>
               Christmas sales: 20% discount！20% discount！There is a 20% discount for express
               delivery！It's so important that it should be repeated for three times.
             </li>
-            <li>我们是后台编辑填写的广告、通知信息等等，我们只是纯文字的展示。</li>
+            <li>我们是后台编辑填写的广告、通知信息等等，我们只是纯文字的展示。</li> */}
           </ul>
         </div>
       </div>

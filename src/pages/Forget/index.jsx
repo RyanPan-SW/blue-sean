@@ -12,15 +12,10 @@ function Forget(props) {
   return (
     <div className='forgrt'>
       <div className='forget-content'>
-        {msg && (
-          <div className='error'>
-            <FieldDom message={msg} />
-          </div>
-        )}
         {(() => {
           switch (type) {
             case 'email':
-              return <SendEmailGetCodeDom setMsg={setMsg} setType={setType}  setEmail={setEmail} />
+              return <SendEmailGetCodeDom setMsg={setMsg} setType={setType} setEmail={setEmail} />
 
             case 'code':
               return <VerificationCodeDom setType={setType} Email={Email} />
@@ -30,10 +25,13 @@ function Forget(props) {
 
             case 'success':
               return (
-                <div>
-                  <h4>Your password has been changed.</h4>
+                <div className='success'>
+                  <h4>
+                    Congratulations!
+                    <br /> Your password has been changed.
+                  </h4>
                   <p>
-                    Do you want to{' '}
+                    <span>Do you want to&nbsp;</span>
                     <Link to='/login'>
                       <b>log in</b>
                     </Link>

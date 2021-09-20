@@ -10,7 +10,7 @@ const modalTitle = {
 }
 
 function AddressModal(props) {
-  const { id, type, visible, form, onCancel, getAddressList } = props
+  const { className = '', id, type, visible, form, onCancel, getAddressList } = props
   const [cityarray, setCityarray] = useState([])
 
   useEffect(() => {
@@ -51,6 +51,7 @@ function AddressModal(props) {
       visible={visible}
       onCancel={onCancel}
       footer={null}
+      className={className}
     >
       <Form form={form} layout='vertical' onFinish={onFinishAddress}>
         <div className='form-content'>

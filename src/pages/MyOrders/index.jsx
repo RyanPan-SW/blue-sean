@@ -28,6 +28,7 @@ function MyOrder(params) {
   // const [listtotal, setListTotal] = useState(0)
   const [visible, setVisible] = useState(false)
   const [tabsKey, setTabsKey] = useState('1')
+  const [searchValue, setsearchValue] = useState('')
 
   useEffect(() => {
     getOrdersList({ pageIndex: 0, pageSize: 10, keyWord: null, orderTab: null })
@@ -35,11 +36,12 @@ function MyOrder(params) {
 
   const getOrdersList = ({ pageIndex = 0, pageSize = 10, keyWord = null, orderTab = null }) => {
     getOrdersListApi({ pageIndex, pageSize, keyWord, orderTab }).then((res) => {
-      const { code } = res
-      if (code === '200' && res.data.data) {
-        setOrdersdata(res.data.data)
+      const { code, data } = res
+      if (code === '200' && data.data) {
+        if (data.data.length > 0) setOrdersdata(data.data || [])
+        if (data.data.length === 0) setVisible(true)
       } else {
-        setVisible(true)
+        setVisible(false)
       }
     })
   }
@@ -68,6 +70,13 @@ function MyOrder(params) {
     })
   }
 
+  const foucsSreachOrder = () => {
+    setsearchValue('')
+  }
+  const changeSearchOrder = (e) => {
+    setsearchValue(e.target.value)
+  }
+
   return (
     <div className='order-content'>
       <div className='container'>
@@ -84,6 +93,10 @@ function MyOrder(params) {
           <div className='order-title'>My Orders</div>
 
           <Search
+            loading={false}
+            value={searchValue}
+            onFocus={foucsSreachOrder}
+            onChange={changeSearchOrder}
             className='order-search'
             enterButton='Search Orders'
             placeholder='Search for the recipient or tracking number'

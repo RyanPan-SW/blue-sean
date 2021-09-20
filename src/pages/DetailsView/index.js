@@ -12,6 +12,7 @@ import FieldDom from '@/components/Field'
 import './index.scss'
 import { getAllCity } from '@/api/fileStep'
 import { orderStatusEnums } from '@/helper/env'
+import { getConfigContent } from '@/api/config'
 
 function DetailsView(props) {
   const [form] = Form.useForm()
@@ -23,12 +24,15 @@ function DetailsView(props) {
   const [cancelVisible, setCancelVisible] = useState(false)
   const [cancelStatus, setCancelStatus] = useState(null)
 
+  const [notes, setNotes] = useState(null)
   const [ModifyVisible, setModifyVisible] = useState(false)
   const [InformationType, setInformationType] = useState('Sender')
   const [SenderInformationObject, setSenderInformationObject] = useState({})
 
   useEffect(() => {
     let trackingNumber = props.match.params.id
+    // get order notes
+    getOrderNotes()
     setTrackingNumber(trackingNumber)
     // get order detail
     getOrderDateils(trackingNumber)
@@ -38,6 +42,14 @@ function DetailsView(props) {
     getOrderISChecked(trackingNumber)
   }, [props.match.params.id])
 
+  const getOrderNotes = () => {
+    getConfigContent({ code: 'ODV' }).then((res) => {
+      const { code, data } = res
+      if (code === '200') {
+        setNotes(data.content)
+      }/* else {} */
+    })
+  }
   const getOrderDateils = (trackingNumber) => {
     getOrderDateilsApi({ trackingNumber: trackingNumber }).then((res) => {
       const { code, data } = res
@@ -56,21 +68,18 @@ function DetailsView(props) {
   const getOrderISChecked = (trackingNumber) => {
     getOrderIsCheckedApi({ trackingNumber }).then((res) => {
       const { data } = res
-      if (data.canCancel === '0') {
-        // can't cancel order
-        setCancelStatus(false)
-      } else if (data.canCancel === '1') {
+      if (data.canCancel === '1') {
         // can cancel order
         setCancelStatus(true)
+      } else if (data.canCancel === '0') {
+        // can't cancel order
+        setCancelStatus(false)
       }
     })
   }
 
-  const cancelOrder = () => {
-    setCancelVisible(true)
-  }
 
-  const onCancel = () => {
+  const cancelOrder = () => {
     setCancelVisible(false)
   }
 
@@ -86,6 +95,8 @@ function DetailsView(props) {
           })
         }
       })
+    } else {
+      setCancelVisible(false)
     }
   }
 
@@ -110,6 +121,13 @@ function DetailsView(props) {
     setModifyVisible(false)
   }
 
+  const onCancelModal = () => {
+
+    setModifyVisible(false)
+    setInformationType('Sender')
+    form.resetFields()
+  }
+
   return (
     <div className='details'>
       <div className='container'>
@@ -123,13 +141,15 @@ function DetailsView(props) {
           <Breadcrumb.Item>Detail View</Breadcrumb.Item>
         </Breadcrumb>
 
-        <div className='detail-notes'>
-          <h3>Notes:</h3>
-          <p>这里可以放一些规则说明，比如取消和修改快递的一些规则说明。 </p>
-          <p>修改的规则： </p>
-          <p>取消的规则：</p>
-          {/* <div dangerouslySetInnerHTML={{ __html: data?.notes }}></div> */}
-        </div>
+        {notes && (
+          <div className='detail-notes'>
+            <h3>Notes:</h3>
+            <div dangerouslySetInnerHTML={{ __html: notes }}></div>
+            {/* <p>这里可以放一些规则说明，比如取消和修改快递的一些规则说明。 </p>
+            <p>修改的规则： </p>
+            <p>取消的规则：</p> */}
+          </div>
+        )}
 
         <div className='detail-orders'>
           <div className='order-title'>
@@ -146,10 +166,10 @@ function DetailsView(props) {
 
             {(orderDetail?.orderStatus === orderStatusEnums['Pending'] ||
               orderDetail?.orderStatus === orderStatusEnums['InTransit']) && (
-              <div className='orders-cancel' onClick={cancelOrder}>
-                Cancel
-              </div>
-            )}
+                <div className='orders-cancel' onClick={cancelOrder}>
+                  Cancel
+                </div>
+              )}
           </div>
 
           {orderDetail?.orderStatus === orderStatusEnums['Canceled'] ? (
@@ -159,33 +179,34 @@ function DetailsView(props) {
                   <div className='cancel-status'>Canceled</div>
                   <div className='cancel-icon'></div>
                   <div className='cancel-content'>
-                    <p>{orderDetail?.orderPlaced}</p>
+                    <p>{orderDetail?.expected}</p>
                   </div>
+                </div>
+                <div className="order-cancel-desc">If there is a refund, we will refund the original route to your payment account within 2 working days.If you have any questions, please contact us. PH: 07 5649 8619
+                  Office Hours: Monday – Friday 8:30am-5:00pm
                 </div>
               </div>
             </div>
           ) : (
             <div className='order-steps'>
               <div
-                className={`order-step-item ${
-                  orderDetail?.orderStatus >= 1 ? 'order-step-fished' : null
-                }`}
+                className={`order-step-item ${orderDetail?.orderStatus >= 1 ? 'order-step-fished' : null
+                  }`}
               >
                 <div className='order-step-box'>
-                  <div className='step-status'>Padding</div>
+                  <div className='step-status'>Pending</div>
                   <div className='step-icon'></div>
                   <div className='step-line'></div>
                   <div className='step-content'>
                     {orderDetail?.orderStatus === orderStatusEnums['Pending'] &&
-                      'waiting to be received'}
+                      'Waiting to be received'}
                   </div>
                 </div>
               </div>
 
               <div
-                className={`order-step-item ${
-                  orderDetail?.orderStatus >= 2 ? 'order-step-fished' : null
-                }`}
+                className={`order-step-item ${orderDetail?.orderStatus >= 2 ? 'order-step-fished' : null
+                  }`}
               >
                 <div className='order-step-box'>
                   <div className='step-status'>In transit</div>
@@ -196,9 +217,8 @@ function DetailsView(props) {
               </div>
 
               <div
-                className={`order-step-item ${
-                  orderDetail?.orderStatus >= 3 ? 'order-step-fished' : null
-                }`}
+                className={`order-step-item ${orderDetail?.orderStatus >= 3 ? 'order-step-fished' : null
+                  }`}
               >
                 <div className='order-step-box'>
                   <div className='step-status'>Delivered</div>
@@ -219,9 +239,13 @@ function DetailsView(props) {
         </div>
 
         <div className='details-sender'>
-          <div className='details-sender-title'>
-            <span onClick={showModifyForm}>Modify</span>
-          </div>
+          {(orderDetail?.orderStatus !== orderStatusEnums['Canceled'] ||
+            orderDetail?.orderStatus !== orderStatusEnums["Delivered"])
+            && (
+              <div className='details-sender-title'>
+                <span onClick={showModifyForm}>Modify</span>
+              </div>
+            )}
 
           <div className='sender-content'>
             <div className='sender-item'>
@@ -282,9 +306,9 @@ function DetailsView(props) {
       <CustomizeModal
         width={'57%'}
         visible={cancelVisible}
-        cancelText={cancelStatus ? null : <span style={{ color: '#ccc' }}>Yes</span>}
-        onCancel={onCancel}
-        okText={cancelStatus ? 'Ok' : 'No'}
+        cancelText={cancelStatus ? <span style={{ color: '#ccc' }}>Yes</span> : null}
+        onCancel={cancelOrder}
+        okText={cancelStatus ? 'No' : 'Ok'}
         onOk={onOk}
       >
         <div>
@@ -295,37 +319,38 @@ function DetailsView(props) {
             </p>
           ) : (
             <p>
-              Sorry，you can't cancel the order now. If you need any help, please contact us.
-              <br /> PH: 07 5649 8619 <br /> Office Hours: Monday – Friday 8:30am-5:00pm
+              Sorry, it's more than 30 minutes. You can't cancel the order for free. If you need any help, please contact us.
+              <br /> PH: 07 5649 8619
+              <br /> Office Hours: Monday – Friday 8:30am-5:00pm
             </p>
           )}
         </div>
       </CustomizeModal>
 
+      {/* Information modal */}
       <Modal
         centered
         width={'70%'}
         closable={false}
         visible={ModifyVisible && cancelStatus}
         cancelText={null}
-        onCancel={() => {
-          setModifyVisible(false)
-          setInformationType('Sender')
-          form.resetFields()
-        }}
+        onCancel={onCancelModal}
         okText={null}
         onOk={() => {
           setModifyVisible(false)
         }}
         footer={null}
+        className="Information-modal"
       >
         {/* Weather information can be edit sender & recipient */}
-        <div>
+        <div className="Information-body">
+          <div className="Information-close" onClick={onCancelModal}></div>
+
           <h3>{InformationType} Information</h3>
 
           <Form form={form} layout='vertical' onFinish={onFishObject}>
             <div style={{ display: 'flex' }}>
-              <div style={{ flex: 1, padding: 30 }}>
+              <div style={{ flex: 1, paddingRight: 10 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <Form.Item
                     label='First Name'
@@ -379,7 +404,7 @@ function DetailsView(props) {
                 </Form.Item>
               </div>
 
-              <div style={{ flex: 1, padding: 30 }}>
+              <div style={{ flex: 1, paddingLeft: 10 }}>
                 <Form.Item
                   label='Phone Number'
                   name='phone'
@@ -391,7 +416,7 @@ function DetailsView(props) {
                 <Form.Item
                   label='Company Name'
                   name='companyName'
-                  // rules={[{ required: true, message: <FieldDom /> }]}
+                // rules={[{ required: true, message: <FieldDom /> }]}
                 >
                   <Input placeholder='Company Name' />
                 </Form.Item>
@@ -399,7 +424,7 @@ function DetailsView(props) {
                 <Form.Item
                   label='Apt/Suite/Other'
                   name='other'
-                  // rules={[{ required: true, message: <FieldDom /> }]}
+                // rules={[{ required: true, message: <FieldDom /> }]}
                 >
                   <Input placeholder='Apt/Suite/Other' />
                 </Form.Item>
@@ -414,11 +439,19 @@ function DetailsView(props) {
               </div>
             </div>
 
+            <Form.Item
+              label='Note'
+              name='Note'
+              rules={[{ required: true, message: <FieldDom /> }]}
+            >
+              <Input.TextArea />
+            </Form.Item>
+
             <Form.Item style={{ textAlign: 'center' }}>
               {InformationType === 'Sender' && (
                 <Button
                   type='primary'
-                  style={{ width: 300, height: 56, fontSize: 25 }}
+                  className="Information-next"
                   onClick={senderNextToRecipient}
                 >
                   Next
@@ -494,7 +527,7 @@ function DetailsView(props) {
           </div>
         </div>
       </Modal>
-    </div>
+    </div >
   )
 }
 

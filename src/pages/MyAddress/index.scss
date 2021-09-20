@@ -1,6 +1,12 @@
 .address {
-  width: 90%;
   margin: auto;
+
+  .h4-title {
+    font-size: 34px;
+    line-height: 34px;
+    font-weight: bold;
+    margin-top: 30px;
+  }
 
   .address-title {
     padding-top: 20px;
@@ -9,54 +15,104 @@
 
   .address-table {
     border-top: 4px solid $themeColor;
+
+    &.ant-table-wrapper {
+      .ant-table-thead > tr > th {
+        background-color: #fff;
+      }
+
+      .ant-table-footer {
+        border: none;
+        background-color: transparent;
+        padding: 13px;
+      }
+    }
   }
 
   .table-footer {
     cursor: pointer;
     color: $themeColor;
   }
-}
 
-.column-default {
-  font-weight: bold;
+  .column-default {
+    font-weight: bold;
+    background-color: #eee;
 
-  p {
-    line-height: 22px;
-    font-size: 16px;
-    color: #333;
+    p {
+      line-height: 22px;
+      font-size: 16px;
+      color: #333;
+    }
   }
-}
 
-.table-column {
-  line-height: 22px;
-
-  p {
+  .table-column {
     line-height: 22px;
-    font-size: 16px;
-    color: #333;
-  }
-}
 
-.table-column-edit {
-  p {
+    p {
+      line-height: 22px;
+      font-size: 16px;
+      color: #333;
+    }
+  }
+  .table-column-edit {
+    p {
+      cursor: pointer;
+      line-height: 22px;
+      font-size: 16px;
+      color: #333;
+
+      &:hover {
+        color: $themeColor;
+      }
+    }
+  }
+
+  .edit {
     cursor: pointer;
-    line-height: 22px;
-    font-size: 16px;
-    color: #333;
+    font-size: 18px;
+    line-height: 57px;
 
     &:hover {
       color: $themeColor;
     }
   }
+
+  .empy-address {
+    text-align: center;
+    padding: 290px 0px;
+    font-weight: bold;
+  }
+  .add-new {
+    cursor: pointer;
+    color: $themeColor;
+  }
 }
 
-.edit {
-  cursor: pointer;
-  font-size: 18px;
-  line-height: 57px;
+.ant-breadcrumb a {
+  color: rgba(0, 0, 0, 0.85) !important;
+}
 
-  &:hover {
-    color: $themeColor;
+.add-address-modal {
+  button:focus {
+    outline: none;
+  }
+
+  .ant-modal-close-x:focus-visible {
+    outline: none;
+  }
+
+  .ant-modal-header {
+    padding: 50px 34px 30px 34px;
+    .ant-modal-title {
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+
+  .ant-modal-body {
+    padding-left: 34px;
+    padding-right: 34px;
+    padding-top: 0;
   }
 }
 
@@ -91,13 +147,4 @@
     border-radius: 50px;
     background-color: $themeColor;
   }
-}
-
-.empy-address {
-  text-align: center;
-  padding-top: 80px;
-}
-.add-new {
-  cursor: pointer;
-  color: $themeColor;
 }
