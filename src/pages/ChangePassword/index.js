@@ -81,7 +81,15 @@ function ChangePassword(props) {
             }}
             rules={[{ required: true, message: <FieldDom message={'This field is required.'} /> }]}>
             <Input.Password placeholder='Current Password'
-              iconRender={(visible) => (visible ? <span style={{ color: '#b38948' }}>Hide</span> : 'Show')} />
+              iconRender={(visible) => (
+                visible ? (
+                  <span style={{ color: visible && '#b38948' }}>Hide</span>
+                ) : (
+                  <span style={{ color: !visible && '#333' }}>Show</span>
+                ))
+              }
+            />
+            }
           </Form.Item>
 
           <Form.Item label='NEW PASSWORD' name='newpassword'
@@ -98,8 +106,13 @@ function ChangePassword(props) {
               },
             ]}>
             <Input.Password placeholder='Password'
-              iconRender={(visible) =>
-                (visible ? <span style={{ color: '#b38948' }}>Hide</span> : 'Show')} />
+              iconRender={(visible) => (
+                visible ? (
+                  <span style={{ color: visible && '#b38948' }}>Hide</span>
+                ) : (
+                  <span style={{ color: !visible && '#333' }}>Show</span>
+                ))
+              } />
           </Form.Item>
 
 

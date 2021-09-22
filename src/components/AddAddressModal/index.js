@@ -10,7 +10,7 @@ const modalTitle = {
 }
 
 function AddressModal(props) {
-  const { className = '', id, type, visible, form, onCancel, getAddressList } = props
+  const { className = '', id, type, visible, form, onCancel, getAddressList, tablePramas } = props
   const [cityarray, setCityarray] = useState([])
 
   useEffect(() => {
@@ -23,10 +23,11 @@ function AddressModal(props) {
     if (type === 'add') {
       // add new address
       addNewAddress(values).then((res) => {
-        const { code } = res
+        const { code,data } = res
         if (code === '200') {
           onCancel(false)
-          getAddressList()
+          message.success(data.msg)
+          getAddressList(tablePramas)
         }
       })
     } else if (type === 'edit') {
@@ -82,7 +83,7 @@ function AddressModal(props) {
               label='Email'
               name='email'
               normalize={normFile}
-              rules={[{ required: true, message: 'Please Enter' }]}
+              rules={[{ required: true, type: 'email', message: 'Please Enter' }]}
             >
               <Input placeholder='Email' />
             </Form.Item>

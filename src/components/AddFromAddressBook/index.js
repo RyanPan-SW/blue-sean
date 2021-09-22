@@ -1,5 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react'
-import { Modal, Input, Button, Table, ConfigProvider } from 'antd'
+import { Modal, Input, Button, Table, ConfigProvider, message } from 'antd'
 import './index.scss'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import { getSearchAddress } from '@/api/fileStep'
@@ -10,6 +11,7 @@ function AddFromAddressBook(props) {
   const { visible, setVisible, submit } = props
   const [total, setTotal] = useState(0)
   const [dataSource, setDataSource] = useState([])
+  const [tablePramas, setTablePramas] = useState({ pageIndex: 0, pageSize: 10, keyWord: null })
   // const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const [selectedRowKeys, setSelectedRowKeys] = useState(null)
   const [selectedRows, setSelectedRows] = useState(null)
@@ -20,7 +22,11 @@ function AddFromAddressBook(props) {
 
   const searchAddress = (value, event) => {
     const keyWord = value && value.replace(/(^\s*)|(\s*$)/, '')
-    const params = { pageIndex: 0, pageSize: 10, keyWord: keyWord }
+    const params = { ...tablePramas, keyWord: keyWord }
+    getAddress(params)
+  }
+
+  const getAddress = (params) => {
     getSearchAddress(params).then((res) => {
       if (res.code === '200') {
         setTotal(res.data.total || 0)
@@ -34,6 +40,7 @@ function AddFromAddressBook(props) {
 
   const columns = [
     {
+      with: '40%',
       title: 'Contact',
       dataIndex: 'contact',
       key: 'contact',
@@ -82,15 +89,24 @@ function AddFromAddressBook(props) {
   // }
 
   const submitAddressBook = () => {
-    submit(selectedRows[0], selectedRowKeys)
+    if (!selectedRowKeys || selectedRowKeys.length === 0) {
+      message.error('Please Select.')
+    } else {
+      submit(selectedRows[0], selectedRowKeys)
+    }
   }
 
   const customizeRenderEmpty = () => (
     //这里面就是我们自己定义的空状态
     <div style={{ textAlign: 'center', height: 300 }}>
-      <p style={{ paddingTop: 150 }}>No results were found. Please try other searches.</p>
+      <p style={{ padding: '120px 0px' }}>No results were found. Please try other searches.</p>
     </div>
   )
+
+  const changePageSize = (index, size) => {
+    setTablePramas({ pageSize: size, pageIndex: index })
+    getAddress({ pageSize: size, pageIndex: index })
+  }
 
   return (
     <Modal
@@ -104,6 +120,7 @@ function AddFromAddressBook(props) {
       }}
       closable
       footer={null}
+      wrapClassName="add-address-modal"
     >
       <div className='form-modal-body'>
         <div className='title-search'>
@@ -127,7 +144,13 @@ function AddFromAddressBook(props) {
             }}
             dataSource={dataSource}
             columns={columns}
-            pagination={{ total: total, pageSize: 10, pageSizeOptions: 10, itemRender: itemRender }}
+            pagination={{
+              total: total,
+              defaultCurrent: tablePramas.pageIndex,
+              pageSize: tablePramas.pageSize,
+              itemRender: itemRender,
+              onChange: changePageSize
+            }}
           />
         </ConfigProvider>
 
@@ -146,20 +169,18 @@ export default AddFromAddressBook
 function itemRender(current, type, originalElement) {
   if (type === 'prev') {
     return (
-      // eslint-disable-next-line jsx-a11y/anchor-is-valid
-      <a style={{ display: 'flex', alignItems: 'center' }}>
+      <>
         <span>Previous</span>
         <LeftOutlined style={{ width: 8, height: 14, marginLeft: 15 }} />
-      </a>
+      </>
     )
   }
   if (type === 'next') {
     return (
-      // eslint-disable-next-line jsx-a11y/anchor-is-valid
-      <a style={{ display: 'flex', alignItems: 'center' }}>
+      <>
         <RightOutlined style={{ width: 8, height: 14, marginRight: 15 }} />
         <span>Next</span>
-      </a>
+      </>
     )
   }
   return originalElement

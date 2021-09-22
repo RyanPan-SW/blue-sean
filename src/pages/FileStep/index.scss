@@ -3,6 +3,10 @@
   margin: 0 auto;
   padding-top: 40px;
 
+  label {
+    flex-direction: row-reverse;
+  }
+
   .file-notes {
     padding: 25px;
     border-top: 4px solid $themeColor;
@@ -18,6 +22,17 @@
     p {
       font-size: 16px;
       line-height: 22px;
+    }
+
+    ul > li {
+      line-height: 30px;
+      list-style: auto;
+      margin-left: 30px;
+    }
+    ol > li {
+      list-style: disc;
+      margin-left: 30px;
+      line-height: 30px;
     }
   }
 }

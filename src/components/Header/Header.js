@@ -33,7 +33,7 @@ const servicesMenus = [
     id: 'documentBusiness',
     title: 'Legal Documents Deliveries & Service of Court Documents',
   },
-  { name: 'filestep', id: 'add', to: '/filestep', title: 'Schedule a New Pickup' },
+  { name: 'filestep', id: 'add?step=1', to: '/filestep', title: 'Schedule a New Pickup' },
 ]
 
 const Header = (props) => {
@@ -69,7 +69,7 @@ const Header = (props) => {
   }
 
   const welcomeUser = () => {
-    const user = sessionStorage.getItem('user') && JSON.parse(sessionStorage.getItem('user'))
+    const user = localStorage.getItem('user') && JSON.parse(localStorage.getItem('user'))
     if (user /* && user.loginType === '01' */) {
       return `Welcome  ${user.loginEmail}`
     } else {

@@ -10,6 +10,7 @@
   }
 
   .step-scussful-text {
+    font-weight: bold;
     text-align: center;
     font-size: 25px;
     color: #333;
@@ -26,6 +27,8 @@
   }
 
   .step-button-group {
+    width: 80%;
+    margin: 0 auto;
     display: flex;
     justify-content: space-evenly;
 
@@ -58,6 +61,7 @@
   }
 
   .step-service {
+    font-weight: bold;
     margin-top: 100px;
     font-size: 18px;
     color: #333;
@@ -67,5 +71,44 @@
     padding-top: 20px;
     font-size: 16px;
     line-height: 22px;
+
+    ul > li {
+      line-height: 30px;
+      list-style: auto;
+      margin-left: 30px;
+    }
+    ol > li {
+      list-style: disc;
+      margin-left: 30px;
+      line-height: 30px;
+    }
+  }
+}
+
+.bpay-successful {
+  .bpay-img {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    margin: 0 auto;
+
+    .step-successful-bpay {
+      width: 74px;
+      height: 110px;
+      margin-right: 25px;
+    }
+
+    .bpay-img-desc {
+      padding: 16px 24px;
+      border: 2px solid #0d306c;
+    }
+  }
+
+  .bpay-desc {
+    font-size: 16px;
+    line-height: 34px;
+    color: #333;
+    text-align: center;
+    padding-top: 40px;
   }
 }

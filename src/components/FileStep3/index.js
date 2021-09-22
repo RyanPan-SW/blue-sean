@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Radio, Space, Checkbox, Button, Input, Form, Modal, Tooltip, } from 'antd'
+import { Radio, Space, Checkbox, Button, Input, Form, Modal, Tooltip, message, } from 'antd'
 import { ExclamationCircleFilled } from '@ant-design/icons'
 import { getDayOrTime, getOptionalTime, methodOfPayment } from '@/api/fileStep'
 import dayjs from 'dayjs'
@@ -11,6 +11,7 @@ import Bpay from '../../asset/bpay.png'
 import Tanhao from '../../asset/tanhao.png'
 
 import './index.scss'
+import classnames from 'classnames'
 
 const paymentEmnu = {
   visa: '01',
@@ -22,7 +23,7 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
   const [form] = Form.useForm()
   const [payment, setPayment] = useState(null)
   const [datelist, setDatelist] = useState([])
-  const [activeDay, setActiveDay] = useState(0)
+  const [activeDay, setActiveDay] = useState(null)
   const [activeTime, setActiveTime] = useState(0)
   const [paydata, setPaydata] = useState(null)
   const [PaypalModal, setPaypalModal] = useState(false)
@@ -93,6 +94,13 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
   }
 
   const onFinish = (values) => {
+    if (!paydata) {
+      message.error('Please choose the delivery time.')
+      return
+    } else if (!payment) {
+      message.error('Please choose the payment method.')
+      return
+    }
     let params = {}
     if (payment === paymentEmnu['visa']) {
       params = { payType: payment, ...values /* paymentCode: code */ }
@@ -102,6 +110,11 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
     methodOfPayment(params).then((res) => {
       getPayOrder(res)
     })
+  }
+
+  const payNow = () => {
+    let node = document.querySelector('#paySubmit')
+    node && node.click()
   }
 
   return (
@@ -138,7 +151,7 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
                 return (
                   <div
                     key={index}
-                    className={activeTime === index ? 'delivered-active' : 'delivered-time'}
+                    className={classnames({ 'delivered-time': true, 'delivered-active': activeTime === index })}
                     onClick={() => selectTime(item, index)}
                   >
                     {item.title}
@@ -225,6 +238,7 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
                   rules={[
                     {
                       required: true,
+                      type: 'email',
                       message: 'Please Enter.',
                     },
                   ]}
@@ -291,7 +305,7 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
                             { required: true, message: 'Please enter.' },
                             ({ getFieldValue }) => ({
                               validator: (_, value) => {
-                                const [M, Y] = value.split('/')
+                                const [M, Y] = value && value.split('/')
                                 const nowY = dayjs().format('YY')
                                 if (!value || (M.match(/^0?[0-9]$|^1[0-2]$/) && Y >= nowY)) {
                                   return Promise.resolve()
@@ -406,27 +420,27 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
               </Checkbox>
             </Form.Item>
 
-            <div className='button-group'>
-              <Button
-                type='primary'
-                className='button-back'
-                onClick={() => {
-                  setStep(2)
-                }}
-              >
-                Back
-              </Button>
-
-              <Button
-                type='primary'
-                className='button-pay'
-                htmlType='submit' /* onClick={payNow} */
-              >
-                Pay Now
-              </Button>
-            </div>
+            <Button style={{ width: 0, height: 0 }} id="paySubmit" htmlType="submit"></Button>
           </Form>
         </div>
+      </div>
+
+      <div className='button-group'>
+        <Button
+          type='primary'
+          className='button-back'
+          onClick={() => setStep(2)}
+        >
+          Back
+        </Button>
+
+        <Button
+          type='primary'
+          className='button-pay'
+          htmlType='submit' onClick={payNow}
+        >
+          Pay Now
+        </Button>
       </div>
 
       <Modal visible={PaypalModal} centered closable={false} footer={null}>
@@ -457,7 +471,7 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
         </div>
       </Modal>
       {/* </Space> */}
-    </div>
+    </div >
   )
 }
 

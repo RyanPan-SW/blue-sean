@@ -22,23 +22,28 @@ const tabsList = [
     tabTitle: 'Completed orders',
   },
 ]
+const pageSize = 10,
+  pageIndex = 0
 
 function MyOrder(params) {
   const [ordersdata, setOrdersdata] = useState([])
-  // const [listtotal, setListTotal] = useState(0)
+  const [ordertotal, setOrderTotal] = useState(0)
   const [visible, setVisible] = useState(false)
   const [tabsKey, setTabsKey] = useState('1')
   const [searchValue, setsearchValue] = useState('')
 
   useEffect(() => {
-    getOrdersList({ pageIndex: 0, pageSize: 10, keyWord: null, orderTab: null })
+    getOrdersList({ pageIndex: pageIndex, pageSize: pageSize, keyWord: null, orderTab: null })
   }, [])
 
-  const getOrdersList = ({ pageIndex = 0, pageSize = 10, keyWord = null, orderTab = null }) => {
-    getOrdersListApi({ pageIndex, pageSize, keyWord, orderTab }).then((res) => {
+  const getOrdersList = (parmas) => {
+    getOrdersListApi(parmas).then((res) => {
       const { code, data } = res
       if (code === '200' && data.data) {
-        if (data.data.length > 0) setOrdersdata(data.data || [])
+        if (data.data.length > 0) {
+          setOrdersdata(data.data || [])
+          setOrderTotal(data.total)
+        }
         if (data.data.length === 0) setVisible(true)
       } else {
         setVisible(false)
@@ -52,13 +57,13 @@ function MyOrder(params) {
 
   const onSearchOrders = (value, e) => {
     const orderTab = Number(tabsKey) === 1 ? null : `0${tabsKey - 1}`
-    getOrdersList({ pageIndex: 0, pageSize: 10, keyWord: value, orderTab: orderTab })
+    getOrdersList({ pageIndex: pageIndex, pageSize: pageSize, keyWord: value, orderTab: orderTab })
   }
 
   const changeTabs = (activeKey) => {
     setTabsKey(activeKey)
     const orderTab = Number(activeKey) === 1 ? null : `0${activeKey - 1}`
-    getOrdersList({ pageIndex: 0, pageSize: 10, keyWord: null, orderTab: orderTab })
+    getOrdersList({ pageIndex: pageIndex, pageSize: pageSize, keyWord: null, orderTab: orderTab })
   }
 
   const changePageSize = (page, pageSize) => {
@@ -75,6 +80,16 @@ function MyOrder(params) {
   }
   const changeSearchOrder = (e) => {
     setsearchValue(e.target.value)
+  }
+
+  const itemRender = (current, type, originalElement) => {
+    if (type === 'prev') {
+      return <span className='Previous'>Previous</span>
+    }
+    if (type === 'next') {
+      return <span className='Next'>Next</span>
+    }
+    return originalElement
   }
 
   return (
@@ -138,7 +153,7 @@ function MyOrder(params) {
                                 </div>
                                 <div
                                   className={
-                                    item.orderStatus === 1 || item.orderStatus === 4
+                                    item.orderStatus === '01' || item.orderStatus === '04'
                                       ? 'colorbcbc'
                                       : 'color666'
                                   }
@@ -153,6 +168,7 @@ function MyOrder(params) {
                             </div>
 
                             <Link
+                              target='_blank'
                               to={'/detailsview/' + item.trackingNumber}
                               className='list-details'
                             >
@@ -163,16 +179,15 @@ function MyOrder(params) {
                       )
                     })}
 
-                    {ordersdata.total > 15 && (
-                      <Pagination
-                        style={{ textAlign: 'right', paddingTop: 30 }}
-                        defaultCurrent={1}
-                        // defaultPageSize={15}
-                        pageSize={15}
-                        total={ordersdata?.total || 0}
-                        onChange={changePageSize}
-                      />
-                    )}
+                    <Pagination
+                      style={{ textAlign: 'right', paddingTop: 30 }}
+                      defaultCurrent={1}
+                      // defaultPageSize={15}
+                      pageSize={pageSize}
+                      itemRender={itemRender}
+                      total={ordertotal}
+                      onChange={changePageSize}
+                    />
                   </div>
                 ) : (
                   <p className='empy-order-list'>

@@ -1,18 +1,44 @@
+.add-address-modal {
+  .ant-modal-header {
+    display: none;
+  }
+
+  .ant-modal-body {
+    padding-top: 50px;
+  }
+
+  .ant-modal-close-x {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    margin-right: 10px;
+  }
+
+  .ant-table-selection-column {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+
+  .ant-pagination-item-active {
+    background-color: $themeColor;
+    color: #fff;
+  }
+
+  .ant-table-tbody>tr.ant-table-row-selected>td {
+    border-color: #c9c9c9;
+  }
+}
+
 .form-modal-body {
   .title-search {
-    margin-top: 20px;
     margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
 
     .select-from-your-address-book {
-      width: 276px;
-      height: 14px;
-      font-family: Arial-BoldMT;
       font-size: 18px;
-      font-weight: normal;
-      font-stretch: normal;
-      letter-spacing: 0px;
+      line-height: 35px;
+      font-weight: bold;
       color: #333333;
     }
 
@@ -75,5 +101,26 @@
     display: block;
     margin: 0 auto;
     font-size: 25px;
+  }
+
+  .ant-pagination-item {
+    border-radius: 50%;
+    border-color: $themeColor;
+
+    &:hover {
+      border-color: $themeColor;
+    }
+  }
+
+  .ant-pagination-prev,
+  .ant-pagination-next {
+    display: flex;
+    align-items: center;
+  }
+
+  .ant-pagination-disabled {
+    .anticon {
+      color: #dedede;
+    }
   }
 }

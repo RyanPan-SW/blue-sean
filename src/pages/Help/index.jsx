@@ -44,12 +44,12 @@ function HelpContent(props) {
                   <span
                     className={activeArray.includes(`${index}`) ? 'help-active' : 'help-header'}
                   >
-                    <span dangerouslySetInnerHTML={{ __html: item.q }}></span>
+                    <span /* className="item-title" */ dangerouslySetInnerHTML={{ __html: item.q }}></span>
                   </span>
                 }
                 key={index}
               >
-                <ul dangerouslySetInnerHTML={{ __html: item.a }}></ul>
+                <ul className="item-content" dangerouslySetInnerHTML={{ __html: item.a }}></ul>
               </Panel>
             )
           })}

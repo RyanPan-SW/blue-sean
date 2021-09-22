@@ -7,7 +7,7 @@
   }
 
   .breadcrumb-link {
-    color: #000000D9;
+    color: #000000d9;
   }
 
   .ordersList {
@@ -21,6 +21,7 @@
     margin-top: 20px;
     .list-title {
       font-size: 16px;
+      padding-bottom: 30px;
     }
 
     .list-content {
@@ -50,6 +51,7 @@
         }
         .list-status {
           padding: 0px 50px;
+          font-weight: bold;
 
           div {
             text-align: center;
@@ -80,7 +82,11 @@
       font-size: 20px;
       font-family: Arial;
       font-weight: bold;
-      color: $themeColor;
+      color: #333;
+
+      &:hover {
+        color: $themeColor !important;
+      }
     }
   }
 
@@ -164,9 +170,15 @@
     background: $themeColor;
   }
 
+  .ant-pagination-item {
+    background-color: #fff;
+    color: #666;
+  }
+
   .ant-pagination-item:focus,
   .ant-pagination-item:hover {
     border-color: $themeColor;
+    background: $themeColor;
     color: #fff !important;
   }
   .ant-pagination-item-active {
@@ -178,5 +190,26 @@
   .ant-tabs-tab {
     font-size: 18px;
     padding: 12px;
+  }
+
+  .ant-pagination-jump-next,
+  .ant-pagination-jump-prev,
+  .ant-pagination-next,
+  .ant-pagination-prev {
+    padding: 0px 10px;
+    border: 1px solid #e0e7f0;
+    font-size: 16px;
+    border-radius: 4px;
+    height: 100%;
+  }
+
+  .ant-pagination-prev,
+  .ant-pagination-next {
+    color: #616872;
+    font-size: 16px;
+  }
+
+  .ant-pagination-item {
+    border-radius: 4px;
   }
 }

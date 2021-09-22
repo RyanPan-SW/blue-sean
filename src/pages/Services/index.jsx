@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import housingProperty from '../../asset/services-page.png'
 import LegalInvestigation from '../../asset/services-body.png'
 import DocumentBusiness from '../../asset/services-legal.png'
 
 import './index.scss'
 import { Link } from 'react-router-dom'
+import { getConfigContent } from '@/api/config'
 
 const serverPageContent = {
   housingProperty: {
+    code: 'PSLS',
     title: 'Property Settlement & Lodgment Services',
     image: housingProperty,
     describe: [
@@ -20,6 +22,7 @@ const serverPageContent = {
     ],
   },
   legalInvestigation: {
+    code: 'PBCSR',
     title: 'Property & Body Corporate Searches & Report',
     image: LegalInvestigation,
     describe: [
@@ -41,6 +44,7 @@ const serverPageContent = {
     ],
   },
   documentBusiness: {
+    code: 'LDDSOCD',
     title: 'Property & Body Corporate Searches & Report',
     image: DocumentBusiness,
     describe: [
@@ -54,28 +58,43 @@ const serverPageContent = {
 
 const Services = (props) => {
   const { id = 'housingProperty' } = props.match.params
+  const [content, setContent] = useState('')
+
+  useEffect(() => {
+    getConfigContent({ code: serverPageContent[id]['code'] }).then((res) => {
+      const { code, data } = res
+      setContent(data.content)
+    })
+  }, [id])
 
   return (
     <div className='services-pages'>
       <div className='container'>
         <h3>{serverPageContent[id]?.title || ''}</h3>
 
-        <div className={id === 'legalInvestigation' ? 'legalInvestigation-content' : 'services-content'}>
+        <div
+          className={
+            id === 'legalInvestigation' ? 'legalInvestigation-content' : 'services-content'
+          }
+        >
           <div className='services-img'>
             <img src={serverPageContent[id]?.image || ''} alt='' />
           </div>
 
           <ul className='services-list'>
-            {serverPageContent[id]?.describe.map((item, index) => {
+            <li dangerouslySetInnerHTML={{ __html: content }}></li>
+            {/* {serverPageContent[id]?.describe.map((item, index) => {
               return <li key={index}>{item}</li>
-            })}
+            })} */}
           </ul>
         </div>
 
         {id === 'documentBusiness' && (
           <>
             <div className='services-or'>or</div>
-            <Link to="/filestep/add" className='services-pickup' >Schedule a New Pickup</Link>
+            <Link to='/filestep/add' className='services-pickup'>
+              Schedule a New Pickup
+            </Link>
           </>
         )}
       </div>

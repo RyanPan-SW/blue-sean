@@ -3,14 +3,15 @@ import { connect } from 'react-redux'
 import { Button, Form, Input, Checkbox, Popover } from 'antd'
 import { loginApi } from '@/api/login'
 import { Link } from 'react-router-dom'
-import './index.scss'
 import FieldDom from '@/components/Field'
-import { setCookie } from '@/helper/env'
+import { getUrlParams, setCookie } from '@/helper/env'
 import Cookies from 'js-cookie'
 import values from 'postcss-modules-values'
+import './index.scss'
 
 function PerSonal(props) {
   const { history } = props
+  const { location } = history
 
   const [form] = Form.useForm()
   const [loginPersonError, setLoginPersonError] = useState(false)
@@ -53,7 +54,11 @@ function PerSonal(props) {
         setCookie('token', data.token, values.remember ? 30 : 7)
         const loginUser = JSON.stringify(data.loginUser)
         localStorage.setItem('user', loginUser)
-        history.push('/account')
+        if (location?.search && location?.search.includes('from')) {
+          history.push(`/${getUrlParams('from')}`)
+        } else {
+          history.push('/account')
+        }
       } else {
         setLoginPersonError(true)
         setErrormsg(errmsg)
@@ -61,6 +66,8 @@ function PerSonal(props) {
       }
     })
   }
+
+
 
   return (
     <div className='login-content'>
@@ -90,6 +97,7 @@ function PerSonal(props) {
           getValueFromEvent={(e) => {
             return e.target.value.replace(/\s+/g, '')
           }}
+          validateTrigger="onBlur"
           rules={[
             {
               required: true,
@@ -111,7 +119,14 @@ function PerSonal(props) {
         >
           <Input.Password
             placeholder='Password'
-            iconRender={(visible) => (visible ? <span style={{ color: '#b38948' }}>Hide</span> : 'Show')}
+            iconRender={(visible) => (
+              visible ? (
+                <span style={{ color: visible && '#b38948' }}>Hide</span>
+              ) : (
+                <span style={{ color: !visible && '#333' }}>Show</span>
+              )
+            )
+            }
             onChange={changePassword}
           />
         </Form.Item>
@@ -134,27 +149,7 @@ function PerSonal(props) {
           </Form.Item>
 
           <Link to='/forget' className='login-form-forgot'>
-            <Popover
-              placement='right'
-              content={
-                <div className='forget-popover'>
-                  <p>Please contact us, you can call or email us.</p>
-                  <p>
-                    <b>Email:</b> info@dcglobalsolutions.com.au
-                  </p>
-                  <p>
-                    <b>PH:</b> 07 5649 8619
-                  </p>
-                  <p>
-                    <b>Office </b>Hours: Monday – Friday 8:30am-5:00pm
-                  </p>
-                </div>
-              }
-              trigger='hover'
-            >
-              Forgot password?
-            </Popover>
-
+            Forgot password?
           </Link>
         </Form.Item>
 

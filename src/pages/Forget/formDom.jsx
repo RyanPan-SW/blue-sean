@@ -214,7 +214,7 @@ export const VerificationCodeDom = ({ Email, setType }) => {
 // Password
 export const SetNewPasswordDom = ({ Email, setType }) => {
   const [loading, setLoading] = useState(false)
-  
+
   const setNewPassword = (values) => {
     setLoading(true)
     let params = { userName: Email, code: userCode, newpassword: values.newpassword }
@@ -260,7 +260,11 @@ export const SetNewPasswordDom = ({ Email, setType }) => {
           <Input.Password
             placeholder='Password'
             iconRender={(visible) =>
-              visible ? <span style={{ color: '#b38948' }}>Hide</span> : 'Show'
+              visible ? (
+                <span style={{ color: visible && '#b38948' }}>Hide</span>
+              ) : (
+                <span style={{ color: !visible && '#333' }}>Show</span>
+              )
             }
           />
         </Form.Item>

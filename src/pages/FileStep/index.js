@@ -1,38 +1,47 @@
 import React, { useState, useEffect } from 'react'
 import { getAllCity } from '@/api/fileStep'
-import './index.scss'
 import FileStep1 from '@/components/FileStep1'
 import FileStep2 from '@/components/FileStep2'
 import FileStep3 from '@/components/FileStep3'
 import FileStepSuccessful from '@/components/FileStepSuccessful'
-
-/* const recipient = {
-  firstName: 'First Name',
-  lastName: 'Last Name',
-  phone: 'Phone Number',
-  email: 'Email',
-  companyName: 'Company Name',
-  address: 'Street Address',
-  cityCode: 'City',
-  other: 'Apt/Suite/Other',
-  zipcode: 'ZIP Code',
-  note: 'Note',
-} */
+import { getConfigContent } from '@/api/config'
+import './index.scss'
+import { getUrlParams } from '@/helper/env'
 
 function FileStep(props) {
-  const [step, setStep] = useState(1)
+  const { history: { location, push } } = props
+  // const [step, setStep] = useState()
   const [cityArray, setCityArray] = useState([])
   const [status, setStatus] = useState(null)
   const [message, setMessage] = useState(null)
+  const [configContent, setConfigContent] = useState('')
 
   useEffect(() => {
+    // get all city list
     getAllCity().then((res) => {
       const { code, data } = res
       if (code === '200') {
         setCityArray(data.list)
       }
     })
+    // get pages config content
+    let params = {}, step = Number(getUrlParams('step'))
+    if (step === 1 || step === 2) {
+      params = { code: 'SRIP' }
+    } else if (step === 3) {
+      params = { code: 'CT' }
+    } else if (step === 4) {
+      params = { code: 'PSP' }
+    }
+    getConfigContent(params).then(res => {
+      setConfigContent(res.data.content || '')
+    })
+
   }, [])
+
+const setStep = () => {
+  push('/filestep/add?step=4')
+}
 
   const getPayOrder = (res) => {
     if (res.code === '201') {
@@ -47,17 +56,15 @@ function FileStep(props) {
 
   return (
     <div className='file-step'>
-      {step !== 4 && (
+      {![3, 4].includes(Number(getUrlParams('step'))) && (
         <div className='file-notes'>
           <div className='notes-title'>Notes:</div>
-          <p>这里可以放一些规则说明，比如取消和修改快递的一些规则说明。</p>
-          <p>修改的规则：</p>
-          <p>取消的规则：</p>
+          <div dangerouslySetInnerHTML={{ __html: configContent }}></div>
         </div>
       )}
 
       {(() => {
-        switch (step) {
+        switch (Number(getUrlParams('step'))) {
           case 1:
             return <FileStep1 cityArray={cityArray} setStep={setStep} history={props.history} />
 
@@ -68,7 +75,7 @@ function FileStep(props) {
             return <FileStep3 getPayOrder={getPayOrder} setStep={setStep} />
 
           case 4:
-            return <FileStepSuccessful setStep={setStep} status={status} message={message} />
+            return <FileStepSuccessful setStep={setStep} status={status} message={message} configContent={configContent} />
 
           default:
             return <></>

@@ -28,6 +28,24 @@ export const passwordMsg = {
     'Use a password of at least 6 characters. Suggest you include an uppercase letter, a lowercase letter, a number, and a special character.',
 }
 
+export const getUrlParams = (name = '') => {
+  var url = window.location.search; //获取url中"?"符后的字串
+  var theRequest = new Object();
+  if (url.indexOf("?") != -1) {
+    let str = url.substr(1);
+    let strs = str.split("&");
+    for (var i = 0; i < strs.length; i++) {
+      theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+    }
+  }
+  if (name === "") {
+    return theRequest;
+  } else {
+    return theRequest[name] ? theRequest[name] : '';
+  }
+}
+
+
 export const patterns = {
   email: /^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$/,
   // pwd: /^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?!([^(0-9a-zA-Z)])+$).{6,20}$/,
@@ -40,6 +58,7 @@ export const patterns = {
 }
 
 export const orderDetailEnums = {
+  '00': 'Unpaid',
   '01': 'Pending',
   '02': 'In transit',
   '03': 'Delivered',
@@ -47,6 +66,7 @@ export const orderDetailEnums = {
 }
 
 export const orderStatusEnums = {
+  Unpaid: '00',
   Pending: '01',
   InTransit: '02',
   Delivered: '03',

@@ -1,6 +1,6 @@
 .help-content {
   margin: 50px 0px;
-  padding: 50px 80px;
+  padding: 50px 0px;
   background-color: #fff;
   border-top: 4px solid $themeColor;
 
@@ -22,6 +22,32 @@
     font-weight: bold;
   }
 
+  .item-title {
+    ul > li {
+      line-height: 30px;
+      list-style: auto;
+      margin-left: 30px;
+    }
+    ol > li {
+      list-style: disc;
+      margin-left: 30px;
+      line-height: 30px;
+    }
+  }
+
+  .item-content {
+    ul > li {
+      line-height: 30px;
+      list-style: auto;
+      margin-left: 30px;
+    }
+    ol > li {
+      list-style: disc;
+      margin-left: 30px;
+      line-height: 30px;
+    }
+  }
+
   .ant-collapse {
     border: none !important;
   }
@@ -30,9 +56,17 @@
     font-size: 20px !important;
   }
 
-  .ant-collapse>.ant-collapse-item {
+  .ant-collapse > .ant-collapse-item {
+    background-color: #fff;
+    border-bottom: 1px solid #999999;
+
     &:nth-of-type(1) {
       border-top: 1px solid #999999;
+    }
+
+    .ant-collapse-content {
+      border-top: 1px solid #999999;
+      background-color: #f2f2f2;
     }
   }
 

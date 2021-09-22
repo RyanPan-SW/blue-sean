@@ -27,7 +27,7 @@ function SignUp(props) {
       }
       setShowError(false)
       setCookie('token', data.token)
-      sessionStorage.setItem('user', JSON.stringify(data.loginUser))
+      localStorage.setItem('user', JSON.stringify(data.loginUser))
       props.history.push('/personal')
       setLoading(false)
     })
@@ -69,10 +69,7 @@ function SignUp(props) {
             getValueFromEvent={(e) => {
               return e.target.value.replace(/\s+/g, '')
             }}
-            rules={[
-              { required: true, type: 'email', message: 'This field is required.' },
-              // { required: true, message: emailMsg.email },
-            ]}
+            rules={[{ required: true, type: 'email', message: 'This field is required.' }]}
           >
             <Input placeholder='yourname@email.com' />
           </Form.Item>
@@ -95,7 +92,11 @@ function SignUp(props) {
               autocomplete
               placeholder='Password'
               iconRender={(visible) =>
-                visible ? <span style={{ color: '#b38948' }}>Hide</span> : 'Show'
+                visible ? (
+                  <span style={{ color: visible && '#b38948' }}>Hide</span>
+                ) : (
+                  <span style={{ color: !visible && '#333' }}>Show</span>
+                )
               }
             />
           </Form.Item>
@@ -118,13 +119,13 @@ function SignUp(props) {
           </p>
           <br />
           <Form.Item>
-            {!loading && (
+            {loading ? (
+              <LoadingSubmit />
+            ) : (
               <Button type='primary' htmlType='submit' className='signup-form-button'>
                 Sign Up
               </Button>
             )}
-
-            {loading && (<LoadingSubmit />)}
           </Form.Item>
         </Form>
 

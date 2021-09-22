@@ -107,7 +107,7 @@ function Corporate(props) {
           }}
           rules={[{ required: true, message: <FieldDom /> }]}
         >
-          <Input placeholder='Username@email.com' />
+          <Input placeholder='Username' />
         </Form.Item>
 
         <Form.Item
@@ -120,7 +120,13 @@ function Corporate(props) {
         >
           <Input.Password
             placeholder='Password'
-            iconRender={(visible) => (visible ? <span style={{ color: '#b38948' }}>Hide</span> : 'Show')}
+            iconRender={(visible) =>
+              visible ? (
+                <span style={{ color: visible && '#b38948' }}>Hide</span>
+              ) : (
+                <span style={{ color: !visible && '#333' }}>Show</span>
+              )
+            }
             onChange={changePassword}
           />
         </Form.Item>

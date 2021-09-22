@@ -5,6 +5,17 @@
   margin-bottom: 80px;
   box-shadow: $boxShadow;
 
+  .step2-title-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 25px;
+
+    &.step2-only-one {
+      padding-bottom: 45px;
+    }
+  }
+
   .step2-title {
     font-size: 25px;
     font-weight: bold;
@@ -26,27 +37,34 @@
       font-weight: bold;
       color: #333333;
     }
+
     .top-edit-icon {
-      > div:hover {
-        font-size: 14px;
-        cursor: pointer;
+      display: flex;
+      align-items: center;
+
+      .top-edit {
         display: flex;
         align-items: center;
+        cursor: pointer;
+
+        &:nth-of-type(1) {
+          margin-right: 20px;
+        }
       }
     }
+  }
 
-    img {
-      width: 20px;
-      height: 21px;
-      margin-right: 7px;
-    }
+  img {
+    width: 20px;
+    height: 21px;
+    margin-right: 7px;
+  }
 
-    .add-address-book {
-      color: #333;
-      opacity: 0.5;
-      font-size: 14px;
-      margin-right: 10px;
-    }
+  .add-address-book {
+    color: #333;
+    opacity: 0.5;
+    font-size: 14px;
+    // margin-right: 10px;
   }
 
   .step2-form {
@@ -76,21 +94,20 @@
       }
     }
 
-    .form-line {
-      // margin: 40px 0;
-      border-top: 1px dashed #a7a7a7;
-    }
-
     .add-new-address {
-      padding: 25px 0;
+      // padding: 25px 0;
       span {
-        font-size: 18px;
-
         &:nth-of-type(1) {
+          font-size: 18px;
           cursor: pointer;
           color: $themeColor;
           margin-right: 10px;
         }
+      }
+
+      i {
+        font-size: 14px;
+        color: #666666;
       }
     }
 

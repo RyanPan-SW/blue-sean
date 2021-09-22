@@ -38,6 +38,10 @@
 }
 
 a:hover {
+  /* color: #fff !important; */
+}
+
+.header-nav-menu > li > a:hover {
   color: #b38948 !important;
 }
 
@@ -48,13 +52,17 @@ a:hover {
 }
 
 .ant-input-password-icon {
-  color: #333 !important;
   font-weight: bold;
 }
 
-.ant-input-password-icon:hover {
-  color: #333;
-  font-weight: bold;
+/* paination */
+
+a:not([href]):not([class]):hover {
+  color: #fff !important;
+}
+
+.ant-table-tbody > tr.ant-table-row-selected > td {
+  background-color: transparent !important;
 }
 
 @media only screen and (max-width: 1400px) {

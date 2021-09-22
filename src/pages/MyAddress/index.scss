@@ -30,6 +30,7 @@
   }
 
   .table-footer {
+    display: inline-block;
     cursor: pointer;
     color: $themeColor;
   }
@@ -85,6 +86,49 @@
   .add-new {
     cursor: pointer;
     color: $themeColor;
+  }
+
+  .ant-pagination-item {
+    background-color: #fff;
+    color: #666;
+  }
+
+  .ant-pagination-item:focus,
+  .ant-pagination-item:hover {
+    border-color: $themeColor;
+    background: $themeColor;
+    color: #fff !important;
+  }
+  .ant-pagination-item-active {
+    border-color: $themeColor;
+    background: $themeColor;
+    color: #fff;
+  }
+
+  .ant-tabs-tab {
+    font-size: 18px;
+    padding: 12px;
+  }
+
+  .ant-pagination-jump-next,
+  .ant-pagination-jump-prev,
+  .ant-pagination-next,
+  .ant-pagination-prev {
+    padding: 0px 10px;
+    border: 1px solid #e0e7f0;
+    font-size: 16px;
+    border-radius: 4px;
+    height: 100%;
+  }
+
+  .ant-pagination-prev,
+  .ant-pagination-next {
+    color: #616872;
+    font-size: 16px;
+  }
+
+  .ant-pagination-item {
+    border-radius: 4px;
   }
 }
 
