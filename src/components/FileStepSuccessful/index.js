@@ -22,7 +22,7 @@ function FileStepSuccessful({ setStep, status, message, configContent = '', bpay
           <div className='bpay-img'>
             <img
               className='step-successful-bpay'
-              src={/* status */ 'successful' === 'successful' && Bpay}
+              src={status === 'successful' && Bpay}
               alt=''
             />
             <div className="bpay-img-desc">

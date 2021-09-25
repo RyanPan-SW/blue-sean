@@ -4,7 +4,12 @@ import { Link } from 'react-router-dom'
 import { Breadcrumb, message, Table, Form } from 'antd'
 import AddressModal from '@/components/AddAddressModal'
 import * as UserActionCreator from '@/store/actions/counter'
-import { getAddressPagination, setDefaultAddress, deleteAddress } from '@/api/address'
+import {
+  getAddressPagination,
+  setDefaultAddress,
+  deleteAddress,
+  cannelDefault,
+} from '@/api/address'
 import './index.scss'
 import { getCookie } from '@/helper/env'
 
@@ -49,6 +54,14 @@ function AddressBook(props) {
 
   const clickSetDefault = (id) => {
     setDefaultAddress({ addressId: id }).then((res) => {
+      if (res.code === '200') {
+        message.success(res.data.msg)
+        getAddressList(tablePramas)
+      }
+    })
+  }
+  const clickCannelOrder = (id) => {
+    cannelDefault({ addressId: id }).then((res) => {
       if (res.code === '200') {
         message.success(res.data.msg)
         getAddressList(tablePramas)
@@ -114,7 +127,7 @@ function AddressBook(props) {
             <p
               className='edit'
               onClick={() => {
-                clickSetDefault(record.addressId)
+                clickCannelOrder(record.addressId)
               }}
             >
               Cancel as default address

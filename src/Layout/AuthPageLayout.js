@@ -34,8 +34,9 @@ function BaseLayout(props) {
   const { pathname } = useLocation()
 
   return (
-    <Layout>
+    <Layout {...props}>
       <Layout.Header
+        {...props}
         style={{
           height: 'auto',
           position: 'fixed',
@@ -85,11 +86,9 @@ function BaseLayout(props) {
         </Switch>
       </Layout.Content>
 
-      {/* {footer && ( */}
       <Layout.Footer style={{ padding: 0 }}>
         <FooterComponent />
       </Layout.Footer>
-      {/* )} */}
     </Layout>
   )
 }

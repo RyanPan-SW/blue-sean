@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Form, Input, Button, Select, message, Space, Modal } from 'antd'
+import { Form, Input, Button, Select, message, Space } from 'antd'
 import deleteIcon from '../../asset/delete.png'
 import userBook from '../../asset/userbook.png'
 import { setRecipientApi, getSessionRecipient } from '@/api/fileStep'
-import './index.scss'
 import { normFile } from '@/helper'
 import { getCookie } from '@/helper/env'
 import AddFromAddressBook from '../AddFromAddressBook'
 import classnames from 'classnames'
 import CustomizeModal from '../CustomizeModal'
+import './index.scss'
 
 const messageTitle = 'Please Enter.'
 

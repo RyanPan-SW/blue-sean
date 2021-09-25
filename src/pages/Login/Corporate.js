@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
 import { Button, Form, Input, Checkbox, Popover } from 'antd'
 import { loginApi } from '@/api/login'
-import * as UserActionCreator from '@/store/actions/user'
 import { Link } from 'react-router-dom'
 import './index.scss'
 import FieldDom from '@/components/Field'
-import { getCookie, setCookie } from '@/helper/env'
+import { setCookie } from '@/helper/env'
 import Cookies from 'js-cookie'
 
 function Corporate(props) {
-  const { login, setLoginUser, history } = props
+  const { history } = props
 
   const [form] = Form.useForm()
-  const [activeTab, setActiveTab] = useState(1)
-  const [loginPersonError, setLoginPersonError] = useState(false)
   const [loginCorporateError, setLoginCorporateError] = useState(false)
   const [errormsg, setErrormsg] = useState('')
   const [hideRemeber, setHideRemeber] = useState(false)

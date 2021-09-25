@@ -4,7 +4,7 @@ import OpenPageLayout from './OpenPageLayout'
 import AuthPageLayout from './AuthPageLayout'
 import { isOpenPages } from '@/helper/env'
 
-function BaseLayout(props) {
+function LayoutIndex(props) {
   const { children } = props
   const { pathname } = useLocation()
   if (pathname === '/') {
@@ -12,7 +12,7 @@ function BaseLayout(props) {
   }
 
   if (isOpenPages(pathname)) {
-    return <OpenPageLayout>{children}</OpenPageLayout>
+    return <OpenPageLayout {...props}>{children}</OpenPageLayout>
   }
 
   // if (pathname.search('/o/') > -1) {
@@ -22,4 +22,4 @@ function BaseLayout(props) {
   return <AuthPageLayout {...props}>{children}</AuthPageLayout>
 }
 
-export default BaseLayout
+export default LayoutIndex

@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import FieldDom from '@/components/Field'
 import { SendEmailGetCodeDom, VerificationCodeDom, SetNewPasswordDom } from './formDom'
 import './index.scss'
 
 function Forget(props) {
   const [type, setType] = useState('email')
-  const [msg, setMsg] = useState(null)
   const [Email, setEmail] = useState('')
 
   return (
@@ -15,7 +13,7 @@ function Forget(props) {
         {(() => {
           switch (type) {
             case 'email':
-              return <SendEmailGetCodeDom setMsg={setMsg} setType={setType} setEmail={setEmail} />
+              return <SendEmailGetCodeDom setType={setType} setEmail={setEmail} />
 
             case 'code':
               return <VerificationCodeDom setType={setType} Email={Email} />

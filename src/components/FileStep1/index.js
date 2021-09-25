@@ -33,7 +33,7 @@ function FileStep1(props) {
   }
 
   const addFromAddressBook = () => {
-    return getCookie('token') ? setVisible(true) : history.push('/login?from=filestep/add')
+    return getCookie('token') ? setVisible(true) : history.push('/login')
   }
 
   const setSenderInformation = (values) => {
@@ -200,11 +200,13 @@ function FileStep1(props) {
         </Form.Item>
       </Form>
 
-      <AddFromAddressBook
-        visible={visible}
-        setVisible={setVisible}
-        submit={selectedModalAddressBook}
-      />
+      {visible &&
+        <AddFromAddressBook
+          visible={visible}
+          setVisible={setVisible}
+          submit={selectedModalAddressBook}
+        />
+      }
     </div>
   )
 }

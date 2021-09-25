@@ -3,8 +3,6 @@ import { Form, Input, message, Modal, Button, InputNumber } from 'antd'
 import { getCode, updatePwdByCode, verificationCode } from '@/api/forget'
 import { errorCodeMessage } from '@/helper/error'
 import FieldDom from '@/components/Field'
-import { setCookie } from '@/helper/env'
-import { LoadingOutlined } from '@ant-design/icons'
 import LoadingSubmit from '@/components/LoadingSubmit'
 
 let userEmail = null
@@ -171,9 +169,13 @@ export const VerificationCodeDom = ({ Email, setType }) => {
         </div>
 
         <Form.Item>
-          <Button htmlType='submit' className='forget-code-continue'>
-            Continue
-          </Button>
+          {loading ? (
+            <LoadingSubmit className='loading' />
+          ) : (
+            <Button htmlType='submit' className='forget-code-continue'>
+              Continue
+            </Button>
+          )}
         </Form.Item>
       </Form>
 

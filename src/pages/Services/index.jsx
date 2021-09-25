@@ -63,7 +63,9 @@ const Services = (props) => {
   useEffect(() => {
     getConfigContent({ code: serverPageContent[id]['code'] }).then((res) => {
       const { code, data } = res
-      setContent(data.content)
+      if (code === '200') {
+        setContent(data.content)
+      }
     })
   }, [id])
 

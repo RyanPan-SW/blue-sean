@@ -19,3 +19,7 @@ export function setDefaultAddress(params) {
 export function deleteAddress(params) {
   return API.post(`/address/delAddress`, params)
 }
+
+export function cannelDefault(params) {
+  return API.post(`/address/offDefault`, params)
+}

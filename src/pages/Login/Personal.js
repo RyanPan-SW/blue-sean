@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
-import { Button, Form, Input, Checkbox, Popover } from 'antd'
+import { Button, Form, Input, Checkbox } from 'antd'
 import { loginApi } from '@/api/login'
 import { Link } from 'react-router-dom'
 import FieldDom from '@/components/Field'
 import { getUrlParams, setCookie } from '@/helper/env'
 import Cookies from 'js-cookie'
-import values from 'postcss-modules-values'
 import './index.scss'
 
 function PerSonal(props) {
@@ -15,7 +13,7 @@ function PerSonal(props) {
 
   const [form] = Form.useForm()
   const [loginPersonError, setLoginPersonError] = useState(false)
-  const [loginCorporateError, setLoginCorporateError] = useState(false)
+  // const [loginCorporateError, setLoginCorporateError] = useState(false)
   const [errormsg, setErrormsg] = useState('')
   const [hideRemeber, setHideRemeber] = useState(false)
 

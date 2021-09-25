@@ -6,11 +6,9 @@ import FileStep3 from '@/components/FileStep3'
 import FileStepSuccessful from '@/components/FileStepSuccessful'
 import { getConfigContent } from '@/api/config'
 import './index.scss'
-import { getUrlParams } from '@/helper/env'
 
 function FileStep(props) {
-  const { history: { location, push } } = props
-  // const [step, setStep] = useState()
+  const [step, setStep] = useState(1)
   const [cityArray, setCityArray] = useState([])
   const [status, setStatus] = useState(null)
   const [message, setMessage] = useState(null)
@@ -24,8 +22,13 @@ function FileStep(props) {
         setCityArray(data.list)
       }
     })
+
+    getConfig()
+  }, [])
+
+  const getConfig = () => {
     // get pages config content
-    let params = {}, step = Number(getUrlParams('step'))
+    let params = {};
     if (step === 1 || step === 2) {
       params = { code: 'SRIP' }
     } else if (step === 3) {
@@ -36,12 +39,8 @@ function FileStep(props) {
     getConfigContent(params).then(res => {
       setConfigContent(res.data.content || '')
     })
+  }
 
-  }, [])
-
-const setStep = () => {
-  push('/filestep/add?step=4')
-}
 
   const getPayOrder = (res) => {
     if (res.code === '201') {
@@ -56,7 +55,7 @@ const setStep = () => {
 
   return (
     <div className='file-step'>
-      {![3, 4].includes(Number(getUrlParams('step'))) && (
+      {![3, 4].includes(step) && (
         <div className='file-notes'>
           <div className='notes-title'>Notes:</div>
           <div dangerouslySetInnerHTML={{ __html: configContent }}></div>
@@ -64,7 +63,7 @@ const setStep = () => {
       )}
 
       {(() => {
-        switch (Number(getUrlParams('step'))) {
+        switch (step) {
           case 1:
             return <FileStep1 cityArray={cityArray} setStep={setStep} history={props.history} />
 

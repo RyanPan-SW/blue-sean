@@ -1,6 +1,7 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import * as UserActionCreator from '@/store/actions/user'
 import classnames from 'classnames'
 import Logo from '../../asset/footer-logo.jpg'
@@ -33,26 +34,25 @@ const servicesMenus = [
     id: 'documentBusiness',
     title: 'Legal Documents Deliveries & Service of Court Documents',
   },
-  { name: 'filestep', id: 'add?step=1', to: '/filestep', title: 'Schedule a New Pickup' },
+  // { name: 'filestep', id: 'add', to: '/filestep', title: 'Schedule a New Pickup' },
 ]
 
 const Header = (props) => {
   const { history } = props
-
-  const { pathname, search } = useLocation()
+  const { location } = history
   const [pathnameStatus, setPathnameStatus] = useState(false)
   const [showSubtitle, setShowSubtitle] = useState(false)
   // const [loginStatus, setLoginStatus] = useState(false)
 
   useEffect(() => {
-    pathname.search('/home') > -1 ? setPathnameStatus(false) : setPathnameStatus(true)
+    location.pathname.search('/home') > -1 ? setPathnameStatus(false) : setPathnameStatus(true)
     // const token = getCookie('token')
     // if (!token) {
     //   message.error('Need log in.')
     //   props.history.push('/home')
     //   return
     // }
-  }, [pathname])
+  }, [location.pathname])
 
   const ExpandSubtitle = (e) => {
     e.stopPropagation()
@@ -65,7 +65,7 @@ const Header = (props) => {
   }
 
   const isActive = (str) => {
-    return pathname.search(str) > -1 ? 'active' : ''
+    return location.pathname.search(str) > -1 ? 'active' : ''
   }
 
   const welcomeUser = () => {
@@ -84,6 +84,14 @@ const Header = (props) => {
   const clickLogOut = () => {
     Cookies.remove('token')
     history.push('/logOut')
+  }
+
+  const goToNewPickup = () => {
+    if (location.pathname !== '/filestep/add') {
+      history.push('/filestep/add')
+    } else {
+      window.location.reload()
+    }
   }
 
 
@@ -171,11 +179,9 @@ const Header = (props) => {
                       return (
                         <Link
                           key={index}
-                          // className={search === `?type=${url}` ? 'currentPage' : ''}
                           to={`${to}/${id}`}
                         >
                           <div
-                            style={{ color: search === `?type=${name}` ? '$themeColor' : '' }}
                             className='menu-item'
                           >
                             {title}
@@ -183,6 +189,11 @@ const Header = (props) => {
                         </Link>
                       )
                     })}
+                    <a onClick={goToNewPickup}>
+                      <div className='menu-item'>
+                        Schedule a New Pickup
+                      </div>
+                    </a>
                   </div>
                 )}
               </li>
