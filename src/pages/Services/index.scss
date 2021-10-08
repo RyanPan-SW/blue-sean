@@ -2,84 +2,39 @@
 .services-pages {
   width: 100%;
 
-  h3 {
-    font-weight: bold;
-    color: #333333;
-    padding-bottom: 150px;
-    font-size: 43px;
-    padding: 80px 0;
-    font-weight: bold;
-  }
-
-  .services-content {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    padding-bottom: 70px;
-
-    .services-img {
-      width: 542px;
-      margin-right: 35px;
-
-      img {
-        width: 100%;
-      }
-    }
-
-    .services-list {
-      flex: 1;
-      font-size: 24px;
-      line-height: 40px;
-      font-weight: 300;
+  .services-pages-content {
+    .services-pages-title {
+      padding-top: 95px;
+      font-weight: bold;
       color: #333333;
-
-      li::before {
-        display: inline-block;
-        content: '';
-        width: 12px;
-        height: 12px;
-        margin-left: -12px;
-        background: $themeColor;
-        transform: rotateZ(45deg);
-        position: absolute;
-        margin-top: 15px;
-        margin-left: -25px;
-      }
-    }
-
-    .services-pickup-list {
-      line-height: 4rem;
-
-      li::before {
-        margin-top: 27px;
-      }
+      font-size: 43px;
+      font-weight: bold;
+      padding-bottom: 85px;
     }
   }
 
-  .services-second {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    padding-bottom: 70px;
+  img {
+    margin-right: 10px;
+  }
 
-    .services-list {
-      min-width: 1080px;
-      font-size: 20px;
-      line-height: 40px;
+  .note-float-left {
+    margin-right: 20px;
+  }
 
-      li::before {
-        margin-top: 15px;
-        margin-left: -25px;
-      }
-    }
+  p {
+    line-height: 48px;
+  }
+
+  .service-ueditor-content {
+    padding-bottom: 130px;
   }
 
   .services-or {
     width: 100%;
+    margin: auto;
     position: relative;
     text-align: center;
     font-size: 16px;
-    padding-bottom: 40px;
 
     &::before {
       content: '';
@@ -110,94 +65,11 @@
     background-color: $themeColor;
     border-radius: 50px;
     text-align: center;
-    margin: auto;
-    margin-bottom: 30px;
+    margin: 40px auto 80px;
     cursor: pointer;
 
     &:hover {
       color: #ffffff !important;
     }
   }
-}
-
-.noTransform::before {
-  display: inline-block;
-  content: '';
-  width: 6px;
-  height: 6px;
-  margin-left: -12px;
-  background: $themeColor;
-  /* transform: rotateZ(45deg); */
-  position: absolute;
-  margin-top: 19px;
-  margin-left: -18px;
-}
-
-.legalInvestigation-content {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  padding-bottom: 70px;
-
-  .services-img {
-    width: 442px;
-    margin-right: 35px;
-
-    img {
-      width: 100%;
-    }
-  }
-
-  .services-list {
-    flex: 1;
-    font-size: 20px;
-    line-height: 30px;
-    font-weight: 300;
-    color: #333333;
-
-    li::before {
-      display: inline-block;
-      content: '';
-      width: 12px;
-      height: 12px;
-      margin-left: -12px;
-      background: $themeColor;
-      transform: rotateZ(45deg);
-      position: absolute;
-      margin-top: 15px;
-      margin-left: -25px;
-    }
-  }
-
-  .services-pickup-list {
-    line-height: 4rem;
-
-    li::before {
-      margin-top: 27px;
-    }
-  }
-}
-
-@media only screen and (max-width: 1400px) {
-  .services-pages {
-    .services-content {
-      .services-list {
-        font-size: 20px;
-        line-height: 50px;
-      }
-    }
-  }
-}
-@media only screen and (max-width: 1200px) {
-  .services-pages {
-    .services-content {
-      flex-direction: column;
-      .services-img {
-        padding-bottom: 50px;
-        // width: 25%;
-      }
-    }
-  }
-}
-@media only screen and (max-width: 768px) {
 }

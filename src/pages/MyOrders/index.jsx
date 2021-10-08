@@ -22,19 +22,23 @@ const tabsList = [
     tabTitle: 'Completed orders',
   },
 ]
-const pageSize = 10,
-  pageIndex = 0
 
 function MyOrder(params) {
   const [ordersdata, setOrdersdata] = useState([])
+  const [tablePramas, setTablePramas] = useState({ pageSize: 15, pageIndex: 1 /* , keyWord: '' */ })
   const [ordertotal, setOrderTotal] = useState(0)
   const [visible, setVisible] = useState(false)
   const [tabsKey, setTabsKey] = useState('1')
   const [searchValue, setsearchValue] = useState('')
 
   useEffect(() => {
-    getOrdersList({ pageIndex: pageIndex, pageSize: pageSize, keyWord: null, orderTab: null })
-  }, [])
+    getOrdersList({
+      pageIndex: tablePramas.pageIndex,
+      pageSize: tablePramas.pageSize,
+      keyWord: null,
+      orderTab: null,
+    })
+  }, [tablePramas.pageIndex, tablePramas.pageSize])
 
   const getOrdersList = (parmas) => {
     getOrdersListApi(parmas).then((res) => {
@@ -57,18 +61,41 @@ function MyOrder(params) {
 
   const onSearchOrders = (value, e) => {
     const orderTab = Number(tabsKey) === 1 ? null : `0${tabsKey - 1}`
-    getOrdersList({ pageIndex: pageIndex, pageSize: pageSize, keyWord: value, orderTab: orderTab })
+    getOrdersList({
+      pageIndex: tablePramas.pageIndex,
+      pageSize: tablePramas.pageSize,
+      keyWord: value,
+      orderTab: orderTab,
+    })
   }
 
   const changeTabs = (activeKey) => {
     setTabsKey(activeKey)
     const orderTab = Number(activeKey) === 1 ? null : `0${activeKey - 1}`
-    getOrdersList({ pageIndex: pageIndex, pageSize: pageSize, keyWord: null, orderTab: orderTab })
+    // getOrdersList({pageIndex: tablePramas.pageIndex,pageSize: tablePramas.pageSize,keyWord: null,orderTab: orderTab})
+    getOrdersListApi({
+      pageIndex: tablePramas.pageIndex,
+      pageSize: tablePramas.pageSize,
+      keyWord: null,
+      orderTab: orderTab,
+    }).then((res) => {
+      const { code, data } = res
+      if (code === '200' && data.data) {
+        // if (data.data.length > 0) {
+        setOrdersdata(data.data || [])
+        setOrderTotal(data.total)
+        // }
+        // if (data.data.length === 0) setVisible(true)
+      } else {
+        setVisible(false)
+      }
+    })
   }
 
-  const changePageSize = (page, pageSize) => {
+  const changePageSize = (index, pageSize) => {
+    setTablePramas({ pageSize: pageSize, pageIndex: index })
     getOrdersList({
-      pageIndex: page,
+      pageIndex: index,
       pageSize: pageSize,
       keyWord: null,
       orderTab: Number(tabsKey) === 1 ? null : `0${tabsKey - 1}`,
@@ -181,9 +208,8 @@ function MyOrder(params) {
 
                     <Pagination
                       style={{ textAlign: 'right', paddingTop: 30 }}
-                      defaultCurrent={1}
-                      // defaultPageSize={15}
-                      pageSize={pageSize}
+                      current={tablePramas.pageIndex}
+                      pageSize={tablePramas.pageSize}
                       itemRender={itemRender}
                       total={ordertotal}
                       onChange={changePageSize}

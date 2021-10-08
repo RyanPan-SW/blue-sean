@@ -44,10 +44,7 @@ function Corporate(props) {
     }
     loginApi(params).then((res) => {
       const { code, data, errmsg } = res
-
-
       if (code === '200') {
-
         if (values.remember) {
           let corporate = { userName: values.userName, password: values.password, remember: values.remember }
           Cookies.set('corporate', corporate)

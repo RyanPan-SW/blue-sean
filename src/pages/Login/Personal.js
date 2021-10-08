@@ -50,6 +50,7 @@ function PerSonal(props) {
         }
 
         setCookie('token', data.token, values.remember ? 30 : 7)
+
         const loginUser = JSON.stringify(data.loginUser)
         localStorage.setItem('user', loginUser)
         if (location?.search && location?.search.includes('from')) {
