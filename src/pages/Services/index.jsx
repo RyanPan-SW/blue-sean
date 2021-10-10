@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import housingProperty from '../../asset/services-page.png'
 import LegalInvestigation from '../../asset/services-body.png'
 import DocumentBusiness from '../../asset/services-legal.png'
-
-import './index.scss'
 import { Link } from 'react-router-dom'
 import { getConfigContent } from '@/api/config'
+
+import './index.scss'
 
 const serverPageContent = {
   housingProperty: {

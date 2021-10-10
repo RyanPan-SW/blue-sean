@@ -1,5 +1,6 @@
 .change-content {
   .change-title {
+    font-weight: bold;
     font-size: 34px;
     line-height: 34px;
     padding-top: 24px;
@@ -32,13 +33,14 @@
   }
 
   .remember {
+    color: #333;
     font-size: 14px;
-    margin-top: -15px;
+    // margin-top: -15px;
 
-    &::before {
-      content: '\2714';
-      margin-right: 5px;
-    }
+    // &::before {
+    //   content: '\2714';
+    //   margin-right: 5px;
+    // }
   }
 
   .ant-btn-primary {

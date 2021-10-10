@@ -3,18 +3,21 @@ import { getConfigContent } from '@/api/config'
 import './index.scss'
 
 function ContactUs(props) {
+  const [title, setTitle] = useState('')
   const [content, setContent] = useState(null)
 
   useEffect(() => {
     getConfigContent({ code: 'CU' }).then((res) => {
-      setContent(res.data.content)
+      const { title, content } = res.data || {}
+      setTitle(title)
+      setContent(content)
     })
   }, [])
 
   return (
     <div className='contact-us'>
       <div className='container'>
-        <h3 className='contact-title'>Contact Us</h3>
+        <h3 className='contact-title'>{title}</h3>
 
         <div className='contact-content' dangerouslySetInnerHTML={{ __html: content }}></div>
         {/* <p style={{ marginTop: 60 }}>

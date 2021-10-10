@@ -81,9 +81,9 @@
   .empy-address {
     text-align: center;
     padding: 290px 0px;
-    font-weight: bold;
   }
   .add-new {
+    font-weight: bold;
     cursor: pointer;
     color: $themeColor;
   }
@@ -175,6 +175,10 @@
 
     &:nth-of-type(1) {
       margin-right: 30px;
+    }
+
+    label {
+      flex-direction: row-reverse;
     }
   }
 }

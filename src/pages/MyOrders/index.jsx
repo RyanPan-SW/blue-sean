@@ -86,8 +86,6 @@ function MyOrder(params) {
         setOrderTotal(data.total)
         // }
         // if (data.data.length === 0) setVisible(true)
-      } else {
-        setVisible(false)
       }
     })
   }

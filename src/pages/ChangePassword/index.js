@@ -1,10 +1,10 @@
 import React, { useState, useRef } from 'react'
 import { updatePwd } from '@/api/changePassword'
-import { Breadcrumb, Form, Input, Button, Modal, /* message */ } from 'antd'
+import { Breadcrumb, Form, Input, Button, Modal, message, /* message */ } from 'antd'
 import { Link } from 'react-router-dom'
 import FieldDom from '@/components/Field'
 import './index.scss'
-import { clearAllCookie, /* passwordMsg */ } from '@/helper/env'
+import { clearAllCookie, passwordMsg, /* passwordMsg */ } from '@/helper/env'
 // import InputPassword from '@/components/InputPassword'
 // import values from 'postcss-modules-values'
 
@@ -25,32 +25,37 @@ function ChangePassword(props) {
         return
       }
 
-      if (code === 'LO007' && errmsg) {
+      if (code === 'LO006' && errmsg) {
+        formRef.current.setFields([
+          { name: 'newpassword', value: values.password, errors: [errmsg] }
+        ])
+      } else if (code === 'LO007' && errmsg) {
         setHideRemeber(false)
         formRef.current.setFields([
           { name: 'password', value: values.password, errors: [errmsg] }
         ])
-      } else if (code === 'LO006' && errmsg) {
-        formRef.current.setFields([
-          { name: 'newpassword', value: values.password, errors: [errmsg] }
-        ])
+      } if (code === 'LO008' && errmsg) {
+        setHideRemeber(false)
+        message.error(errmsg)
+        props.history.push('/login')
       }
-      // props.history.push('/account')
     })
   }
 
-  // const onFinishFailed = () => {
-  //   debugger
-  // }
 
-  const isRequire = (rule, value, fn) => {
-    if (value.length < 6 || value.length > 20) {
+  const isRequire = (rule, value, getFieldValue, fn) => {
+    if (!value) {
       setHideRemeber(true)
-      fn(<FieldDom message={'This field is required.'} />)
+      fn('This field is required.')
+    } else if (value.length < 6) {
+      setHideRemeber(true)
+      fn('Use a password of at least 6 characters. Suggest you include an uppercase letter, a lowercase letter, a number, and a special character')
+    } else if (getFieldValue('password') === value) {
+      setHideRemeber(true)
+      fn("The new password can't be the same as the current password.")
     } else {
       setHideRemeber(false)
       fn()
-      // fn('Use a password of at least 6 characters. Suggest you include an uppercase letter, a lowercase letter, a number, and a special character')
     }
   }
 
@@ -79,7 +84,7 @@ function ChangePassword(props) {
             getValueFromEvent={(e) => {
               return e.target.value.replace(/\s+/g, '')
             }}
-            rules={[{ required: true, message: <FieldDom message={'This field is required.'} /> }]}>
+            rules={[{ required: true, message: 'This field is required.' }]}>
             <Input.Password placeholder='Current Password'
               iconRender={(visible) => (
                 visible ? (
@@ -89,21 +94,21 @@ function ChangePassword(props) {
                 ))
               }
             />
-            }
           </Form.Item>
 
-          <Form.Item label='NEW PASSWORD' name='newpassword'
+          <Form.Item label='NEW PASSWORD' name='newpassword' dependencies={['password']}
+            extra={hideRemeber ? null : <p className="remember">Please use at least 6 characters. <b>Remember:</b> Passwords are case sensitive.</p>}
             getValueFromEvent={(e) => {
               return e.target.value.replace(/\s+/g, '')
             }}
             rules={[
-              { required: true, message: <FieldDom message={'This field is required.'} /> },
-              // { min: 6, max: 20, message: <FieldDom message={'This field is required.'} /> },
-              {
+              // { required: true, /* min: 6, max: 20, */ message: <FieldDom message={'This field is required.'} /> },
+              // { min: 6, max: 20, message: <FieldDom message={passwordMsg.length} /> },
+              ({ getFieldValue }) => ({
                 validator: (rule, value, fn) => {
-                  isRequire(rule, value, fn)
+                  isRequire(rule, value, getFieldValue, fn)
                 }
-              },
+              })
             ]}>
             <Input.Password placeholder='Password'
               iconRender={(visible) => (
@@ -116,11 +121,9 @@ function ChangePassword(props) {
           </Form.Item>
 
 
-          {!hideRemeber && (
-            <p className="remember">
-              Please use at least 6 characters. <b>Remember:</b> Passwords are case sensitive.
-            </p>
-          )}
+          {/* {!hideRemeber && (
+            <p className="remember">Please use at least 6 characters. <b>Remember:</b> Passwords are case sensitive.</p>
+          )} */}
 
           <Form.Item>
             <Button type='primary' htmlType='submit' className='update-password'>
@@ -142,7 +145,7 @@ function ChangePassword(props) {
           <span onClick={onOk}>OK</span>
         </div>
       </Modal>
-    </div>
+    </div >
   )
 }
 

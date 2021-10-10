@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Form, Input, message, Modal, Button, InputNumber } from 'antd'
 import { getCode, updatePwdByCode, verificationCode } from '@/api/forget'
 import { errorCodeMessage } from '@/helper/error'
@@ -9,44 +9,39 @@ let userEmail = null
 let userCode = null
 
 // Email
-export const SendEmailGetCodeDom = ({ setEmail, setType }) => {
-  const [verify, setVerify] = useState(false) // 邮箱验证是否通过
+export const SendEmailGetCodeDom = ({ setType }) => {
+  const emailRef = useRef(null)
+  const [email, setEmail] = useState('')
   const [Loading, setLoading] = useState(false)
 
   const sendEmail = (values) => {
-    if (verify) {
-      setType('code')
-    }
-  }
-
-  const isRepeatFn = (value, fn) => {
+    const { userName } = values
     setLoading(true)
-    if (Loading) return
-
-    if (!value) {
-      setLoading(false)
-      fn()
+    setEmail(userName)
+    if (email === userName) {
+      setLoading(true)
       return
     }
-
-    getCode({ userName: value }).then((res) => {
+    getCode({ userName: userName }).then((res) => {
       const { code, errmsg } = res
-      if (code !== '200') {
-        fn(<FieldDom message={errmsg} />)
-        setLoading(false)
-        return
-      }
-
-      fn()
-      userEmail = value
-      setEmail && setEmail(value)
-      setVerify(true)
       setLoading(false)
+      userEmail = userName
+      if (code !== '200') {
+        emailRef.current.setFields([
+          {
+            name: 'userName',
+            errors: [<FieldDom message={errmsg} />],
+          },
+        ])
+        return
+      } else {
+        setType('code')
+      }
     })
   }
 
   return (
-    <Form name='email' layout='vertical' onFinish={sendEmail}>
+    <Form name='email' layout='vertical' onFinish={sendEmail} ref={emailRef}>
       <div>
         <h4>FORGOT YOUR PASSWORD?</h4>
 
@@ -61,16 +56,12 @@ export const SendEmailGetCodeDom = ({ setEmail, setType }) => {
           getValueFromEvent={(e) => {
             return e.target.value.replace(/\s+/g, '')
           }}
+          validateTrigger='onBlur'
           rules={[
             {
               required: true,
               type: 'email',
               message: <FieldDom message='Please enter a valid email address.' />,
-            },
-            {
-              validator: (rule, value, fn) => {
-                isRepeatFn(value, fn)
-              },
             },
           ]}
         >
@@ -113,8 +104,8 @@ export const VerificationCodeDom = ({ Email, setType }) => {
     userCode = values.code
     setLoading(true)
     verificationCode({ userName: Email, ...values }).then((res) => {
+      setLoading(false)
       if (res.code === '200') {
-        setLoading(false)
         setType('password')
         setVisibleCode(false)
       } else {
@@ -147,7 +138,6 @@ export const VerificationCodeDom = ({ Email, setType }) => {
           <Form.Item
             label='6-Digit Code'
             name='code'
-            type=''
             rules={[
               {
                 required: true,
@@ -155,7 +145,7 @@ export const VerificationCodeDom = ({ Email, setType }) => {
               },
             ]}
           >
-            <InputNumber controls={false} placeholder='Enter Code' />
+            <InputNumber maxLength={6} controls={false} placeholder='Enter Code' />
           </Form.Item>
 
           <Form.Item>

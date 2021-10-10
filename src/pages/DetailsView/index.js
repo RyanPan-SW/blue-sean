@@ -11,7 +11,7 @@ import {
 import FieldDom from '@/components/Field'
 import './index.scss'
 import { getAllCity } from '@/api/fileStep'
-import { orderStatusEnums } from '@/helper/env'
+import { orderStatusEnums, payMerhod } from '@/helper/env'
 import { getConfigContent } from '@/api/config'
 
 function DetailsView(props) {
@@ -80,24 +80,24 @@ function DetailsView(props) {
 
 
   const cancelOrder = () => {
-    setCancelVisible(false)
+    YesToCancelOrder()
   }
 
   const onOk = () => {
-    if (cancelStatus) {
-      //  cancel order
-      cancelOrderApi({ trackingNumber: trackingNumber }).then((res) => {
-        const { code } = res
-        if (code === '200') {
-          getOrderDateilsApi({ trackingNumber: trackingNumber }).then((res) => {
-            setOrderDetail(res?.data?.order)
-            setCancelVisible(false)
-          })
-        }
-      })
-    } else {
-      setCancelVisible(false)
-    }
+    setCancelVisible(false)
+  }
+
+  const YesToCancelOrder = () => {
+    //  cancel order
+    cancelOrderApi({ trackingNumber: trackingNumber }).then((res) => {
+      const { code } = res
+      if (code === '200') {
+        getOrderDateilsApi({ trackingNumber: trackingNumber }).then((res) => {
+          setOrderDetail(res?.data?.order)
+          setCancelVisible(false)
+        })
+      }
+    })
   }
 
   const showModifyForm = () => {
@@ -268,29 +268,25 @@ function DetailsView(props) {
             <div className='sender-item'>
               <div className='sender-item-title'>Sender:</div>
               <div className='sender-item-content'>
-                <p>
-                  {orderDetail?.sender.firstName || '-'}&nbsp;
-                  {orderDetail?.sender.lastName || '-'}
-                </p>
-                <p>{orderDetail?.sender.CompanyName}</p>
-                <p>{orderDetail?.sender.address}</p>
-                <p>{orderDetail?.sender.zipcode}</p>
-                <p>{orderDetail?.sender.phone}</p>
-                <p>{orderDetail?.sender.email}</p>
+                <p>{orderDetail?.sender.firstName || '-'} {orderDetail?.sender.lastName || '-'}</p>
+                <p>{orderDetail?.sender.CompanyName || ''}</p>
+                <p>{orderDetail?.sender.address || ''} {orderDetail?.sender.other || ''} {orderDetail?.sender.cityName || ''}</p>
+                <p>{orderDetail?.sender.zipcode || ''}</p>
+                <p>{orderDetail?.sender.phone || ''}</p>
+                <p>{orderDetail?.sender.email || ''}</p>
+                <p>{orderDetail?.sender.note || ''}</p>
               </div>
             </div>
             <div className='sender-item'>
               <div className='sender-item-title'>Recipient:</div>
               <div className='sender-item-content'>
-                <p>
-                  {orderDetail?.recipient.firstName || '-'}&nbsp;
-                  {orderDetail?.recipient.lastName || '-'}
-                </p>
-                <p>{orderDetail?.recipient.CompanyName}</p>
-                <p>{orderDetail?.recipient.address}</p>
-                <p>{orderDetail?.recipient.zipcode}</p>
-                <p>{orderDetail?.recipient.phone}</p>
-                <p>{orderDetail?.recipient.email}</p>
+                <p>{orderDetail?.sender.firstName || '-'} {orderDetail?.sender.lastName || '-'}</p>
+                <p>{orderDetail?.sender.CompanyName || ''}</p>
+                <p>{orderDetail?.sender.address || ''} {orderDetail?.sender.other || ''} {orderDetail?.sender.cityName || ''}</p>
+                <p>{orderDetail?.sender.zipcode || ''}</p>
+                <p>{orderDetail?.sender.phone || ''}</p>
+                <p>{orderDetail?.sender.email || ''}</p>
+                <p>{orderDetail?.sender.note || ''}</p>
               </div>
             </div>
           </div>
@@ -299,7 +295,7 @@ function DetailsView(props) {
             <div>
               <div className='payment-item'>
                 <span className='payment-item-title'>Payment method:</span>
-                <span className='payment-item-content'>{orderDetail?.paymentMethod || '--'}</span>
+                <span className='payment-item-content'>{payMerhod[orderDetail?.paymentMethod] || '--'}</span>
               </div>
               <div className='payment-item'>
                 <span className='payment-item-title'>Iterm:</span>
@@ -524,18 +520,9 @@ function DetailsView(props) {
           </div>
           <div style={{ textAlign: 'right', paddingTop: 50 }}>
             <span
+              className="ok-btn"
               onClick={() => {
                 setModifyVisible(false)
-              }}
-              style={{
-                display: 'inline-block',
-                width: 80,
-                height: 30,
-                lineHeight: '30px',
-                fontSize: 16,
-                fontWeight: 'bold',
-                color: '#333',
-                textAlign: 'center',
               }}
             >
               OK

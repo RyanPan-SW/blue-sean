@@ -24,7 +24,7 @@ function FileStep(props) {
     })
 
     getConfig()
-  }, [])
+  })
 
   const getConfig = () => {
     // get pages config content

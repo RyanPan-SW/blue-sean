@@ -18,7 +18,7 @@ function AddFromAddressBook(props) {
 
   useEffect(() => {
     searchAddress()
-  }, [])
+  })
 
   const searchAddress = (value, event) => {
     const keyWord = value && value.replace(/(^\s*)|(\s*$)/, '')

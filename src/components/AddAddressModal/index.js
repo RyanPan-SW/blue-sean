@@ -47,6 +47,7 @@ function AddressModal(props) {
   return (
     <Modal
       centered
+      maskClosable={false}
       width={1100}
       title={modalTitle[type]}
       visible={visible}

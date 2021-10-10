@@ -239,13 +239,24 @@
         }
         .payment-item-content {
           display: inline-block;
-          width: 200px;
           padding-left: 80px;
           text-align: left;
         }
       }
     }
   }
+}
+
+.ok-btn {
+  display: inline-block;
+  width: 80px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  text-align: center;
 }
 
 .ant-modal {

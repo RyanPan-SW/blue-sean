@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, Form, Input } from 'antd'
 import { Link } from 'react-router-dom'
 import { ExclamationCircleFilled } from '@ant-design/icons'
-import { /* emailMsg, passwordMsg, */ setCookie } from '@/helper/env'
+import { /* emailMsg, */ passwordMsg, setCookie } from '@/helper/env'
 import { signup } from '@/api/signup'
 import { errorCodeMessage } from '@/helper/error'
 import './index.scss'
@@ -12,7 +12,7 @@ function SignUp(props) {
   const [showError, setShowError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [errormsg, setErrormsg] = useState('')
-  const [hidenTip, setHidenTip] = useState(true)
+  const [hidenTip, setHidenTip] = useState(false)
 
   const onFinish = (values) => {
     setLoading(true)
@@ -31,6 +31,19 @@ function SignUp(props) {
       props.history.push('/personal')
       setLoading(false)
     })
+  }
+
+  const isRequire = (rule, value, fn) => {
+    if (!value) {
+      setHidenTip(true)
+      fn('This field is required.')
+    } else if (value.length < 6) {
+      setHidenTip(true)
+      fn('Use a password of at least 6 characters. Suggest you include an uppercase letter, a lowercase letter, a number, and a special character')
+    } else {
+      setHidenTip(false)
+      fn()
+    }
   }
 
   return (
@@ -69,23 +82,34 @@ function SignUp(props) {
             getValueFromEvent={(e) => {
               return e.target.value.replace(/\s+/g, '')
             }}
-            rules={[{ required: true, type: 'email', message: 'This field is required.' }]}
+            rules={[
+              { required: true, type: 'email', message: 'Please enter a vaild email address.' },
+            ]}
           >
             <Input placeholder='yourname@email.com' />
           </Form.Item>
+
           <Form.Item
             label='PASSWORD'
             name='password'
+            extra={
+              hidenTip ? null : (
+                <p className='tips'>
+                  Please use at least 6 characters. <b>Remember:</b> Passwords are case sensitive.
+                </p>
+              )
+            }
             getValueFromEvent={(e) => {
               return e.target.value.replace(/\s+/g, '')
             }}
             rules={[
-              { required: true, message: 'This field is required.' },
+              // { required: true, message: 'This field is required.' },
               // { min: 6, max: 20, message: passwordMsg.pattern },
-              // {
-              //   pattern: patterns.pwd,
-              //   message: passwordMsg.pattern,
-              // },
+              {
+                validator: (rule, value, fn) => {
+                  isRequire(rule, value, fn)
+                },
+              },
             ]}
           >
             <Input.Password
@@ -100,11 +124,9 @@ function SignUp(props) {
               }
             />
           </Form.Item>
-          {hidenTip && (
-            <p className='tips'>
-              Please use at least 6 characters. <b>Remember:</b> Passwords are case sensitive.
-            </p>
-          )}
+          {/* {hidenTip && (
+            <p className='tips'>Please use at least 6 characters. <b>Remember:</b> Passwords are case sensitive.</p>
+          )} */}
           <br />
           <p>
             <span>By pressing the Sign Up button below, you agree to our&nbsp;</span>
