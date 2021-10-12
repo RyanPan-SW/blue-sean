@@ -37,7 +37,7 @@ function AddressModal(props) {
         const { code, data } = res
         if (code === '200') {
           message.success(data.msg)
-          getAddressList()
+          getAddressList(tablePramas)
           onCancel(false)
         }
       })

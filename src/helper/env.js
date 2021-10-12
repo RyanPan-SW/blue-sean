@@ -77,6 +77,6 @@ export const orderStatusEnums = {
 export const payMerhod = {
   '01': 'Visa',
   '02': 'Corporate payment',
-  '03': 'PayPal',
+  '03': 'Bpay',
   '04': 'Bank transfer'
 }
