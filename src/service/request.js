@@ -42,18 +42,18 @@ API.interceptors.response.use((response) => {
     if (window.location.pathname === '/changepassword') {
       return response
     }
-    if (code === 'LO008') { // 只有LO008才需要退出
-      clearAllCookie()
-      localStorage.clear()
-      // window.location.href = '/login'
-      message.error(errmsg)
-      return response
-    }/*  else if (errmsg) {
+    /*  else if (errmsg) {
       message.error(errmsg)
       return response
     } */ else {
       return response
     }
+  } else if (code === 'LO008') { // 只有LO008才需要退出
+    clearAllCookie()
+    localStorage.clear()
+    // window.location.href = '/login'
+    message.error(errmsg)
+    return response
   }
   //   // 拦截文件流
   //   const { headers } = response

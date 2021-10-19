@@ -17,7 +17,6 @@ export const SendEmailGetCodeDom = ({ setType }) => {
   const sendEmail = (values) => {
     const { userName } = values
     setLoading(true)
-    setEmail(userName)
     if (email === userName) {
       setLoading(true)
       return
@@ -25,6 +24,7 @@ export const SendEmailGetCodeDom = ({ setType }) => {
     getCode({ userName: userName }).then((res) => {
       const { code, errmsg } = res
       setLoading(false)
+      setEmail(userName)
       userEmail = userName
       if (code !== '200') {
         emailRef.current.setFields([
@@ -83,7 +83,7 @@ export const SendEmailGetCodeDom = ({ setType }) => {
 }
 
 // Code
-export const VerificationCodeDom = ({ Email, setType }) => {
+export const VerificationCodeDom = ({ setType }) => {
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
   const [visibleCode, setVisibleCode] = useState(false)
@@ -103,7 +103,7 @@ export const VerificationCodeDom = ({ Email, setType }) => {
   const sendCode = (values) => {
     userCode = values.code
     setLoading(true)
-    verificationCode({ userName: Email, ...values }).then((res) => {
+    verificationCode({ userName: userEmail, ...values }).then((res) => {
       setLoading(false)
       if (res.code === '200') {
         setType('password')

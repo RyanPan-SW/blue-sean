@@ -46,7 +46,7 @@
     font-size: 14px;
     padding: 10px 23px;
     line-height: 30px;
-    cursor: pointer;
+    // cursor: pointer;
 
     img {
       width: 15px;
@@ -88,6 +88,7 @@
       align-items: center;
 
       .logo-img {
+        cursor: pointer;
         // width: 90px;
         // height: 60px;
         width: 5.5em;
@@ -111,6 +112,7 @@
         white-space: nowrap;
         font-size: 1.5em;
         font-weight: 700;
+        cursor: pointer;
       }
     }
   }

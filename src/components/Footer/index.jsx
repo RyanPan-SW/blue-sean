@@ -7,10 +7,10 @@ import address from '../../asset/address.png'
 import phone from '../../asset/phone.png'
 import clock from '../../asset/clock.png'
 // import fax from '../../asset/fax.png'
-import './index.scss'
 import { useLocation } from 'react-router'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { Space } from 'antd'
+import './index.scss'
 
 // const { Footer } = Layout
 
@@ -29,7 +29,7 @@ const FooterComponent = () => {
             <ul>
               <li>
                 <img src={Email} alt='' />
-                <span>Email: info@dcglobalsolutions.com.au</span>
+                <span>Email: info@dccgs.com.au</span>
               </li>
               <li>
                 <img src={address} alt='' />

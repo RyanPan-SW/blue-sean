@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { Button, Form, Input, Checkbox, Popover } from 'antd'
 import { loginApi } from '@/api/login'
 import { Link } from 'react-router-dom'
-import './index.scss'
 import FieldDom from '@/components/Field'
 import { setCookie } from '@/helper/env'
 import Cookies from 'js-cookie'
+import LoadingSubmit from '@/components/LoadingSubmit'
+import './index.scss'
 
 function Corporate(props) {
   const { history } = props
@@ -14,6 +15,7 @@ function Corporate(props) {
   const [loginCorporateError, setLoginCorporateError] = useState(false)
   const [errormsg, setErrormsg] = useState('')
   const [hideRemeber, setHideRemeber] = useState(false)
+  const [Loading, setLoading] = useState(false)
 
   useEffect(() => {
     let cookie = Cookies.get('corporate')
@@ -42,8 +44,10 @@ function Corporate(props) {
       userName: values.userName,
       loginType: '02',
     }
+    setLoading(true)
     loginApi(params).then((res) => {
       const { code, data, errmsg } = res
+      setLoading(false)
       if (code === '200') {
         if (values.remember) {
           let corporate = { userName: values.userName, password: values.password, remember: values.remember }
@@ -148,7 +152,7 @@ function Corporate(props) {
                 <div className='forget-popover'>
                   <p>Please contact us, you can call or email us.</p>
                   <p>
-                    <b>Email:</b> info@dcglobalsolutions.com.au
+                    <b>Email:</b> info@dccgs.com.au
                   </p>
                   <p>
                     <b>PH:</b> 07 5649 8619
@@ -167,9 +171,13 @@ function Corporate(props) {
         </Form.Item>
 
         <Form.Item>
-          <Button type='primary' htmlType='submit' className='login-form-button'>
-            Log In
-          </Button>
+          {Loading ? (
+            <LoadingSubmit className="loading"/>
+          ) : (
+            <Button type='primary' htmlType='submit' className='login-form-button'>
+              Log In
+            </Button>
+          )}
         </Form.Item>
       </Form>
     </div>

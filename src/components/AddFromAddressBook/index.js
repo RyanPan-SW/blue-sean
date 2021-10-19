@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react'
 import { Modal, Input, Button, Table, ConfigProvider, message } from 'antd'
-import './index.scss'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import { getSearchAddress } from '@/api/fileStep'
+import './index.scss'
 
 const { Search } = Input
 
@@ -120,7 +120,7 @@ function AddFromAddressBook(props) {
       }}
       closable
       footer={null}
-      wrapClassName="add-address-modal"
+      wrapClassName="Add-from-address-book"
     >
       <div className='form-modal-body'>
         <div className='title-search'>

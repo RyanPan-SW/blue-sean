@@ -55,7 +55,7 @@ function AddressModal(props) {
       footer={null}
       className={className}
     >
-      <Form form={form} layout='vertical' onFinish={onFinishAddress}>
+      <Form form={form} layout='vertical' onFinish={onFinishAddress} validateTrigger="onBlur">
         <div className='form-content'>
           <div className='form-column'>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -84,7 +84,7 @@ function AddressModal(props) {
               label='Email'
               name='email'
               normalize={normFile}
-              rules={[{ required: true, type: 'email', message: 'Please Enter' }]}
+              rules={[{ required: true, type: 'email', message: 'Please enter a valid email address' }]}
             >
               <Input placeholder='Email' />
             </Form.Item>

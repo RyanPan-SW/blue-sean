@@ -47,7 +47,7 @@ function DetailsView(props) {
       const { code, data } = res
       if (code === '200') {
         setNotes(data.content)
-      }/* else {} */
+      } /* else {} */
     })
   }
   const getOrderDateils = (trackingNumber) => {
@@ -77,7 +77,6 @@ function DetailsView(props) {
       }
     })
   }
-
 
   const cancelOrder = () => {
     YesToCancelOrder()
@@ -122,7 +121,6 @@ function DetailsView(props) {
   }
 
   const onCancelModal = () => {
-
     setModifyVisible(false)
     setInformationType('Sender')
     form.resetFields()
@@ -144,7 +142,7 @@ function DetailsView(props) {
         {notes && (
           <div className='detail-notes'>
             <h3>Notes:</h3>
-            <div className="notes" dangerouslySetInnerHTML={{ __html: notes }}></div>
+            <div className='notes' dangerouslySetInnerHTML={{ __html: notes }}></div>
           </div>
         )}
 
@@ -161,8 +159,11 @@ function DetailsView(props) {
               </span>
             </div>
 
-            {(orderDetail?.orderStatus === orderStatusEnums['Pending'] ||
-              orderDetail?.orderStatus === orderStatusEnums['InTransit']) && (
+            {[
+              orderStatusEnums['Unpaid'],
+              orderStatusEnums['Pending'],
+              orderStatusEnums['InTransit'],
+            ].includes(orderDetail?.orderStatus) && (
                 <div className='orders-cancel' onClick={() => setCancelVisible(true)}>
                   Cancel
                 </div>
@@ -179,28 +180,32 @@ function DetailsView(props) {
                     <p>{orderDetail?.expected}</p>
                   </div>
                 </div>
-                <div className="order-cancel-desc">If there is a refund, we will refund the original route to your payment account within 2 working days.If you have any questions, please contact us. PH: 07 5649 8619
-                  Office Hours: Monday – Friday 8:30am-5:00pm
+                <div className='order-cancel-desc'>
+                  If there is a refund, we will refund the original route to your payment account
+                  within 2 working days.If you have any questions, please contact us. PH: 07 5649
+                  8619 Office Hours: Monday – Friday 8:30am-5:00pm
                 </div>
               </div>
             </div>
           ) : (
             <div className='order-steps'>
               {/* Unpaid */}
-              {/* <div
-                className={`order-step-item ${orderDetail?.orderStatus >= 1 ? 'order-step-fished' : null
-                  }`}
-              >
-                <div className='order-step-box'>
-                  <div className='step-status'>Unpaid</div>
-                  <div className='step-icon'></div>
-                  <div className='step-line'></div>
-                  <div className='step-content'>
-                    {orderDetail?.orderStatus === orderStatusEnums['Unpaid'] &&
-                      'Waiting for Bpay'}
+              {orderDetail?.paymentMethod === '03' && (
+                <div
+                  className={`order-step-item ${orderDetail?.orderStatus >= 0 ? 'order-step-fished' : null
+                    }`}
+                >
+                  <div className='order-step-box'>
+                    <div className='step-status'>Unpaid</div>
+                    <div className='step-icon'></div>
+                    <div className='step-line'></div>
+                    <div className='step-content'>
+                      {orderDetail?.orderStatus === orderStatusEnums['Unpaid'] &&
+                        'Waiting for bank transfer '}
+                    </div>
                   </div>
                 </div>
-              </div> */}
+              )}
 
               {/* Pending */}
               <div
@@ -250,52 +255,75 @@ function DetailsView(props) {
                   </div>
                 </div>
               </div>
+            </div>
+          )}
 
-              {orderDetail?.orderStatus === orderStatusEnums['Unpaid'] &&
-                (<div>Because you use BPAY for payment, the exact delivery time may change.If you have any questions, please contact us. <br />PH: 07 5649 8619    Office Hours: Monday – Friday 8:30am-5:00pm</div>)}
+          {orderDetail?.paymentMethod === '03' && (
+            <div>
+              Because you use bank transfer for payment, the exact delivery time may change.If you
+              have any questions, please contact us.
+              <br />
+              PH: 07 5649 8619 Office Hours: Monday – Friday 8:30am-5:00pm
             </div>
           )}
         </div>
 
         <div className='details-sender'>
-          {![orderStatusEnums['Canceled'], orderStatusEnums['Delivered']].includes(orderDetail?.orderStatus) && (
-            <div className='details-sender-title'>
-              <span onClick={showModifyForm}>Modify</span>
-            </div>
-          )}
+          {![orderStatusEnums['Canceled'], orderStatusEnums['Delivered']].includes(
+            orderDetail?.orderStatus,
+          ) && (
+              <div className='details-sender-title'>
+                <span onClick={showModifyForm}>Modify</span>
+              </div>
+            )}
 
           <div className='sender-content'>
+            {/* Sender */}
             <div className='sender-item'>
               <div className='sender-item-title'>Sender:</div>
               <div className='sender-item-content'>
-                <p>{orderDetail?.sender.firstName || '-'} {orderDetail?.sender.lastName || '-'}</p>
-                <p>{orderDetail?.sender.CompanyName || ''}</p>
-                <p>{orderDetail?.sender.address || ''} {orderDetail?.sender.other || ''} {orderDetail?.sender.cityName || ''}</p>
+                <p>
+                  {orderDetail?.sender.firstName || '-'} {orderDetail?.sender.lastName || '-'}
+                </p>
+                <p>{orderDetail?.sender.companyName || ''}</p>
+                <p>
+                  {orderDetail?.sender.address || ''} {orderDetail?.sender.other || ''}{' '}
+                  {orderDetail?.sender.cityName || ''}
+                </p>
                 <p>{orderDetail?.sender.zipcode || ''}</p>
                 <p>{orderDetail?.sender.phone || ''}</p>
                 <p>{orderDetail?.sender.email || ''}</p>
                 <p>{orderDetail?.sender.note || ''}</p>
               </div>
             </div>
+            {/* Recipient */}
             <div className='sender-item'>
               <div className='sender-item-title'>Recipient:</div>
               <div className='sender-item-content'>
-                <p>{orderDetail?.sender.firstName || '-'} {orderDetail?.sender.lastName || '-'}</p>
-                <p>{orderDetail?.sender.CompanyName || ''}</p>
-                <p>{orderDetail?.sender.address || ''} {orderDetail?.sender.other || ''} {orderDetail?.sender.cityName || ''}</p>
-                <p>{orderDetail?.sender.zipcode || ''}</p>
-                <p>{orderDetail?.sender.phone || ''}</p>
-                <p>{orderDetail?.sender.email || ''}</p>
-                <p>{orderDetail?.sender.note || ''}</p>
+                <p>
+                  {orderDetail?.recipient.firstName || '-'} {orderDetail?.recipient.lastName || '-'}
+                </p>
+                <p>{orderDetail?.recipient.companyName || ''}</p>
+                <p>
+                  {orderDetail?.recipient.address || ''} {orderDetail?.recipient.other || ''}{' '}
+                  {orderDetail?.recipient.cityName || ''}
+                </p>
+                <p>{orderDetail?.recipient.zipcode || ''}</p>
+                <p>{orderDetail?.recipient.phone || ''}</p>
+                <p>{orderDetail?.recipient.email || ''}</p>
+                <p>{orderDetail?.recipient.note || ''}</p>
               </div>
             </div>
           </div>
 
+          {/* paymentMethod */}
           <div className='detail-payment'>
             <div>
               <div className='payment-item'>
                 <span className='payment-item-title'>Payment method:</span>
-                <span className='payment-item-content'>{payMerhod[orderDetail?.paymentMethod] || '--'}</span>
+                <span className='payment-item-content'>
+                  {payMerhod[orderDetail?.paymentMethod] || '--'}
+                </span>
               </div>
               <div className='payment-item'>
                 <span className='payment-item-title'>Iterm:</span>
@@ -332,7 +360,8 @@ function DetailsView(props) {
             </p>
           ) : (
             <p>
-              Sorry, it's more than 30 minutes. You can't cancel the order for free. If you need any help, please contact us.
+              Sorry, it's more than 30 minutes. You can't cancel the order for free. If you need any
+              help, please contact us.
               <br /> PH: 07 5649 8619
               <br /> Office Hours: Monday – Friday 8:30am-5:00pm
             </p>
@@ -343,34 +372,31 @@ function DetailsView(props) {
       {/* Information modal */}
       <Modal
         centered
-        width={710}
+        width={820}
         closable={false}
         visible={ModifyVisible && cancelStatus}
         cancelText={null}
         onCancel={onCancelModal}
         okText={null}
+        maskClosable={false}
         onOk={() => {
           setModifyVisible(false)
         }}
         footer={null}
-        className="Information-modal"
+        className='Information-modal'
       >
         {/* Weather information can be edit sender & recipient */}
-        <div className="Information-body">
-          <div className="Information-close" onClick={onCancelModal}></div>
+        <div className='Information-body'>
+          <div className='Information-close' onClick={onCancelModal}></div>
 
           <h3>{InformationType} Information</h3>
 
-          <Form form={form} layout='vertical' onFinish={onFishObject}>
+          <Form form={form} layout='vertical' onFinish={onFishObject} validateTrigger="onBlur">
             <div style={{ display: 'flex' }}>
               <div style={{ flex: 1, paddingRight: 10 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <Form.Item
-                    label='First Name'
-                    name='firstName'
-                    style={{ width: '45%' }}
-                    rules={[{ required: true, message: <FieldDom /> }]}
-                  >
+                  <Form.Item label='First Name' name='firstName' style={{ width: '45%' }}
+                    rules={[{ required: true, message: <FieldDom /> }]}>
                     <Input placeholder='First Name' />
                   </Form.Item>
 
@@ -387,7 +413,13 @@ function DetailsView(props) {
                 <Form.Item
                   label='Email'
                   name='email'
-                  rules={[{ required: true, type: 'email', message: <FieldDom /> }]}
+                  rules={[
+                    {
+                      required: true,
+                      type: 'email',
+                      message: <FieldDom message='Please enter a valid email address.' />,
+                    },
+                  ]}
                 >
                   <Input placeholder='Email' />
                 </Form.Item>
@@ -452,21 +484,13 @@ function DetailsView(props) {
               </div>
             </div>
 
-            <Form.Item
-              label='Note'
-              name='Note'
-              rules={[{ required: true, message: <FieldDom /> }]}
-            >
+            <Form.Item label='Note' name='Note'>
               <Input.TextArea />
             </Form.Item>
 
             <Form.Item style={{ textAlign: 'center' }}>
               {InformationType === 'Sender' && (
-                <Button
-                  type='primary'
-                  className="Information-next"
-                  onClick={senderNextToRecipient}
-                >
+                <Button type='primary' className='Information-next' onClick={senderNextToRecipient}>
                   Next
                 </Button>
               )}
@@ -513,24 +537,25 @@ function DetailsView(props) {
         <div style={{ padding: 30 }}>
           <div>
             <p>
-              Sorry, it's more than 30 minutes. You are not allowed to modify the order information.If you need any help, please contact us.
+              Sorry, it's more than 30 minutes. You are not allowed to modify the order
+              information.If you need any help, please contact us.
             </p>
             <p>PH: 07 5649 8619</p>
             <p>Office Hours: Monday – Friday 8:30am-5:00pm</p>
           </div>
           <div style={{ textAlign: 'right', paddingTop: 50 }}>
             <span
-              className="ok-btn"
+              className='ok-btn'
               onClick={() => {
                 setModifyVisible(false)
               }}
             >
-              OK
+              Ok
             </span>
           </div>
         </div>
       </Modal>
-    </div >
+    </div>
   )
 }
 

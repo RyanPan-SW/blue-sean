@@ -16,7 +16,7 @@ function Forget(props) {
               return <SendEmailGetCodeDom setType={setType} setEmail={setEmail} />
 
             case 'code':
-              return <VerificationCodeDom setType={setType} Email={Email} />
+              return <VerificationCodeDom setType={setType} />
 
             case 'password':
               return <SetNewPasswordDom setType={setType} Email={Email} />

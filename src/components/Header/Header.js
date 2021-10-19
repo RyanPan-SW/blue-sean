@@ -145,12 +145,10 @@ const Header = (props) => {
               <div onClick={clickLogo} className="Logo-a" to='/home'>
                 {pathnameStatus ? (
                   <div className='logo-img'>
-                    <img src={LogoDark} alt='logo' />
                     <img className='alt-logo' src={LogoDark} alt='logo' />
                   </div>
                 ) : (
                   <div className='logo-img'>
-                    <img src={Logo} alt='logo' />
                     <img className='alt-logo' src={Logo} alt='logo' />
                   </div>
                 )}

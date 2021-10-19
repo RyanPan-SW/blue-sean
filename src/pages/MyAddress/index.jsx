@@ -11,7 +11,7 @@ import {
   cannelDefault,
 } from '@/api/address'
 import './index.scss'
-import { getCookie } from '@/helper/env'
+import { clearAllCookie, getCookie } from '@/helper/env'
 
 function AddressBook(props) {
   const [form] = Form.useForm()
@@ -34,6 +34,8 @@ function AddressBook(props) {
         if (code === '200') {
           setData(data.data || [])
           setTotal(data.total || 0)
+        } else if (code === 'LO008') {
+          clearAllCookie()
         }
       })
     }

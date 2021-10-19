@@ -56,10 +56,9 @@ a:hover {
 }
 
 /* paination */
-
-a:not([href]):not([class]):hover {
+/* a:not([href]):not([class]):hover {
   color: #fff !important;
-}
+} */
 
 .ant-table-tbody > tr.ant-table-row-selected > td {
   background-color: transparent !important;

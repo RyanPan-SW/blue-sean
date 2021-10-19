@@ -9,9 +9,9 @@ import doubt from '../../asset/doubt.png'
 import lock from '../../asset/lock.png'
 import Bpay from '../../asset/bpay.png'
 import Tanhao from '../../asset/tanhao.png'
-
-import './index.scss'
 import classnames from 'classnames'
+import LoadingSubmit from '../LoadingSubmit'
+import './index.scss'
 
 const paymentEmnu = {
   visa: '01',
@@ -29,6 +29,7 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
   const [PaypalModal, setPaypalModal] = useState(false)
   const [phoneHomeRequired, setPhoneHomeRequired] = useState(true)
   const [phoneMobileRequired, setPhoneMobileRequired] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     getOptionalTime().then((res) => {
@@ -101,13 +102,19 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
       message.error('Please choose the payment method.')
       return
     }
+
+    setLoading(true)
     let params = {}
     if (payment === paymentEmnu['visa']) {
       params = { payType: payment, ...values /* paymentCode: code */ }
     } else if (payment === paymentEmnu['corporate']) {
       params = { payType: payment, /* ...values */ paymentCode: values.corporateCode }
+    } else if (payment === paymentEmnu['bpay']) {
+      debugger
+      params = { payType: payment, ...values }
     }
     methodOfPayment(params).then((res) => {
+      setLoading(false)
       getPayOrder(res)
     })
   }
@@ -439,7 +446,7 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
           className='button-pay'
           htmlType='submit' onClick={payNow}
         >
-          Pay Now
+          {loading ? <LoadingSubmit /> : 'Pay Now'}
         </Button>
       </div>
 

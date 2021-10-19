@@ -3,10 +3,10 @@ import { updatePwd } from '@/api/changePassword'
 import { Breadcrumb, Form, Input, Button, Modal, message, /* message */ } from 'antd'
 import { Link } from 'react-router-dom'
 import FieldDom from '@/components/Field'
-import './index.scss'
 import { clearAllCookie, passwordMsg, /* passwordMsg */ } from '@/helper/env'
 // import InputPassword from '@/components/InputPassword'
 // import values from 'postcss-modules-values'
+import './index.scss'
 
 function ChangePassword(props) {
   const formRef = useRef()
@@ -50,6 +50,8 @@ function ChangePassword(props) {
     } else if (value.length < 6) {
       setHideRemeber(true)
       fn('Use a password of at least 6 characters. Suggest you include an uppercase letter, a lowercase letter, a number, and a special character')
+    } else if (value.length > 20) {
+      fn('Passwords can only be entered up to 20 characters.')
     } else if (getFieldValue('password') === value) {
       setHideRemeber(true)
       fn("The new password can't be the same as the current password.")
@@ -110,14 +112,13 @@ function ChangePassword(props) {
                 }
               })
             ]}>
-            <Input.Password placeholder='Password'
-              iconRender={(visible) => (
-                visible ? (
-                  <span style={{ color: visible && '#b38948' }}>Hide</span>
-                ) : (
-                  <span style={{ color: !visible && '#333' }}>Show</span>
-                ))
-              } />
+            <Input.Password placeholder='Password' iconRender={(visible) => (
+              visible ? (
+                <span style={{ color: visible && '#b38948' }}>Hide</span>
+              ) : (
+                <span style={{ color: !visible && '#333' }}>Show</span>
+              ))
+            } />
           </Form.Item>
 
 

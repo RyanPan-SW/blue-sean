@@ -72,10 +72,11 @@ function MyOrder(params) {
   const changeTabs = (activeKey) => {
     setTabsKey(activeKey)
     const orderTab = Number(activeKey) === 1 ? null : `0${activeKey - 1}`
+    setTablePramas({ pageSize: 15, pageIndex: 1 })
     // getOrdersList({pageIndex: tablePramas.pageIndex,pageSize: tablePramas.pageSize,keyWord: null,orderTab: orderTab})
     getOrdersListApi({
-      pageIndex: tablePramas.pageIndex,
-      pageSize: tablePramas.pageSize,
+      pageIndex: 1,
+      pageSize: 15,
       keyWord: null,
       orderTab: orderTab,
     }).then((res) => {

@@ -1,4 +1,4 @@
-.add-address-modal {
+.Add-from-address-book {
   .ant-modal-header {
     display: none;
   }
@@ -24,7 +24,7 @@
     color: #fff;
   }
 
-  .ant-table-tbody>tr.ant-table-row-selected>td {
+  .ant-table-tbody > tr.ant-table-row-selected > td {
     border-color: #c9c9c9;
   }
 }
@@ -108,7 +108,14 @@
     border-color: $themeColor;
 
     &:hover {
+      color: $themeColor;
       border-color: $themeColor;
+    }
+
+    a {
+      &:hover {
+        color: $themeColor !important;
+      }
     }
   }
 

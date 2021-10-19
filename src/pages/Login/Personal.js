@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import FieldDom from '@/components/Field'
 import { getUrlParams, setCookie } from '@/helper/env'
 import Cookies from 'js-cookie'
+import LoadingSubmit from '@/components/LoadingSubmit'
 import './index.scss'
 
 function PerSonal(props) {
@@ -16,6 +17,7 @@ function PerSonal(props) {
   // const [loginCorporateError, setLoginCorporateError] = useState(false)
   const [errormsg, setErrormsg] = useState('')
   const [hideRemeber, setHideRemeber] = useState(false)
+  const [Loading, setLoading] = useState(false)
 
 
   useEffect(() => {
@@ -38,9 +40,10 @@ function PerSonal(props) {
   }
 
   const onFinishPersonal = (values) => {
+    setLoading(true)
     loginApi({ ...values, loginType: '01' }).then((res) => {
       const { code, data, errmsg } = res
-
+      setLoading(false)
       if (code === '200' && data) {
         if (values.remember) {
           let personal = { userName: values.userName, password: values.password, remember: values.remember }
@@ -153,9 +156,13 @@ function PerSonal(props) {
         </Form.Item>
 
         <Form.Item>
-          <Button type='primary' htmlType='submit' className='login-form-button'>
-            Log In
-          </Button>
+          {Loading ? (
+            <LoadingSubmit className="loading" />
+          ) : (
+            <Button type='primary' htmlType='submit' className='login-form-button'>
+              Log In
+            </Button>
+          )}
         </Form.Item>
       </Form>
     </div>

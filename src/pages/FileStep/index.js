@@ -12,7 +12,7 @@ function FileStep(props) {
   const [cityArray, setCityArray] = useState([])
   const [status, setStatus] = useState(null)
   const [message, setMessage] = useState(null)
-  const [configContent, setConfigContent] = useState('')
+  const [configContent, setConfigContent] = useState(null)
 
   useEffect(() => {
     // get all city list
@@ -24,7 +24,7 @@ function FileStep(props) {
     })
 
     getConfig()
-  })
+  }, [step])
 
   const getConfig = () => {
     // get pages config content
@@ -37,7 +37,8 @@ function FileStep(props) {
       params = { code: 'PSP' }
     }
     getConfigContent(params).then(res => {
-      setConfigContent(res.data.content || '')
+      debugger
+      setConfigContent(res.data.content)
     })
   }
 
@@ -55,7 +56,7 @@ function FileStep(props) {
 
   return (
     <div className='file-step'>
-      {![3, 4].includes(step) && (
+      {(![3, 4].includes(step) || configContent) && (
         <div className='file-notes'>
           <div className='notes-title'>Notes:</div>
           <div dangerouslySetInnerHTML={{ __html: configContent }}></div>
