@@ -18,6 +18,7 @@ function FileStep2({ cityArray, setStep, history }) {
   const [recipientList, setRecipientList] = useState([{}])
   const [deleteModal, setDeleteModal] = useState(false)
   const [key, setkey] = useState(null)
+  const [deletename, setDeletename] = useState(null)
 
   useEffect(() => {
     sessionToObtainRecipient()
@@ -55,7 +56,7 @@ function FileStep2({ cityArray, setStep, history }) {
 
   const addFromAddressBook = (key) => {
     setkey(key)
-    return getCookie('token') ? setVisible(true) : history.push('/login')
+    return getCookie('token') ? setVisible(true) : history.push('/login?from=filestep')
   }
 
   const removeItem = () => {
@@ -69,6 +70,11 @@ function FileStep2({ cityArray, setStep, history }) {
     newRecipientList[key] = row
     form.setFieldsValue({ recipientList: newRecipientList })
     setVisible(false)
+  }
+
+  const showDeleteComfirm = (name) => {
+    setDeleteModal(true)
+    setDeletename(name)
   }
 
   return (
@@ -117,17 +123,8 @@ function FileStep2({ cityArray, setStep, history }) {
                           <div className='top-edit-icon'>
 
                             {name !== 0 && (
-                              <div
-                                className="top-edit"
-
-                                onClick={() => setDeleteModal(true)}
-                              >
-                                <i
-                                  id="remove"
-                                  onClick={() => {
-                                    remove(name)
-                                  }}
-                                ></i>
+                              <div className="top-edit" onClick={() => showDeleteComfirm(name)}>
+                                {/* <i id="remove" onClick={() => remove(name)}></i> */}
                                 <img src={deleteIcon} alt='' />
                                 <span className='add-address-book'>Delete</span>
                               </div>
@@ -287,6 +284,15 @@ function FileStep2({ cityArray, setStep, history }) {
                     <i>You can add up to 5 recipient</i>
                   </div>
                 )}
+
+
+                <CustomizeModal visible={deleteModal} cancelText={"Yes"} okText={'No'} onOk={() => setDeleteModal(false)} onCancel={() => {
+                  remove(deletename);
+                  setDeleteModal(false)
+                }}>
+                  <div>Would you want to delete the recipient?</div>
+                </CustomizeModal>
+
               </>
             )}
           </Form.List>
@@ -316,10 +322,6 @@ function FileStep2({ cityArray, setStep, history }) {
             submit={selectedRecipientItem}
           />
         }
-
-        <CustomizeModal visible={deleteModal} cancelText={"Yes"} okText={'No'} onOk={() => setDeleteModal(false)} onCancel={removeItem}>
-          <div>Would you want to delete the recipient?</div>
-        </CustomizeModal>
       </div>
     </>
   )

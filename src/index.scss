@@ -134,6 +134,11 @@ a:hover {
   border: 1px solid $themeColor;
 }
 
+.ant-pagination-item-active:focus,
+.ant-pagination-item-active:hover {
+  border-color: $themeColor;
+}
+
 @media screen and (max-width: 1440px) {
   .container {
     width: 88%;

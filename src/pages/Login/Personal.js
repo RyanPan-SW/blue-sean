@@ -10,7 +10,7 @@ import './index.scss'
 
 function PerSonal(props) {
   const { history } = props
-  const { location } = history
+  const { location: { search } } = history
 
   const [form] = Form.useForm()
   const [loginPersonError, setLoginPersonError] = useState(false)
@@ -56,7 +56,7 @@ function PerSonal(props) {
 
         const loginUser = JSON.stringify(data.loginUser)
         localStorage.setItem('user', loginUser)
-        if (location?.search && location?.search.includes('from')) {
+        if (search && search.includes('from')) {
           history.push(`/${getUrlParams('from')}`)
         } else {
           history.push('/account')

@@ -4,7 +4,7 @@
   }
 
   .ant-modal-body {
-    padding-top: 50px;
+    padding-top: 30px;
   }
 
   .ant-modal-close-x {
@@ -16,12 +16,24 @@
 
   .ant-table-selection-column {
     padding-right: 40px;
-    padding-left: 40px;
+    padding-left: 80px;
   }
 
+  .ant-pagination-item {
+    border-color: $themeColor;
+    color: #333333;
+
+    &:hover {
+      color: $themeColor;
+    }
+  }
   .ant-pagination-item-active {
     background-color: $themeColor;
     color: #fff;
+
+    &:hover {
+      color: #fff;
+    }
   }
 
   .ant-table-tbody > tr.ant-table-row-selected > td {
@@ -108,13 +120,13 @@
     border-color: $themeColor;
 
     &:hover {
-      color: $themeColor;
+      //   color: #333333;
       border-color: $themeColor;
     }
 
     a {
       &:hover {
-        color: $themeColor !important;
+        color: $themeColor;
       }
     }
   }

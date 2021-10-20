@@ -5,10 +5,18 @@ import lock from '../../asset/account-lock.png'
 import address from '../../asset/account-address.png'
 import announcement from '../../asset/announcement.png'
 import { getConfigContent } from '@/api/config'
+import { getCookie } from '@/helper/env'
 import './index.scss'
 
-function MyAccount(params) {
+function MyAccount(props) {
+  const { history } = props
   const [adsNotes, setAdsNotes] = useState('')
+
+  useEffect(() => {
+    if (!getCookie('token')) {
+      history.push('/login')
+    }
+  })
 
   useEffect(() => {
     getConfigContent({ code: 'PMCP' }).then(({ data, code }) => {

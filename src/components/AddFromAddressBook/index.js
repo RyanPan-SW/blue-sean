@@ -11,19 +11,20 @@ function AddFromAddressBook(props) {
   const { visible, setVisible, submit } = props
   const [total, setTotal] = useState(0)
   const [dataSource, setDataSource] = useState([])
-  const [tablePramas, setTablePramas] = useState({ pageIndex: 0, pageSize: 10, keyWord: null })
+  const [tablePramas, setTablePramas] = useState({ pageIndex: 1, pageSize: 5, keyWord: null })
   // const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const [selectedRowKeys, setSelectedRowKeys] = useState(null)
   const [selectedRows, setSelectedRows] = useState(null)
 
   useEffect(() => {
     searchAddress()
-  })
+  }, [])
 
   const searchAddress = (value, event) => {
     const keyWord = value && value.replace(/(^\s*)|(\s*$)/, '')
-    const params = { ...tablePramas, keyWord: keyWord }
-    getAddress(params)
+    setTablePramas(Object.assign(tablePramas, { pageIndex: 1, keyWord: keyWord }))
+    // const params = Object.assign(tablePramas, { keyWord: keyWord })
+    getAddress(tablePramas)
   }
 
   const getAddress = (params) => {
@@ -104,8 +105,9 @@ function AddFromAddressBook(props) {
   )
 
   const changePageSize = (index, size) => {
-    setTablePramas({ pageSize: size, pageIndex: index })
-    getAddress({ pageSize: size, pageIndex: index })
+    // setTablePramas({ pageSize: size, pageIndex: index })
+    setTablePramas(Object.assign(tablePramas, { pageSize: size, pageIndex: index }))
+    getAddress(Object.assign(tablePramas, { pageSize: size, pageIndex: index }))
   }
 
   return (
@@ -146,7 +148,7 @@ function AddFromAddressBook(props) {
             columns={columns}
             pagination={{
               total: total,
-              defaultCurrent: tablePramas.pageIndex,
+              current: tablePramas.pageIndex,
               pageSize: tablePramas.pageSize,
               itemRender: itemRender,
               onChange: changePageSize

@@ -33,7 +33,7 @@ function FileStep1(props) {
   }
 
   const addFromAddressBook = () => {
-    return getCookie('token') ? setVisible(true) : history.push('/login')
+    return getCookie('token') ? setVisible(true) : history.push('/login?from=filestep')
   }
 
   const setSenderInformation = (values) => {

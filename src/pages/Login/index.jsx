@@ -5,31 +5,25 @@ import { connect } from 'react-redux'
 import * as UserActionCreator from '@/store/actions/user'
 // import { Link } from 'react-router-dom'
 // import FieldDom from '@/components/Field'
-import { getCookie, /* setCookie */ } from '@/helper/env'
+import { getCookie /* setCookie */ } from '@/helper/env'
 // import Cookies from 'js-cookie'
 import Corporate from './Corporate'
 import Personal from './Personal'
 
 import './index.scss'
 
-
 const Login = ({ login, setLoginUser, history }) => {
   const [activeTab, setActiveTab] = useState(1)
-  // const [loginPersonError, setLoginPersonError] = useState(false)
-  // const [loginCorporateError, setLoginCorporateError] = useState(false)
-  // const [errormsg, setErrormsg] = useState('')
-  // const [hideRemeber, setHideRemeber] = useState(false)
 
   useEffect(() => {
     if (getCookie('token')) {
-      window.location.href = '/account'
+      // window.location.href = '/account'
+      history.push('/account')
     }
-  }, [])
+  })
 
   const changeTab = (key) => {
     setActiveTab(key)
-    // setLoginPersonError(false)
-    // setHideRemeber(false)
   }
 
   const Tabs = [

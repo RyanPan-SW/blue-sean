@@ -3,13 +3,14 @@ import { Button, Form, Input, Checkbox, Popover } from 'antd'
 import { loginApi } from '@/api/login'
 import { Link } from 'react-router-dom'
 import FieldDom from '@/components/Field'
-import { setCookie } from '@/helper/env'
+import { getUrlParams, setCookie } from '@/helper/env'
 import Cookies from 'js-cookie'
 import LoadingSubmit from '@/components/LoadingSubmit'
 import './index.scss'
 
 function Corporate(props) {
   const { history } = props
+  const { location: { search } } = history
 
   const [form] = Form.useForm()
   const [loginCorporateError, setLoginCorporateError] = useState(false)
@@ -65,7 +66,11 @@ function Corporate(props) {
         const loginUser = JSON.stringify(data.loginUser)
         localStorage.setItem('user', loginUser)
         setLoginCorporateError(false)
-        history.push('/account')
+        if (search && search.includes('from')) {
+          history.push(`/${getUrlParams('from')}`)
+        } else {
+          history.push('/account')
+        }
       } else {
         setLoginCorporateError(true)
         setErrormsg(errmsg)
@@ -172,7 +177,7 @@ function Corporate(props) {
 
         <Form.Item>
           {Loading ? (
-            <LoadingSubmit className="loading"/>
+            <LoadingSubmit className="loading" />
           ) : (
             <Button type='primary' htmlType='submit' className='login-form-button'>
               Log In

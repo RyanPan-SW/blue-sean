@@ -24,7 +24,7 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
   const [payment, setPayment] = useState(null)
   const [datelist, setDatelist] = useState([])
   const [activeDay, setActiveDay] = useState(null)
-  const [activeTime, setActiveTime] = useState(0)
+  const [activeTime, setActiveTime] = useState(null)
   const [paydata, setPaydata] = useState(null)
   const [PaypalModal, setPaypalModal] = useState(false)
   const [phoneHomeRequired, setPhoneHomeRequired] = useState(true)
@@ -95,13 +95,14 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
   }
 
   const onFinish = (values) => {
-    if (!paydata) {
-      message.error('Please choose the delivery time.')
-      return
-    } else if (!payment) {
-      message.error('Please choose the payment method.')
-      return
-    }
+    if (!values.agree) { } else
+      if (!paydata) {
+        message.error('Please choose the delivery time.')
+        return
+      } else if (!payment) {
+        message.error('Please choose the payment method.')
+        return
+      }
 
     setLoading(true)
     let params = {}
@@ -110,7 +111,6 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
     } else if (payment === paymentEmnu['corporate']) {
       params = { payType: payment, /* ...values */ paymentCode: values.corporateCode }
     } else if (payment === paymentEmnu['bpay']) {
-      debugger
       params = { payType: payment, ...values }
     }
     methodOfPayment(params).then((res) => {
@@ -414,7 +414,13 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
               style={{ paddingTop: payment === 2 ? 55 : 180 }}
               name='agree'
               valuePropName='checked'
-              rules={[{ required: true, message: 'Please agree contract terms' }]}
+              // rules={[{ required: true, message: 'Please agree contract terms' }]}
+              rules={[
+                {
+                  validator: (_, value) =>
+                    value ? Promise.resolve() : Promise.reject(new Error('Please agree contract terms'))
+                }
+              ]}
             >
               <Checkbox>
                 <span className='agree'>I agree</span>
@@ -433,11 +439,7 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
       </div>
 
       <div className='button-group'>
-        <Button
-          type='primary'
-          className='button-back'
-          onClick={() => setStep(2)}
-        >
+        <Button type='primary' className='button-back' onClick={() => setStep(2)}>
           Back
         </Button>
 

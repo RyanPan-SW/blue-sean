@@ -7,6 +7,13 @@ import FileStepSuccessful from '@/components/FileStepSuccessful'
 import { getConfigContent } from '@/api/config'
 import './index.scss'
 
+const code = {
+  1: "SRIP",
+  2: "SRIP",
+  3: "CT",
+  4: "PSP",
+}
+
 function FileStep(props) {
   const [step, setStep] = useState(1)
   const [cityArray, setCityArray] = useState([])
@@ -23,24 +30,19 @@ function FileStep(props) {
       }
     })
 
-    getConfig()
-  }, [step])
-
-  const getConfig = () => {
+    setConfigContent(null)
     // get pages config content
-    let params = {};
-    if (step === 1 || step === 2) {
-      params = { code: 'SRIP' }
-    } else if (step === 3) {
-      params = { code: 'CT' }
-    } else if (step === 4) {
-      params = { code: 'PSP' }
-    }
+    let params = { code: code[step] }
     getConfigContent(params).then(res => {
-      debugger
-      setConfigContent(res.data.content)
+      const { code, data } = res
+      if (code === '200') {
+        setConfigContent(data.content)
+      } else {
+        setConfigContent(null)
+      }
     })
-  }
+
+  }, [step])
 
 
   const getPayOrder = (res) => {
@@ -56,7 +58,7 @@ function FileStep(props) {
 
   return (
     <div className='file-step'>
-      {(![3, 4].includes(step) || configContent) && (
+      {([1, 2].includes(step) && configContent) && (
         <div className='file-notes'>
           <div className='notes-title'>Notes:</div>
           <div dangerouslySetInnerHTML={{ __html: configContent }}></div>
