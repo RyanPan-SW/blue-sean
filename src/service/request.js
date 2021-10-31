@@ -29,7 +29,7 @@ API.interceptors.response.use(
   },
 )
 
-// // 响应拦截器
+// 响应拦截器
 API.interceptors.response.use((response) => {
   const { code, errmsg, /* data */ } = response
   if (code === '200') {
@@ -37,22 +37,13 @@ API.interceptors.response.use((response) => {
       return response
     }
     return response
-  }
-  if (code !== 200) {
-    if (window.location.pathname === '/changepassword') {
-      return response
-    }
-    /*  else if (errmsg) {
-      message.error(errmsg)
-      return response
-    } */ else {
-      return response
-    }
   } else if (code === 'LO008') { // 只有LO008才需要退出
     clearAllCookie()
     localStorage.clear()
-    // window.location.href = '/login'
+    window.location.href = '/login'
     message.error(errmsg)
+    return response
+  } else {
     return response
   }
   //   // 拦截文件流
@@ -67,6 +58,8 @@ API.interceptors.response.use((response) => {
   //   }
   //   // 2004:  token 无效; 2005:  token 过期; 2008 token强制登出
   //   return Promise.reject(res)
+}, (error) => {
+  return Promise.reject(error)
 })
 
 export default API

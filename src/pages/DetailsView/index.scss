@@ -214,24 +214,13 @@
     }
 
     .detail-payment {
+      width: 100%;
       display: flex;
+      flex-wrap: wrap;
       line-height: 48px;
 
-      & > div {
-        width: 50%;
-
-        &:nth-of-type(2n) {
-          .payment-item {
-            span {
-              &:nth-of-type(2n) {
-                padding-left: 50px;
-              }
-            }
-          }
-        }
-      }
-
       .payment-item {
+        width: 50%;
         .payment-item-title {
           display: inline-block;
           width: 130px;

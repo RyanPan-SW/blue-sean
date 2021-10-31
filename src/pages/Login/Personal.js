@@ -7,6 +7,7 @@ import { getUrlParams, setCookie } from '@/helper/env'
 import Cookies from 'js-cookie'
 import LoadingSubmit from '@/components/LoadingSubmit'
 import './index.scss'
+import { decrypt, encrypt } from '@/utils/jsCrypto'
 
 function PerSonal(props) {
   const { history } = props
@@ -21,13 +22,14 @@ function PerSonal(props) {
 
 
   useEffect(() => {
-    let cookie = Cookies.get('personal')
-    if (cookie) {
-      let personal = JSON.parse(cookie)
+    let userName = Cookies.get('userName')
+    let password = decrypt(Cookies.get('password'))
+    let remember = Cookies.get('remember')
+    if (remember === 'true') {
       form.setFieldsValue({
-        userName: personal.userName,
-        password: personal.password,
-        remember: personal.remember,
+        userName: userName,
+        password: password,
+        remember: remember,
       })
     }
   }, [form])
@@ -46,13 +48,16 @@ function PerSonal(props) {
       setLoading(false)
       if (code === '200' && data) {
         if (values.remember) {
-          let personal = { userName: values.userName, password: values.password, remember: values.remember }
-          Cookies.set('personal', personal)
+          Cookies.set('userName', values.userName)
+          Cookies.set('password', values.password)
+          Cookies.set('remember', encrypt(values.remember))
         } else {
-          Cookies.remove('personal')
+          Cookies.remove('userName')
+          Cookies.remove('password')
+          Cookies.set('remember', values.remember)
         }
-
-        setCookie('token', data.token, values.remember ? 30 : 7)
+        var t = new Date(new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000).setHours(0, 0, 0, 0));
+        setCookie('token', data.token, t)
 
         const loginUser = JSON.stringify(data.loginUser)
         localStorage.setItem('user', loginUser)

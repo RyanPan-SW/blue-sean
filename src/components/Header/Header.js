@@ -123,17 +123,16 @@ const Header = (props) => {
             ) : (
               <>
                 <div className={pathnameStatus ? 'login-user' : 'login-home-user'}>
-                  {/* Welcome&nbsp;&nbsp; */}
                   {welcomeUser()}
                 </div>
                 <Link to='/account' className={pathnameStatus ? 'login-user' : 'login-home-user'}>
                   <img src={home} alt='' />
                   <span>Account info</span>
                 </Link>
-                <span className={pathnameStatus ? 'login-user' : 'login-home-user'} onClick={clickLogOut}>
+                <a className={pathnameStatus ? 'login-user' : 'login-home-user'} onClick={clickLogOut}>
                   <img src={logout} alt='' />
                   <span>Log out</span>
-                </span>
+                </a>
               </>
             )}
           </div>

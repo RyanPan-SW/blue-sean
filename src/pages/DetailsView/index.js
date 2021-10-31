@@ -13,6 +13,7 @@ import './index.scss'
 import { getAllCity } from '@/api/fileStep'
 import { orderStatusEnums, payMerhod } from '@/helper/env'
 import { getConfigContent } from '@/api/config'
+import { visible } from 'chalk'
 
 function DetailsView(props) {
   const [form] = Form.useForm()
@@ -23,6 +24,7 @@ function DetailsView(props) {
 
   const [cancelVisible, setCancelVisible] = useState(false)
   const [cancelStatus, setCancelStatus] = useState(null)
+  const [visibleByUnpaid, setVisibleByUnpaid] = useState(false)
 
   const [notes, setNotes] = useState(null)
   const [ModifyVisible, setModifyVisible] = useState(false)
@@ -105,10 +107,19 @@ function DetailsView(props) {
   }
 
   const senderNextToRecipient = () => {
-    const sender = { senderId: orderDetail.sender.senderId, ...form.getFieldsValue() }
-    setSenderInformationObject(sender)
-    setInformationType('Recipient')
-    form.setFieldsValue(orderDetail.recipient)
+    form.validateFields().then(value => {
+      const sender = { senderId: orderDetail.sender.senderId, ...form.getFieldsValue() }
+      setSenderInformationObject(sender)
+      setInformationType('Recipient')
+      form.setFieldsValue(orderDetail.recipient)
+    }).catch((error) => {
+      console.log('error', error);
+    })
+  }
+
+  const goBackSenderInform = () => {
+    setInformationType('Sender')
+    form.setFieldsValue(SenderInformationObject || orderDetail.sender)
   }
 
   const onFishObject = (senderValue) => {
@@ -118,12 +129,21 @@ function DetailsView(props) {
       getOrderDateils(trackingNumber)
     })
     setModifyVisible(false)
+    setInformationType("Sender")
   }
 
   const onCancelModal = () => {
     setModifyVisible(false)
     setInformationType('Sender')
     form.resetFields()
+  }
+
+  const cancelOrderModal = () => {
+    if (orderDetail.paymentMethod === '03') {
+      setVisibleByUnpaid(true)
+    } else {
+      setCancelVisible(true)
+    }
   }
 
   return (
@@ -164,7 +184,7 @@ function DetailsView(props) {
               orderStatusEnums['Pending'],
               orderStatusEnums['InTransit'],
             ].includes(orderDetail?.orderStatus) && (
-                <div className='orders-cancel' onClick={() => setCancelVisible(true)}>
+                <div className='orders-cancel' onClick={cancelOrderModal}>
                   Cancel
                 </div>
               )}
@@ -258,7 +278,7 @@ function DetailsView(props) {
             </div>
           )}
 
-          {orderDetail?.paymentMethod === '03' && (
+          {(orderDetail?.paymentMethod === '03' && orderDetail.orderStatus === '00' ) &&  (
             <div>
               Because you use bank transfer for payment, the exact delivery time may change.If you
               have any questions, please contact us.
@@ -318,27 +338,49 @@ function DetailsView(props) {
 
           {/* paymentMethod */}
           <div className='detail-payment'>
-            <div>
-              <div className='payment-item'>
-                <span className='payment-item-title'>Payment method:</span>
-                <span className='payment-item-content'>
-                  {payMerhod[orderDetail?.paymentMethod] || '--'}
-                </span>
-              </div>
-              <div className='payment-item'>
-                <span className='payment-item-title'>Iterm:</span>
-                <span className='payment-item-content'>{orderDetail?.item || '--'}</span>
-              </div>
+            <div className='payment-item'>
+              <span className='payment-item-title'>Payment info:</span>
+              <span className='payment-item-content'>
+                {`${orderDetail?.firstName}${orderDetail?.lastName}` || '--'}
+              </span>
             </div>
-            <div>
-              <div className='payment-item'>
-                <span className='payment-item-title'>Charges:</span>
-                <span className='payment-item-content'>$ {orderDetail?.charges || '--'}</span>
-              </div>
-              <div className='payment-item'>
-                <span className='payment-item-title'>Count:</span>
-                <span className='payment-item-content'>{orderDetail?.count || '--'}</span>
-              </div>
+            <div className='payment-item'>
+              <span className='payment-item-title'>Email:</span>
+              <span className='payment-item-content'>{orderDetail?.email || '--'}</span>
+            </div>
+            <div className='payment-item'>
+              <span className='payment-item-title'>Phone(home):</span>
+              <span className='payment-item-content'>{orderDetail?.phoneHome || '--'}</span>
+            </div>
+            <div className='payment-item'>
+              <span className='payment-item-title'>Phone(mobile):</span>
+              <span className='payment-item-content'>{orderDetail?.phoneMobile || '--'}</span>
+            </div>
+            <div className='payment-item'>
+              <span className='payment-item-title'>Company name:</span>
+              <span className='payment-item-content'>{orderDetail?.companyName || '--'}</span>
+            </div>
+            <div className='payment-item'>
+              <span className='payment-item-title'>Company address:</span>
+              <span className='payment-item-content'>{orderDetail?.companyAddress || '--'}</span>
+            </div>
+            <div className='payment-item'>
+              <span className='payment-item-title'>Payment method:</span>
+              <span className='payment-item-content'>
+                {payMerhod[orderDetail?.paymentMethod] || '--'}
+              </span>
+            </div>
+            <div className='payment-item'>
+              <span className='payment-item-title'>Changres:</span>
+              <span className='payment-item-content'>$ {orderDetail?.charges || '--'}</span>
+            </div>
+            <div className='payment-item'>
+              <span className='payment-item-title'>Iterm:</span>
+              <span className='payment-item-content'>{orderDetail?.item || '--'}</span>
+            </div>
+            <div className='payment-item'>
+              <span className='payment-item-title'>Count:</span>
+              <span className='payment-item-content'>{orderDetail?.count || '--'}</span>
             </div>
           </div>
         </div>
@@ -368,6 +410,21 @@ function DetailsView(props) {
           )}
         </div>
       </CustomizeModal>
+
+      <CustomizeModal
+        visible={visibleByUnpaid}
+        centered
+        width={710}
+        closable={false}
+        cancelText={'Yes'}
+        onCancel={YesToCancelOrder}
+        okText={'No'}
+        onOk={() => setVisibleByUnpaid(false)}
+        footer={null}
+      >
+        <p>Would you want to cancel this order?</p>
+      </CustomizeModal>
+
 
       {/* Information modal */}
       <Modal
@@ -484,7 +541,7 @@ function DetailsView(props) {
               </div>
             </div>
 
-            <Form.Item label='Note' name='Note'>
+            <Form.Item label='Note' name='note'>
               <Input.TextArea />
             </Form.Item>
 
@@ -500,10 +557,7 @@ function DetailsView(props) {
                   <Button
                     type='primary'
                     className='fill-button-back'
-                    onClick={() => {
-                      setInformationType('Sender')
-                      form.setFieldsValue(orderDetail.sender)
-                    }}
+                    onClick={goBackSenderInform}
                   >
                     Back
                   </Button>

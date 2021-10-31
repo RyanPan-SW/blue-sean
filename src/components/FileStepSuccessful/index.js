@@ -1,13 +1,23 @@
-import React from 'react'
+import React, {
+  useState,
+  useEffect
+} from 'react'
 import { Button } from 'antd'
 import Successful from '../../asset/Successful.png'
 import Failed from '../../asset/Failed.png'
 import Bpay from '../../asset/bpay@2x.png'
 import { Link } from 'react-router-dom'
-import './index.scss'
 import { getCookie } from '@/helper/env'
+import './index.scss'
 
 function FileStepSuccessful({ setStep, status, message, configContent = '', bpay }) {
+  const [payType, setPayType] = useState(null)
+
+  useEffect(() => {
+    let type = localStorage.getItem('payType')
+    setPayType(type)
+  })
+
   return (
     <div className='step-successful' >
 
@@ -40,11 +50,11 @@ function FileStepSuccessful({ setStep, status, message, configContent = '', bpay
         </div>
       )}
 
-      <p className='step-scussful-text'>{status === 'successful' ? 'Successful' : 'Failed'}</p>
+      <p className='step-scussful-text'>{status === 'successful' ? payType === "03" ? 'Successful Appointment' : 'Successful' : 'Failed'}</p>
+      {payType === "03" && <p className="pay-status">To pay by bank transfer, you will receive your invoice by email. Please transfer the payment to the bank account indicated in the invoice within 30 minutes and reply the email with receipt of remittance.</p>}
 
       {status === 'failed' && (
         <p className='step-failed'>
-          {/* Sorry, network exception. The payment result cannot be checked temporarily */}
           {message}
         </p>
       )}

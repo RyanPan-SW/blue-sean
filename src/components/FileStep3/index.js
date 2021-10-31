@@ -53,6 +53,7 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
 
   const onChangePayment = (e) => {
     setPayment(e.target.value)
+    localStorage.setItem('payType', e.target.value)
   }
 
   const selectTime = (data, index) => {
@@ -194,58 +195,14 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
         <div className='step-content'>
           <Form layout='vertical' form={form} onValuesChange={onValuesChange} onFinish={onFinish}>
             <div className='step3-card-visa'>
-              <div className='step3-card-visa-left'>
-                <Space>
-                  <Form.Item
-                    label='First Name'
-                    name='firstName'
-                    messageVariables={{ another: 'good' }}
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Please Enter.',
-                      },
-                    ]}
-                  >
-                    <Input placeholder='' />
-                  </Form.Item>
-
-                  <Form.Item
-                    label='Last Name'
-                    name='lastName'
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Please Enter.',
-                      },
-                    ]}
-                  >
-                    <Input placeholder='' />
-                  </Form.Item>
-                </Space>
-
+              <Space>
                 <Form.Item
-                  label='Phone (home)'
-                  name='phoneHome'
-                  rules={[
-                    {
-                      required: phoneHomeRequired,
-                      message: 'Please Enter.',
-                    },
-                  ]}
-                >
-                  <Input />
-                </Form.Item>
-              </div>
-
-              <div className='step3-card-visa-right'>
-                <Form.Item
-                  label='Email'
-                  name='email'
+                  label='First Name'
+                  name='firstName'
+                  messageVariables={{ another: 'good' }}
                   rules={[
                     {
                       required: true,
-                      type: 'email',
                       message: 'Please Enter.',
                     },
                   ]}
@@ -254,19 +211,76 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
                 </Form.Item>
 
                 <Form.Item
-                  label='Phone (mobile)'
-                  name='phoneMobile'
-                  extra={phoneDom}
-                  rules={[{ required: phoneMobileRequired, message: 'Please Enter.' }]}
+                  label='Last Name'
+                  name='lastName'
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please Enter.',
+                    },
+                  ]}
                 >
-                  <Input />
+                  <Input placeholder='' />
                 </Form.Item>
-              </div>
+              </Space>
+
+              <Form.Item
+                label='Email'
+                name='email'
+                rules={[
+                  {
+                    required: true,
+                    type: 'email',
+                    message: 'Please Enter.',
+                  },
+                ]}
+              >
+                <Input placeholder='' />
+              </Form.Item>
+
+              <Form.Item
+                label='Phone (home)'
+                name='phoneHome'
+                rules={[
+                  {
+                    required: phoneHomeRequired,
+                    message: 'Please Enter.',
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                label='Phone (mobile)'
+                name='phoneMobile'
+                extra={phoneDom}
+                rules={[{ required: phoneMobileRequired, message: 'Please Enter.' }]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                label='Company name'
+                name='CompanyName'
+              // rules={[{ required: true, message: 'Please Enter.', }]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                label='Company address'
+                name='CompanyAddress'
+              // rules={[{ required: true, message: 'Please Enter.' }]}
+              >
+                <Input />
+              </Form.Item>
             </div>
 
             <Radio.Group onChange={onChangePayment}>
               <Space direction='vertical' size='large'>
-                <Radio value={paymentEmnu['visa']}>
+                <>
+                  {/* <Radio value={paymentEmnu['visa']}>
                   <span>
                     Credit or debit card <img src={visa} alt='' />
                   </span>
@@ -366,8 +380,8 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
                       </div>
                     </div>
                   )}
-                </Radio>
-
+                </Radio> */}
+                </>
                 <Radio value={paymentEmnu['corporate']}>
                   <span>Corporate payment</span>
 
@@ -385,7 +399,8 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
                 </Radio>
 
                 <Radio value={paymentEmnu['bpay']}>
-                  <img src={Bpay} alt='' />
+                  {/* <img src={Bpay} alt='' /> */}
+                  <span>Bank transfer</span>
 
                   {payment === paymentEmnu['bpay'] && (
                     <div className='step3-bpay-div'>
@@ -393,15 +408,10 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
                         <img src={Tanhao} alt='' />
                       </div>
                       <div className='step3-bpay-dirscrbe'>
-                        <p>
-                          To pay by BPAY you must use your bank or financial institution’s online
-                          banking facility.
-                        </p>
-                        <p>
-                          We provide you with a biller code and reference needed for this BPAY
-                          payment.
-                        </p>
-                        <p>Click on Continue to view your biller code and reference.</p>
+                        To pay by bank transfer, you will receive your invoice by email.
+                        <br />
+                        Please transfer the payment to the bank account indicated in the invoice within 30<br />
+                        minutes and reply the email with receipt of remittance.
                       </div>
                     </div>
                   )}

@@ -39,7 +39,12 @@ function SignUp(props) {
       fn('This field is required.')
     } else if (value.length < 6) {
       setHidenTip(true)
-      fn('Use a password of at least 6 characters. Suggest you include an uppercase letter, a lowercase letter, a number, and a special character')
+      fn(
+        'Use a password of at least 6 characters. Suggest you include an uppercase letter, a lowercase letter, a number, and a special character',
+      )
+    } else if (value.length > 20) {
+      setHidenTip(true)
+      fn('Password can only be entered up to 20 characters.')
     } else {
       setHidenTip(false)
       fn()

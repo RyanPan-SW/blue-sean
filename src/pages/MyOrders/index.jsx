@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { orderDetailEnums } from '@/helper/env'
 import CustomizeModal from '@/components/CustomizeModal'
@@ -25,30 +25,27 @@ const tabsList = [
 
 function MyOrder(params) {
   const [ordersdata, setOrdersdata] = useState([])
-  const [tablePramas, setTablePramas] = useState({ pageSize: 15, pageIndex: 1 /* , keyWord: '' */ })
+  // const [tablePramas, setTablePramas] = useState({ pageSize: 15, pageIndex: 1, keyWord: null })
   const [ordertotal, setOrderTotal] = useState(0)
   const [visible, setVisible] = useState(false)
   const [tabsKey, setTabsKey] = useState('1')
   const [searchValue, setsearchValue] = useState('')
+  const pramas = useRef({ pageSize: 15, pageIndex: 1, keyWord: null })
 
   useEffect(() => {
-    getOrdersList({
-      pageIndex: tablePramas.pageIndex,
-      pageSize: tablePramas.pageSize,
-      keyWord: null,
-      orderTab: null,
-    })
-  }, [tablePramas.pageIndex, tablePramas.pageSize])
+    getOrdersList()
+  }, [])
 
-  const getOrdersList = (parmas) => {
-    getOrdersListApi(parmas).then((res) => {
+  const getOrdersList = (from) => {
+    getOrdersListApi(pramas.current).then((res) => {
       const { code, data } = res
       if (code === '200' && data.data) {
-        if (data.data.length > 0) {
+        if (from === 'search' && data.data.length === 0) {
+          setVisible(true)
+        } else {
           setOrdersdata(data.data || [])
           setOrderTotal(data.total)
         }
-        if (data.data.length === 0) setVisible(true)
       } else {
         setVisible(false)
       }
@@ -60,49 +57,36 @@ function MyOrder(params) {
   }
 
   const onSearchOrders = (value, e) => {
-    const orderTab = Number(tabsKey) === 1 ? null : `0${tabsKey - 1}`
-    getOrdersList({
-      pageIndex: tablePramas.pageIndex,
-      pageSize: tablePramas.pageSize,
-      keyWord: value,
-      orderTab: orderTab,
-    })
+    // const orderTab = Number(tabsKey) === 1 ? null : `0${tabsKey - 1}`
+    pramas.current.keyWord = value
+    getOrdersList('search')
   }
 
   const changeTabs = (activeKey) => {
     setTabsKey(activeKey)
     const orderTab = Number(activeKey) === 1 ? null : `0${activeKey - 1}`
-    setTablePramas({ pageSize: 15, pageIndex: 1 })
-    // getOrdersList({pageIndex: tablePramas.pageIndex,pageSize: tablePramas.pageSize,keyWord: null,orderTab: orderTab})
-    getOrdersListApi({
-      pageIndex: 1,
+    pramas.current = Object.assign(pramas.current, {
       pageSize: 15,
-      keyWord: null,
+      pageIndex: 1,
       orderTab: orderTab,
-    }).then((res) => {
-      const { code, data } = res
-      if (code === '200' && data.data) {
-        // if (data.data.length > 0) {
-        setOrdersdata(data.data || [])
-        setOrderTotal(data.total)
-        // }
-        // if (data.data.length === 0) setVisible(true)
-      }
     })
+    getOrdersList()
   }
 
   const changePageSize = (index, pageSize) => {
-    setTablePramas({ pageSize: pageSize, pageIndex: index })
-    getOrdersList({
-      pageIndex: index,
+    // setTablePramas({ pageSize: pageSize, pageIndex: index })
+    pramas.current = Object.assign(pramas.current, {
       pageSize: pageSize,
-      keyWord: null,
+      pageIndex: index,
+      keyWord: '',
       orderTab: Number(tabsKey) === 1 ? null : `0${tabsKey - 1}`,
     })
+    getOrdersList()
   }
 
   const foucsSreachOrder = () => {
     setsearchValue('')
+    pramas.current = Object.assign(pramas.current, { keyWord: '' })
   }
   const changeSearchOrder = (e) => {
     setsearchValue(e.target.value)
@@ -207,8 +191,8 @@ function MyOrder(params) {
 
                     <Pagination
                       style={{ textAlign: 'right', paddingTop: 30 }}
-                      current={tablePramas.pageIndex}
-                      pageSize={tablePramas.pageSize}
+                      current={pramas.current.pageIndex}
+                      pageSize={pramas.current.pageSize}
                       itemRender={itemRender}
                       total={ordertotal}
                       onChange={changePageSize}
