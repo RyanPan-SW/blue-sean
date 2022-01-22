@@ -58,9 +58,9 @@ function Corporate(props) {
         }
 
         if (values.remember) {
-          setCookie('token', data.token, 30)
-        } else {
           setCookie('token', data.token, 7)
+        } else {
+          setCookie('token', data.token, 1)
         }
 
         const loginUser = JSON.stringify(data.loginUser)
@@ -180,7 +180,7 @@ function Corporate(props) {
             <LoadingSubmit className="loading" />
           ) : (
             <Button type='primary' htmlType='submit' className='login-form-button'>
-              Log In
+              Log in
             </Button>
           )}
         </Form.Item>

@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-// import { Form } from 'antd'
-// import { loginApi } from '@/api/login'
 import * as UserActionCreator from '@/store/actions/user'
-// import { Link } from 'react-router-dom'
-// import FieldDom from '@/components/Field'
-import { getCookie /* setCookie */ } from '@/helper/env'
-// import Cookies from 'js-cookie'
+import { getCookie } from '@/helper/env'
 import Corporate from './Corporate'
 import Personal from './Personal'
 
