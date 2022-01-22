@@ -4,7 +4,7 @@ import './index.scss'
 
 function FieldDom({ message = 'This field is required.', border }) {
   return (
-    <div className={border ? 'message-error-border' : 'message-error'}>
+    <div id="error" className={border ? 'message-error-border' : 'message-error'}>
       <ExclamationCircleFilled style={{ color: '#A40000' }} />
       <span>{message}</span>
     </div>

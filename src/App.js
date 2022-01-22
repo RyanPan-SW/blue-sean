@@ -12,7 +12,6 @@ const App = () => {
       <Switch>
         {routesConfig.map((route, i) => {
           const { path, component: Component, exact, routes } = route
-
           return (
             <Route
               key={i}
