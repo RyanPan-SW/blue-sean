@@ -153,7 +153,6 @@ function Cooperate(props) {
               <ul className='cooperate-feature'>
                 <li>Enjoy the monthly credit service</li>
                 <li>Preferential price</li>
-                <li>待提供其他优势优点..</li>
               </ul>
 
               <h3 className='step'>Account opening steps:</h3>

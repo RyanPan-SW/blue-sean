@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Form, Input, Button, Select, message, Space } from 'antd'
+import { Form, Input, Button, Select, message, Space, Spin } from 'antd'
 import deleteIcon from '../../asset/delete.png'
 import userBook from '../../asset/userbook.png'
 import { setRecipientApi, getSessionRecipient } from '@/api/fileStep'
@@ -18,6 +18,7 @@ function FileStep2({ cityArray, setStep, history }) {
   const [recipientList, setRecipientList] = useState([{}])
   const [deleteModal, setDeleteModal] = useState(false)
   const [key, setkey] = useState(null)
+  const [loading, setloading] = useState(false)
   const [deletename, setDeletename] = useState(null)
 
   useEffect(() => {
@@ -28,8 +29,9 @@ function FileStep2({ cityArray, setStep, history }) {
   const sessionToObtainRecipient = () => {
     const sessionid = localStorage.getItem('sessionid')
     if (!sessionid) return
-
+    setloading(true)
     getSessionRecipient().then((res) => {
+      setloading(false)
       if (res.code === '200' && res.data.recipientList) {
         if (res.data.recipientList.length === 0) {
           form.setFieldsValue({ recipientList: [{}] })
@@ -40,6 +42,8 @@ function FileStep2({ cityArray, setStep, history }) {
       } else {
         message.error(res.data.msg)
       }
+    }).catch(error => {
+      setloading(false)
     })
   }
 
@@ -78,7 +82,7 @@ function FileStep2({ cityArray, setStep, history }) {
   }
 
   return (
-    <>
+    <Spin spinning={loading}>
       <div className='step2'>
         <Form
           form={form}
@@ -323,7 +327,7 @@ function FileStep2({ cityArray, setStep, history }) {
           />
         }
       </div>
-    </>
+    </Spin>
   )
 }
 

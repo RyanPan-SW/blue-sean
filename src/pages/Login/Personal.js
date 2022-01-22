@@ -23,13 +23,11 @@ function PerSonal(props) {
 
   useEffect(() => {
     let userName = Cookies.get('userName')
-    let password = decrypt(Cookies.get('password'))
+    let password = Cookies.get('password')
     let remember = Cookies.get('remember')
     if (remember === 'true') {
       form.setFieldsValue({
-        userName: userName,
-        password: password,
-        remember: remember,
+        userName: userName, password: decrypt(password), remember: remember,
       })
     }
   }, [form])
@@ -49,8 +47,8 @@ function PerSonal(props) {
       if (code === '200' && data) {
         if (values.remember) {
           Cookies.set('userName', values.userName)
-          Cookies.set('password', values.password)
-          Cookies.set('remember', encrypt(values.remember))
+          Cookies.set('password', encrypt(values.password))
+          Cookies.set('remember', values.remember)
         } else {
           Cookies.remove('userName')
           Cookies.remove('password')
@@ -59,8 +57,7 @@ function PerSonal(props) {
         var t = new Date(new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000).setHours(0, 0, 0, 0));
         setCookie('token', data.token, t)
 
-        const loginUser = JSON.stringify(data.loginUser)
-        localStorage.setItem('user', loginUser)
+        localStorage.setItem('user', JSON.stringify(data.loginUser))
         if (search && search.includes('from')) {
           history.push(`/${getUrlParams('from')}`)
         } else {
@@ -165,7 +162,7 @@ function PerSonal(props) {
             <LoadingSubmit className="loading" />
           ) : (
             <Button type='primary' htmlType='submit' className='login-form-button'>
-              Log In
+              Log in
             </Button>
           )}
         </Form.Item>

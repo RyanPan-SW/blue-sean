@@ -28,6 +28,7 @@
     "classnames": "^2.2.6",
     "crypto-js": "^4.1.1",
     "css-loader": "4.3.0",
+    "dayjs": "^1.10.7",
     "dotenv": "8.2.0",
     "dotenv-cli": "^4.0.0",
     "dotenv-expand": "5.1.0",
@@ -107,7 +108,8 @@
     "build:uat": "dotenv -e .env.uat node scripts/build.js",
     "test": "node scripts/test.js",
     "fix": "eslint --fix src/ --ext .jsx --ext .js",
-    "prettier": "prettier --write src/**/*.{js,jsx}"
+    "prettier": "prettier --write src/**/*.{js,jsx}",
+    "clear:node": "rimraf node_modules"
   },
   "eslintConfig": {
     "extends": [
@@ -194,7 +196,8 @@
     ]
   },
   "devDependencies": {
-    "eslint-config-airbnb": "^18.2.1"
+    "eslint-config-airbnb": "^18.2.1",
+    "rimraf": "^3.0.2"
   },
   "husky": {
     "hooks": {

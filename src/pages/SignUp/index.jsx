@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Form, Input } from 'antd'
+import { Button, Form, Input, Row } from 'antd'
 import { Link } from 'react-router-dom'
 import { ExclamationCircleFilled } from '@ant-design/icons'
 import { /* emailMsg, */ passwordMsg, setCookie } from '@/helper/env'
@@ -94,66 +94,67 @@ function SignUp(props) {
             <Input placeholder='yourname@email.com' />
           </Form.Item>
 
-          <Form.Item
-            label='PASSWORD'
-            name='password'
-            extra={
-              hidenTip ? null : (
-                <p className='tips'>
-                  Please use at least 6 characters. <b>Remember:</b> Passwords are case sensitive.
-                </p>
-              )
-            }
-            getValueFromEvent={(e) => {
-              return e.target.value.replace(/\s+/g, '')
-            }}
-            rules={[
-              // { required: true, message: 'This field is required.' },
-              // { min: 6, max: 20, message: passwordMsg.pattern },
-              {
-                validator: (rule, value, fn) => {
-                  isRequire(rule, value, fn)
-                },
-              },
-            ]}
-          >
-            <Input.Password
-              autocomplete
-              placeholder='Password'
-              iconRender={(visible) =>
-                visible ? (
-                  <span style={{ color: visible && '#b38948' }}>Hide</span>
-                ) : (
-                  <span style={{ color: !visible && '#333' }}>Show</span>
+          <div style={{height:'120px'}}>
+            <Form.Item
+              label='PASSWORD'
+              name='password'
+              extra={
+                hidenTip ? null : (
+                  <p className='tips'>
+                    Please use at least 6 characters. <b>Remember:</b> Passwords are case sensitive.
+                  </p>
                 )
               }
-            />
-          </Form.Item>
-          {/* {hidenTip && (
-            <p className='tips'>Please use at least 6 characters. <b>Remember:</b> Passwords are case sensitive.</p>
-          )} */}
+              getValueFromEvent={(e) => {
+                return e.target.value.replace(/\s+/g, '')
+              }}
+              rules={[
+                // { required: true, message: 'This field is required.' },
+                // { min: 6, max: 20, message: passwordMsg.pattern },
+                {
+                  validator: (rule, value, fn) => {
+                    isRequire(rule, value, fn)
+                  },
+                },
+              ]}
+            >
+              <Input.Password
+                autocomplete
+                placeholder='Password'
+                iconRender={(visible) =>
+                  visible ? (
+                    <span style={{ color: visible && '#b38948' }}>Hide</span>
+                  ) : (
+                    <span style={{ color: !visible && '#333' }}>Show</span>
+                  )
+                }
+              />
+            </Form.Item>
+          </div>
           <br />
-          <p>
-            <span>By pressing the Sign Up button below, you agree to our&nbsp;</span>
-            <Link to='/website' target='_blank'>
-              Terms of use
-            </Link>
-            <span> &nbsp;and&nbsp;</span>
-            <Link to='/privacypolicy' target='_blank'>
-              Privacy Policy
-            </Link>
-            .
-          </p>
-          <br />
-          <Form.Item>
-            {loading ? (
-              <LoadingSubmit />
-            ) : (
-              <Button type='primary' htmlType='submit' className='signup-form-button'>
-                Sign Up
-              </Button>
-            )}
-          </Form.Item>
+          <div>
+            <p>
+              <span>By pressing the Sign Up button below, you agree to our&nbsp;</span>
+              <Link to='/website' target='_blank'>
+                Terms of use
+              </Link>
+              <span> &nbsp;and&nbsp;</span>
+              <Link to='/privacypolicy' target='_blank'>
+                Privacy Policy
+              </Link>
+              .
+            </p>
+            <br />
+            <Form.Item>
+              {loading ? (
+                <LoadingSubmit />
+              ) : (
+                <Button type='primary' htmlType='submit' className='signup-form-button'>
+                  Sign Up
+                </Button>
+              )}
+            </Form.Item>
+          </div>
         </Form>
 
         {/* <Button onClick={signupClick}>登录</Button> */}

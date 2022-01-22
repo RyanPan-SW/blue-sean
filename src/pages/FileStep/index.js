@@ -8,16 +8,13 @@ import { getConfigContent } from '@/api/config'
 import './index.scss'
 
 const code = {
-  1: "SRIP",
-  2: "SRIP",
-  3: "CT",
-  4: "PSP",
+  1: "SRIP", 2: "SRIP", 3: "CT", 4: "PSP",
 }
 
 function FileStep(props) {
   const [step, setStep] = useState(1)
   const [cityArray, setCityArray] = useState([])
-  const [status, setStatus] = useState(null)
+  const [status, setPayStatus] = useState(null)
   const [message, setMessage] = useState(null)
   const [configContent, setConfigContent] = useState(null)
 
@@ -46,13 +43,17 @@ function FileStep(props) {
 
 
   const getPayOrder = (res) => {
-    if (res.code === '201') {
+    if (res.code === '200') {
+      setPayStatus(true)
       setStep(4)
-      setStatus('failed')
-      setMessage(res.data.msg)
-    } else if (res.code === '200') {
-      setStatus('successful')
-      setStep(4)
+    } else {
+      if (res.code === '201') {
+        setStep(4)
+        setPayStatus(false)
+        setMessage(res.data.msg)
+      } else {
+        message.error(res.data.msg)
+      }
     }
   }
 

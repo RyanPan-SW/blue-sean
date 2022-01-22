@@ -10,8 +10,8 @@
 }
 
 .Join-us {
-  width: 42.2%;
-  margin: auto;
+  // width: 42.2%;
+  // margin: auto;
   padding-top: 55px;
   padding-bottom: 40px;
 
@@ -28,6 +28,7 @@
     font-size: 20px;
     text-align: center;
     padding-bottom: 70px;
+    word-break: keep-all;
   }
 
   .formItem {

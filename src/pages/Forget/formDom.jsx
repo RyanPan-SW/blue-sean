@@ -204,12 +204,12 @@ export const VerificationCodeDom = ({ setType }) => {
 }
 
 // Password
-export const SetNewPasswordDom = ({ Email, setType }) => {
+export const SetNewPasswordDom = ({ setType }) => {
   const [loading, setLoading] = useState(false)
 
   const setNewPassword = (values) => {
     setLoading(true)
-    let params = { userName: Email, code: userCode, newpassword: values.newpassword }
+    let params = { userName: userEmail, code: userCode, newpassword: values.newpassword }
     updatePwdByCode(params).then((res) => {
       const { code, errmsg, data } = res
       if (code !== '200' && !data) {

@@ -7,7 +7,7 @@ function WebsiteTerms(props) {
   const [content, setContent] = useState(null)
 
   useEffect(() => {
-    getConfigContent({ code: 'WTOU' }).then((res) => {
+    getConfigContent({ code: 'CT' }).then((res) => {
       const { title, content } = res.data || {}
       setTitle(title)
       setContent(content)

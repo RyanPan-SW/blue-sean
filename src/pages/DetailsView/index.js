@@ -13,7 +13,7 @@ import './index.scss'
 import { getAllCity } from '@/api/fileStep'
 import { orderStatusEnums, payMerhod } from '@/helper/env'
 import { getConfigContent } from '@/api/config'
-import { visible } from 'chalk'
+import { message } from 'antd'
 
 function DetailsView(props) {
   const [form] = Form.useForm()
@@ -98,6 +98,9 @@ function DetailsView(props) {
           setCancelVisible(false)
         })
       }
+      setVisibleByUnpaid(false)
+    }).catch(error => {
+      message.error(error)
     })
   }
 
@@ -278,7 +281,7 @@ function DetailsView(props) {
             </div>
           )}
 
-          {(orderDetail?.paymentMethod === '03' && orderDetail.orderStatus === '00' ) &&  (
+          {(orderDetail?.paymentMethod === '03' && orderDetail.orderStatus === '00') && (
             <div>
               Because you use bank transfer for payment, the exact delivery time may change.If you
               have any questions, please contact us.
@@ -389,7 +392,7 @@ function DetailsView(props) {
       <CustomizeModal
         width={710}
         visible={cancelVisible}
-        cancelText={cancelStatus ? <span style={{ color: '#ccc' }}>Yes</span> : null}
+        cancelText={cancelStatus ? <span style={{ color: '#ccc' }} onClick={() => setCancelVisible(false)}>Yes</span> : null}
         onCancel={cancelOrder}
         okText={cancelStatus ? 'No' : 'Ok'}
         onOk={onOk}
