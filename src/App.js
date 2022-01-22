@@ -11,13 +11,13 @@ const App = () => {
     <Router history={createBrowserHistory()}>
       <Switch>
         {routesConfig.map((route, i) => {
-          const { path, component: Component, exact, routes } = route
+          const { path, component: Component, exact, routes, children } = route
           return (
             <Route
               key={i}
               exact={exact}
               path={path}
-              render={(props) => <Component {...props} routes={routes} />}
+              render={(props) => <Component {...props} routes={routes} children={children} />}
             />
           )
         })}

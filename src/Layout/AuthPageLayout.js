@@ -32,6 +32,7 @@ import WebsiteTerms from '@/pages/WebsiteTerms'
 
 function BaseLayout(props) {
   const { pathname } = useLocation()
+  debugger
 
   return (
     <Layout {...props}>
@@ -56,8 +57,9 @@ function BaseLayout(props) {
           background: '#FFF',
         }}
       >
-        <Switch>
-          <Route path='/login' component={Login} />
+        {this.props.children}
+        {/* <Switch> */}
+          {/* <Route path='/login' component={Login} />
           <Route path='/signup' component={SignUp} />
           <Route path='/home' component={Home} />
           <Route path='/services/:id' component={Services} />
@@ -81,9 +83,9 @@ function BaseLayout(props) {
           <Route path='/website' component={WebsiteTerms} />
           <Route path='/contract' component={ContractTerms} />
 
-          <Route path='/notFound' component={Page404} />
+          <Route path='/notFound' component={Page404} /> */}
           {/* <Redirect to='/home' /> */}
-        </Switch>
+        {/* </Switch> */}
       </Layout.Content>
 
       <Layout.Footer style={{ padding: 0 }}>

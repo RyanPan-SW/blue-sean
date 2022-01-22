@@ -1,6 +1,12 @@
 .home-header {
+  width: 100%;
   background: #fff;
   border-bottom: 1px solid #b1aba8;
+  background: #000000a8;
+  color: #ffffff;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
 
   a:hover {
     color: $themeColor;
@@ -8,9 +14,13 @@
 }
 
 .header {
+  height: auto;
+  background: #FFf;
+  color: #ffffff;
+  position: fixed;
+  z-index: 1;
   width: 100%;
   border-bottom: 1px solid #bcbcbc;
-  background: #000000a8;
 }
 
 .header-loginbox {

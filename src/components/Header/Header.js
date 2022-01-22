@@ -97,7 +97,7 @@ const Header = (props) => {
 
   return (
     <>
-      <div className={pathnameStatus ? 'home-header' : 'header'}>
+      <div className={location.pathname.includes('/home') ? 'home-header' : 'header'}>
         <div className='header-loginbox '>
           <div className='container'>
             {!getCookie('token') ? (
