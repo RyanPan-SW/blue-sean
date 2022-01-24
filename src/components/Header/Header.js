@@ -46,12 +46,6 @@ const Header = (props) => {
 
   useEffect(() => {
     location.pathname.search('/home') > -1 ? setPathnameStatus(false) : setPathnameStatus(true)
-    // const token = getCookie('token')
-    // if (!token) {
-    //   message.error('Need log in.')
-    //   props.history.push('/home')
-    //   return
-    // }
   }, [location.pathname])
 
   const ExpandSubtitle = (e) => {
@@ -70,11 +64,7 @@ const Header = (props) => {
 
   const welcomeUser = () => {
     const user = localStorage.getItem('user') && JSON.parse(localStorage.getItem('user'))
-    if (user /* && user.loginType === '01' */) {
-      return `Welcome  ${user.loginEmail}`
-    } else {
-      return `Welcome`
-    }
+    return `Welcome  ${user.loginEmail || ''}`
   }
 
   const clickLogo = () => {
@@ -102,20 +92,12 @@ const Header = (props) => {
           <div className='container'>
             {!getCookie('token') ? (
               <>
-                <Link
-                  to='/login'
-                  className='header-login'
-                  style={{ color: pathnameStatus ? '' : '#fff' }}
-                >
+                <Link to='/login' className='header-login' style={{ color: pathnameStatus ? '' : '#fff' }}>
                   <img src={login} alt='' />
                   <span>Log in</span>
                 </Link>
 
-                <Link
-                  to='/signup'
-                  className='header-signup'
-                  style={{ color: pathnameStatus ? '' : '#fff' }}
-                >
+                <Link to='/signup' className='header-signup' style={{ color: pathnameStatus ? '' : '#fff' }}>
                   <img src={signup} alt='' />
                   <span>Sign up</span>
                 </Link>

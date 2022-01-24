@@ -1,6 +1,5 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
-// import { PrivateRoute, RouteWithSubRoutes } from './router/renderRoutes'
 import { routesConfig } from './router'
 import Page404 from './pages/404/404'
 import { createBrowserHistory } from 'history'

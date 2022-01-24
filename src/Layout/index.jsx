@@ -41,13 +41,11 @@ function LayoutIndex(props) {
           background: '#FFF',
         }}
       >
-        <Switch>
-          {children.map((item) => {
-            return <Route path={item.path} component={item.component}></Route>
-          })}
-        </Switch>
+        {children.map((item) => {
+          return <Route path={item.path} component={item.component} key={item.path}></Route>
+        })}
       </Content>
-      <Footer>
+      <Footer style={{ padding: 0 }}>
         <FooterComponent />
       </Footer>
     </Layout>
