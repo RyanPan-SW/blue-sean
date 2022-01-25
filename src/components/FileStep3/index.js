@@ -7,14 +7,13 @@ import { Link } from 'react-router-dom'
 import visa from '../../asset/visa.png'
 import doubt from '../../asset/doubt.png'
 import lock from '../../asset/lock.png'
-import Bpay from '../../asset/bpay.png'
 import Tanhao from '../../asset/tanhao.png'
 import classnames from 'classnames'
 import LoadingSubmit from '../LoadingSubmit'
 import './index.scss'
 
 const paymentEmnu = {
-  visa: '01', corporate: '02', bpay: '03',
+  visa: '01', corporate: '02', Bank: '03',
 }
 
 function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
@@ -126,12 +125,15 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
   const onFinish = (values) => {
     setLoading(true)
     const { firstName, lastName, email, phoneHome, phoneMobile, companyName, companyAddress, paymentCode, payType } = values
-    let params = { firstName, lastName, email, phoneHome, phoneMobile, companyName, companyAddress, paymentCode, payType }
-
+    let params = { firstName, lastName, email, phoneHome, phoneMobile, companyName, companyAddress, payType, paymentCode }
+    // if (payment === paymentEmnu['corporate']) {
+    //   params.paymentCode = paymentCode
+    // }
     methodOfPayment(params).then((res) => {
       setLoading(false)
       getPayOrder(res)
     }).catch(err => {
+      setLoading(false)
       message.error(err)
     })
   }
@@ -250,23 +252,14 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
                   </Form.Item>
                 </Col>
                 <Col span={12}>
-                  <Form.Item
-                    label='Phone (home)'
-                    name='phoneHome'
-                    validateStatus={phoneHome ? 'validating' : 'error'}
-                    rules={[{ required: false, message: 'Please Enter.', }]}
-                  >
+                  <Form.Item label='Phone (home)' name='phoneHome' validateStatus={phoneHome ? 'validating' : 'error'}
+                    rules={[{ required: false, message: 'Please Enter.', }]}>
                     <Input onChange={changePhone} />
                   </Form.Item>
                 </Col>
                 <Col span={12}>
-                  <Form.Item
-                    label='Phone (mobile)'
-                    name='phoneMobile'
-                    extra={phoneDom}
-                    validateStatus={phoneMobile ? 'validating' : 'error'}
-                    rules={[{ required: false, message: 'Please Enter.' }]}
-                  >
+                  <Form.Item label='Phone (mobile)' name='phoneMobile' extra={phoneDom} validateStatus={phoneMobile ? 'validating' : 'error'}
+                    rules={[{ required: false, message: 'Please Enter.' }]}>
                     <Input onChange={changePhone} />
                   </Form.Item>
                 </Col>
@@ -299,22 +292,16 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
 
                           {payment === paymentEmnu['corporate'] && (
                             <div className='step3-corporate-form'>
-                              <Form.Item
-                                label='Corporate Payment Code'
-                                name='paymentCode'
-                                rules={[{ required: true, message: 'Please Enter.' }]}
-                              >
+                              <Form.Item label='Corporate Payment Code' name='paymentCode' rules={[{ required: true, message: 'Please Enter.' }]}>
                                 <Input />
                               </Form.Item>
                             </div>
                           )}
                         </Radio>
 
-                        <Radio value={paymentEmnu['bpay']}>
-                          {/* <img src={Bpay} alt='' /> */}
+                        <Radio value={paymentEmnu['Bank']}>
                           <span>Bank transfer</span>
-
-                          {payment === paymentEmnu['bpay'] && (
+                          {payment === paymentEmnu['Bank'] && (
                             <div className='step3-bpay-div'>
                               <div className='step3-bpay-icon'>
                                 <img src={Tanhao} alt='' />

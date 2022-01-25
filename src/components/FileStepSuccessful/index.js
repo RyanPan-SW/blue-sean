@@ -28,7 +28,7 @@ function FileStepSuccessful({ setStep, status, message, configContent = '' }) {
       />
 
       <p className='step-scussful-text'>{status ? payType === "03" ? 'Successful Appointment' : 'Successful' : 'Failed'}</p>
-      {payType === "03" && <p className="pay-status">Sorry, your account has been frozen.You cannot use Legal Documents Deliveries & Service of Court Documents.</p>}
+      {/* {payType === "03" && <p className="pay-status">Sorry, your account has been frozen.You cannot use Legal Documents Deliveries & Service of Court Documents.</p>} */}
 
 
       {
@@ -54,7 +54,7 @@ function FileStepSuccessful({ setStep, status, message, configContent = '' }) {
             <p className='step-service'>Service Instructions:</p>
             <div className='step-decribe' dangerouslySetInnerHTML={{ __html: configContent }}></div>
           </>
-        ) : (<p className='step-failed'>{payType !== "03" && message}</p>)
+        ) : (<p className='step-failed'>{message}</p>)
       }
     </div >
   )
