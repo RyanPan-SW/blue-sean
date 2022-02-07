@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { Button, Form, Input, Row } from 'antd'
+import { Button, Form, Input } from 'antd'
 import { Link } from 'react-router-dom'
 import { ExclamationCircleFilled } from '@ant-design/icons'
-import { /* emailMsg, */ passwordMsg, setCookie } from '@/helper/env'
+import { setCookie } from '@/helper/env'
 import { signup } from '@/api/signup'
 import { errorCodeMessage } from '@/helper/error'
 import './index.scss'
@@ -94,7 +94,7 @@ function SignUp(props) {
             <Input placeholder='yourname@email.com' />
           </Form.Item>
 
-          <div style={{height:'120px'}}>
+          <div style={{ height: '120px' }}>
             <Form.Item
               label='PASSWORD'
               name='password'

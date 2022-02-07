@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Radio, Space, Checkbox, Button, Input, Form, Modal, Tooltip, message, Spin, Row, Col, } from 'antd'
+import { Radio, Space, Checkbox, Button, Input, Form, Modal, message, Spin, Row, Col, } from 'antd'
 import { ExclamationCircleFilled } from '@ant-design/icons'
 import { getDayOrTime, getOptionalTime, methodOfPayment } from '@/api/fileStep'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
-import visa from '../../asset/visa.png'
-import doubt from '../../asset/doubt.png'
-import lock from '../../asset/lock.png'
 import Tanhao from '../../asset/tanhao.png'
 import classnames from 'classnames'
 import LoadingSubmit from '../LoadingSubmit'
@@ -25,8 +22,8 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
   const [activeTime, setActiveTime] = useState(null)
   const [paydata, setPaydata] = useState(null)
   const [PaypalModal, setPaypalModal] = useState(false)
-  const [phoneHomeRequired, setPhoneHomeRequired] = useState(true)
-  const [phoneMobileRequired, setPhoneMobileRequired] = useState(true)
+  // const [phoneHomeRequired, setPhoneHomeRequired] = useState(true)
+  // const [phoneMobileRequired, setPhoneMobileRequired] = useState(true)
   const [phoneHome, setPhoneHome] = useState(true)
   const [phoneMobile, setPhoneMobile] = useState(true)
   const [loading, setLoading] = useState(false)
@@ -80,25 +77,25 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
     let phoneMobile = form.getFieldValue('phoneMobile')
     if (!phoneHome && !phoneMobile) {
       setPhoneHome(false)
-      setPhoneHomeRequired(false)
+      // setPhoneHomeRequired(false)
       setPhoneMobile(false)
-      setPhoneMobileRequired(false)
+      // setPhoneMobileRequired(false)
     } else {
       setPhoneHome(true)
-      setPhoneHomeRequired(false)
+      // setPhoneHomeRequired(false)
       setPhoneMobile(true)
-      setPhoneMobileRequired(false)
+      // setPhoneMobileRequired(false)
     }
   }
-  const changeMobile = (event) => {
-    if (event.target.value) {
-      setPhoneHomeRequired(false)
-      setPhoneHome(true)
-      setPhoneMobile(true)
-    } else {
-      setPhoneHomeRequired(true)
-    }
-  }
+  // const changeMobile = (event) => {
+  //   if (event.target.value) {
+  //     // setPhoneHomeRequired(false)
+  //     setPhoneHome(true)
+  //     setPhoneMobile(true)
+  //   } else {
+  //     // setPhoneHomeRequired(true)
+  //   }
+  // }
 
   const onChangePayment = (e) => {
     setPayment(e.target.value)

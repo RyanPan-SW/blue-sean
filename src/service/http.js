@@ -1,52 +1,50 @@
 import axios from 'axios'
-// import qs from 'qs'
-import { getCookie /* setCookie */ } from '@/helper/env'
+import { COR_API_HOST } from '@/config'
+import { clearAllCookie, getCookie } from '@/helper/env'
+import { message, Spin } from 'antd'
 
-axios.defaults.baseURL = 'http://localhost:8081'
-// axios.interceptors.request.use((config) => {
-//   config.headers.Authorization = setCookie('token')
-//   console.log('config', config)
-//   return config
-// })
+// 创建axios实例
+const http = axios.create({
+  // baseURL: process.env.REACT_APP_BASEURL,
+  baseURL: COR_API_HOST,
+  timeout: 20000,
+})
 
-axios.interceptors.response.use((config) => {
-  config.headers.Authorization = getCookie()
+// 请求拦截器
+http.interceptors.request.use((config) => {
+  if (getCookie('token')) {
+    config.headers.authorization = getCookie('token')
+  }
+  const sessionid = localStorage.getItem('sessionid')
+  if (sessionid) {
+    config.headers.sessionid = sessionid
+  }
   return config
 })
 
-const http = { post: '', get: '', put: '', del: '' }
+http.interceptors.response.use(
+  (response) => response.data,
+  (error) => {
+    return Promise.reject(error)
+  },
+)
 
-http.post = function (api, data) {
-  // let params = qs.stringify(data)
-  return new Promise((resolve, reject) => {
-    axios.post(api, data).then((response) => {
-      resolve(response)
-    })
-  })
-}
-
-http.get = function (api, data) {
-  return new Promise((resolve, response) => {
-    axios.get(api, data).then((response) => {
-      resolve(response)
-    })
-  })
-}
-
-http.delete = function (api, data) {
-  return new Promise((resolve, response) => {
-    axios.delete(api, data).then((response) => {
-      resolve(response)
-    })
-  })
-}
-
-http.put = function (api, data) {
-  return new Promise((resolve, response) => {
-    axios.put(api, data).then((response) => {
-      resolve(response)
-    })
-  })
-}
+// 响应拦截器
+http.interceptors.response.use((response) => {
+  const { code, errmsg, /* data */ } = response
+  return response
+}, (error) => {
+  if (error.response) {
+    // 请求已发出，服务器返回的 http 状态码不是 2xx，例如：400，500，
+    console.info(error.response)
+  } else if (error.request) {
+    // 请求已发出，但没有收到响应，例如：断网
+    console.info(error.request)
+  } else {
+    // 请求被取消或者发送请求时异常
+    console.info(error.message)
+  }
+  return Promise.reject(error)
+})
 
 export default http

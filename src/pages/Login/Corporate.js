@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Form, Input, Checkbox, Popover } from 'antd'
-import { loginApi } from '@/api/login'
+import { Button, Form, Input, Checkbox, Popover, message } from 'antd'
+import { CoprporateLogin } from '@/api/login'
 import { Link } from 'react-router-dom'
 import FieldDom from '@/components/Field'
 import { getUrlParams, setCookie } from '@/helper/env'
@@ -39,44 +39,19 @@ function Corporate(props) {
   }
 
 
-  const onFishCorporate = (values) => {
-    const params = {
-      password: values.password,
-      userName: values.userName,
-      loginType: '02',
-    }
+  const onFishCorporate = async (values) => {
     setLoading(true)
-    loginApi(params).then((res) => {
-      const { code, data, errmsg } = res
-      setLoading(false)
-      if (code === '200') {
-        if (values.remember) {
-          let corporate = { userName: values.userName, password: values.password, remember: values.remember }
-          Cookies.set('corporate', corporate)
-        } else {
-          Cookies.remove('corporate')
-        }
-
-        if (values.remember) {
-          setCookie('token', data.token, 7)
-        } else {
-          setCookie('token', data.token, 1)
-        }
-
-        const loginUser = JSON.stringify(data.loginUser)
-        localStorage.setItem('user', loginUser)
-        setLoginCorporateError(false)
-        if (search && search.includes('from')) {
-          history.push(`/${getUrlParams('from')}`)
-        } else {
-          history.push('/account')
-        }
+    try {
+      const result = await CoprporateLogin({ ...values })
+      const { code, data, msg } = result
+      if (code === 0) {
+        window.location.href = data.url
       } else {
-        setLoginCorporateError(true)
-        setErrormsg(errmsg)
-        setHideRemeber(false)
+        message.error(msg)
       }
-    })
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -103,7 +78,7 @@ function Corporate(props) {
       >
         <Form.Item
           label={<span className='label'>USERNAME</span>}
-          name='userName'
+          name='username'
           getValueFromEvent={(e) => {
             return e.target.value.replace(/\s+/g, '')
           }}
@@ -141,7 +116,7 @@ function Corporate(props) {
 
         <Form.Item>
           <Form.Item
-            name='remember'
+            name='rememberMe'
             className='login-remmeber-forgot'
             valuePropName='checked'
             noStyle

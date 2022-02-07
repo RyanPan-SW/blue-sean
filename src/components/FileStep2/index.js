@@ -63,11 +63,6 @@ function FileStep2({ cityArray, setStep, history }) {
     return getCookie('token') ? setVisible(true) : history.push('/login?from=filestep')
   }
 
-  const removeItem = () => {
-    let node = document.querySelector('#remove')
-    node && node.click();
-    setDeleteModal(false)
-  }
 
   const selectedRecipientItem = (row) => {
     const newRecipientList = recipientList

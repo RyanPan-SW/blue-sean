@@ -17,22 +17,22 @@ export function getSessionSender(params) {
 }
 // step2 收件人
 export function setRecipientApi(params) {
-  return API.post('/express/setRecipient', params)
+  return API.post('/dcexpress/express/setRecipient', params)
 }
 
 export function getSessionRecipient(params) {
-  return API.post('/express/getRecipient', params)
+  return API.post('/dcexpress/express/getRecipient', params)
 }
 
 // step2 可选时间
 export function getOptionalTime(params) {
-  return API.post('/express/getOptionalDate', params)
+  return API.post('/dcexpress/express/getOptionalDate', params)
 }
 
 export function getDayOrTime(params) {
-  return API.post('/express/selectDateTime', params)
+  return API.post('/dcexpress/express/selectDateTime', params)
 }
 
 export function methodOfPayment(params) {
-  return API.post('/express/payOrder', params)
+  return API.post('/dcexpress/express/payOrder', params)
 }

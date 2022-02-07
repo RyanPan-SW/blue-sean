@@ -5,7 +5,6 @@ import React, {
 import { Button } from 'antd'
 import Successful from '../../asset/Successful.png'
 import Failed from '../../asset/Failed.png'
-import Bpay from '../../asset/bpay@2x.png'
 import { Link } from 'react-router-dom'
 import { getCookie } from '@/helper/env'
 import './index.scss'

@@ -12,13 +12,15 @@ const Login = ({ login, setLoginUser, history }) => {
 
   useEffect(() => {
     if (getCookie('token')) {
-      // window.location.href = '/account'
       history.push('/account')
     }
+    let activeT = +localStorage.getItem('active-tab')
+    setActiveTab(activeT || 1)
   })
 
   const changeTab = (key) => {
     setActiveTab(key)
+    localStorage.setItem('active-tab', key)
   }
 
   const Tabs = [
