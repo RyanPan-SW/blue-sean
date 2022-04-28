@@ -20,6 +20,7 @@ function ChangePassword(props) {
       if (code === '200' && data) {
         setVisible(true)
         clearAllCookie()
+        
         localStorage.clear()
         return
       }

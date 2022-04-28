@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Form, Input } from 'antd'
 import { Link } from 'react-router-dom'
 import { ExclamationCircleFilled } from '@ant-design/icons'
 import { setCookie } from '@/helper/env'
 import { signup } from '@/api/signup'
+import { getCookie } from '@/helper/env'
 import { errorCodeMessage } from '@/helper/error'
 import './index.scss'
 import LoadingSubmit from '@/components/LoadingSubmit'
@@ -14,8 +15,15 @@ function SignUp(props) {
   const [errormsg, setErrormsg] = useState('')
   const [hidenTip, setHidenTip] = useState(false)
 
+  useEffect(() => {
+    if (getCookie('token')) {
+      props.history.push('/account')
+    }
+  })
+
   const onFinish = (values) => {
     setLoading(true)
+
     signup({ ...values }).then((res) => {
       const { code, data, errmsg } = res
       if (code !== '200') {
@@ -27,6 +35,7 @@ function SignUp(props) {
       }
       setShowError(false)
       setCookie('token', data.token)
+      
       localStorage.setItem('user', JSON.stringify(data.loginUser))
       props.history.push('/personal')
       setLoading(false)

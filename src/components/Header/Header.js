@@ -67,6 +67,8 @@ const Header = (props) => {
     if (_user) {
       const user = JSON.parse(_user) || {}
       return `Welcome  ${user?.loginEmail || ''}`
+    } else {
+      clickLogOut()
     }
   }
 
@@ -76,6 +78,7 @@ const Header = (props) => {
 
   const clickLogOut = () => {
     Cookies.remove('token')
+    localStorage.clear()
     history.push('/logOut')
   }
 

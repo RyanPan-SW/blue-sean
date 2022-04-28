@@ -158,7 +158,7 @@ export const routesConfig = [
     ],
   },
   {
-    path: '/contactus',
+    path: '/account',
     exact: false,
     component: BaseLayout,
     children: [
@@ -169,7 +169,7 @@ export const routesConfig = [
     ],
   },
   {
-    path: '/contactus',
+    path: '/orders',
     exact: false,
     component: BaseLayout,
     children: [

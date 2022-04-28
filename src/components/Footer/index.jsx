@@ -16,10 +16,10 @@ import './index.scss'
 
 const FooterComponent = () => {
   const { pathname } = useLocation()
-
+  console.log('pathname', pathname)
   return (
     <>
-      {pathname.search('/home') > -1 && (
+      {pathname === '/' && (
         <div className='page-footer'>
           <div className='container'>
             <div className='footContent'>

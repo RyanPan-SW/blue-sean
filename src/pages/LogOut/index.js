@@ -9,6 +9,7 @@ function LogOut(props) {
   useEffect(() => {
 
     Cookies.remove('token')
+    
     localStorage.clear()
 
     const timer = setInterval(() => {

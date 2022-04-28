@@ -57,7 +57,9 @@ function PerSonal(props) {
         var t = new Date(new Date(new Date().getTime() + 2 * 60 * 60 * 1000))
         // var t = new Date(new Date(new Date().getTime() + 2 * 60 * 60 * 1000).setHours(0, 0, 0, 0));
         setCookie('token', data.token, t)
+        
         localStorage.setItem('user', JSON.stringify(data.loginUser))
+        
         if (search && search.includes('from')) {
           history.push(`/${getUrlParams('from')}`)
         } else {

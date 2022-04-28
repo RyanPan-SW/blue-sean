@@ -41,6 +41,7 @@ API.interceptors.response.use(
     } else if (code === 'LO008') {
       // 只有LO008才需要退出
       clearAllCookie()
+      
       localStorage.clear()
       window.location.href = '/login'
       message.error(errmsg)

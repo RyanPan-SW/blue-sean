@@ -19,7 +19,7 @@ function Personal(props) {
         <h4>WHAT'S  NEXT ?</h4>
 
         <div className='banner'>
-          <Link to='/home' className='item'>
+          <Link to='/' className='item'>
             <img src={signhome} alt='' />
             <span>Back Homepage</span>
           </Link>
