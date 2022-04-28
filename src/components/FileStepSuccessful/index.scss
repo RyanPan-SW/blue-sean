@@ -18,6 +18,10 @@
     padding-bottom: 60px;
   }
 
+  .step-text {
+    padding-bottom: 40px;
+  }
+
   .pay-status {
     width: 85%;
     margin: 0 auto;
@@ -40,19 +44,23 @@
     justify-content: space-evenly;
 
     button {
-      width: 300px;
+      width: 18rem;
       height: 56px;
       border-radius: 28px;
       font-size: 25px;
+    }
 
-      &:nth-of-type(1) {
-        background-color: #fff;
-        color: #aeaeae;
+    .success-back {
+      color: #aeaeae;
+      background-color: #fff;
+      & :hover {
+        color: #b38948;
+        border-color: #b38948;
       }
-      &:nth-of-type(2) {
-        background-color: $themeColor;
-        color: #fff;
-      }
+    }
+    .success-order {
+      background-color: $themeColor;
+      color: #fff;
     }
   }
 
@@ -88,6 +96,20 @@
       list-style: disc;
       margin-left: 30px;
       line-height: 30px;
+    }
+  }
+
+  .error-back {
+    margin: 0 auto;
+    background: #fff;
+    color: #333;
+    width: 18rem;
+    height: 56px;
+    border-radius: 28px;
+      font-size: 25px;
+    &:hover {
+      background-color: #fff;
+      color: #b38948;
     }
   }
 }

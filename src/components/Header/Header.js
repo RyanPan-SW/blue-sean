@@ -45,7 +45,7 @@ const Header = (props) => {
   // const [loginStatus, setLoginStatus] = useState(false)
 
   useEffect(() => {
-    location.pathname.search('/home') > -1 ? setPathnameStatus(false) : setPathnameStatus(true)
+    location.pathname === '/' ? setPathnameStatus(false) : setPathnameStatus(true)
   }, [location.pathname])
 
   const ExpandSubtitle = (e) => {
@@ -63,12 +63,15 @@ const Header = (props) => {
   }
 
   const welcomeUser = () => {
-    const user = localStorage.getItem('user') && JSON.parse(localStorage.getItem('user'))
-    return `Welcome  ${user.loginEmail || ''}`
+    let _user = localStorage.getItem('user')
+    if (_user) {
+      const user = JSON.parse(_user) || {}
+      return `Welcome  ${user?.loginEmail || ''}`
+    }
   }
 
   const clickLogo = () => {
-    window.location.pathname = '/home'
+    window.location.pathname = '/'
   }
 
   const clickLogOut = () => {
@@ -84,20 +87,27 @@ const Header = (props) => {
     }
   }
 
-
   return (
     <>
-      <div className={location.pathname.includes('/home') ? 'home-header' : 'header'}>
+      <div className={location.pathname === '/' ? 'home-header' : 'header'}>
         <div className='header-loginbox '>
           <div className='container'>
             {!getCookie('token') ? (
               <>
-                <Link to='/login' className='header-login' style={{ color: pathnameStatus ? '' : '#fff' }}>
+                <Link
+                  to='/login'
+                  className='header-login'
+                  style={{ color: pathnameStatus ? '' : '#fff' }}
+                >
                   <img src={login} alt='' />
                   <span>Log in</span>
                 </Link>
 
-                <Link to='/signup' className='header-signup' style={{ color: pathnameStatus ? '' : '#fff' }}>
+                <Link
+                  to='/signup'
+                  className='header-signup'
+                  style={{ color: pathnameStatus ? '' : '#fff' }}
+                >
                   <img src={signup} alt='' />
                   <span>Sign up</span>
                 </Link>
@@ -111,7 +121,10 @@ const Header = (props) => {
                   <img src={home} alt='' />
                   <span>Account info</span>
                 </Link>
-                <a className={pathnameStatus ? 'login-user' : 'login-home-user'} onClick={clickLogOut}>
+                <a
+                  className={pathnameStatus ? 'login-user' : 'login-home-user'}
+                  onClick={clickLogOut}
+                >
                   <img src={logout} alt='' />
                   <span>Log out</span>
                 </a>
@@ -123,7 +136,7 @@ const Header = (props) => {
         <div className='header-content container'>
           <div className={pathnameStatus ? 'other-navbar' : 'header-navbar'}>
             <div className='header-navBrand'>
-              <div onClick={clickLogo} className="Logo-a" to='/home'>
+              <div onClick={clickLogo} className='Logo-a' to='/'>
                 {pathnameStatus ? (
                   <div className='logo-img'>
                     <img className='alt-logo' src={LogoDark} alt='logo' />
@@ -139,7 +152,7 @@ const Header = (props) => {
 
             <ul className='header-nav-menu'>
               <li className={isActive('home')}>
-                <Link to='/home'>Home</Link>
+                <Link to='/'>Home</Link>
               </li>
               <li
                 className={classnames('header-menu-down', isActive('services'))}
@@ -156,22 +169,13 @@ const Header = (props) => {
                   <div className='header-menu-sub-list'>
                     {servicesMenus.map(({ name, to, id, title }, index) => {
                       return (
-                        <Link
-                          key={index}
-                          to={`${to}/${id}`}
-                        >
-                          <div
-                            className='menu-item'
-                          >
-                            {title}
-                          </div>
+                        <Link key={index} to={`${to}/${id}`}>
+                          <div className='menu-item'>{title}</div>
                         </Link>
                       )
                     })}
                     <a onClick={goToNewPickup}>
-                      <div className='menu-item'>
-                        Schedule a New Pickup
-                      </div>
+                      <div className='menu-item'>Schedule a New Pickup</div>
                     </a>
                   </div>
                 )}

@@ -127,6 +127,7 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
     //   params.paymentCode = paymentCode
     // }
     methodOfPayment(params).then((res) => {
+      
       setLoading(false)
       getPayOrder(res)
     }).catch(err => {
@@ -306,7 +307,8 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
                               <div className='step3-bpay-dirscrbe'>
                                 To pay by bank transfer, you will receive your invoice by email.
                                 <br />
-                                Please transfer the payment to the bank account indicated in the invoice within 30<br />
+                                Please transfer the payment to the bank account indicated in the invoice within 30
+                                <br />
                                 minutes and reply the email with receipt of remittance.
                               </div>
                             </div>

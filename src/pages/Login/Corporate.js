@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Form, Input, Checkbox, Popover, message } from 'antd'
+import { Button, Form, Input, Checkbox, Popover } from 'antd'
 import { CoprporateLogin } from '@/api/login'
 import { Link } from 'react-router-dom'
 import FieldDom from '@/components/Field'
-import { getUrlParams, setCookie } from '@/helper/env'
 import Cookies from 'js-cookie'
 import LoadingSubmit from '@/components/LoadingSubmit'
+import { encrypt, decrypt } from '@/utils/jsCrypto'
 import './index.scss'
 
 function Corporate(props) {
   const { history } = props
-  const { location: { search } } = history
+  const {
+    location: { search },
+  } = history
 
   const [form] = Form.useForm()
   const [loginCorporateError, setLoginCorporateError] = useState(false)
@@ -19,17 +21,17 @@ function Corporate(props) {
   const [Loading, setLoading] = useState(false)
 
   useEffect(() => {
-    let cookie = Cookies.get('corporate')
-    if (cookie) {
-      let corporate = JSON.parse(cookie)
+    let username = Cookies.get('Coprporate-username')
+    let password = decrypt(Cookies.get('Coprporate-password') || '')
+    let rememberMe = Cookies.get('Coprporate-rememberMe')
+    if (rememberMe === 'true') {
       form.setFieldsValue({
-        userName: corporate.userName,
-        password: corporate.password,
-        remember: corporate.remember,
+        username: username,
+        password: password,
+        rememberMe: rememberMe,
       })
     }
   }, [form])
-
 
   const changePassword = (e) => {
     let value = e.target.value
@@ -38,16 +40,25 @@ function Corporate(props) {
     }
   }
 
-
   const onFishCorporate = async (values) => {
     setLoading(true)
     try {
       const result = await CoprporateLogin({ ...values })
       const { code, data, msg } = result
       if (code === 0) {
+        if (values.rememberMe) {
+          Cookies.set('Coprporate-username', values.username)
+          Cookies.set('Coprporate-password', encrypt(values.password))
+          Cookies.set('Coprporate-rememberMe', values.rememberMe)
+        } else {
+          Cookies.remove('Coprporate-username')
+          Cookies.remove('Coprporate-password')
+          Cookies.set('Coprporate-rememberMe', values.rememberMe)
+        }
         window.location.href = data.url
       } else {
-        message.error(msg)
+        setLoginCorporateError(true)
+        setErrormsg(msg)
       }
     } finally {
       setLoading(false)
@@ -56,7 +67,7 @@ function Corporate(props) {
 
   return (
     <div className='login-content'>
-      {loginCorporateError && <FieldDom border message={errormsg} />}
+      {loginCorporateError && <FieldDom border message={'Incorrect username or password.'} />}
 
       <div className='login-welcome'>WELCOME BACK</div>
 
@@ -109,7 +120,7 @@ function Corporate(props) {
         </Form.Item>
 
         {!hideRemeber && (
-          <div className='remember'>
+          <div className='rememberMe'>
             <b>Remember:</b> Passwords are case sensitive.
           </div>
         )}
@@ -146,13 +157,12 @@ function Corporate(props) {
             >
               Forgot password?
             </Popover>
-
           </span>
         </Form.Item>
 
         <Form.Item>
           {Loading ? (
-            <LoadingSubmit className="loading" />
+            <LoadingSubmit className='loading' />
           ) : (
             <Button type='primary' htmlType='submit' className='login-form-button'>
               Log in

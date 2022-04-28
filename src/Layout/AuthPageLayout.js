@@ -58,34 +58,6 @@ function BaseLayout(props) {
         }}
       >
         {this.props.children}
-        {/* <Switch> */}
-          {/* <Route path='/login' component={Login} />
-          <Route path='/signup' component={SignUp} />
-          <Route path='/home' component={Home} />
-          <Route path='/services/:id' component={Services} />
-          <Route path='/become' component={Become} />
-          <Route path='/business' component={BusinessCooperation} />
-          <Route path='/cooperate' component={Cooperate} />
-          <Route path='/personal' component={Personal} />
-          <Route path='/forget' component={Forget} />
-          <Route path='/help' component={Help} />
-          <Route path='/contact' component={Contact} />
-          <Route path='/contactus' component={ContactUs} />
-          <Route path='/account' component={MyAccount} />
-          <Route path='/orders' component={MyOrders} />
-          <Route path='/detailsview/:id' component={DetailsView} />
-          <Route path='/address' component={MyAddress} />
-          <Route path='/changepassword' component={ChangePassword} />
-          <Route path='/logOut' component={Logout} />
-          <Route path='/filestep' component={FileStep} />
-
-          <Route path='/privacypolicy' component={Privacy} />
-          <Route path='/website' component={WebsiteTerms} />
-          <Route path='/contract' component={ContractTerms} />
-
-          <Route path='/notFound' component={Page404} /> */}
-          {/* <Redirect to='/home' /> */}
-        {/* </Switch> */}
       </Layout.Content>
 
       <Layout.Footer style={{ padding: 0 }}>

@@ -26,103 +26,261 @@ import WebsiteTerms from '@/pages/WebsiteTerms'
 export const routesConfig = [
   {
     path: '/',
+    exact: true,
+    component: Home,
+    // children: [
+    //   {
+    //     path: '/',
+    //     exact: false,
+    //     component: Home,
+    //   },
+    // ],
+  },
+  {
+    path: '/login',
     exact: false,
     component: BaseLayout,
     children: [
       {
         path: '/login',
-        component: Login
+        component: Login,
       },
+    ],
+  },
+  {
+    path: '/signup',
+    exact: false,
+    component: BaseLayout,
+    children: [
       {
         path: '/signup',
-        component: SignUp
+        component: SignUp,
       },
-      {
-        path: '/home',
-        component: Home
-      },
+    ],
+  },
+  {
+    path: '/services/:id',
+    exact: false,
+    component: BaseLayout,
+    children: [
       {
         path: '/services/:id',
-        component: Services
+        component: Services,
       },
+    ],
+  },
+  {
+    path: '/become',
+    exact: false,
+    component: BaseLayout,
+    children: [
       {
         path: '/become',
-        component: Become
+        component: Become,
       },
+    ],
+  },
+  {
+    path: '/business',
+    exact: false,
+    component: BaseLayout,
+    children: [
       {
         path: '/business',
-        component: BusinessCooperation
+        component: BusinessCooperation,
       },
+    ],
+  },
+  {
+    path: '/cooperate',
+    exact: false,
+    component: BaseLayout,
+    children: [
       {
         path: '/cooperate',
-        component: Cooperate
+        component: Cooperate,
       },
+    ],
+  },
+  {
+    path: '/personal',
+    exact: false,
+    component: BaseLayout,
+    children: [
       {
         path: '/personal',
-        component: Personal
+        component: Personal,
       },
+    ],
+  },
+  {
+    path: '/forget',
+    exact: false,
+    component: BaseLayout,
+    children: [
       {
         path: '/forget',
-        component: Forget
+        component: Forget,
       },
+    ],
+  },
+  {
+    path: '/help',
+    exact: false,
+    component: BaseLayout,
+    children: [
       {
         path: '/help',
-        component: Help
+        component: Help,
       },
+    ],
+  },
+  {
+    path: '/contact',
+    exact: false,
+    component: BaseLayout,
+    children: [
       {
         path: '/contact',
-        component: Contact
+        component: Contact,
       },
+    ],
+  },
+  {
+    path: '/contactus',
+    exact: false,
+    component: BaseLayout,
+    children: [
       {
         path: '/contactus',
-        component: ContactUs
+        component: ContactUs,
       },
+    ],
+  },
+  {
+    path: '/contactus',
+    exact: false,
+    component: BaseLayout,
+    children: [
       {
         path: '/account',
-        component: MyAccount
+        component: MyAccount,
       },
+    ],
+  },
+  {
+    path: '/contactus',
+    exact: false,
+    component: BaseLayout,
+    children: [
       {
         path: '/orders',
-        component: MyOrders
+        component: MyOrders,
       },
+    ],
+  },
+  {
+    path: '/detailsview/:id',
+    exact: false,
+    component: BaseLayout,
+    children: [
       {
         path: '/detailsview/:id',
-        component: DetailsView
+        component: DetailsView,
       },
+    ],
+  },
+  {
+    path: '/address',
+    exact: false,
+    component: BaseLayout,
+    children: [
       {
         path: '/address',
-        component: MyAddress
+        component: MyAddress,
       },
+    ],
+  },
+  {
+    path: '/changepassword',
+    exact: false,
+    component: BaseLayout,
+    children: [
       {
         path: '/changepassword',
-        component: ChangePassword
+        component: ChangePassword,
       },
+    ],
+  },
+  {
+    path: '/logOut',
+    exact: false,
+    component: BaseLayout,
+    children: [
       {
         path: '/logOut',
-        component: LogOut
+        component: LogOut,
       },
+    ],
+  },
+  {
+    path: '/filestep',
+    exact: false,
+    component: BaseLayout,
+    children: [
       {
         path: '/filestep',
-        component: FileStep
+        component: FileStep,
       },
+    ],
+  },
+  {
+    path: '/privacypolicy',
+    exact: false,
+    component: BaseLayout,
+    children: [
       {
         path: '/privacypolicy',
-        component: Privacy
+        component: Privacy,
       },
+    ],
+  },
+  {
+    path: '/website',
+    exact: false,
+    component: BaseLayout,
+    children: [
       {
         path: '/website',
-        component: WebsiteTerms
+        component: WebsiteTerms,
       },
+    ],
+  },
+  {
+    path: '/contract',
+    exact: false,
+    component: BaseLayout,
+    children: [
       {
         path: '/contract',
-        component: ContractTerms
+        component: ContractTerms,
       },
-      {
-        path: '/notFound',
-        exact: true,
-        component: Page404
-      }
-    ]
+    ],
   },
-
+  // {
+  //   path: '/notFound',
+  //   exact: false,
+  //   component: BaseLayout,
+  //   children: [
+  //     {
+  //       path: '/notFound',
+  //       component: Page404,
+  //     },
+  //   ],
+  // },
+  {
+    path: '*',
+    exact: true,
+    component: Page404,
+  },
 ]

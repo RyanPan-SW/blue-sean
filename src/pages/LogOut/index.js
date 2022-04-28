@@ -15,7 +15,7 @@ function LogOut(props) {
       if (time > 0) {
         setTime(time - 1)
       } else {
-        props.history.push('/home')
+        props.history.push('/')
       }
     }, 1000)
     return () => {

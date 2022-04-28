@@ -11,7 +11,7 @@ function LayoutIndex(props) {
 
   const { Header, Content, Footer } = Layout
   if (pathname === '/') {
-    return <Redirect to='/home' />
+    return <Redirect to='/' />
   }
   return (
     <Layout>

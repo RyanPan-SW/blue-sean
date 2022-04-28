@@ -99,7 +99,7 @@ module.exports = function (proxy, allowedHost) {
       disableDotRule: true,
       index: paths.publicUrlOrPath,
       rewrites: [
-        {from: '/error/', to: '/home'}
+        {from: '/error/', to: '/'}
       ]
     },
     public: allowedHost,

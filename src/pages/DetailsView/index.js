@@ -25,6 +25,7 @@ function DetailsView(props) {
   const [cancelVisible, setCancelVisible] = useState(false)
   const [cancelStatus, setCancelStatus] = useState(null)
   const [visibleByUnpaid, setVisibleByUnpaid] = useState(false)
+  const [InTransit, setInTransit] = useState(false)
 
   const [notes, setNotes] = useState(null)
   const [ModifyVisible, setModifyVisible] = useState(false)
@@ -89,19 +90,27 @@ function DetailsView(props) {
   }
 
   const YesToCancelOrder = () => {
-    //  cancel order
-    cancelOrderApi({ trackingNumber: trackingNumber }).then((res) => {
-      const { code } = res
-      if (code === '200') {
-        getOrderDateilsApi({ trackingNumber: trackingNumber }).then((res) => {
-          setOrderDetail(res?.data?.order)
-          setCancelVisible(false)
-        })
-      }
+    if (['02'].includes(orderDetail.orderStatus)) {
+      // status is in In transit
       setVisibleByUnpaid(false)
-    }).catch(error => {
-      message.error(error)
-    })
+      setInTransit(true)
+    } else {
+      //  cancel order
+      cancelOrderApi({ trackingNumber: trackingNumber })
+        .then((res) => {
+          const { code } = res
+          if (code === '200') {
+            getOrderDateilsApi({ trackingNumber: trackingNumber }).then((res) => {
+              setOrderDetail(res?.data?.order)
+              setCancelVisible(false)
+            })
+          }
+          setVisibleByUnpaid(false)
+        })
+        .catch((error) => {
+          message.error(error)
+        })
+    }
   }
 
   const showModifyForm = () => {
@@ -110,14 +119,17 @@ function DetailsView(props) {
   }
 
   const senderNextToRecipient = () => {
-    form.validateFields().then(value => {
-      const sender = { senderId: orderDetail.sender.senderId, ...form.getFieldsValue() }
-      setSenderInformationObject(sender)
-      setInformationType('Recipient')
-      form.setFieldsValue(orderDetail.recipient)
-    }).catch((error) => {
-      console.log('error', error);
-    })
+    form
+      .validateFields()
+      .then((value) => {
+        const sender = { senderId: orderDetail.sender.senderId, ...form.getFieldsValue() }
+        setSenderInformationObject(sender)
+        setInformationType('Recipient')
+        form.setFieldsValue(orderDetail.recipient)
+      })
+      .catch((error) => {
+        console.log('error', error)
+      })
   }
 
   const goBackSenderInform = () => {
@@ -132,7 +144,7 @@ function DetailsView(props) {
       getOrderDateils(trackingNumber)
     })
     setModifyVisible(false)
-    setInformationType("Sender")
+    setInformationType('Sender')
   }
 
   const onCancelModal = () => {
@@ -187,10 +199,10 @@ function DetailsView(props) {
               orderStatusEnums['Pending'],
               orderStatusEnums['InTransit'],
             ].includes(orderDetail?.orderStatus) && (
-                <div className='orders-cancel' onClick={cancelOrderModal}>
-                  Cancel
-                </div>
-              )}
+              <div className='orders-cancel' onClick={cancelOrderModal}>
+                Cancel
+              </div>
+            )}
           </div>
 
           {orderDetail?.orderStatus === orderStatusEnums['Canceled'] ? (
@@ -215,8 +227,9 @@ function DetailsView(props) {
               {/* Unpaid */}
               {orderDetail?.paymentMethod === '03' && (
                 <div
-                  className={`order-step-item ${orderDetail?.orderStatus >= 0 ? 'order-step-fished' : null
-                    }`}
+                  className={`order-step-item ${
+                    orderDetail?.orderStatus >= 0 ? 'order-step-fished' : null
+                  }`}
                 >
                   <div className='order-step-box'>
                     <div className='step-status'>Unpaid</div>
@@ -232,8 +245,9 @@ function DetailsView(props) {
 
               {/* Pending */}
               <div
-                className={`order-step-item ${orderDetail?.orderStatus >= 1 ? 'order-step-fished' : null
-                  }`}
+                className={`order-step-item ${
+                  orderDetail?.orderStatus >= 1 ? 'order-step-fished' : null
+                }`}
               >
                 <div className='order-step-box'>
                   <div className='step-status'>Pending</div>
@@ -248,8 +262,9 @@ function DetailsView(props) {
 
               {/*In transit  */}
               <div
-                className={`order-step-item ${orderDetail?.orderStatus >= 2 ? 'order-step-fished' : null
-                  }`}
+                className={`order-step-item ${
+                  orderDetail?.orderStatus >= 2 ? 'order-step-fished' : null
+                }`}
               >
                 <div className='order-step-box'>
                   <div className='step-status'>In transit</div>
@@ -261,8 +276,9 @@ function DetailsView(props) {
 
               {/* Delivered */}
               <div
-                className={`order-step-item ${orderDetail?.orderStatus >= 3 ? 'order-step-fished' : null
-                  }`}
+                className={`order-step-item ${
+                  orderDetail?.orderStatus >= 3 ? 'order-step-fished' : null
+                }`}
               >
                 <div className='order-step-box'>
                   <div className='step-status'>Delivered</div>
@@ -281,7 +297,7 @@ function DetailsView(props) {
             </div>
           )}
 
-          {(orderDetail?.paymentMethod === '03' && orderDetail.orderStatus === '00') && (
+          {orderDetail?.paymentMethod === '03' && orderDetail.orderStatus === '00' && (
             <div>
               Because you use bank transfer for payment, the exact delivery time may change.If you
               have any questions, please contact us.
@@ -295,10 +311,10 @@ function DetailsView(props) {
           {![orderStatusEnums['Canceled'], orderStatusEnums['Delivered']].includes(
             orderDetail?.orderStatus,
           ) && (
-              <div className='details-sender-title'>
-                <span onClick={showModifyForm}>Modify</span>
-              </div>
-            )}
+            <div className='details-sender-title'>
+              <span onClick={showModifyForm}>Modify</span>
+            </div>
+          )}
 
           <div className='sender-content'>
             {/* Sender */}
@@ -392,7 +408,13 @@ function DetailsView(props) {
       <CustomizeModal
         width={710}
         visible={cancelVisible}
-        cancelText={cancelStatus ? <span style={{ color: '#ccc' }} onClick={() => setCancelVisible(false)}>Yes</span> : null}
+        cancelText={
+          cancelStatus ? (
+            <span style={{ color: '#ccc' }} onClick={() => setCancelVisible(false)}>
+              Yes
+            </span>
+          ) : null
+        }
         onCancel={cancelOrder}
         okText={cancelStatus ? 'No' : 'Ok'}
         onOk={onOk}
@@ -415,19 +437,35 @@ function DetailsView(props) {
       </CustomizeModal>
 
       <CustomizeModal
+        width={710}
+        visible={InTransit}
+        cancelText={null}
+        onCancel={cancelOrder}
+        okText={'Ok'}
+        onOk={() => setInTransit(false)}
+      >
+        <p>
+          Sorry, it's more than 30 minutes. You are not allowed to modify the order information. If
+          you need any help, please contact us.
+          <br /> PH: 07 5649 8619
+          <br /> Office Hours: Monday – Friday 8:30am-5:00pm
+        </p>
+      </CustomizeModal>
+
+      <CustomizeModal
         visible={visibleByUnpaid}
         centered
         width={710}
         closable={false}
-        cancelText={'Yes'}
-        onCancel={YesToCancelOrder}
-        okText={'No'}
-        onOk={() => setVisibleByUnpaid(false)}
-        footer={null}
+        footer={
+          <>
+            <span onClick={YesToCancelOrder}>Yes</span>
+            <span onClick={() => setVisibleByUnpaid(false)}>No</span>
+          </>
+        }
       >
         <p>Would you want to cancel this order?</p>
       </CustomizeModal>
-
 
       {/* Information modal */}
       <Modal
@@ -451,12 +489,16 @@ function DetailsView(props) {
 
           <h3>{InformationType} Information</h3>
 
-          <Form form={form} layout='vertical' onFinish={onFishObject} validateTrigger="onBlur">
+          <Form form={form} layout='vertical' onFinish={onFishObject} validateTrigger='onBlur'>
             <div style={{ display: 'flex' }}>
               <div style={{ flex: 1, paddingRight: 10 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <Form.Item label='First Name' name='firstName' style={{ width: '45%' }}
-                    rules={[{ required: true, message: <FieldDom /> }]}>
+                  <Form.Item
+                    label='First Name'
+                    name='firstName'
+                    style={{ width: '45%' }}
+                    rules={[{ required: true, message: <FieldDom /> }]}
+                  >
                     <Input placeholder='First Name' />
                   </Form.Item>
 
@@ -521,7 +563,7 @@ function DetailsView(props) {
                 <Form.Item
                   label='Company Name'
                   name='companyName'
-                // rules={[{ required: true, message: <FieldDom /> }]}
+                  // rules={[{ required: true, message: <FieldDom /> }]}
                 >
                   <Input placeholder='Company Name' />
                 </Form.Item>
@@ -529,7 +571,7 @@ function DetailsView(props) {
                 <Form.Item
                   label='Apt/Suite/Other'
                   name='other'
-                // rules={[{ required: true, message: <FieldDom /> }]}
+                  // rules={[{ required: true, message: <FieldDom /> }]}
                 >
                   <Input placeholder='Apt/Suite/Other' />
                 </Form.Item>
@@ -557,11 +599,7 @@ function DetailsView(props) {
 
               {InformationType === 'Recipient' && (
                 <Space size='middle' className='recipient-button-group'>
-                  <Button
-                    type='primary'
-                    className='fill-button-back'
-                    onClick={goBackSenderInform}
-                  >
+                  <Button type='primary' className='fill-button-back' onClick={goBackSenderInform}>
                     Back
                   </Button>
                   <Button type='primary' className='fill-button-submit' htmlType='submit'>
