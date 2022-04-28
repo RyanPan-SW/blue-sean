@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Radio, Space, Checkbox, Button, Input, Form, Modal, message, Spin, Row, Col, } from 'antd'
+import { Radio, Space, Checkbox, Button, Input, Form, Modal, message, Spin, Row, Col } from 'antd'
 import { ExclamationCircleFilled } from '@ant-design/icons'
 import { getDayOrTime, getOptionalTime, methodOfPayment } from '@/api/fileStep'
 import dayjs from 'dayjs'
@@ -10,11 +10,13 @@ import LoadingSubmit from '../LoadingSubmit'
 import './index.scss'
 
 const paymentEmnu = {
-  visa: '01', corporate: '02', Bank: '03',
+  visa: '01',
+  corporate: '02',
+  Bank: '03',
 }
 
 function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
-  const [form] = Form.useForm();
+  const [form] = Form.useForm()
   const [loadingTime, setLoadingTime] = useState(false)
   const [payment, setPayment] = useState(null)
   const [datelist, setDatelist] = useState([])
@@ -30,21 +32,23 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
 
   useEffect(() => {
     setLoadingTime(true)
-    getOptionalTime().then(({ code, data }) => {
-      if (code === '200' && data.dateList) {
-        for (const item of data.dateList) {
-          const [day, month, year] = item.date.split('/')
-          item.day = day
-          item.month = month
-          item.year = year
+    getOptionalTime()
+      .then(({ code, data }) => {
+        if (code === '200' && data.dateList) {
+          for (const item of data.dateList) {
+            const [day, month, year] = item.date.split('/')
+            item.day = day
+            item.month = month
+            item.year = year
+          }
+          setDatelist(data.dateList)
+          setLoadingTime(false)
         }
-        setDatelist(data.dateList)
+      })
+      .catch((error) => {
+        message.error(error)
         setLoadingTime(false)
-      }
-    }).catch((error) => {
-      message.error(error)
-      setLoadingTime(false)
-    })
+      })
   }, [])
 
   const isToday = ({ year, month, day }) => {
@@ -56,15 +60,17 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
     const { time } = data
     setActiveTime(index)
     const params = { date: datelist[activeDay].date, time: time }
-    getDayOrTime(params).then((res) => {
-      const { code, data } = res
-      if (code === '200' && !data.msg) {
-        setPaydata(data)
-        form.setFieldsValue({ payment: data })
-      }
-    }).catch(err => {
-      message.error(err)
-    })
+    getDayOrTime(params)
+      .then((res) => {
+        const { code, data } = res
+        if (code === '200' && !data.msg) {
+          setPaydata(data)
+          form.setFieldsValue({ payment: data })
+        }
+      })
+      .catch((err) => {
+        message.error(err)
+      })
   }
 
   const handleSetDay = (item, index) => {
@@ -102,38 +108,66 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
     localStorage.setItem('payType', e.target.value)
   }
 
-
-
   const phoneDom = (
     <div className='phone-tip'>
       <ExclamationCircleFilled
         style={{
-          color: !form.getFieldValue('phoneHome') && !form.getFieldValue('phoneMobile') ? '#ff4d4f' : '#0113B3',
+          color:
+            !form.getFieldValue('phoneHome') && !form.getFieldValue('phoneMobile')
+              ? '#ff4d4f'
+              : '#0113B3',
           marginRight: 6,
         }}
       />
-      <span style={{ color: !form.getFieldValue('phoneHome') && !form.getFieldValue('phoneMobile') ? '#ff4d4f' : '#0113B3' }}>
+      <span
+        style={{
+          color:
+            !form.getFieldValue('phoneHome') && !form.getFieldValue('phoneMobile')
+              ? '#ff4d4f'
+              : '#0113B3',
+        }}
+      >
         At least one phone number is required.
       </span>
     </div>
   )
 
-
   const onFinish = (values) => {
     setLoading(true)
-    const { firstName, lastName, email, phoneHome, phoneMobile, companyName, companyAddress, paymentCode, payType } = values
-    let params = { firstName, lastName, email, phoneHome, phoneMobile, companyName, companyAddress, payType, paymentCode }
+    const {
+      firstName,
+      lastName,
+      email,
+      phoneHome,
+      phoneMobile,
+      companyName,
+      companyAddress,
+      paymentCode,
+      payType,
+    } = values
+    let params = {
+      firstName,
+      lastName,
+      email,
+      phoneHome,
+      phoneMobile,
+      companyName,
+      companyAddress,
+      payType,
+      paymentCode,
+    }
     // if (payment === paymentEmnu['corporate']) {
     //   params.paymentCode = paymentCode
     // }
-    methodOfPayment(params).then((res) => {
-      
-      setLoading(false)
-      getPayOrder(res)
-    }).catch(err => {
-      setLoading(false)
-      message.error(err)
-    })
+    methodOfPayment(params)
+      .then((res) => {
+        setLoading(false)
+        getPayOrder(res)
+      })
+      .catch((err) => {
+        setLoading(false)
+        message.error(err)
+      })
   }
 
   return (
@@ -141,10 +175,15 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
       <div className='step3'>
         <div className='step3-title'>Step3: Appointment information</div>
 
-        <Form name="name" form={form} onFinish={onFinish} scrollToFirstError>
-          <Form.Item name="paydata" rules={[{ required: true, message: 'Please choose the delivery time.' }]}>
+        <Form name='name' form={form} onFinish={onFinish} scrollToFirstError>
+          <Form.Item
+            name='paydata'
+            rules={[{ required: true, message: 'Please choose the delivery time.' }]}
+          >
             <Row className='step3-item'>
-              <Col span={4}><div className='step3-decribe'>Delivery Time</div></Col>
+              <Col span={4}>
+                <div className='step3-decribe'>Delivery Time</div>
+              </Col>
               <Col span={20} className='step-content'>
                 <div className='step-content-time'>
                   {datelist?.map((item, index) => {
@@ -172,7 +211,10 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
                       return (
                         <div
                           key={index}
-                          className={classnames({ 'delivered-time': true, 'delivered-active': activeTime === index })}
+                          className={classnames({
+                            'delivered-time': true,
+                            'delivered-active': activeTime === index,
+                          })}
                           onClick={() => handleSetDay(item, index)}
                         >
                           {item.title}
@@ -190,15 +232,23 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
               </Col>
             </Row>
           </Form.Item>
-          <Form.Item name="payment" rules={[{ required: true, message: 'Please choose the delivery time.' }]}>
+          <Form.Item
+            name='payment'
+            rules={[{ required: true, message: 'Please choose the delivery time.' }]}
+          >
             <Row className='step3-item'>
-              <Col span="4"><div className='step3-decribe'>Charge</div></Col>
-              <Col span="20">
+              <Col span='4'>
+                <div className='step3-decribe'>Charge</div>
+              </Col>
+              <Col span='20'>
                 <div className='step-charge'>
-                  <p>{paydata ? `$${paydata?.total || '0.00'}` : 'Please choose the time first.'}</p>
+                  <p>
+                    {paydata ? `$${paydata?.total || '0.00'}` : 'Please choose the time first.'}
+                  </p>
                   {paydata?.total && (
                     <span className='step3-charge-tip'>
-                      If you use corporate payment, you only have to pay $6.
+                      If you use corporate payment, you only have to pay $
+                      {paydata?.membersPrice || 0}.
                     </span>
                   )}
                 </div>
@@ -206,21 +256,22 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
             </Row>
           </Form.Item>
           <Row className='step3-item'>
-            <Col span="4"><div className='step3-decribe'>Payment Method</div></Col>
+            <Col span='4'>
+              <div className='step3-decribe'>Payment Method</div>
+            </Col>
             <Col span={20} className='suc-content'>
-              <Row type="flex" gutter={20}>
-                <Col span="6">
+              <Row type='flex' gutter={20}>
+                <Col span='6'>
                   <Form.Item
                     label='First Name'
                     name='firstName'
                     messageVariables={{ another: 'good' }}
-                    rules={[{ required: true, message: 'Please Enter.', },]}
+                    rules={[{ required: true, message: 'Please Enter.' }]}
                   >
                     <Input />
                   </Form.Item>
-
                 </Col>
-                <Col span="6">
+                <Col span='6'>
                   <Form.Item
                     label='Last Name'
                     name='lastName'
@@ -234,7 +285,7 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
                     <Input placeholder='' />
                   </Form.Item>
                 </Col>
-                <Col span="12">
+                <Col span='12'>
                   <Form.Item
                     label='Email'
                     name='email'
@@ -250,27 +301,34 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
                   </Form.Item>
                 </Col>
                 <Col span={12}>
-                  <Form.Item label='Phone (home)' name='phoneHome' validateStatus={phoneHome ? 'validating' : 'error'}
-                    rules={[{ required: false, message: 'Please Enter.', }]}>
+                  <Form.Item
+                    label='Phone (home)'
+                    name='phoneHome'
+                    validateStatus={phoneHome ? 'validating' : 'error'}
+                    rules={[{ required: false, message: 'Please Enter.' }]}
+                  >
                     <Input onChange={changePhone} />
                   </Form.Item>
                 </Col>
                 <Col span={12}>
-                  <Form.Item label='Phone (mobile)' name='phoneMobile' extra={phoneDom} validateStatus={phoneMobile ? 'validating' : 'error'}
-                    rules={[{ required: false, message: 'Please Enter.' }]}>
+                  <Form.Item
+                    label='Phone (mobile)'
+                    name='phoneMobile'
+                    extra={phoneDom}
+                    validateStatus={phoneMobile ? 'validating' : 'error'}
+                    rules={[{ required: false, message: 'Please Enter.' }]}
+                  >
                     <Input onChange={changePhone} />
                   </Form.Item>
                 </Col>
                 <Col span={12}>
-
                   <Form.Item
                     label='Company name'
                     name='companyName'
-                    rules={[{ required: false, message: 'Please Enter.', }]}
+                    rules={[{ required: false, message: 'Please Enter.' }]}
                   >
                     <Input />
                   </Form.Item>
-
                 </Col>
                 <Col span={12}>
                   <Form.Item
@@ -282,7 +340,10 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
                   </Form.Item>
                 </Col>
                 <Col>
-                  <Form.Item name="payType" rules={[{ required: true, message: 'Please choose the payment method.', }]}>
+                  <Form.Item
+                    name='payType'
+                    rules={[{ required: true, message: 'Please choose the payment method.' }]}
+                  >
                     <Radio.Group onChange={onChangePayment}>
                       <Space direction='vertical' size='large'>
                         <Radio value={paymentEmnu['corporate']}>
@@ -290,7 +351,11 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
 
                           {payment === paymentEmnu['corporate'] && (
                             <div className='step3-corporate-form'>
-                              <Form.Item label='Corporate Payment Code' name='paymentCode' rules={[{ required: true, message: 'Please Enter.' }]}>
+                              <Form.Item
+                                label='Corporate Payment Code'
+                                name='paymentCode'
+                                rules={[{ required: true, message: 'Please Enter.' }]}
+                              >
                                 <Input />
                               </Form.Item>
                             </div>
@@ -307,7 +372,8 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
                               <div className='step3-bpay-dirscrbe'>
                                 To pay by bank transfer, you will receive your invoice by email.
                                 <br />
-                                Please transfer the payment to the bank account indicated in the invoice within 30
+                                Please transfer the payment to the bank account indicated in the
+                                invoice within 30
                                 <br />
                                 minutes and reply the email with receipt of remittance.
                               </div>
@@ -330,13 +396,15 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
             rules={[
               {
                 validator: (_, value) =>
-                  value ? Promise.resolve() : Promise.reject(new Error('Please agree contract terms.'))
-              }
+                  value
+                    ? Promise.resolve()
+                    : Promise.reject(new Error('Please agree contract terms.')),
+              },
             ]}
           >
             <Checkbox>
               <span className='agree'>I agree</span>
-              <Link to='/website' target="_blank" className='contract'>
+              <Link to='/website' target='_blank' className='contract'>
                 Terms of Use
               </Link>
             </Checkbox>
@@ -347,11 +415,7 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
               Back
             </Button>
 
-            <Button
-              type='primary'
-              className='button-pay'
-              htmlType='submit'
-            >
+            <Button type='primary' className='button-pay' htmlType='submit'>
               {/* Pay Now */}
               {loading ? <LoadingSubmit /> : 'Pay Now'}
             </Button>
@@ -385,8 +449,8 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
             </Button>
           </div>
         </Modal>
-      </div >
-    </Spin >
+      </div>
+    </Spin>
   )
 }
 
