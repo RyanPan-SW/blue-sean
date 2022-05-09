@@ -1,5 +1,5 @@
 import React from 'react'
-// import { Layout } from 'antd'
+import { Layout } from 'antd'
 import logo from '../../asset/footer-logo.jpg'
 import Email from '../../asset/email.png'
 import address from '../../asset/address.png'
@@ -12,13 +12,13 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { Space } from 'antd'
 import './index.scss'
 
-// const { Footer } = Layout
+const { Footer } = Layout
 
 const FooterComponent = () => {
   const { pathname } = useLocation()
   console.log('pathname', pathname)
   return (
-    <>
+    <Footer style={{ padding: 0 }}>
       {pathname === '/' && (
         <div className='page-footer'>
           <div className='container'>
@@ -69,7 +69,7 @@ const FooterComponent = () => {
           </Space>
         </div>
       </div>
-    </>
+    </Footer>
   )
 }
 

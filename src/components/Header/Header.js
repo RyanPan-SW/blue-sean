@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
+import { Layout } from 'antd'
 import { Link } from 'react-router-dom'
 import * as UserActionCreator from '@/store/actions/user'
 import classnames from 'classnames'
@@ -14,6 +15,8 @@ import logout from '../../asset/x.svg'
 import { getCookie } from '@/helper/env'
 import Cookies from 'js-cookie'
 import './Header.scss'
+
+const { Header } = Layout
 
 const servicesMenus = [
   {
@@ -37,7 +40,7 @@ const servicesMenus = [
   // { name: 'filestep', id: 'add', to: '/filestep', title: 'Schedule a New Pickup' },
 ]
 
-const Header = (props) => {
+const PageHeader = (props) => {
   const { history } = props
   const { location } = history
   const [pathnameStatus, setPathnameStatus] = useState(false)
@@ -91,7 +94,7 @@ const Header = (props) => {
   }
 
   return (
-    <>
+    <Header className='layout-header'>
       <div className={location.pathname === '/' ? 'home-header' : 'header'}>
         <div className='header-loginbox '>
           <div className='container'>
@@ -207,7 +210,7 @@ const Header = (props) => {
           </div>
         </div>
       </div>
-    </>
+    </Header>
   )
 }
 
@@ -215,4 +218,4 @@ const mapStateToProps = ({ user }) => ({
   isLogin: user.isLogin,
 })
 
-export default connect(mapStateToProps, UserActionCreator)(Header)
+export default connect(mapStateToProps, UserActionCreator)(PageHeader)

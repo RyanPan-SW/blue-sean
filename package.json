@@ -215,5 +215,5 @@
       "git add"
     ]
   },
-  "proxy": "http://175.27.210.239:8080/dcexpress"
+  "proxy": "http://120.48.28.166:8080/dcexpress"
 }

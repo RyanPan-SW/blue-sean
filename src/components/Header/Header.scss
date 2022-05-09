@@ -1,3 +1,9 @@
+.layout-header {
+  height: 120px;
+  background: transparent;
+  padding: 0;
+}
+
 .home-header {
   width: 100%;
   background: #fff;
@@ -6,7 +12,6 @@
   color: #ffffff;
   position: fixed;
   z-index: 1;
-  width: 100%;
 
   a:hover {
     color: $themeColor;
@@ -14,8 +19,8 @@
 }
 
 .header {
-  height: auto;
-  background: #FFf;
+  height: 120px;
+  background: #fff;
   color: #ffffff;
   position: fixed;
   z-index: 1;

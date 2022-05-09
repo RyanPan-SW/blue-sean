@@ -79,7 +79,6 @@ function AddFromAddressBook(props) {
 
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows, ...other) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)
       setSelectedRowKeys(selectedRowKeys)
       setSelectedRows(selectedRows)
     },
