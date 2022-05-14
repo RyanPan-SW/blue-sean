@@ -63,6 +63,9 @@ a:hover {
 .ant-table-tbody > tr.ant-table-row-selected > td {
   background-color: transparent !important;
 }
+.ant-btn > .ant-btn-loading-icon .anticon {
+  display: inline-flex;
+}
 
 @media only screen and (max-width: 1400px) {
 }

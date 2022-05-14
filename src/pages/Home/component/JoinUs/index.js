@@ -1,13 +1,13 @@
 import React, { useState, useRef } from 'react'
 import triangle from '@/asset/triangle.png'
 import { Form, Input, Button, Modal, Row, Col } from 'antd'
-import './index.scss'
 import { getAsk } from '@/api/home'
+import './index.scss'
 
 function JoinUs(props) {
-  const formRef = useRef();
-
+  const formRef = useRef()
   const [visible, setVisible] = useState(false)
+  const [submitLoading, setSubmitLoading] = useState(false)
 
   const validateMessages = {
     required: 'is required!',
@@ -20,12 +20,17 @@ function JoinUs(props) {
   }
 
   const onFinish = (values) => {
-    getAsk(values.user).then((res) => {
-      if (res || res.code === '200') {
-        setVisible(true);
-        formRef.current.resetFields()
-      }
-    })
+    setSubmitLoading(true)
+    getAsk(values.user)
+      .then((res) => {
+        if (res || res.code === '200') {
+          setVisible(true)
+          formRef.current.resetFields()
+        }
+      })
+      .finally(() => {
+        setSubmitLoading(false)
+      })
   }
 
   const normFile = (e) => {
@@ -38,11 +43,16 @@ function JoinUs(props) {
         <img className='join-us-icon' src={triangle} alt='' />
 
         <Row>
-          <Col span="12" offset={6} className='Join-us'>
+          <Col span='12' offset={6} className='Join-us'>
             <h3>Don’t Hesltate To Ask</h3>
             <p>If you have any questions, don't hesitate to ask. Let us help you!</p>
 
-            <Form name='nest-messages' ref={formRef} onFinish={onFinish} validateMessages={validateMessages}>
+            <Form
+              name='nest-messages'
+              ref={formRef}
+              onFinish={onFinish}
+              validateMessages={validateMessages}
+            >
               <div className='join-name'>
                 <Form.Item
                   name={['user', 'firstName']}
@@ -83,14 +93,11 @@ function JoinUs(props) {
                 rules={[{ required: true, message: 'Please Enter' }]}
                 className='formItem'
               >
-                <Input.TextArea
-                  placeholder='Your Problem'
-                  style={{ width: '100%', height: 300 }}
-                />
+                <Input.TextArea placeholder='Your Problem' style={{ width: '100%', height: 300 }} />
               </Form.Item>
 
               <Form.Item className='formItem'>
-                <Button className='submit-buttom' htmlType='submit'>
+                <Button className='submit-buttom' htmlType='submit' loading={submitLoading}>
                   Submit
                 </Button>
               </Form.Item>
