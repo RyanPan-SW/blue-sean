@@ -16,7 +16,6 @@ const { Footer } = Layout
 
 const FooterComponent = () => {
   const { pathname } = useLocation()
-  console.log('pathname', pathname)
   return (
     <Footer style={{ padding: 0 }}>
       {pathname === '/' && (

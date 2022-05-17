@@ -1,7 +1,12 @@
 export const TOKEN_KEY = 'token'
 
-// export const API_HOST = 'https://www.fastmock.site/mock/45a577b876749c0e541e2e5892f62af2/api'
-// export const API_HOST = 'http://139.180.206.56:8080/dcexpress'
-export const API_HOST = 'http://120.48.28.166:8080'
-export const COR_API_HOST = 'http://120.48.28.166:8070'
-// export const API_HOST = 'http://localhost:3000/'
+export const API_HOST =
+  process.env.REACT_APP_ENV === 'production'
+    ? process.env.REACT_APP_BASE_URL
+    : 'http://120.48.28.166:8080'
+export const COR_API_HOST =
+  process.env.REACT_APP_ENV === 'production'
+    ? process.env.REACT_APP_COLS_URL
+    : 'http://120.48.28.166:8070'
+
+// 生产地址 http://139.180.206.56:8080/dcexpress
