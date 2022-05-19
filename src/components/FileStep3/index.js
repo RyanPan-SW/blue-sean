@@ -415,9 +415,8 @@ function FileStep3({ recipient = [], cityArray, getPayOrder, setStep }) {
               Back
             </Button>
 
-            <Button type='primary' className='button-pay' htmlType='submit'>
-              {/* Pay Now */}
-              {loading ? <LoadingSubmit /> : 'Pay Now'}
+            <Button type='primary' className='button-pay' htmlType='submit' loading={loading}>
+              Pay Now
             </Button>
           </Form.Item>
         </Form>

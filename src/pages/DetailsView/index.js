@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Breadcrumb, Form, Input, Select, Button, Space, Modal } from 'antd'
+import { Breadcrumb, Form, Input, Select, Button, Space, Modal, Spin } from 'antd'
 import { Link } from 'react-router-dom'
 import CustomizeModal from '@/components/CustomizeModal'
 import {
@@ -9,11 +9,11 @@ import {
   updateSenderAndRecipient,
 } from '@/api/orders'
 import FieldDom from '@/components/Field'
-import './index.scss'
 import { getAllCity } from '@/api/fileStep'
 import { orderStatusEnums, payMerhod } from '@/helper/env'
 import { getConfigContent } from '@/api/config'
 import { message } from 'antd'
+import './index.scss'
 
 function DetailsView(props) {
   const [form] = Form.useForm()
@@ -31,6 +31,7 @@ function DetailsView(props) {
   const [ModifyVisible, setModifyVisible] = useState(false)
   const [InformationType, setInformationType] = useState('Sender')
   const [SenderInformationObject, setSenderInformationObject] = useState({})
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     let trackingNumber = props.match.params.id
@@ -140,9 +141,14 @@ function DetailsView(props) {
   const onFishObject = (senderValue) => {
     const recipient = { recipientId: orderDetail.recipient.recipientId, ...form.getFieldsValue() }
     const params = { trackingNumber, sender: SenderInformationObject, recipient }
-    updateSenderAndRecipient(params).then((res) => {
-      getOrderDateils(trackingNumber)
-    })
+    setLoading(true)
+    updateSenderAndRecipient(params)
+      .then((res) => {
+        getOrderDateils(trackingNumber)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
     setModifyVisible(false)
     setInformationType('Sender')
   }
@@ -316,44 +322,47 @@ function DetailsView(props) {
             </div>
           )}
 
-          <div className='sender-content'>
-            {/* Sender */}
-            <div className='sender-item'>
-              <div className='sender-item-title'>Sender:</div>
-              <div className='sender-item-content'>
-                <p>
-                  {orderDetail?.sender.firstName || '-'} {orderDetail?.sender.lastName || '-'}
-                </p>
-                <p>{orderDetail?.sender.companyName || ''}</p>
-                <p>
-                  {orderDetail?.sender.address || ''} {orderDetail?.sender.other || ''}{' '}
-                  {orderDetail?.sender.cityName || ''}
-                </p>
-                <p>{orderDetail?.sender.zipcode || ''}</p>
-                <p>{orderDetail?.sender.phone || ''}</p>
-                <p>{orderDetail?.sender.email || ''}</p>
-                <p>{orderDetail?.sender.note || ''}</p>
+          <Spin spinning={loading}>
+            <div className='sender-content'>
+              {/* Sender */}
+              <div className='sender-item'>
+                <div className='sender-item-title'>Sender:</div>
+                <div className='sender-item-content'>
+                  <p>
+                    {orderDetail?.sender.firstName || '-'} {orderDetail?.sender.lastName || '-'}
+                  </p>
+                  <p>{orderDetail?.sender.companyName || ''}</p>
+                  <p>
+                    {orderDetail?.sender.address || ''} {orderDetail?.sender.other || ''}{' '}
+                    {orderDetail?.sender.cityName || ''}
+                  </p>
+                  <p>{orderDetail?.sender.zipcode || ''}</p>
+                  <p>{orderDetail?.sender.phone || ''}</p>
+                  <p>{orderDetail?.sender.email || ''}</p>
+                  <p>{orderDetail?.sender.note || ''}</p>
+                </div>
+              </div>
+              {/* Recipient */}
+              <div className='sender-item'>
+                <div className='sender-item-title'>Recipient:</div>
+                <div className='sender-item-content'>
+                  <p>
+                    {orderDetail?.recipient.firstName || '-'}{' '}
+                    {orderDetail?.recipient.lastName || '-'}
+                  </p>
+                  <p>{orderDetail?.recipient.companyName || ''}</p>
+                  <p>
+                    {orderDetail?.recipient.address || ''} {orderDetail?.recipient.other || ''}{' '}
+                    {orderDetail?.recipient.cityName || ''}
+                  </p>
+                  <p>{orderDetail?.recipient.zipcode || ''}</p>
+                  <p>{orderDetail?.recipient.phone || ''}</p>
+                  <p>{orderDetail?.recipient.email || ''}</p>
+                  <p>{orderDetail?.recipient.note || ''}</p>
+                </div>
               </div>
             </div>
-            {/* Recipient */}
-            <div className='sender-item'>
-              <div className='sender-item-title'>Recipient:</div>
-              <div className='sender-item-content'>
-                <p>
-                  {orderDetail?.recipient.firstName || '-'} {orderDetail?.recipient.lastName || '-'}
-                </p>
-                <p>{orderDetail?.recipient.companyName || ''}</p>
-                <p>
-                  {orderDetail?.recipient.address || ''} {orderDetail?.recipient.other || ''}{' '}
-                  {orderDetail?.recipient.cityName || ''}
-                </p>
-                <p>{orderDetail?.recipient.zipcode || ''}</p>
-                <p>{orderDetail?.recipient.phone || ''}</p>
-                <p>{orderDetail?.recipient.email || ''}</p>
-                <p>{orderDetail?.recipient.note || ''}</p>
-              </div>
-            </div>
-          </div>
+          </Spin>
 
           {/* paymentMethod */}
           <div className='detail-payment'>

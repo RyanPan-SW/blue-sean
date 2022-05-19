@@ -223,15 +223,18 @@
 
       .payment-item {
         width: 50%;
+
         .payment-item-title {
           display: inline-block;
           width: 130px;
           text-align: right;
+          font-size: 16px;
         }
         .payment-item-content {
           display: inline-block;
           padding-left: 80px;
           text-align: left;
+          font-size: 18px;
         }
       }
     }
